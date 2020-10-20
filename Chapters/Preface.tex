@@ -1,0 +1,104 @@
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface} % Add the preface to the table of contents as a chapter
+\labch{preface}
+
+%\blindtext
+% Adopted for first draft from Foundations of Ocean Sensing proposal, with minimal edits.
+Biological, physical, chemical and geological processes in the oceans, rivers, lakes, soils and the atmosphere determine environmental conditions across our planet. 
+These processes shape the past, present and future states of natural ecosystems, and the human societies that exist within them. 
+Environmental sensing instrumentation is the primary means we have to measure current conditions, to infer past conditions, and to understand the mechanisms driving environmental change to make predictions about future conditions. 
+
+Historically, at least in modern times, most environmental data have been collected by professional scientists using instruments that were specialized and costly --- and, therefore, sparse in number and accessible to very few people.
+The data from these instruments are invaluable for addressing some kinds of scientific questions. 
+But they are too limited to address many others, including some short-term, spatially-localized environmental variations that can have dramatic impacts on human communities and natural habitats.
+
+Technological innovations in sensors, microcontrollers and microcomputers, power systems and data telemetry have dramatically opened access to devices that quantify and upload or store environmental data, and sharply reduced their cost.
+Given current trends in governmental research funding and priorities, networks of low cost instruments deployed by students, stakeholders and other members of the public are the most promising way to quantify the present states of natural systems and the ways in which they are changing. 
+
+Inspiration can be taken from \htmladdnormallink{WunderMap}{https://www.wunderground.com/wundermap}, an online display of real-time meteorological conditions synthesized from many thousands of personal weather stations voluntarily deployed by interested members of the public. 
+By way of contrast, it's useful to compare the number of stations and the frequency of data uploads in Wundermap's crowd-sourced sensor network to the professional assets and data available from the Northwest Association of Networked Ocean Observing Systems (\htmladdnormallink{NANOOS}{http://nvs.nanoos.org/Explorer}). 
+For example, where I live in the vicinity of Puget Sound, NANOOS currently displays a handful of assets, while Wundermap displays hundreds, perhaps thousands, of personal weather stations. 
+So many, in fact, that you have to zoom in closely to see them all --- there are too many to display at larger scales!
+
+Data from these sources are not equivalent.
+NANOOS data are from professionally calibrated, deployed and maintained instruments, and are professionally curated, archived and stored to according exacting protocols. 
+These data are intended, for example, to document decades-long processes of change in the oceans and atmosphere. 
+These measurements are very sensitive to small errors in sensor calibration, and to degradation or drift in sensor readings that make comparisons across years and decades difficult.
+Data from personal weather stations do not in general meet similar standards. 
+
+On the other hand, data from modern personal weather stations typically attain impressive accuracy and precision.
+These stations provide levels of redundancy, spatial and temporal resolution, and (perhaps) motivation for local communities to follow and understand environmental changes, that are orders of magnitude beyond professional scientific sensing networks. 
+This comparison suggests that if members of the public had the option to acquire low cost but effective instruments to monitor habitats like shorelines, rivers, lakes, forests, etc., many of them would. 
+Furthermore, the data from those instruments would be genuinely useful.
+
+The purpose of this book is to empower readers to build and deploy inexpensive, effective environmental sensing instruments; to preserve, curate and disseminate the resulting data; and, to use those data to make scientifically informed and accurate inferences about environmental conditions and mechanisms of change. 
+%\color{blue}
+This book takes an experiential learning approach to convey foundational knowledge of the methods used to observe environmental characteristics -- what sensors measure, why they work, what are the requirements to use them properly, and what insights can be gained from the resulting data.
+%\color{black}
+Readers will also gain skills in hands-on fabrication methods, debugging and problem-solving, statistics, 
+
+All methods of collecting environmental measurements in the environment have strengths and limitations, that impact how we design experimental observations and interpret the resulting data. 
+In many cases, we cannot directly measure the environmental characteristics in which we are most interested. 
+In these cases, we must use data that inform us about those characteristics indirectly, interpreting our data using models or statistical analyses. 
+To effectively present the foundations of environmental sensing, this book has dual emphases on conceptual understanding and 
+hands-on skills.
+
+\subsubsection{How to use this book}
+This book is a distillation and augmentation of activities and curricular materials developed for a junior-level undergraduate course in geosciences technology.
+That course was designed to build on concepts and analytical skills developed in previous courses, and to prepare students to pursue upper level classes in geosciences and related fields.
+Learning goals included enhanced understanding of the strengths and weaknesses of existing and future observation techniques, and practical experience and skills in building, calibrating and designing protocols using sensors for scientific purposes. 
+The original activities and materials have been rewritten to be more self-contained, with more explanation and additional references to minimize reliance on assumed knowledge.
+
+We have taught sensor-building to middle school students, to graduate students, and at all levels in between. 
+We've found that, more than a specific age group, success with the activities in this book depends on a balance of engagement by students and a learning environment that supports exploration, collaboration, persistence, and occasional technical assistance.
+Our goal in writing this book is to provide a roadmap and technical advice to teachers and mentors of classes and clubs for students of all ages.
+With patience, and information readily available on the Internet, a highly motivated student (or, better, a collaborative group of highly motivated students) can build and use environmental sensors with little or no support from teachers or mentors.
+Students working without support from teachers or mentors, however, might consider first working through tutorials in \htmladdnormallink{publicsensors.org}{https://publicsensors.org/} (or the Spanish-language equivalent, \htmladdnormallink{sensorespublicos.org}{https://sensorespublicos.org/}) before moving on to the more advanced activities and concepts in this book.
+
+Development and use of instruments in scientific settings almost invariably requires a combination of both individual effort and collaborative work. 
+The activities this book, in our experience, are far more successful when approached as an opportunity to enhance students' skills and experience in appropriately and effectively combining individual contributions with teamwork to obtain the most productive scientific outcomes. 
+To be even more explicit: 
+A ``MakerSpace'' atmosphere of collaborative, fun, low-stakes problem-solving transforms the inevitable troubling-shooting frustrations into creative, thought-provoking, edifying and empowering experiences.
+
+The book is divided into three Parts:
+\begin{itemize}
+	\item \textsc{\textbf{Introduction}}, which introduces readers to basic skills for building circuits and communicating with microcontrollers;
+	\item \textsc{\textbf{Working with environmental sensors}}, which explores the function and usage of analog and digital sensor technologies, and telemetry of resulting data; and
+	\item \textsc{\textbf{Practical skills in environmental sensing}}, which covers methods of producing sensor packages that are compact and robust enough to function as practical field instruments.
+\end{itemize}
+Each Part comprises several chapters, which present brief background on a particular subject area, followed by guidance through a sequence of activities described in separate sections and subsections. 
+Many of the activities, especially those appearing early in chapters, are cumulative --- these are helpful or essential for activities later in the book.
+There is nonetheless considerable latitude for skipping activities or making them optional, especially those appearing later in chapters.
+The \textbf{Skills and tools} section of the Appendix may be useful in selecting a coherent and practical subset of chapters and activities for a specific teaching situation.
+
+Each activity is distinguished by a \howto icon, and concluded by a \textbf{Milestone} highlighted in a yellow textbox. 
+\textbf{Milestone}s are specific thresholds or results, which students and their mentors can use to assess whether the key skills and experiences motivating the activity have been realized. 
+To provide an overview, all the \textbf{Milestone}s are compiled in the Appendix.
+
+Each chapter includes a list of required parts; these are also compiled (with URLs) in the Appendix.
+Python scripts for running microcontrollers and for data analysis are presented both as formatted code and, more suitable for copying and pasting, as links in margin notes to online plaintext copies.
+Graphics in margin notes are clickable, linked to full-sized high resolution online versions.
+Additional suggestions and advice for students are highlighted in blue textboxes.
+Brief explanations giving context for how and why sensors, circuits and codes work the ways they do are presented in green margin notes.
+
+\subsubsection{How to contribute}
+If you're interested in contributing corrections, new activities, or reports of using this book in formal or informal teaching settings, we'd like to hear from you! 
+Please register at the forum on \htmladdnormallink{publicsensors.org}{https://publicsensors.org/} or \htmladdnormallink{sensorespublicos.org}{https://sensorespublicos.org/} and share your thoughts with us.
+
+%
+%Students who finish the course will be able to:
+%\begin{enumerate}
+%	\item Visualize, analyze and present data from oceanographic sensors
+%	\item Design and construct simple sensors using microcontrollers (e.g. arduinos) and off-the-shelf electronic components  
+%	\item Implement appropriate calibration and data archiving schemes for oceanographic sensors 
+%	\item Critically assess oceanographic sensor performance, including stability, accuracy \& precision
+%	\item Understand how key sensors function, and how sensor data directly or indirectly reflect key oceanographic mechanisms
+%	\item Collaborate effectively in small groups or teams to design, construct and apply oceanographic sensors
+%	\item Document and present methods, data and analysis effectively according to accepted scientific practice and standards
+%\end{enumerate}
+%
+
+
+

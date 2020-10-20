@@ -1,0 +1,410 @@
+%Milestone file: Milestones.tex
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
+\chapter{Milestones}
+\labch{milestones}
+ 
+% Create a counter for Milestones
+% Note this is redefined and reset in the Milestones chapter
+% to give appropriate numbering
+%\newcounter{mscntr}[section]
+\renewcommand{\themscntr}{\arabic{section}.\arabic{mscntr}}
+% A command to increment and print the milestone number, with
+% smart handling of the following space.
+%\newcommand{\showmscntr}{\stepcounter{mscntr}\themscntr\xspace}
+
+%<*mlst:ov>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=Milestones Overview]
+%	\begin{itemize}
+%		\item	
+		Milestones enable you to demonstrate key practical skills, and enable your instructor to give you credit for your hands-on work with microcontrollers, circuits, environmental housings, \etc \,
+		Milestones also indicate \emph{to you} that you have successfully mastered an important step in environmental instrument building. \,
+		Finally, the work you do in Milestones records many useful commands and sensor-building methods, so that they are easy to find when needed later on.\,
+		A full list of Milestones is given in Appendix \ref{ch:milestones}.
+%	\end{itemize}
+\end{kaobox}
+%</mlst:ov>
+
+\section{\refch{connect} Milestones}
+\setcounter{mscntr}{0}
+%<*mlst:01>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle= \showmscntr Milestone: Connecting to REPL via USB]
+\begin{itemize}
+	\item [$\Box$] This Milestone is to communicate with your microcontroller via USB. \,
+	The specific goal is to demonstrate to an instructor that you have connected to a REPL session on your microcontroller, and obtained the $~>>>$ Python prompt. \, 
+	When you obtain this prompt, complete the assignment by uploading a screenshot of your \texttt{mpfshell} or BeagleTerm REPL session. 
+\end{itemize}
+\end{kaobox}
+%</mlst:01>
+
+%<*mlst:01a>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Activating WiFi on your microcontroller]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to activate both WiFi modes on your microcontroller.\space 
+		The specific goals are to demonstrate: (a) setting up and activating an Access Point (AP), with your own \emph{informative} SSID and password; and, (b) connecting your microcontroller in Station (STA) mode to a router so that it can communicate via the Internet. \,
+		After you activate both modes, complete the assignment by uploading a screenshot of your \texttt{mpfshell} or BeagleTerm REPL session showing the commands and output.
+	\end{itemize}
+\end{kaobox}
+%</mlst:01a>
+
+%<*mlst:01b>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Connecting to REPL via WiFi]
+	\begin{itemize}
+		\item[$\Box$] This Milestone is to communicate with your microcontroller via WiFi. \,
+		The specific goals are to demonstrate to an instructor that you have (a) connected to a REPL session on your microcontroller, and (b) uploaded and downloaded a file over WiFi using either \texttt{WebREPL} or \mpfshell.
+		\begin{itemize}
+			\item[$\Box$] Create a plain text file called ``\lstinline{main.py}'', containing the three lines:  \\
+			
+\lstinline{print('Launching main.py...')} \\
+
+\lstinline{import esp}  \\
+
+\lstinline{esp.osdebug(None)}
+
+		\item[$\Box$] Upload this file onto your microcontroller over WiFi.
+		\item[$\Box$] Enter a \texttt{REPL} session and reboot with \texttt{<ctrl>-d}.
+		\item[$\Box$] Verify that the message ``Launching main.py'' is output, confirming this script was executed.
+		\item[$\Box$] Download \lstinline{main.py} back onto your computer over WiFi, saving it under a different name.
+	\end{itemize} 
+	In Micropython, a file named \lstinline{main.py} is automatically executed (if it exists) when your microcontroller boots up. \,
+	This example serves a useful purpose, which is to suppress unwanted debugging messages, which can be distracting when working with your microcontroller. \\
+
+	When you have performed these tasks, complete the assignment by uploading a screenshot of your \texttt{mpfshell} or \texttt{WebREPL} session.
+	\end{itemize}
+\end{kaobox}
+%</mlst:01b>
+
+%<*mlst:01c>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Generating random strings]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to write a Python function that generates random strings from a set of characters that you supply (defaulting to the set of upper and lower case characters in the English alphabet). \,
+		Compose this function in an editor on your computer, and use \texttt{webREPL} or \texttt{mpfshell} to upload it to your microcontroller. \,
+		The syntax of a Python function is illustrated in the \texttt{randint} example. 
+		\begin{itemize}
+			\item[$\Box$] The first line is a \texttt{definition} statement, e.g. \lstinline{def randstr(str_len, char_list=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']):}
+			\item[$\Box$] The body of the function is an adaptation of the commands you used to generate random strings in the REPL session.
+			\item[$\Box$] The final line is a \texttt{return} statement, e.g. \lstinline{return rnd_str}, specifying exactly what output the function has.
+			\item[$\Box$] Remember to observe the indentation requirements of Python for the statements inside the function.
+		\end{itemize}
+		After you write, test and debug your function, complete the assignment by uploading your code and a screenshot of your \texttt{mpfshell} or BeagleTerm REPL session showing the function importation and output.
+	\end{itemize}
+\end{kaobox}
+%</mlst:01c>
+
+
+
+\section{\refch{first_exercises} Milestones}
+\setcounter{mscntr}{0}
+%<*mlst:02a>
+%\begin{kaobox}[frametitle=Milestone]
+%	\begin{itemize}
+%		\item \loadMilestone{mlst:02} % load milestone with tags id: mlst:02
+%	\end{itemize}
+%\end{kaobox}
+
+%\section{Milestone}
+%\begin{itemize}
+%	\item [$\Box$] %\textbf{Using GPIOs as outputs}
+%
+%	Demonstrate to an instructor the Python commands to turn on and off the blue LED connected to GPIO 2.
+%\end{itemize}
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Using GPIOs as outputs]
+%\begin{kaobox}[backgroundcolor=BurntOrange,frametitlebackgroundcolor=BurntOrange,frametitle=Using GPIOs as outputs]
+\begin{itemize}
+	\item [$\Box$] %\textbf{Using GPIOs as outputs}
+	
+	Demonstrate to an instructor the Python commands to create an informatively named Pin object connected to GPIO 2 in output mode, and use it to turn on and off the blue LED.
+	Then, complete the assignment by uploading a screenshot of your \texttt{mpfshell} or \texttt{WebREPL} session.
+\end{itemize}
+\end{kaobox}
+%</mlst:02a>
+
+%<*mlst:02b>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Connecting power and ground rails on a breadboard]
+	%\begin{kaobox}[backgroundcolor=BurntOrange,frametitlebackgroundcolor=BurntOrange,frametitle=Using GPIOs as outputs]
+	\begin{itemize}
+		\item [$\Box$] %\textbf{Using GPIOs as outputs}
+		
+		Demonstrate to an instructor a correctly wired breadboard, in which: \,
+		Both negative rails are connected to the microcontroller's \texttt{GND} pin; and, both positive rails are connected to the \texttt{3V} pin. \,
+		Use a multimeter to show that all the rails are properly connected.
+		\, Then, complete the assignment by uploading a photograph or sketch of your circuit.
+	\end{itemize}
+\end{kaobox}
+%</mlst:02b>
+
+%<*mlst:02c>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Controlling an input \texttt{GPIO} with a button]
+	%\begin{kaobox}[backgroundcolor=BurntOrange,frametitlebackgroundcolor=BurntOrange,frametitle=Using GPIOs as outputs]
+	\begin{itemize}
+		\item [$\Box$] %\textbf{Using GPIOs as outputs}
+		
+		Demonstrate to an instructor a correctly wired circuit, in which a momentary button drives \texttt{GPIO 2}.
+		Show that:
+		\begin{itemize}
+			\item[$\circ$] When the button is depressed, \texttt{GPIO 2} has value \texttt{0}.
+			\item[$\circ$] When the button is released, \texttt{GPIO 2} has value \texttt{1}.
+			\item[$\circ$] The blue LED correctly indicates button position.
+		\end{itemize}
+		\, Then, complete the assignment by uploading a photograph or sketch of your circuit.
+	\end{itemize}
+\end{kaobox}
+%</mlst:02c>
+
+%<*mlst:02d>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Setting up an \texttt{interrupt} to respond to button presses]
+	%\begin{kaobox}[backgroundcolor=BurntOrange,frametitlebackgroundcolor=BurntOrange,frametitle=Using GPIOs as outputs]
+	\begin{itemize}
+		\item [$\Box$] %\textbf{Using GPIOs as outputs}
+		
+		Demonstrate to an instructor the interrupt created by the python script \lstinline{button_interrupt.py}. \,
+		Show that button presses trigger the \texttt{GPIO 2}interrupt, and result in toggling the red LED attached to \texttt{GPIO 0}.
+		\, Then, complete the assignment by uploading a screenshot or copy of your \texttt{REPL} session showing the correct output responses to button presses.
+	\end{itemize}
+\end{kaobox}
+%</mlst:02d>
+
+%<*mlst:02e>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Powering an external LED]
+	%\begin{kaobox}[backgroundcolor=BurntOrange,frametitlebackgroundcolor=BurntOrange,frametitle=Using GPIOs as outputs]
+	\begin{itemize}
+		\item [$\Box$] %\textbf{Using GPIOs as outputs}
+		
+		Demonstrate to an instructor a correctly wired circuit to power an external LED.
+		\, Then, complete the assignment by uploading a photograph or sketch of your circuit.
+	\end{itemize}
+\end{kaobox}
+%</mlst:02e>
+
+%<*mlst:02f>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Using a relay to control an LED]
+	%\begin{kaobox}[backgroundcolor=BurntOrange,frametitlebackgroundcolor=BurntOrange,frametitle=Using GPIOs as outputs]
+	\begin{itemize}
+		\item [$\Box$] %\textbf{Using GPIOs as outputs}
+		
+		Demonstrate to an instructor a correctly wired circuit to switch power on and off to an external LED.
+		\, Then, complete the assignment by uploading a photograph or sketch of your circuit.
+	\end{itemize}
+\end{kaobox}
+%</mlst:02f>
+
+
+%<*mlst:02>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Snoozing an LED using PWM]
+\begin{itemize}
+	\item [$\Box$] This Milestone is to complete the circuits described in \refch{first_exercises}. \,
+	
+	The specific goal is to demonstrate to an instructor the working circuit, with a ``snoozing'' LED driven by 3.3 \texttt{volt} power from the microcontroller's \texttt{3V} pin and regulated by Pulsed Width Modulation (PWM). \,
+	
+	When you demonstrate the circuit, complete the assignment by uploading a photograph or sketch of your breadboard layout.
+\end{itemize}
+\end{kaobox}
+%</mlst:02>
+
+\section{\refch{time_keeping} Milestones}
+\setcounter{mscntr}{0}
+%<*mlst:03>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Setting Real Time Clocks using the Network Time Protocol]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to demonstrate use of the onboard and external \texttt{RTC}s. \,
+		
+		The specific goal is to use your ESP8266's \texttt{WiFi} connection to your classroom or home router to: (a) obtain the current time from a \texttt{NTP} server, and (b) set both the on-board and \texttt{DS3231} \texttt{RTC}s to correct time. \,
+		
+		When you have set your \texttt{RTC}s, complete the assignment by uploading a screenshot or transcript of your REPL session.
+	\end{itemize}
+\end{kaobox}
+%</mlst:03>
+
+%<*mlst:03a>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Generating a detaset of time-keeping errors]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to generate a dataset using the \lstinline{time_compare} script. \,
+		
+		The specific goal is to agree with your peers on time sampling parameters, and to collect a full dataset using your microcontroller/\rtc combination.  \,
+		
+		When your sampling runs are finished, complete the assignment by uploading your data files so that they may be collected and shared with others in your class for a comparative statistical analysis in the next section.
+	\end{itemize}
+\end{kaobox}
+%</mlst:03a>
+
+%<*mlst:03a>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Initial plotting of time-keeping errors]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to plot the time-keeping error dataset using the \lstinline{lineplot_TC_data} script. \,
+		
+		Use this script to visualize the magnitude and direction of errors, represented by differences between elapsed time measured using the onboard \rtc, the xternal \rtc and \ntp.
+		Demonstrate using the interactive navigation widgets to zoom into specific parts of the dataset.  \,
+		
+		When you have successfully plotted the datset, complete the assignment by saving and uploading a \texttt{png} or \texttt{jpg} image of your plots.
+	\end{itemize}
+\end{kaobox}
+%</mlst:03a>
+
+%<*mlst:03b>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Visualizing your devices' \textit{vs.} the population's time-keeping errors]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to replot the time-keeping error dataset, distinguishing your microcontroller/\rtc combination from the population using the \lstinline{template} and \lstinline{exclude} variables in the \lstinline{lineplot_TC_data} script. \,
+		
+		When you have successfully replotted the datset, complete the assignment by saving and uploading a \texttt{png} or \texttt{jpg} image of your plots.
+	\end{itemize}
+\end{kaobox}
+%</mlst:03b>
+
+%<*mlst:03c>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Percentile plots of time-keeping errors]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to replot the time-keeping error dataset, distinguishing your microcontroller/\rtc combination from the population and adding lines as instructed for the 5th, 25th, 50th, 75th and
+		95th percentiles at several informative time points. \,
+		
+		When you have successfully replotted the datset, complete the assignment by: (a) saving and uploading a \texttt{png} or \texttt{jpg} image of your plots; and (b) uploading a short explanation of how time-keeping errors from your device compare to the focal percentiles of the whole population (e.g., how do magnitude and direction of errors compare between time-keeping methods and microcontroller/\rtc combinations?).
+	\end{itemize}
+\end{kaobox}
+%</mlst:03c>
+
+%<*mlst:03d>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Violin plots of time-keeping errors]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to generate violin plots of the time-keeping error dataset, at several informative time points. \,
+		
+		When you have successfully replotted the datset, complete the assignment by: (a) saving and uploading a \texttt{png} or \texttt{jpg} image of your plots; and (b) summarizing the key features of the time-keeping error distribution (do they grow or shrink in time, are they unimodal or multimodal, \etc).
+	\end{itemize}
+\end{kaobox}
+%</mlst:03d>
+
+%<*mlst:03e>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Probability plots of time-keeping errors]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to generate probability plots of the time-keeping error dataset, to visualize how well observed errors conform to a normal distribution. \,
+		
+		When you have successfully replotted the datset, complete the assignment by: (a) saving and uploading a \texttt{png} or \texttt{jpg} image of your plots; and (b) summarizing the ways in which the observed errors conform or deviate from a normal distribution.
+	\end{itemize}
+\end{kaobox}
+%</mlst:03e>
+
+%<*mlst:03f>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Hypothesis tests on time-keeping errors]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to conduct hypothesis tests on the time-keeping error dataset with the script \lstinline{hypothesis_TC_data}, to assess whether your microcontroller/\rtc combination differs from the whole population of microcontroller/\rtc combinations. \,
+		
+		When you have successfully conducted the tests, complete the assignment by: (a) uploading a screenshot or copy of the output; and (b) summarizing your assessment of the applicability of both non-parametric tests and the \texttt{T-test}, and your inferences from applicable tests.
+	\end{itemize}
+\end{kaobox}
+%</mlst:03f>
+
+%<*mlst:03g>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Hypothesis tests of temperature effects on time-keeping errors]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to design and conduct a mini-study assessing temperature effects on time-keeping.
+		Specifically, the goal is to test the null hypothesis that \emph{errors from cold and hot devices have the same statistical distributions}. 
+		This involves using the methods of this chapter to:
+		\begin{itemize}
+			\item[$\circ$] Design a sampling protocol so that devices have consistent and appropriate sampling duration, intervals and replicates, and that there are defined ``hot'' and ``cold'' sub-populations.
+			\item[$\circ$] Collect and visualize datasets, to assess the shape of error distributions and consistency with normal distributions.
+			\item[$\circ$] Conduct tests of the null hypothesis, stating and justifying your conclusions about whether variations in temperature need to be considered for time-keeping under field conditions. Be explicit about what you can and cannot say, based on your statistical analysis. What modifications of your study might provide additional insights?
+		\end{itemize}
+		
+		When you have successfully conducted the tests, complete the assignment by: (a) uploading screenshot or copies of output; and (b) summarizing your inferences about temperature effects and the rationale justifying those inferences.
+	\end{itemize}
+\end{kaobox}
+%</mlst:03g>
+
+\section{\refch{circuits_intro} Milestones}
+\setcounter{mscntr}{0}
+
+%<*mlst:04a>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Optimizing resistors in an analog voltage sensor]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to design the best analog voltage sensor to monitor 18650 battery voltage, given the available assortment of resistors. \,
+		The key design tool is the spreadsheet you created in this section. \,
+		
+		For at least 6 combinations of resistors, use the following criteria to select the best combination:
+		\begin{itemize}
+			\item[$\circ$] The voltage tolerance of the \texttt{ESP8266}'s \adc is satisfied (i.e., the 5\textit{th} and 7\textit{th} column entries are both \texttt{TRUE}).
+			\item[$\circ$] The power dissipation, \texttt{W}, is low (9\textit{th} column).
+			\item[$\circ$] The resolution uncertainty, \texttt{res}, is small (10\textit{th} column).
+		\end{itemize}
+		Select the values of $R_1$ and $R_2$ that you think best satisfy this combination of design criteria, and write a short explanation of why you chose these over other possible combinations. \,
+		When you have selected your resistors, complete the assignment by uploading your spreadsheet and summary statement.
+	\end{itemize}
+\end{kaobox}
+%</mlst:04a>
+
+%<*mlst:04b>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Assembling and testing an analog voltage sensor]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to assemble an analog voltage sensor, using the voltage divider described in this section and the resistors you determined were best in your design analysis. The key steps are:
+		\begin{itemize}
+			\item[$\circ$] Assemble and double check the circuit as described.
+			\item[$\circ$] Adapt and run the function calculating $V_{in}$ from \adc readings, to get 6 replicated measurements of battery voltage.
+			\item[$\circ$] Use a multimeter to get an additional 6 replicated measurements of battery voltage.
+			\item[$\circ$] Calculate the means and standard deviations of measurements from the multimeter and the microcontroller.
+			\item[$\circ$] Calculate the percent difference between means as an accuracy metric.
+			\item[$\circ$] Calculate the \htmladdnormallink{sample standard deviation}{https://en.wikipedia.org/wiki/Standard\_error}, $\sigma_s$, of the microcontroller measurements as a precision metric. The formula for this statistic is $\sigma_s = \frac{s}{\sqrt{n}}$, where $s$ is the standard deviation of the measurements and $n$ is the number of measurements.
+		\end{itemize}
+		When you have completed your calculations, complete the assignment by uploading: (a) an image or labeled sketch of your breadboard layout; (b) your function for calculating $V_{in}$; and, (c) your spreadsheet and error analysis.
+	\end{itemize}
+\end{kaobox}
+%</mlst:04b>
+
+%<*mlst:04c>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Calibrating a thermistor]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to calibrate your thermistor by measuring its resistance at three different temperatures, calculating the Steinhart-Hart coefficients, and assessing the calibration error on a fourth temperature. \,
+		The key steps are:
+		\begin{itemize}
+			\item[$\circ$] Construct water baths and measure resistance at specified temperatures as described.
+			\item[$\circ$] Use the provided Python scripts to calculate the Steinhart-Hart coefficients $A$, $B$ and $C$.
+			\item[$\circ$] Verify that, using your Steinhart-Hart coefficients, you recover all the calibration data (e.g., that you calculate a temperature $T_{k,1}$ when you enter resistance $R_1$, and \textit{vice versa}).
+			\item[$\circ$] Use a thermometer and your thermistor in a location with a different ambient temperature. After giving both instruments time to equilibrate with the new temperature, obtain at least 5 readings of each separated by several seconds. \,
+			Calculate the sample mean and variance of each, and the percent error between the thermometer and thermistor readings.
+			\item[$\circ$] Repeat, if possible, in several other ambient temperatures.
+		\end{itemize}
+		When you have completed your calculations, complete the assignment by uploading: (a) your temperature and resistance measurements; (b) the Steinhart-Hart coefficients you calculated from them; and, (c) your verification measurements and error analysis.
+	\end{itemize}
+\end{kaobox}
+%</mlst:04c>
+
+
+%<*mlst:04d>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Thermistor circuit design]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to select among the thermistor circuit geometries (\texttt{RTH1} \textit{vs} \texttt{RTH2} configurations) and among the resistor values that you have available, to identify the ``best possible'' thermistor circuit design. \,
+		We use quotes around ``best possible'' to emphasize that, as an exercise in circuit design, you are trying to optimize tradeoffs among the quantities (resolution, self-heating, \etc) calculated in your spreadsheet. \,
+		Be reassured, however, that many different choices can result in effective temperature sensors, so you have quite a bit of latitude in adapting to the components you have at hand. \,
+		Furthermore, it is easy to make an initial sensor now, and modify it later if you have an idea about how to make it better. \,
+		
+		\smallskip
+		In both \texttt{RTH1} and \texttt{RTH2} spreadsheets, try different values for $R_1$ and $R_2$, and select the geometry and resistor that you think best. \,
+		The key criteria are:
+		\begin{itemize}
+			\item[$\circ$] You should make use of resistors that you have at hand, or can construct through combinations of resistors in series.
+			\item[$\circ$] At both high and low temperatures, the measured voltage $V_{data}$ must be within the \adc's voltage tolerance. \,
+			That means both \texttt{Vdata<1?} entries must be \texttt{TRUE}. 		\item[$\circ$] The voltage resolution, $V_{res}$, should be small, so that each increment in the \adc reading represents as narrow a range of uncertainty as possible.
+			\item[$\circ$] Both the total power dissipation, \texttt{W}, and the thermistor self-heating, \texttt{WTH1} or \texttt{WTH2}, should be small, to conserve battery power and reduce temperature artifacts.
+		\end{itemize}
+		When you have completed your calculations, complete the assignment by uploading: (a) your choice of thermistor circuit geometry and resistor value; (b) the characteristics you calculated for them ($V_{data}$, $V_{res}$, $W$ and $W_{th}$); and, (c) an explanation of your design process and conclusions.
+	\end{itemize}
+\end{kaobox}
+%</mlst:04d>
+
+%<*mlst:04e>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Thermistor assembly and testing]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to assemble and test the thermistor circuit you designed, and to demonstrate that it correctly measures ambient temperatures. \,
+		\begin{itemize}
+			\item[$\circ$] After leaving an adequate time for all components to equilibrate with ambient temperature, take 5 measurements using your microcontroller (waiting several seconds between measurements).
+			\item[$\circ$] Using a laboratory thermometer to ``ground-truth'' your instrument, by taking 5 similar measurements of ambient temperature. \,
+			\item[$\circ$] Using the median of each set of measurements as the basis for comparison, calculate the percent different in temperature measurements.
+		\end{itemize}
+%\smallskip
+		When you have completed your measurements, complete the assignment by uploading: (a) an image or sketch of your breadboard layout; (b) the code you constructed to calculate thermistor resistance; and, (c) the raw thermistor and thermometer measurements and the percent difference between them.
+	\end{itemize}
+\end{kaobox}
+%</mlst:04e>
+
+
+
+
+
+
+
