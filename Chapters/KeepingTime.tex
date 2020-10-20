@@ -117,7 +117,7 @@ To use the on-board RTC:
 	The format of the output from this command is a Python \htmladdnormallink{tuple}{https://docs.python.org/3.3/tutorial/datastructures.html\#tuples-and-sequences}: \texttt{(year, month, day, weekday, hour, minute, second, microsecond)}.
 	
 	Note that the on-board \rtc initially has a default time that has no bearing on the actual time.
-	\sidenote[*-22][]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Wrinkles in time\dots]The onboard \rtc is turned off whenever the power is shut off to the ESP8266. That means if you unplug your ESP8266 from the USB cable (and if there is no battery to keep it powered up) the on-board \rtc will be reset to its default time.
+	\sidenote[][*-22]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Wrinkles in time\dots]The onboard \rtc is turned off whenever the power is shut off to the ESP8266. That means if you unplug your ESP8266 from the USB cable (and if there is no battery to keep it powered up) the on-board \rtc will be reset to its default time.
 	You must then reset it to have the correct time.
 	However, if you reboot the microcontroller while keeping power on, the onboard \rtc stays on and preserves the current time. The onboard \rtc also preserves the current time when it goes into ``deepsleep'' to save energy.\end{kaobox}} 
 	  
@@ -480,7 +480,7 @@ You will then be equipped to consider what they imply for the accuracy and preci
 
 We'll begin our statistical analysis with a graphical investigation of time-keeping errors. 
 In addition to plotting the raw data, you will generate a type of graphic called a \htmladdnormallink{violin plot}{https://en.wikipedia.org/wiki/Violin_plot}.
-\sidenote[*-0][]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Using graphic language]Violin plots, and many other kinds of useful plots, are provided in Python by a graphics library called \matplotlib. 
+\sidenote[][*-0]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Using graphic language]Violin plots, and many other kinds of useful plots, are provided in Python by a graphics library called \matplotlib. 
 Some of the available plot styles are shown in the \htmladdnormallink{matplotlib gallery}{https://matplotlib.org/gallery/index.html}. 
 Clicking on a plot in this gallery takes you to a page with additional information and the code used to produce the plot. 
 This makes it easy to replicate and adapt for your own purposes.\end{kaobox}

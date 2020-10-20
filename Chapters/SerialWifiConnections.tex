@@ -77,7 +77,7 @@ Many of the exercises in this book combine acquiring data from sensors using a m
 For examples in this book, we will use Adafruit's Feather HUZZAH ESP8266 microcontroller. 
 It is small, has built-in WiFi, uses relatively little power, and is low cost for its capabilities. 
 The core ESP8266 microcontroller was originally intended to be placed in ``smart'' lightbulbs.
-\sidenote[*+0][]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Lighten up!]See \htmladdnormallink{Tinnkerman's light bulb hacks}{https://tinkerman.cat/post/yet-another-wifi-light-bulb/} for some fun examples in which the ESP8266 microcontroller is reprogrammed in place within a smart light bulb.
+\sidenote[][*+0]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Lighten up!]See \htmladdnormallink{Tinnkerman's light bulb hacks}{https://tinkerman.cat/post/yet-another-wifi-light-bulb/} for some fun examples in which the ESP8266 microcontroller is reprogrammed in place within a smart light bulb.
 Very large scale production for this purpose has made this microcontroller inexpensive, which also makes it a good choice for putting in sensors in often-harsh environments.\end{kaobox}}
 
 Note that the exercises in this book can be successfully completed using other microcontrollers. 
@@ -255,7 +255,7 @@ With Python3 installed, the \texttt{pip3} utility makes it straightforward to in
 	\item \textbf{Open a terminal window.}
 	\item \textbf{Install the latest version of \mpfshell and the packages it requires.}
 	
-	On Mac OS and linux machines, use the command\sidenote[*+0][]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Follow the script!]In this book, we will use this format to indicate code to be entered typed into a REPL session on your microcontroller, or to be put into a file to be run on your microcontroller or laptop.\end{kaobox}}
+	On Mac OS and linux machines, use the command\sidenote[][*+0]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Follow the script!]In this book, we will use this format to indicate code to be entered typed into a REPL session on your microcontroller, or to be put into a file to be run on your microcontroller or laptop.\end{kaobox}}
 \begin{lstlisting}[language=bash]
 pip3 install --upgrade --user mpfshell
 \end{lstlisting}
@@ -501,7 +501,7 @@ It provides access to REPL, and makes it very easy to upload and download files 
 
 %Note: Your microcontroller has to be connected via wifi for WebREPL to work, either with your laptop logged onto an Access Point created by the microcontroller, or with both your laptop and microcontroller logged onto another Access Point.
 
-WebREPL is a free download from this	 \htmladdnormallink{link}{https://github.com/micropython/webrepl}. \sidenote[*+0][]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Locally sourced\dots]Note that \texttt{WebREPL} is available to use online, without installing it. 
+WebREPL is a free download from this	 \htmladdnormallink{link}{https://github.com/micropython/webrepl}. \sidenote[][*+0]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Locally sourced\dots]Note that \texttt{WebREPL} is available to use online, without installing it. 
 \emph{However, you will most likely want to have it actually installed directly on your computer.} 
 That is because, unless you have multiple internet connections available on your computer, you can’t use the online WebREPL when you connect directly to your ESP8266 as an Access Point.
 You can, however, use the online \texttt{WebREPL} if your laptop and microcontroller are both logged onto another Access Point. 

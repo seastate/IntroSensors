@@ -79,7 +79,7 @@ Like this example, most circuits share a few common features, such as:
 In general, complicated circuits are built out of combinations of simpler ``sub-circuits''. Sub-circuits are parts of the overall circuit, that each have an identifiable and testable function. 
 This \emph{modular} circuit design means that, if you start with simple circuits and understand them individually before they go into a complex circuit, the end result is easier to understand than if you contemplate an entire complex assembly at once. 
 This sub-circuit based design is helpful for trouble-shooting as well.
-%\sidenote[*-12][]{
+%\sidenote[][*-12]{
 	\begin{kaobox}[frametitle=Divide and conquer!]
 		The key tactic of testing and debugging circuits is ``divide and conquer'': 
 		If a complex circuit doesn't work (they usually don't, at first) try to divide it into two or more smaller, simpler sub-circuits.
@@ -120,7 +120,7 @@ The geometry of these holes and hidden wires is designed to make assembling and 
 \emph{Prototyping} is the overall process of designing, assembling, correcting and enhancing new circuits. 
 In prototyping, it is common (and usually harmless) to make small mistakes. 
 Also, prototyping often involves some guesswork and iteration about \emph{layout} (e.g., which components should go next to which, to make wiring as compact and simple as possible).
-The holes in breadboards are shaped so that wires (often called \emph{jumpers}\sidenote[*-10][]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Wire we using jumpers?]
+The holes in breadboards are shaped so that wires (often called \emph{jumpers}\sidenote[][*-10]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Wire we using jumpers?]
 	To make electrical connections on a breadboard, we use wires called ``jumpers''. 
 	Jumpers are mostly covered with insulation, to avoid accidental connections (``short circuits''). 
 	However, the last few millimeters on both ends are \emph{stripped} (the insulation is removed) so that they fit into the breadboard. 
@@ -129,7 +129,7 @@ The holes in breadboards are shaped so that wires (often called \emph{jumpers}\s
 	Store-bought jumpers seem much more expensive than they ought to be, so we encourage you to make your own whenever possible.\end{kaobox}}) can be easily inserted and removed from them.
 When you find a mistake or want to change the circuit design, it is straightforward to add wires, or to pull existing wires out of their present holes and move them into new holes.
 Breadboards are useful, among other reasons, because they help make this process of circuit prototyping more straightforward and efficient
-%\sidenote[*-0][]{
+%\sidenote[][*-0]{
 %	For sensors intended to function in the environment, sometimes it is sufficient to use a circuit built on a breadboard. 
 %	Other times, however, circuits must be made as small as possible (e.g. to fit into a waterproof housing), resistant to vibrations, etc.
 %	In these cases, it may helpful to use soldered connections on a \htmladdnormallink{``stripboard''}{https://en.wikipedia.org/wiki/Stripboard} or a Printed Circuit Board (PCB). 
@@ -192,7 +192,7 @@ Despite differences in size, however, the same basic geometry of hidden wires co
 %This textbook focuses on microprocessors that use instructions written in \htmladdnormallink{MicroPython}{https://micropython.org/}, a subset of the \htmladdnormallink{Python}{https://www.python.org} programming language.
 %MicroPython is a recent invention, and a great improvement for learning about, building and using environmental sensors.
 %Because MicroPython-based microcontrollers are automatically interactive
-%\sidenote[*-6][]{Like Python, MicroPython runs in an interactive session. 
+%\sidenote[][*-6]{Like Python, MicroPython runs in an interactive session. 
 %	This session goes by the  technical-sounding name ``Read-Evaluate-Print-Loop'', or \emph{REPL}. Despite this name, REPL is a very intuitive interface. 
 %	REPL simply means that, in a MicroPython (or Python) session, you type commands, which are then executed, and the results are then displayed.
 %}
@@ -211,7 +211,7 @@ Despite differences in size, however, the same basic geometry of hidden wires co
 %
 %For examples in this book, we will use Adafruit's Feather HUZZAH ESP8266 microcontroller. 
 %It is small, has built-in wifi, uses relatively little power, and is low cost for its capabilities. 
-%The core ESP8266 microcontroller was originally intended to be placed in ``smart'' lightbulbs.\sidenote[*+8][]{See e.g. \htmladdnormallink{Tinnkerman's light bulb hacks}{https://tinkerman.cat/post/yet-another-wifi-light-bulb/} for some fun examples in which the ESP8266 microcontroller is reprogrammed in place within a smart light bulb.}
+%The core ESP8266 microcontroller was originally intended to be placed in ``smart'' lightbulbs.\sidenote[][*+8]{See e.g. \htmladdnormallink{Tinnkerman's light bulb hacks}{https://tinkerman.cat/post/yet-another-wifi-light-bulb/} for some fun examples in which the ESP8266 microcontroller is reprogrammed in place within a smart light bulb.}
 %Very large scale production for this purpose has made this microcontroller inexpensive, which also makes it a good choice for putting sensors in often-harsh environments.
 %
 %Note that the exercises in this book can be successfully completed using other microcontrollers. 
@@ -256,7 +256,7 @@ Despite differences in size, however, the same basic geometry of hidden wires co
 %	\end{marginfigure}
 %\end{lstlisting}
 
-%\sidenote[*-0][]{
+%\sidenote[][*-0]{
 %\begin{kaobox}[frametitle=Beyond breaboarding \dots]
 \begin{kaobox}[frametitle=Board with circuit design \dots]
 	For sensors intended to function in the environment, sometimes it is sufficient to use a circuit built on a breadboard. 
@@ -282,7 +282,7 @@ Important things to know about GPIOs on the ESP8266 are:
 	\end{itemize}
 	\item[$\bullet$] These GPIOs are \emph{digital}. This means that these pins can only take one of two values:
 	 \begin{itemize}
-	 	\item[$\circ$] 1, or ``high'', corresponding to a voltage $\ge 3.3$ \texttt{volts}\sidenote[*0][]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=What's your limit?]Note that the \texttt{3.3 volt} threshold applies to the ESP8266, and to many other microcontrollers. 
+	 	\item[$\circ$] 1, or ``high'', corresponding to a voltage $\ge 3.3$ \texttt{volts}\sidenote[][*0]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=What's your limit?]Note that the \texttt{3.3 volt} threshold applies to the ESP8266, and to many other microcontrollers. 
 	 		Some have different thresholds, though, so if you're using a different microcontroller it's a good idea to check.\end{kaobox}}; or,
 	 	\item[$\circ$] 0, or ``low'', corresponding to a voltage $< 3.3$ \texttt{volts}.
 	\end{itemize}
@@ -329,7 +329,7 @@ To control the red LED, you will use the \lstinline{Pin} method from Micropython
 
 	\item \textbf{Open a \texttt{REPL} session}
 	
-	\item \textbf{Import the \texttt{Pin} class}:%\sidenote[*-0][]{In this book, we will use this format to indicate code to be entered typed into a REPL session on your microcontroller, or to be put into a file to be run on your microcontroller or laptop.}:
+	\item \textbf{Import the \texttt{Pin} class}:%\sidenote[][*-0]{In this book, we will use this format to indicate code to be entered typed into a REPL session on your microcontroller, or to be put into a file to be run on your microcontroller or laptop.}:
 \begin{lstlisting}[language=Python]
 from machine import Pin 
 \end{lstlisting}	
@@ -483,7 +483,7 @@ The first sub-circuit we'll construct will connect the positive and negative rai
 	An easy way to do this is to use insert one end of a male-male jumper into one of the positive rails. 
 	Insert one end of \textbf{another} male-male jumper into one of the negative rails. 
 	Now, use the multimeter to test the voltage difference between the free ends of the two jumpers.
-	\sidenote[*-12][]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=CAREFUL!]Make sure not to connect the positive and negative rails directly together --- for example by brushing the leads of the multimeter to each other while they are touching the rails. This would cause a short circuit that could damage your microcontroller!\end{kaobox}}
+	\sidenote[][*-12]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=CAREFUL!]Make sure not to connect the positive and negative rails directly together --- for example by brushing the leads of the multimeter to each other while they are touching the rails. This would cause a short circuit that could damage your microcontroller!\end{kaobox}}
 	
 \end{enumerate}
 \loadMilestone{mlst:02b} % load milestone with tags id: mlst:02b
@@ -493,7 +493,7 @@ One of the most useful things a GPIO does is let you control your microcontrolle
 For example, in an environmental sensor, you might want to turn sampling on and off with a button switch, have nearby motion trigger a camera, or count rotations of a propeller to measure wind speed. All of these involve using GPIOs as inputs. 
 
 As a first step, you will assemble a sub-circuit enabling the microcontroller to respond to button presses. 
-\sidenote[*-16][]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Button it up!]
+\sidenote[][*-16]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Button it up!]
 	The type of switch used in this circuit is called a \emph{momentary} switch. 
 	``Momentary'' means the switch will connect two pins while the button is being pressed, and immediately disconnect them when the button is released. 
 	Many other types of switches are available for different functions. 
@@ -513,7 +513,7 @@ The different spacing is to help you orient the button correctly.
  
 On two opposite edges, pins are spaced to skip over \emph{three} holes on a breadboard. 
 We will call these the \emph{wide} sides.
-On this type of button, the wide side pins are always internally connected to each other. \sidenote[*-10][]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Button orientation]
+On this type of button, the wide side pins are always internally connected to each other. \sidenote[][*-10]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Button orientation]
 	In most breadboard layouts, a button's wide side pins are placed in the same row on the same side of the gutter as in \reffig{feather_switch}. 
 	Occasionally, though, the wide side pins are placed on opposite sides of the gutter, in which case they act as a jumper connecting adjacent rows across the gutter. 
 	In this configuration, pressing the button connects all four breadboard rows (two on each side of the gutter)!\end{kaobox}}
@@ -641,7 +641,7 @@ Placing components similarly to \reffig{feather_switch_LED} is one way to do tha
 	\item \textbf{Connect a jumper from the leftmost hole in this row, across the gutter to one row lower.}
 	
 	This jumper placement will make it easy to substitute a relay for the jumper later on. 
-	\item \textbf{Using a 100 Ohm resistor\sidenote[*-5][]{
+	\item \textbf{Using a 100 Ohm resistor\sidenote[][*-5]{
 			\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Pi\`ece de r\'esistance]
 				Depending on which type of LED you use, you may need to modify the value of this resistor. 
 				In \refch{circuits_intro}, you will learn how to calculate appropriate resistor values if you use a different type of LED than the one suggested here (though many types are close enough to work with the suggested resistor). 
@@ -810,7 +810,7 @@ If your LED is now “snoozing” (gradually getting brighter and dimmer) then y
 
 Note that, as is, this code will run indefinitely until it is interrupted. 
 To stop it, enter \texttt{<ctrl>-c} (which halts any running code in Python). 
-%\sidenote[*6][]{
+%\sidenote[][*6]{
 	\begin{kaobox}[frametitle=Asleep at the switch!]
 		How does this code use a pin that can only take on/off values and make it appear to ``snooze'' by continuously varying LED brightness? 
 		After importing necessary modules (lines 1-2), the code defines Pin 14 as a Pulse Width Modulation object, with ``frequency'' set to 1000. 

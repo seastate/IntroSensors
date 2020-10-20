@@ -58,7 +58,7 @@ V = \frac{ADC}{1024}
 %V \mathsf{V} \mathrm{V} = \frac{ADC}{1024} \frac{\mathsf{ADC}}{1024} \frac{\mathrm{ADC}}{1024} 
 \end{equation}
 for the \texttt{ESP8266}, where $ADC$ is the integer value read from the \adc pin, and $V$ is the applied voltage in units of \texttt{volts}
-\sidenote[*-8][]{
+\sidenote[][*-8]{
 	\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Resolve to change!]
 		An important implication of Equation \ref{adc_volt} is a limit to the \htmladdnormallink{\emph{resolution}}{https://www.itl.nist.gov/div898/handbook/mpc/section4/mpc451.htm} of the \texttt{ESP8266}'s \adc.
 		Resolution is the smallest increment of a physical characteristic that can be distinguished by a sensor. 
@@ -157,7 +157,7 @@ If $V<0$, current flows from right to left and $I$ takes on a negative value.
 %I = \frac{V}{R} \label{OhmsIVR} \\
 %R = \frac{V}{I}  \label{OhmsRVI}
 %\end{eqnarray}
-Together, the three forms\sidenote[*-8][]{
+Together, the three forms\sidenote[][*-8]{
 	\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Ohm I!]Ohm's Law states that the current $I$ through a resistor $R$ due to the voltage difference $V$ is
 		\begin{equation*}%\label{OhmsVIR}
 			V = I R
@@ -913,7 +913,7 @@ In these circuit diagrams, the box with the diagonal line represents the thermis
 	
 	\item \textbf{Explore alternative resistor values, by making copies of the two rows of calculations, and entering different values for \texttt{R2}.}
 	
-	Does the new resistance value satisfy the \adc voltage tolerance?\sidenote[*-25][]{
+	Does the new resistance value satisfy the \adc voltage tolerance?\sidenote[][*-25]{
 		\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Resist-metic]As we found in the voltage divider discussion, the total resistance of two resistors connected in \emph{series} (one connected end to end with the other) is simply the sum of their individual resistances: $R_{total}=R_1+R_2$. 
 			You can use this fact if you want to use a resistor value that you don't have in hand. 
 			For example, if you have $510\Omega$ and $220\Omega$ resistors, you can attach them in series to form a $510+220=730\Omega$ resistor.	 	
