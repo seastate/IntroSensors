@@ -1,0 +1,467 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% kaobook
+% LaTeX Template
+% Version 1.0 (5/6/19)
+%
+% This template originates from:
+% https://www.LaTeXTemplates.com
+%
+% For the latest template development version and to make contributions:
+% https://github.com/fmarotta/kaobook
+%
+% Authors:
+% Daniel Gr\"unbaum (publicsensors@gmail.com) 
+% Uses the kaobook LaTeX class by Federico Marotta (federicomarotta@mail.com)
+% which was itself based on the dissertation by Ken Arroyo Ohori (https://3d.bk.tudelft.nl/ken/en)
+% and on the Tufte-LaTeX class, and modified for LaTeX Templates by Vel (vel@latextemplates.com)
+%
+% License: (for now...)
+% Copyright Daniel Gr\"unbaum 2019, All rights reserved
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[
+	fontsize=10pt, % Base font size
+	twoside=false, % Use different layouts for even and odd pages (in particular, if twoside=true, the margin column will be always on the outside)
+	%open=any, % If twoside=true, uncomment this to force new chapters to start on any page, not only on right (odd) pages
+	%chapterprefix=true, % Uncomment to use the word "Chapter" before chapter numbers everywhere they appear
+	%chapterentrydots=true, % Uncomment to output dots from the chapter name to the page number in the table of contents
+	numbers=noenddot, % Comment to output dots after chapter numbers; the most common values for this option are: enddot, noenddot and auto (see the KOMAScript documentation for an in-depth explanation)
+	%draft=true, % If uncommented, rulers will be added in the header and footer
+	%overfullrule=true, % If uncommented, overly long lines will be marked by a black box; useful for correcting spacing problems
+]{kaobook}
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{2}
+
+% Choose the language
+\usepackage[english]{babel} % Load characters and hyphenation
+\usepackage[english=british]{csquotes}	% English quotes
+
+\usepackage{hyperref}
+%\usepackage[colorlinks,bookmarksopen]{hyperref}
+\usepackage{rotating}
+\usepackage{outlines}
+\usepackage{graphicx}
+\usepackage{float}
+%\usepackage{tabularx}
+
+% Infrastructure for labeling in margin tables for materials, as per 
+% https://tex.stackexchange.com/questions/356815/reference-table-row-in-latex
+\usepackage{array}
+\newcounter{rowcntr}[table]
+\renewcommand{\therowcntr}{\thetable.\arabic{rowcntr}}
+
+% A new columntype to apply automatic stepping
+\newcolumntype{N}{>{\refstepcounter{rowcntr}\therowcntr}c}
+
+% Reset the rowcntr counter at each new tabular
+\AtBeginEnvironment{tabular}{\setcounter{rowcntr}{0}}
+
+% Create a counter for Milestones
+% Note this is redefined and reset in the Milestones chapter
+% to give appropriate numbering
+\newcounter{mscntr}[chapter]
+\renewcommand{\themscntr}{\thechapter.\arabic{mscntr}}
+% A command to increment and print the milestone number, with
+% smart handling of the following space.
+\newcommand{\showmscntr}{\stepcounter{mscntr}\themscntr\xspace}
+
+\usepackage{enumitem}
+
+\usepackage{scrhack}
+
+% package for circuit schematics within LaTeX
+\usepackage{circuitikz}
+
+% Packages for Creative Commons license graphics 
+%\usepackage{xcolor}
+%\usepackage[framemethod=tikz]{mdframed}
+%\definecolor{cccolor}{rgb}{.67,.7,.67}
+\usepackage[type={CC},modifier={by-nc-sa},version={4.0},]{doclicense}
+
+%\usepackage{minted}
+%\usepackage{verbatim}
+%\usepackage{pythontex}
+%\usepackage{listings,textcomp}
+
+% Don't use this, it breaks everything
+%\usepackage{cleveref}
+
+% Load packages for testing
+\usepackage{blindtext}
+%\usepackage{showframe} % Uncomment to show boxes around the text area, margin, header and footer
+%\usepackage{showlabels} % Uncomment to output the content of \label commands to the document where they are used
+
+% Load the bibliography package
+\usepackage{styles/kaobiblio}
+\addbibresource{IntroSensors.bib} % Bibliography file
+
+% Load mathematical packages for theorems and related environments. NOTE: choose only one between 'mdftheorems' and 'plaintheorems'.
+%\usepackage{mdftheorems_no_amssymb}
+%\usepackage{styles/mdftheorems}
+%\usepackage{styles/plaintheorems}
+
+% Load package defining kaobook section labels and other utilities
+\usepackage{styles/kaorefs}
+
+% Infrastructure to selectively load sections (e.g. Milestones) from a common tex file
+\usepackage{catchfilebetweentags} % load the package
+%\newcommand{\loadFigure}[1]{ % define command to load figures
+%   \ExecuteMetaData[figures.tex]{#1} % call the package macro to load chunk from file
+%}
+\newcommand{\loadMilestone}[1]{ % define command to load milestones
+	\ExecuteMetaData[Chapters/Milestones.tex]{#1} % call the package macro to load chunk from file
+}
+\newcommand{\loadCode}[1]{ % define command to load milestones
+	\ExecuteMetaData[Codes/CodeCollection.tex]{#1} % call the package macro to load chunk from file
+}
+
+% Define command to place graphics into HOW-TO titles
+\DeclareRobustCommand{\howto}{%
+	\begingroup\normalfont
+	\includegraphics[height=2 \fontcharht\font`\B]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/hammer2crop3.png}%
+	\, \textbf{\textit{HOW-TO}:}
+%	\includegraphics[height=1.25 
+	%	\includegraphics[height=1.25 \fontcharht\font`\B]{/home/dg/PublicSensors/Textbooks/IntroSensors/Fritzing/pcb_image.png}%
+%\, \textbf{\textit{HOW-TO}:}
+	\endgroup
+}
+
+% This is needed for the lstset hack to preserve indentation spaces 
+%\usepackage[T1]{fontenc}%required
+
+\graphicspath{{Images/}{./}} % Paths in which to look for images
+
+\makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
+
+\makeglossaries % Make LaTeX produce the files required to compile the glossary
+
+\makenomenclature % Make LaTeX produce the files required to compile the nomenclature
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+% Shortcuts are now centralized in their own tex file:
+\input{FESshortcuts.tex}
+
+
+%----------------------------------------------------------------------------------------
+%	BOOK INFORMATION
+%----------------------------------------------------------------------------------------
+
+\titlehead{Introduction to Environmental Sensors}
+% \subject{Subject}
+
+%\title[Template for the {\normalfont\texttt{kaobook}} Class]{Template for the {\normalfont\texttt{kaobook}} Class}
+\title[Foundations of Environmental Sensing]{Foundations of Environmental Sensing}
+\subtitle{A practical introduction to making and using environmental sensors}
+
+\author[DG]{Daniel Gr\"unbaum}
+
+%\date{\today}
+
+\publishers{Daniel Gr\"unbaum and \htmladdnormallink{www.publicsensors.org}{www.publicsensors.org}}
+
+%----------------------------------------------------------------------------------------
+
+\frontmatter % Denotes the start of the pre-document content
+%----------------------------------------------------------------------------------------
+%	OPENING PAGE
+%----------------------------------------------------------------------------------------
+
+% \makeatletter
+% \extratitle{
+% 	% In the title page, the title is vspaced by 9.5\baselineskip
+% 	\vspace*{9\baselineskip}
+% 	\vspace*{\parskip}
+% 	\begin{center}
+% 		% In the title page, \huge is set after the komafont for title
+% 		\usekomafont{title}\huge\@title
+% 	\end{center}
+% }
+% \makeatother
+
+%----------------------------------------------------------------------------------------
+%	COPYRIGHT PAGE
+%----------------------------------------------------------------------------------------
+
+\makeatletter
+\uppertitleback{\@titlehead} % Header
+
+\lowertitleback{
+%	\textbf{Disclaimer} \\
+%	You can edit this page to suit your needs. For instance, here we have a no copyright statement, a colophon and some other information. This page is based on the corresponding page of Ken Arroyo Ohori's thesis, with minimal changes.
+%	
+%	\medskip
+	
+	%This book is released under a to-be-determined Creative Commons license. In the meantime \dots \\
+	\textbf{Copyright: Daniel Gr\"unbaum, 2020.}
+	\doclicenseThis
+	
+	\medskip
+	
+	\textbf{Colophon} \\
+	This document was typeset with the help of \href{https://sourceforge.net/projects/koma-script/}{\KOMAScript} and \href{ttps://www.latex-project.org/}{\LaTeX} using the \href{https://github.com/fmarotta/kaobook/}{kaobook} class.
+	
+	\medskip
+	
+	\textbf{Publisher} \\
+	
+	First printed in October 2020 by \@publishers
+}
+\makeatother
+
+%----------------------------------------------------------------------------------------
+%	DEDICATION
+%----------------------------------------------------------------------------------------
+
+
+%\dedication{
+%	The harmony of the world is made manifest in Form and Number, and the heart and soul and all the poetry of Natural Philosophy are embodied in the concept of mathematical beauty.\\
+%	\flushright -- D'Arcy Wentworth Thompson
+%}
+
+%----------------------------------------------------------------------------------------
+%	OUTPUT TITLE PAGE AND PREVIOUS
+%----------------------------------------------------------------------------------------
+
+% Note that \maketitle outputs the pages before here
+
+% If twoside=false, \uppertitleback and \lowertitleback are not printed
+% To overcome this issue, we set twoside=semi just before printing the title pages, and set it back to false just after the title pages
+\KOMAoptions{twoside=semi}
+\maketitle
+\KOMAoptions{twoside=false}
+
+%----------------------------------------------------------------------------------------
+%	PREFACE
+%----------------------------------------------------------------------------------------
+%\input{Chapters/Preface.tex}
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS & LIST OF FIGURES/TABLES
+%----------------------------------------------------------------------------------------
+
+\begingroup % Local scope for the following commands
+
+% Define the style for the TOC, LOF, and LOT
+%\setstretch{1} % Uncomment to modify line spacing in the ToC
+%\hypersetup{linkcolor=blue} % Uncomment to set the colour of links in the ToC
+\setlength{\textheight}{23cm} % Manually adjust the height of the ToC pages
+
+% Turn on compatibility mode for the etoc package
+\etocstandarddisplaystyle % "toc display" as if etoc was not loaded
+\etocstandardlines % "toc lines as if etoc was not loaded
+
+\tableofcontents % Output the table of contents
+
+\listoffigures % Output the list of figures
+
+%\let\cleardoublepage\bigskip
+%\let\clearpage\bigskip
+
+\lstlistoflistings % Output the list of listings
+
+% Comment both of the following lines to have the LOF and the LOT on different pages
+%\let\cleardoublepage\bigskip
+%\let\clearpage\bigskip
+
+\listoftables % Output the list of tables
+
+\endgroup
+
+%----------------------------------------------------------------------------------------
+%	MAIN BODY
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Denotes the start of the main document content, resets page numbering and uses arabic numbers
+\setchapterstyle{kao} % Choose the default chapter heading style
+
+\lstset{numbers=none}  % Formatting in listings: set to have no line numbers, so copy/paste works for python code
+%\lstset{columns=flexible}
+\lstset{keepspaces=true}
+%\lstset{showspaces=true}
+%\lstset{columns=fullflexible}
+%\lstset{
+%	upquote=true,
+%	columns=fullflexible,
+%	literate={*}{{\char42}}1
+%	{-}{{\char45}}1
+%}
+
+\input{Chapters/Preface.tex}
+
+\pagelayout{wide} % No margins
+\addpart{Introduction}
+\pagelayout{margin} % Restore margins
+
+\input{Chapters/SerialWifiConnections.tex}
+\input{Chapters/FirstExercisesESP8266feather.tex}
+
+\input{Chapters/KeepingTime.tex}     
+
+\pagelayout{wide} % No margins
+\addpart{Working with environmental sensors}
+%\addpart{Working with electrical circuits}
+\pagelayout{margin} % Restore margins
+
+\input{Chapters/CircuitsIntro.tex}                 
+%\input{Chapters/ThermistorCalib.tex}
+%\input{Chapters/CircuitDesign.tex}                 
+
+%\pagelayout{wide} % No margins
+%\addpart{Digital interfaces for environmental analysis: Quantifying temperature, light and water chemistry}
+%\pagelayout{margin} % Restore margins
+
+\input{Chapters/DigitalSensors.tex}                
+\input{Chapters/TelemetrySensorComms.tex}
+
+\pagelayout{wide} % No margins
+\addpart{Practical skills in environmental sensing}
+\pagelayout{margin} % Restore margins
+\input{Chapters/CADfabrication.tex}                
+\input{Chapters/PCBdesign.tex}
+\input{Chapters/InstrConstruct.tex}  
+\input{Chapters/Inferences.tex}                    
+
+%\pagelayout{wide} % No margins
+%\addpart{Sound and water waves}
+%\pagelayout{margin} % Restore margins
+%
+%\input{Chapters/Waves.tex}
+%\input{Chapters/SpeedSound.tex}
+
+%\pagelayout{wide} % No margins
+%\addpart{Inference of mechanisms and processes from environmental sensor data}
+%\pagelayout{margin} % Restore margins
+%
+%\input{Chapters/Inferences.tex}                    
+%\input{Chapters/WaterCols.tex}
+%%%\chapter{Vertical structure in lab and field water columns}
+%%
+%\pagelayout{wide} % No margins
+%\addpart{Quantifying position, orientation and movement}
+%\pagelayout{margin} % Restore margins
+
+\appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
+
+%Original: \chaptername
+%\providecommand*{\chaptername}{}
+%\renewcommand*{\chaptername}{Appendix}
+%After renewal: \chaptername
+
+\pagelayout{wide} % No margins
+\addpart{Appendix}
+\labpart{conns}
+\pagelayout{margin} % Restore margins
+
+\input{Chapters/Milestones.tex}
+\input{Chapters/MaterialsSkills.tex}
+%input{Chapters/CodeListings.tex}
+\input{Chapters/FormatConventions.tex}
+
+%----------------------------------------------------------------------------------------
+
+\backmatter % Denotes the end of the main document content
+\setchapterstyle{plain} % Output plain chapters from this point onwards
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+% The bibliography needs to be compiled with biber using your LaTeX editor, or on the command line with 'biber main' from the template directory
+
+\defbibnote{bibnote}{Here are the references in citation order.\par\bigskip} % Prepend this text to the bibliography
+\printbibliography[heading=bibintoc, title=Bibliography, prenote=bibnote] % Add the bibliography heading to the ToC, set the title of the bibliography and output the bibliography note
+
+%----------------------------------------------------------------------------------------
+%	NOMENCLATURE
+%----------------------------------------------------------------------------------------
+
+%% The nomenclature needs to be compiled on the command line with 'makeindex main.nlo -s nomencl.ist -o main.nls' from the template directory
+%
+%\nomenclature{$c$}{Speed of light in a vacuum inertial frame}
+%\nomenclature{$h$}{Planck constant}
+%
+%\renewcommand{\nomname}{Notation} % Rename the default 'Nomenclature'
+%\renewcommand{\nompreamble}{The next list describes several symbols that will be later used within the body of the document.} % Prepend this text to the nomenclature
+%
+%\printnomenclature % Output the nomenclature
+
+%----------------------------------------------------------------------------------------
+%	GREEK ALPHABET
+% 	Originally from https://gitlab.com/jim.hefferon/linear-algebra
+%----------------------------------------------------------------------------------------
+
+%\vspace{1cm}
+%
+%{\usekomafont{chapter}Greek Letters with Pronounciation} \\[2ex]
+%\begin{center}
+%	\newcommand{\pronounced}[1]{\hspace*{.2em}\small\textit{#1}}
+%	\begin{tabular}{l l @{\hspace*{3em}} l l}
+%		\toprule
+%		Character & Name & Character & Name \\ 
+%		\midrule
+%		$\alpha$ & alpha \pronounced{AL-fuh} & $\nu$ & nu \pronounced{NEW} \\
+%		$\beta$ & beta \pronounced{BAY-tuh} & $\xi$, $\Xi$ & xi \pronounced{KSIGH} \\ 
+%		$\gamma$, $\Gamma$ & gamma \pronounced{GAM-muh} & o & omicron \pronounced{OM-uh-CRON} \\
+%		$\delta$, $\Delta$ & delta \pronounced{DEL-tuh} & $\pi$, $\Pi$ & pi \pronounced{PIE} \\
+%		$\epsilon$ & epsilon \pronounced{EP-suh-lon} & $\rho$ & rho \pronounced{ROW} \\
+%		$\zeta$ & zeta \pronounced{ZAY-tuh} & $\sigma$, $\Sigma$ & sigma \pronounced{SIG-muh} \\
+%		$\eta$ & eta \pronounced{AY-tuh} & $\tau$ & tau \pronounced{TOW (as in cow)} \\
+%		$\theta$, $\Theta$ & theta \pronounced{THAY-tuh} & $\upsilon$, $\Upsilon$ & upsilon \pronounced{OOP-suh-LON} \\
+%		$\iota$ & iota \pronounced{eye-OH-tuh} & $\phi$, $\Phi$ & phi \pronounced{FEE, or FI (as in hi)} \\
+%		$\kappa$ & kappa \pronounced{KAP-uh} & $\chi$ & chi \pronounced{KI (as in hi)} \\
+%		$\lambda$, $\Lambda$ & lambda \pronounced{LAM-duh} & $\psi$, $\Psi$ & psi \pronounced{SIGH, or PSIGH} \\
+%		$\mu$ & mu \pronounced{MEW} & $\omega$, $\Omega$ & omega \pronounced{oh-MAY-guh} \\
+%		\bottomrule
+%	\end{tabular} \\[1.5ex]
+%	Capitals shown are the ones that differ from Roman capitals.
+%\end{center}
+
+%----------------------------------------------------------------------------------------
+%	GLOSSARY
+%----------------------------------------------------------------------------------------
+
+% The glossary needs to be compiled on the command line with 'makeglossaries main' from the template directory
+
+\newglossaryentry{computer}{
+	name=computer,
+	description={is a programmable machine that receives input, stores and manipulates data, and provides output in a useful format}
+}
+
+% Glossary entries (used in text with e.g. \acrfull{fpsLabel} or \acrshort{fpsLabel})
+\newacronym[longplural={Frames per Second}]{fpsLabel}{FPS}{Frame per Second}
+\newacronym[longplural={Tables of Contents}]{tocLabel}{TOC}{Table of Contents}
+
+\setglossarystyle{listgroup} % Set the style of the glossary (see https://en.wikibooks.org/wiki/LaTeX/Glossary for a reference)
+\printglossary[title=Special Terms, toctitle=List of Terms] % Output the glossary, 'title' is the chapter heading for the glossary, toctitle is the table of contents heading
+
+%----------------------------------------------------------------------------------------
+%	INDEX
+%----------------------------------------------------------------------------------------
+
+% The index needs to be compiled on the command line with 'makeindex main' from the template directory
+
+\printindex % Output the index
+
+%----------------------------------------------------------------------------------------
+%	BACK COVER
+%----------------------------------------------------------------------------------------
+
+% If you have a PDF/image file that you want to use as a back cover, uncomment the following lines
+
+%\clearpage
+%\thispagestyle{empty}
+%\null%
+%\clearpage
+%\includepdf{cover-back.pdf}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
