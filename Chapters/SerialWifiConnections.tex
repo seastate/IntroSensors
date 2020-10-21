@@ -20,7 +20,7 @@ Because MicroPython-based microcontrollers are automatically interactive
 	Despite this name, REPL is a very intuitive interface. 
 	REPL simply means that, in a MicroPython (or Python) session, you type commands, which are then executed, and the results are displayed.
 \end{kaobox}}
-, they are good platforms to develop and debug codes to collect data from environmental sensors.  
+, they are good platforms for learning to develop and debug codes to collect data from environmental sensors.  
 
 Python itself is a powerful and easy to learn language for scientific computing on desktops and laptops. 
 If you already know some Python, you can apply that knowledge to working with MicroPython-based microcontrollers. 
@@ -77,7 +77,7 @@ Many of the exercises in this book combine acquiring data from sensors using a m
 For examples in this book, we will use Adafruit's Feather HUZZAH ESP8266 microcontroller. 
 It is small, has built-in WiFi, uses relatively little power, and is low cost for its capabilities. 
 The core ESP8266 microcontroller was originally intended to be placed in ``smart'' lightbulbs.
-\sidenote[][*+0]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Lighten up!]See \htmladdnormallink{Tinnkerman's light bulb hacks}{https://tinkerman.cat/post/yet-another-wifi-light-bulb/} for some fun examples in which the ESP8266 microcontroller is reprogrammed in place within a smart light bulb.
+\sidenote[][*-3]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Lighten up!]See \htmladdnormallink{Tinnkerman's light bulb hacks}{https://tinkerman.cat/post/yet-another-wifi-light-bulb/} for some fun examples in which the ESP8266 microcontroller is reprogrammed in place within a smart light bulb.
 Very large scale production for this purpose has made this microcontroller inexpensive, which also makes it a good choice for putting in sensors in often-harsh environments.\end{kaobox}}
 
 Note that the exercises in this book can be successfully completed using other microcontrollers. 
@@ -86,10 +86,10 @@ The other officially supported microcontroller, Adafruit's HUZZAH ESP8266 Breako
 Other manufacturers also make microcontroller boards based on the ESP8266. 
 Many of these will work in essentially the same way for exercises in this book. 
 Boards using other processors also can work. 
-These alternative microcontrollers may require modifying details in the MicroPython codes, such as the numbers for electrical inputs and outputs. 
+These alternative microcontrollers may require modifying details in the MicroPython codes, such which pins are used for electrical inputs and outputs. 
 The \htmladdnormallink{MicroPython}{https://http://micropython.org/} website is the best reference if you are considering using alternative microprocessor boards for the activities in this book.
 
-\begin{marginfigure}[8cm]
+\begin{marginfigure}[2cm]
 	\begin{center}
 		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/ESP8266feather_top.png}}{https://publicsensors.org/IntroSensors/Images/ESP8266feather_top.png}
 		\caption[ESP8266 feather microcontroller]{A ESP8266 Feather microcontroller.}
@@ -98,7 +98,7 @@ The \htmladdnormallink{MicroPython}{https://http://micropython.org/} website is 
 \end{marginfigure}
 
 A close-up view of the ESP8266 Feather (\reffig{margin_esp8266}) shows the key features we will use to create functional environmental sensors.
-\marginnote[-0cm]{
+\marginnote[-3.5cm]{
 	The documents \htmladdnormallink{adafruit-feather-huzzah-esp8266.pdf}{https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-huzzah-esp8266.pdf} and \htmladdnormallink{adafruit-huzzah-esp8266-breakout.pdf}{https://cdn-learn.adafruit.com/downloads/pdf/adafruit-huzzah-esp8266-breakout.pdf} are the best overall resources for information about the Adafruit Huzzah Feather and Breakout versions of the ESP8266 microcontroller. 
 	Please download the document for your microcontroller for future reference about specifications, pin definitions, voltage tolerances, \etc
 }
@@ -115,6 +115,11 @@ Along the right and left edges are soldered ``pins'', %which are spaced to fit i
 which have different capabilities to transmit electrical signals to and from the microcontroller. 
 These pins have labels alongside (sometimes a little above or below) that identify the pin, so it can be referred to in MicroPython codes. 
 We will explain how to use these pins in \refch{first_exercises}. 
+
+\begin{kaobox}[frametitle=A flash of insight]
+	In these exercises, we assume that your microcontroller already has the basic software needed to run MicroPython. This basic software is called ``firmware'', which must be ``flashed'' onto a microcontroller. The instructions for flashing MicroPython firmware onto your microcontroller are given at the \htmladdnormallink{Getting started with MicroPython}{http://docs.micropython.org/en/latest/esp8266/tutorial/intro.html\#intro} tutorial. If your microcontroller doesn't yet have its firmware, follow the instructions in that tutorial to get ready for the activities in this book.
+\end{kaobox}
+
 
 
 %\begin{marginfigure}[0cm]
@@ -185,8 +190,8 @@ In addition to the instructions in this chapter, tutorials for setting up and tr
 We will first take you through the steps necessary to connect to your microcontroller using USB. In \refsec{WiFi_connect}, we will use this USB connection to set up your microcontroller for WiFi connections.
 
 \subsection{Installing the driver for USB connections}
-If your laptop runs Windows, OS X (Mac) or Chrome OS, you will need to install a driver to enable your computer to connect with serial USB converter on your ESP8266 Feather microcontroller (this is not needed on linux machines). 
-The driver is available at \htmladdnormallink{this link}{https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx}. 
+If your laptop runs Windows, OS X (Mac) or Chrome OS, you may need to install a driver to enable your computer to connect with serial USB converter on your ESP8266 Feather microcontroller (this is not needed on linux machines). 
+The driver is available at \htmladdnormallink{this link}{https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx}. \todo{This link is now broken.}
 
 Computers with older operating systems may require an older version of the driver. 
 If you install the newest one and still cannot connect to the microcontroller, try installing the next older one. 
@@ -199,7 +204,7 @@ For USB connections, you need to install an extension called \textbf{BeagleTerm}
 From a Chrome browser window, navigate to  \htmladdnormallink{this link}{https://chrome.google.com/webstore/detail/beagle-term/gkdofhllgfohlddimiiildbgoggdpoea?hl=en}, and use the button at the upper right to install it. 
 BeagleTerm will now appear in your list of \htmladdnormallink{Apps}{chrome://apps/}.
 
-\begin{marginfigure}[-4cm]
+\begin{marginfigure}[-18cm]
 	\begin{center}
 		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/BeagleTermConnect.png}}{https://publicsensors.org/IntroSensors/Images/BeagleTermConnect.png}
 		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/BeagleTerm.png}}{https://publicsensors.org/IntroSensors/Images/BeagleTerm.png}
@@ -255,7 +260,7 @@ With Python3 installed, the \texttt{pip3} utility makes it straightforward to in
 	\item \textbf{Open a terminal window.}
 	\item \textbf{Install the latest version of \mpfshell and the packages it requires.}
 	
-	On Mac OS and linux machines, use the command\sidenote[][*+0]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Follow the script!]In this book, we will use this format to indicate code to be entered typed into a REPL session on your microcontroller, or to be put into a file to be run on your microcontroller or laptop.\end{kaobox}}
+	On Mac OS and linux machines, use a terminal window to issue the command\sidenote[][*-8]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Follow the script!]In this book, we will use this format to indicate commands to be entered into a terminal window, code to be entered typed into a REPL session on your microcontroller, or lines to be put into a file to be run on your microcontroller or laptop.\end{kaobox}}
 \begin{lstlisting}[language=bash]
 pip3 install --upgrade --user mpfshell
 \end{lstlisting}
@@ -287,7 +292,7 @@ python setup.py install
 	On Windows computers, check the \texttt{COM} port number of your microcontroller by opening \texttt{Device Manager} and looking under the ``\texttt{Ports}'' drop down menu. 
 
 	\smallskip
-	On Mac OS and linux computers, issue the command
+	On Mac OS and linux computers, use a terminal window to issue the command
 \begin{lstlisting}[language=bash]
 ls -lht | head -n 30
 \end{lstlisting}
@@ -318,11 +323,11 @@ sudo adduser username dialout
 	
 \item You can now use simple commands to: \begin{itemize}
 	\item \textbf{List the files} on your microcontroller (\texttt{ls}) or in your laptop's directory (\texttt{lls}); 
-	\item \textbf{Upload a file} from your laptop to your microcontroller (e.g., \texttt{put blah.py}); or,
-	\item \textbf{Download a file} from your microcontroller to your laptop (e.g., \texttt{get blah.py}).
+	\item \textbf{Upload a file} \textit{from} your laptop \textit{to} your microcontroller (e.g., \texttt{put blah.py}), where \texttt{blah.py} is one of the files listed by the \texttt{lls}; or,
+	\item \textbf{Download a file} \textit{from} your microcontroller \textit{to} your laptop (e.g., \texttt{get blah2.py}), where \texttt{blah2.py} is one of the files listed by the \texttt{ls}.
 \end{itemize} 
 Many other commands are available in \mpfshell.
-You can learn about them by executing %\texttt{help}
+You can learn about them by executing
 \begin{lstlisting}[language=bash]
 help
 \end{lstlisting}
@@ -338,8 +343,7 @@ When you switch into \texttt{REPL}, \mpfshell gives you a message just above the
 \begin{lstlisting}[language=bash]
 *** Exit REPL with Ctrl+] ***
 \end{lstlisting}
-% \verb|*** Exit REPL with Ctrl+] ***|. 
-This tells you the command to switch out of the REPL session and back into file transfer mode (in this case, pressing the \verb|Ctrl| and \verb|]| keys on your keyboard simultaneously).
+This tells you the command to switch out of the REPL session and back into file transfer mode. In this example, it's pressing the \verb|Ctrl| and \verb|]| keys on your keyboard simultaneously, but in some installations it's a different combination of keys.
  
 You can switch back and forth between REPL and file transfer mode as many times as you want, as you edit your code, upload and execute it on your microcontroller, download data, \etc
 
@@ -489,7 +493,7 @@ There are two easy ways to stop this unhelpful output:
 
 \subsection{WiFi connections using \texttt{WebREPL} in a browser}
 \texttt{WebREPL} is a way for you to use a browser window to log onto your microcontroller, when it has an active WiFi interface (either in Access Point or Station mode). 
-\begin{marginfigure}[6cm]
+\begin{marginfigure}[0cm]
 	\begin{center}
 		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/WebREPLupload2.png}}{https://publicsensors.org/IntroSensors/Images/WebREPLupload2.png}
 		\caption[A WebREPL session with upload.]{An active WebREPL session, showing the login prompt (main terminal frame) and a file upload (right side panel.}
@@ -501,7 +505,7 @@ It provides access to REPL, and makes it very easy to upload and download files 
 
 %Note: Your microcontroller has to be connected via wifi for WebREPL to work, either with your laptop logged onto an Access Point created by the microcontroller, or with both your laptop and microcontroller logged onto another Access Point.
 
-WebREPL is a free download from this	 \htmladdnormallink{link}{https://github.com/micropython/webrepl}. \sidenote[][*+0]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Locally sourced\dots]Note that \texttt{WebREPL} is available to use online, without installing it. 
+WebREPL is a free download from this	 \htmladdnormallink{link}{https://github.com/micropython/webrepl}. \sidenote[][*6]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Locally sourced\dots]Note that \texttt{WebREPL} is available to use online, without installing it. 
 \emph{However, you will most likely want to have it actually installed directly on your computer.} 
 That is because, unless you have multiple internet connections available on your computer, you can’t use the online WebREPL when you connect directly to your ESP8266 as an Access Point.
 You can, however, use the online \texttt{WebREPL} if your laptop and microcontroller are both logged onto another Access Point. 
@@ -607,13 +611,6 @@ to manually start \texttt{webrepl}. Your microcontroller will then be available 
 	The textbox at the bottom of the right side panel will now report the file sent and the number of bytes uploaded.
 \end{enumerate}
 
-\begin{marginfigure}[0cm]
-	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/WebREPLdownload.png}}{https://publicsensors.org/IntroSensors/Images/WebREPLdownload.png}
-		\caption[A WebREPL session with download.]{An active WebREPL session, showing the commands to list the files on the microcontroller (main terminal frame), a file download (right side panel, and a prompt for how to save or open the file.}
-		\labfig{WebREPL_download}
-	\end{center}
-\end{marginfigure}
 
 \subsubsection{\howto Download a file from your microcontroller using \texttt{WebREPL}}
 \begin{enumerate}
@@ -629,6 +626,14 @@ os.listdir()
 	\item \textbf{Click the \texttt{Get from device} button.} 
 	\item \texttt{WebREPL} will download the file, report its name and size in the text box, and prompt you to save or open the file on your laptop.
 	\end{enumerate}
+
+\begin{marginfigure}[0cm]
+	\begin{center}
+		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/WebREPLdownload.png}}{https://publicsensors.org/IntroSensors/Images/WebREPLdownload.png}
+		\caption[A WebREPL session with download.]{An active WebREPL session, showing the commands to list the files on the microcontroller (main terminal frame), a file download (right side panel, and a prompt for how to save or open the file.}
+		\labfig{WebREPL_download}
+	\end{center}
+\end{marginfigure}
 
 
 %\subsubsection{WiFi connections via \texttt{Secure Shell} in Chrome}

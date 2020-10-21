@@ -104,7 +104,7 @@ Initially this may feel unfamiliar.
 After you have assembled your first few circuits, though, it will quickly come to feel much easier and more intuitive.
 
 \subsection{Breadboard basics}
-\begin{marginfigure}[-0.cm]
+\begin{marginfigure}[-10.cm]
 	\begin{center}
 		\htmladdnormallink{\includegraphics[width=\MFWn]{/home/dg/PublicSensors/Textbooks/IntroSensors/Fritzing/breadboard_bare.png}}{https://publicsensors.org/IntroSensors/Fritzing/breadboard_bare.png}
 		\htmladdnormallink{\includegraphics[width=\MFWn]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/breadboard_back1_crop.png}	}{https://publicsensors.org/IntroSensors/Images/breadboard_back1_crop.png}
@@ -120,7 +120,7 @@ The geometry of these holes and hidden wires is designed to make assembling and 
 \emph{Prototyping} is the overall process of designing, assembling, correcting and enhancing new circuits. 
 In prototyping, it is common (and usually harmless) to make small mistakes. 
 Also, prototyping often involves some guesswork and iteration about \emph{layout} (e.g., which components should go next to which, to make wiring as compact and simple as possible).
-The holes in breadboards are shaped so that wires (often called \emph{jumpers}\sidenote[][*-10]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Wire we using jumpers?]
+The holes in breadboards are shaped so that wires (often called \emph{jumpers}\sidenote[][*-4]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Wire we using jumpers?]
 	To make electrical connections on a breadboard, we use wires called ``jumpers''. 
 	Jumpers are mostly covered with insulation, to avoid accidental connections (``short circuits''). 
 	However, the last few millimeters on both ends are \emph{stripped} (the insulation is removed) so that they fit into the breadboard. 
@@ -241,12 +241,6 @@ Despite differences in size, however, the same basic geometry of hidden wires co
 %We will learn more about how to use these pins in the next section. 
 
 
-\begin{marginfigure}[-2cm]
-	\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/breadboard_ESP8266feather.jpg}}{https://publicsensors.org/IntroSensors/Images/breadboard_ESP8266feather.jpg}
-	\caption[ESP8266 feather microcontroller on breadboard]{Breadboard with ESP8266 feather.}
-	\labfig{margin_breadboard_esp8266}
-\end{marginfigure}
-
 %
 %\begin{lstlisting}
 %	\begin{marginfigure}
@@ -306,6 +300,12 @@ Because these LEDs are already present without need for external connections, an
 
 \subsubsection{\howto Turn on/off the on-board LEDs}
 To control the red LED, you will use the \lstinline{Pin} method from Micropython’s \lstinline{machine} package.
+\begin{marginfigure}[-2cm]
+	\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/breadboard_ESP8266feather.jpg}}{https://publicsensors.org/IntroSensors/Images/breadboard_ESP8266feather.jpg}
+	\caption[ESP8266 feather microcontroller on breadboard]{Breadboard with ESP8266 feather.}
+	\labfig{margin_breadboard_esp8266}
+\end{marginfigure}
+
 %\sidenote{
 %	In this section, we assume you have already established communications with your microcontroller. 
 %	If you have not yet done that, please see %\refpart{conns} %
@@ -430,7 +430,7 @@ When they are working correctly, we'll integrate them into the emerging circuit 
 
 \subsection{Distributing power across the breadboard}
 The first sub-circuit we'll construct will connect the positive and negative rails, so that power and ground connections are easily accessible from all parts of the breadboard.
-\begin{marginfigure}[-5cm]
+\begin{marginfigure}[-0cm]
 	\begin{center}
 		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Fritzing/feather_rails.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_rails.png}
 		\caption[Power/ground rails connection schematic]{Typical layout for connecting power and ground rails to a Feather microcontroller.}
@@ -483,7 +483,7 @@ The first sub-circuit we'll construct will connect the positive and negative rai
 	An easy way to do this is to use insert one end of a male-male jumper into one of the positive rails. 
 	Insert one end of \textbf{another} male-male jumper into one of the negative rails. 
 	Now, use the multimeter to test the voltage difference between the free ends of the two jumpers.
-	\sidenote[][*-12]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=CAREFUL!]Make sure not to connect the positive and negative rails directly together --- for example by brushing the leads of the multimeter to each other while they are touching the rails. This would cause a short circuit that could damage your microcontroller!\end{kaobox}}
+	\sidenote[][*-4]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=CAREFUL!]Make sure not to connect the positive and negative rails directly together --- for example by brushing the leads of the multimeter to each other while they are touching the rails. This would cause a short circuit that could damage your microcontroller!\end{kaobox}}
 	
 \end{enumerate}
 \loadMilestone{mlst:02b} % load milestone with tags id: mlst:02b
@@ -493,7 +493,7 @@ One of the most useful things a GPIO does is let you control your microcontrolle
 For example, in an environmental sensor, you might want to turn sampling on and off with a button switch, have nearby motion trigger a camera, or count rotations of a propeller to measure wind speed. All of these involve using GPIOs as inputs. 
 
 As a first step, you will assemble a sub-circuit enabling the microcontroller to respond to button presses. 
-\sidenote[][*-16]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Button it up!]
+\sidenote[][*-12]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Button it up!]
 	The type of switch used in this circuit is called a \emph{momentary} switch. 
 	``Momentary'' means the switch will connect two pins while the button is being pressed, and immediately disconnect them when the button is released. 
 	Many other types of switches are available for different functions. 
@@ -524,6 +524,12 @@ The narrow side pins are insulated from each other, unless the button is pushed.
 While the button is being held down, a connection is made across the narrow sides.
 When the button is released, the narrow side pins are again insulated from each other.
 
+\subsubsection{\howto Assemble a button switch sub-circuit}
+\begin{enumerate}
+	\item  \textbf{Connect your button to the breadboard.}
+	
+	As shown in \reffig{feather_switch}, make sure the wide sides are aligned with a row. As usual, the exact rows in which the button is placed are not critical. However, it's a good idea to place the button reasonably close to the bottom of the microcontroller, so there is enough room below to assemble other sub-circuits.
+	
 \begin{marginfigure}[-0cm]
 	\begin{center}
 		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Fritzing/feather_switch.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_switch.png}
@@ -532,12 +538,6 @@ When the button is released, the narrow side pins are again insulated from each 
 	\end{center}
 \end{marginfigure}
 
-\subsubsection{\howto Assemble a button switch sub-circuit}
-\begin{enumerate}
-	\item  \textbf{Connect your button to the breadboard.}
-	
-	As shown in \reffig{feather_switch}, make sure the wide sides are aligned with a row. As usual, the exact rows in which the button is placed are not critical. However, it's a good idea to place the button reasonably close to the bottom of the microcontroller, so there is enough room below to assemble other sub-circuits.
-	
 	\item  \textbf{Jumper one wide side pin pair to the negative rail.}
 	
 	Because all the holes in the negative rail are connected to each other, any of them will work for our purposes. This means we're free to choose a hole that makes our sub-circuit compact and neat, and out of the way of other sub-circuits. 
@@ -688,7 +688,7 @@ The relay in the circuit you build in this example will control only a small dev
 However, the same circuit configuration with a larger power supply and more robust relay could be used to control large equipment like winches, pumps, light banks, etc. that use large amounts of current or high voltages. 
 
 
-\begin{marginfigure}[-10cm]
+\begin{marginfigure}[0cm]
 	\begin{center}
 		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Fritzing/feather_switch_relay_LED.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_switch_relay_LED.png}
 		\caption[Button connections schematic]{An example of layout for the relay-LED sub-circuit }
