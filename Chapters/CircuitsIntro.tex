@@ -492,7 +492,7 @@ Then, in \refsec{vd_make}, you will assemble your voltage divider design and ass
 Now that you've designed an analog voltage sensor for monitoring an \texttt{18650} battery, it's time to build it and see how it works!
 \begin{marginfigure}[-0cm]
 	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Fritzing/feather_voltage_divider2_bb.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_voltage_divider2_bb.png}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_voltage_divider2_bb.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_voltage_divider2_bb.png}
 		\caption[Voltage divider schematic]{An illustration of the layout for an analog voltage sensor, using a \texttt{voltage divider} to measure voltage from an \texttt{18650} battery. 
 		In the schematic, jumpers that are not needed but may be left in place if already present are indicated in gray.}
 		\labfig{feather_voltage_divider2}
@@ -962,7 +962,7 @@ If you have chosen Configuration 1, your circuit layout will have the thermistor
 \labsec{therm_build}
 \begin{marginfigure}[-8cm]
 	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Fritzing/feather_thermistor_bb.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_thermistor_bb.png}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_thermistor_bb.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_thermistor_bb.png}
 		\caption[Thermistor circuit schematic]{An illustration of the layout for a circuit using a thermistor to measure temperature. 
 		This schematic represents Configuration 2, in which the thermistor (here labeled \texttt{RTH2}) takes the place of resistor $R_2$ in the original voltage divider circuit.
 		In Configuration 1, the thermistor would instead take the place of resistor $R_1$. 
@@ -1106,7 +1106,7 @@ E_e \approx R_e f .
 \labsec{tsl237}
 \begin{marginfigure}[-14cm]
 	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Fritzing/feather_tsl237module1_bb.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_tsl237module1_bb.png}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_tsl237module1_bb.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_tsl237module1_bb.png}
 		\caption[Light sensor sub-circuit 1 schematic]{An illustration of the circuit layout for sensing light using a \texttt{TSL237} Light-to-Frequency sensor. 
 		This schematic represents sub-circuit 1, in which frequency is read directly from the sensor.
 		The sensor, labeled \texttt{TSL237}, is represented by an image of an \texttt{LED}, because no image of the \texttt{TSL237} is currently available in the Fritzing software.  
@@ -1204,7 +1204,7 @@ By measuring the period of signals coming from the \texttt{CD4017B}, your circui
 \labsec{cd4017b}
 \begin{marginfigure}[-0cm]
 	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Fritzing/feather_tsl237_bb.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_tsl237_bb.png}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_tsl237_bb.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_tsl237_bb.png}
 		\caption[Complete light sensor circuit schematic]{An illustration of the circuit layout for sensing light coupling a \texttt{CD4017B} counter/divider with a \texttt{TSL237} Light-to-Frequency sensor. 
 		Sub-circuit 2 is an addition to sub-circuit 1, which is not modified. 
 		Wire colors retain the same meaning as in sub-circuit 1, with the additional purple wire representing divided frequency from the frequency-modulated sensor output.
@@ -1278,7 +1278,7 @@ In the case of your light sensor, a driver should provide a clear and intuitive 
 
 \begin{marginfigure}[-0cm]
 	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/period_tsl237_divider.png}}{https://publicsensors.org/IntroSensors/Images/period_tsl237_divider.png}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Images/period_tsl237_divider.png}}{https://publicsensors.org/IntroSensors/Images/period_tsl237_divider.png}
 		\caption[Periods from a light sensor and frequency divider]{Comparison of periods measured directly from a \texttt{TSL237} Light-to-Frequency sensor \textit{vs.} through a \texttt{CD4017B} counter/divider. 
 		Note the \texttt{1:10} offsets in axis scales. 
 		The solid line is the \texttt{1:10} line. 

@@ -1,6 +1,7 @@
 \setchapterstyle{kao}
 \setchapterpreamble[u]{\margintoc}
-\chapter{First exercises with MicroPython on the ESP8266 microcontroller}
+\chapter{Circuit-building with MicroPython on the ESP8266 microcontroller}
+%\chapter{First exercises with MicroPython on the ESP8266 microcontroller}
 \labch{first_exercises}
 This chapter covers a few concepts and skills you will need to work productively with microcontrollers. After some background, these are presented in the form of three exercises, in which you will learn: 
 \begin{enumerate}
@@ -73,7 +74,7 @@ Like this example, most circuits share a few common features, such as:
 \begin{itemize}
 	 \item A power source (or connections to attach one);
 	 \item One or more components to regulate power, such as switches or resistors; and,
-	 \item One or more components that convert electrical signals into physical effects (such as emitting light or turning a motor) or, alternatively, converting physical parameters into electrical signals (such as temperature or light sensors). 
+	 \item One or more components that convert electrical signals into physical effects (such as emitting light or turning a motor) or, alternatively, convert physical parameters into electrical signals (such as temperature or light sensors). 
 \end{itemize}
 
 In general, complicated circuits are built out of combinations of simpler ``sub-circuits''. Sub-circuits are parts of the overall circuit, that each have an identifiable and testable function. 
@@ -106,9 +107,9 @@ After you have assembled your first few circuits, though, it will quickly come t
 \subsection{Breadboard basics}
 \begin{marginfigure}[-10.cm]
 	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFWn]{/home/dg/PublicSensors/Textbooks/IntroSensors/Fritzing/breadboard_bare.png}}{https://publicsensors.org/IntroSensors/Fritzing/breadboard_bare.png}
-		\htmladdnormallink{\includegraphics[width=\MFWn]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/breadboard_back1_crop.png}	}{https://publicsensors.org/IntroSensors/Images/breadboard_back1_crop.png}
-		\caption[Breadboard front/back]{Breadboard front view, and back view with wires (partly) exposed.}
+		\htmladdnormallink{\includegraphics[width=\MFWn]{Fritzing/breadboard_bare.png}}{https://publicsensors.org/IntroSensors/Fritzing/breadboard_bare.png}
+		\htmladdnormallink{\includegraphics[width=\MFWn]{Images/breadboard_back1_crop.png}	}{https://publicsensors.org/IntroSensors/Images/breadboard_back1_crop.png}
+		\caption[Breadboard front/back]{Breadboard front view, and back view with wires partly exposed.}
 		\labfig{margin_breadboard}
 	\end{center}
 \end{marginfigure}
@@ -138,8 +139,8 @@ Breadboards are useful, among other reasons, because they help make this process
 %}
 %\begin{marginfigure}[-0.cm]
 %	\begin{center}
-%			\htmladdnormallink{\includegraphics[width=\MFWn]{/home/dg/PublicSensors/Textbooks/IntroSensors/Fritzing/breadboard_bare.png}}{https://publicsensors.org/IntroSensors/Fritzing/breadboard_bare.png}
-%			\htmladdnormallink{\includegraphics[width=\MFWn]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/breadboard_back1_crop.png}	}{https://publicsensors.org/IntroSensors/Images/breadboard_back1_crop.png}
+%			\htmladdnormallink{\includegraphics[width=\MFWn]{Fritzing/breadboard_bare.png}}{https://publicsensors.org/IntroSensors/Fritzing/breadboard_bare.png}
+%			\htmladdnormallink{\includegraphics[width=\MFWn]{Images/breadboard_back1_crop.png}	}{https://publicsensors.org/IntroSensors/Images/breadboard_back1_crop.png}
 %		\caption[Breadboard front/back]{Breadboard front view, and back view with wires (partly) exposed.}
 %		\labfig{margin_breadboard}
 %	\end{center}
@@ -164,7 +165,7 @@ These exterior columns of holes, sometimes called \emph{rails}, are usually rese
 
 \begin{marginfigure}[-4 cm]
 	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Fritzing/breadboard_connections.png}}{https://publicsensors.org/IntroSensors/Fritzing/breadboard_connections.png}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/breadboard_connections.png}}{https://publicsensors.org/IntroSensors/Fritzing/breadboard_connections.png}
 		\caption[Breadboard connections schematic]{An illustration of the connections provided by hidden wires in a typical breadboard. The five holes in each interior row are connected, as indicated by the horizontal black lines. The gray vertical line is the ``gutter'' --- holes on opposite sides of the gutter are \underline{not} connected. Holes are also connected in exterior columns (called ``rails''), indicated here by the vertical black line.}
 		\labfig{marginbb_schematic}
 	\end{center}
@@ -203,7 +204,7 @@ Despite differences in size, however, the same basic geometry of hidden wires co
 %
 %\begin{marginfigure}[-18cm]
 %	\begin{center}
-%			\includegraphics[height=6cm]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/ESP8266feather_top.png}
+%			\includegraphics[height=6cm]{Images/ESP8266feather_top.png}
 %		\caption[ESP8266 feather microcontroller]{A ESP8266 Feather microcontroller.}
 %		\labfig{margin_esp8266}
 %	\end{center}
@@ -244,7 +245,7 @@ Despite differences in size, however, the same basic geometry of hidden wires co
 %
 %\begin{lstlisting}
 %	\begin{marginfigure}
-%		\includegraphics{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/IMG_20181205_082817686.jpg}
+%		\includegraphics{Images/IMG_20181205_082817686.jpg}
 %		\caption[ESP8266 feather microcontroller on breadboard, too]{Breadboard with ESP8266 feather, again.}
 %		\labfig{esp8266brd}
 %	\end{marginfigure}
@@ -254,7 +255,7 @@ Despite differences in size, however, the same basic geometry of hidden wires co
 %\begin{kaobox}[frametitle=Beyond breaboarding \dots]
 \begin{kaobox}[frametitle=Board with circuit design \dots]
 	For sensors intended to function in the environment, sometimes it is sufficient to use a circuit built on a breadboard. 
-	Other times, however, circuits must be made as small as possible (e.g. to fit into a waterproof housing), resistant to vibrations, etc.
+	Other times, however, circuits must be made as small as possible (e.g. to fit into a waterproof housing), be resistant to vibrations, etc.
 	In these cases, it may helpful to use soldered connections on a \htmladdnormallink{``stripboard''}{https://en.wikipedia.org/wiki/Stripboard} or a Printed Circuit Board (PCB). 
 	This is usually done after a fully functional prototype is developed on a breadboard.
 	For instructions on how to make your own PCBs, see \refch{PCB_design}.
@@ -301,7 +302,7 @@ Because these LEDs are already present without need for external connections, an
 \subsubsection{\howto Turn on/off the on-board LEDs}
 To control the red LED, you will use the \lstinline{Pin} method from Micropython’s \lstinline{machine} package.
 \begin{marginfigure}[-2cm]
-	\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/breadboard_ESP8266feather.jpg}}{https://publicsensors.org/IntroSensors/Images/breadboard_ESP8266feather.jpg}
+	\htmladdnormallink{\includegraphics[width=\MFW]{Images/breadboard_ESP8266feather.jpg}}{https://publicsensors.org/IntroSensors/Images/breadboard_ESP8266feather.jpg}
 	\caption[ESP8266 feather microcontroller on breadboard]{Breadboard with ESP8266 feather.}
 	\labfig{margin_breadboard_esp8266}
 \end{marginfigure}
@@ -432,7 +433,7 @@ When they are working correctly, we'll integrate them into the emerging circuit 
 The first sub-circuit we'll construct will connect the positive and negative rails, so that power and ground connections are easily accessible from all parts of the breadboard.
 \begin{marginfigure}[-0cm]
 	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Fritzing/feather_rails.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_rails.png}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_rails.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_rails.png}
 		\caption[Power/ground rails connection schematic]{Typical layout for connecting power and ground rails to a Feather microcontroller.}
 		\labfig{feather_rails}
 	\end{center}
@@ -442,7 +443,7 @@ The first sub-circuit we'll construct will connect the positive and negative rai
 \begin{enumerate}
 	\item \textbf{Disconnect your ESP8266 from the USB cable}.
 	
-	It is often wise to turn off power to the microcontroller while you assemble circuits. 
+	It is usually wise to turn off power to the microcontroller while you assemble circuits. 
 	Otherwise, misplacing a jumper, or even briefly brushing it against the microcontroller or another component, can cause a short circuit and permanently damage your microcontroller! 
  	
  	Because the USB cable automatically supplies power, the only way to turn off power to the microcontroller is to disconnect the USB cable.
@@ -502,23 +503,25 @@ As a first step, you will assemble a sub-circuit enabling the microcontroller to
 This sub-circuit will require a button switch and two jumpers, and a few lines of code. 
 When this sub-circuit works properly, you'll incorporate it into the other components of the circuit so that a button push starts and stops LED snoozing. 
 
+Some button switches have two pins. 
+With these switches, the two pins should go into different rows on the breadboard.
+Pressing the button then forms an electrical connection between those two rows.
 
-
-Like many button switches, this one has four pins. 
+Like many other button switches, the switch in this illustration one has four pins. 
 This is mostly for mechanical support, to keep the pins from breaking or pulling out too easily.
 Two pairs of these pins are connected to each other, so there are really just two independent sets of pins that are connected and disconnected by button presses.
 
 Notice that the pins are not equally spaced. 
 The different spacing is to help you orient the button correctly.
  
-On two opposite edges, pins are spaced to skip over \emph{three} holes on a breadboard. 
+On two opposite edges, pins are spaced to span over \emph{three} holes on a breadboard. 
 We will call these the \emph{wide} sides.
-On this type of button, the wide side pins are always internally connected to each other. \sidenote[][*-10]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Button orientation]
-	In most breadboard layouts, a button's wide side pins are placed in the same row on the same side of the gutter as in \reffig{feather_switch}. 
+On this type of button, the wide side pins are permanently connected to each other, inside the switch. \sidenote[][*-10]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=This turns me on!]
+	Sometimes it's hard to tell which orientation a 4-pin button should be plugged into a breadboard. In most breadboard layouts, a button's wide side pins are placed in the same row on the same side of the gutter as in \reffig{feather_switch}. 
 	Occasionally, though, the wide side pins are placed on opposite sides of the gutter, in which case they act as a jumper connecting adjacent rows across the gutter. 
 	In this configuration, pressing the button connects all four breadboard rows (two on each side of the gutter)!\end{kaobox}}
 
-On the perpendicular edges, pins are spaced to skip over \emph{two} holes on a breadboard. 
+On the perpendicular edges, pins are spaced to span over \emph{two} holes on a breadboard. 
 We will call these the \emph{narrow} sides.
 The narrow side pins are insulated from each other, unless the button is pushed. 
 While the button is being held down, a connection is made across the narrow sides.
@@ -528,11 +531,12 @@ When the button is released, the narrow side pins are again insulated from each 
 \begin{enumerate}
 	\item  \textbf{Connect your button to the breadboard.}
 	
-	As shown in \reffig{feather_switch}, make sure the wide sides are aligned with a row. As usual, the exact rows in which the button is placed are not critical. However, it's a good idea to place the button reasonably close to the bottom of the microcontroller, so there is enough room below to assemble other sub-circuits.
+	As shown in \reffig{feather_switch}, make sure the wide sides are aligned with a row. As usual, the exact rows in which the button is placed are not critical. However, it's a good idea to place the button reasonably close to the bottom of the microcontroller, so there is enough room to assemble other sub-circuits.
 	
 \begin{marginfigure}[-0cm]
 	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Fritzing/feather_switch.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_switch.png}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_switch.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_switch.png}
+%		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_switch.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_switch.png}
 		\caption[Button connections schematic]{An illustration of the layout for connecting a button switch to an input GPIO on the Feather. Notice the orientation of the button: The more widely spaced pins orient along rows, and the more narrowly spaced pins orient along columns.}
 		\labfig{feather_switch}
 	\end{center}
@@ -579,7 +583,7 @@ When you find the difference between what you did and what you meant to do, the 
 \subsection{Acting reflexively: GPIO \texttt{interrupts} and \texttt{handlers}}
 Now that you have a button that conveys a signal to your microcontroller, how can you use it to perform a useful function? 
 One approach would be to have a code that continually checks whether a button is being pressed or not. 
-However, this wastes a lot of processing power, and besides is cumbersome to incorporate into environmental sensor codes. 
+However, this wastes a lot of processing power, and besides is cumbersome to incorporate into environmental sensor codes.
 
 Like most modern microcontrollers, \texttt{ESP8266}s can be programmed to have ``reflexes'', which cause them to automatically perform a task when a specific GPIO changes between its ``high'' and ``low'' states. 
 These reflexes are called \emph{interrupts}, because (with some exceptions) they can be triggered even when the microcontroller is busy running a MicroPython script to perform another task. 
@@ -599,6 +603,9 @@ Suppose we would like to set up our microcontroller so that, when we press the b
 \begin{enumerate}
 	\item \textbf{Download the} \lstinline{button_interrupt.py} \textbf{python script, and copy it onto your microcontroller.}
 	\lstinputlisting[language=Python,label=ButtonInterrupt,caption={\htmladdnormallink{\texttt{button\textunderscore interrupt.py}}{https://publicsensors.org/IntroSensors/Codes/button_interrupt.py}: A Micropython script to toggle the state of GPIO 2 when GPIO 0 changes state.}]{Codes/button_interrupt.py}
+	In this code, \lstinline{togglePin0} is the ``handler'' -- it is the function that will get called when the interrupt is triggered. 
+	The ``irq'' in the \lstinline{pin2.irq} command stands for ``interrupt request'' -- this is the command that tells the microcontroller to execute the handler function in response to a change in the state of \lstinline{pin2}. 
+	
 	\item \textbf{In a \texttt{REPL} session, import the module:}
 \begin{lstlisting}[language=Python]
 import buttonInterrupt
@@ -609,6 +616,13 @@ import buttonInterrupt
 	\texttt{GPIO} \texttt{interrupts} respond to pin state transitions high$\rightarrow$low as different types of events from low$\rightarrow$high transitions.
 	In coding an \texttt{interrupt}, you can specify responses to either or both of these transitions.
 	
+	\smallskip
+	The code gives three alternative versions of the \lstinline{pin2.irq} command.
+	The first version tells the microcontroller to execute \lstinline{togglePin0} only when \lstinline{pin2.value()} ``falls'' -- that is, goes high $\rightarrow$ low. 
+	The second version, which is commented out in the example, tells the microcontroller to execute \lstinline{togglePin0} only when \lstinline{pin2.value()} ``rises'' -- that is, goes low $\rightarrow$ high. 
+	The third version, which is also commented out in the example, tells the microcontroller to execute \lstinline{togglePin0} when \lstinline{pin2.value()} changes, either rising or falling.
+	In different environmental sensing applications, different choices among these behaviors might be the most useful. 
+
 	\smallskip
 	How does your circuit behave if you use \lstinline{trigger=Pin.IRQ_FALLING|Pin.IRQ_RISING} to define your \texttt{interrupt}, so it responds to both high$\rightarrow$low and low$\rightarrow$high state changes?
 \end{enumerate}
@@ -629,7 +643,7 @@ However, it's a good idea to look over \reffig{feather_switch_relay_LED} to see 
 Placing components similarly to \reffig{feather_switch_LED} is one way to do that. 
 \begin{marginfigure}[-10cm]
 	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Fritzing/feather_switch_LED.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_switch_LED.png}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_switch_LED.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_switch_LED.png}
 		\caption[Button connections schematic]{An illustration of the layout for an external LED. }
 		\labfig{feather_switch_LED}
 	\end{center}
@@ -690,7 +704,7 @@ However, the same circuit configuration with a larger power supply and more robu
 
 \begin{marginfigure}[0cm]
 	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Fritzing/feather_switch_relay_LED.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_switch_relay_LED.png}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_switch_relay_LED.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_switch_relay_LED.png}
 		\caption[Button connections schematic]{An example of layout for the relay-LED sub-circuit }
 		\labfig{feather_switch_relay_LED}
 	\end{center}
@@ -699,7 +713,7 @@ However, the same circuit configuration with a larger power supply and more robu
 %The figure is: \reffig{feather_switch_relay_LED}
 
 %\begin{marginfigure}[5cm]
-%	\includegraphics{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/LEDrelay_circuitESP8266feather.jpg}
+%	\includegraphics{Images/LEDrelay_circuitESP8266feather.jpg}
 %	\caption[ESP8266 LED relay circuit]{A circuit in which an ESP8266 Feather microcontroller switches an LED using a relay.}
 %	\labfig{margin_LEDrelay_esp8266}
 %\end{marginfigure}

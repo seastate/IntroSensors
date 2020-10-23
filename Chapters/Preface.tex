@@ -12,7 +12,7 @@ Environmental sensing instrumentation is the primary means we have to measure cu
 
 Historically, at least in modern times, most environmental data have been collected by professional scientists using instruments that were specialized and costly --- and, therefore, sparse in number and accessible to very few people.
 The data from these instruments are invaluable for addressing some kinds of scientific questions. 
-But they are too limited to address many others, including some short-term, spatially-localized environmental variations that can have dramatic impacts on human communities and natural habitats.
+But they are too limited to address many others, including some of the short-term, spatially-localized environmental variations that can have dramatic impacts on human communities and natural habitats.
 
 Technological innovations in sensors, microcontrollers and microcomputers, power systems and data telemetry have dramatically opened access to devices that quantify and upload or store environmental data, and sharply reduced their cost.
 Given current trends in governmental research funding and priorities, networks of low cost instruments deployed by students, stakeholders and other members of the public are the most promising way to quantify the present states of natural systems and the ways in which they are changing. 
@@ -37,24 +37,25 @@ The purpose of this book is to empower readers to build and deploy inexpensive, 
 %\color{blue}
 This book takes an experiential learning approach to convey foundational knowledge of the methods used to observe environmental characteristics -- what sensors measure, why they work, what are the requirements to use them properly, and what insights can be gained from the resulting data.
 %\color{black}
-Readers will also gain skills in hands-on fabrication methods, debugging and problem-solving, statistics, 
+Readers will also gain skills in hands-on fabrication methods, debugging and problem-solving, statistics and data presentation.
 
 All methods of collecting environmental measurements in the environment have strengths and limitations, that impact how we design experimental observations and interpret the resulting data. 
 In many cases, we cannot directly measure the environmental characteristics in which we are most interested. 
 In these cases, we must use data that inform us about those characteristics indirectly, interpreting our data using models or statistical analyses. 
 To effectively present the foundations of environmental sensing, this book has dual emphases on conceptual understanding and 
 hands-on skills.
+In this wholistic approach, it pursues an additional overarching goal: to broaden, and to make more equitable, access to and appreciation of scientific inquiry as a human virtue and as a career path.
 
 \subsubsection{How to use this book}
 This book is a distillation and augmentation of activities and curricular materials developed for a junior-level undergraduate course in geosciences technology.
-That course was designed to build on concepts and analytical skills developed in previous courses, and to prepare students to pursue upper level classes in geosciences and related fields.
+That course was designed to build on concepts and analytical skills developed in previous courses, and to prepare students to pursue more advanced classes in geosciences and related fields.
 Learning goals included enhanced understanding of the strengths and weaknesses of existing and future observation techniques, and practical experience and skills in building, calibrating and designing protocols using sensors for scientific purposes. 
-The original activities and materials have been rewritten to be more self-contained, with more explanation and additional references to minimize reliance on assumed knowledge.
+The original activities and materials have been rewritten here to be more self-contained, with more explanation and additional references to minimize reliance on assumed knowledge, and to be more practical to carry out at home or in K-12 settings. The learning goals have been broadened, to include increased understanding and ability to work with the sensors surrounding us in day-to-day life.
 
-We have taught sensor-building to middle school students, to graduate students, and at all levels in between. 
+We have taught sensor-building to middle school students, to graduate students, to working professional scientists and educators, and at all levels in between. 
 We've found that, more than a specific age group, success with the activities in this book depends on a balance of engagement by students and a learning environment that supports exploration, collaboration, persistence, and occasional technical assistance.
 Our goal in writing this book is to provide a roadmap and technical advice to teachers and mentors of classes and clubs for students of all ages.
-With patience, and information readily available on the Internet, a highly motivated student (or, better, a collaborative group of highly motivated students) can build and use environmental sensors with little or no support from teachers or mentors.
+With patience, and information readily available on the Internet, a highly motivated student (or, better, a collaborative group of highly motivated students) can build and use the environmental sensors in this book with little or no support from teachers or mentors.
 Students working without support from teachers or mentors, however, might consider first working through tutorials in \htmladdnormallink{publicsensors.org}{https://publicsensors.org/} (or the Spanish-language equivalent, \htmladdnormallink{sensorespublicos.org}{https://sensorespublicos.org/}) before moving on to the more advanced activities and concepts in this book.
 
 Development and use of instruments in scientific settings almost invariably requires a combination of both individual effort and collaborative work. 
@@ -64,8 +65,8 @@ A ``MakerSpace'' atmosphere of collaborative, fun, low-stakes problem-solving tr
 
 The book is divided into three Parts:
 \begin{itemize}
-	\item \textsc{\textbf{Introduction}}, which introduces readers to basic skills for building circuits and communicating with microcontrollers;
-	\item \textsc{\textbf{Working with environmental sensors}}, which explores the function and usage of analog and digital sensor technologies, and telemetry of resulting data; and
+	\item \textsc{\textbf{Introduction}}, which introduces readers to basic skills for building circuits, and for communicating with and programming microcontrollers;
+	\item \textsc{\textbf{Working with environmental sensors}}, which explores the function and usage of analog and digital sensor technologies, and telemetry of the resulting data; and
 	\item \textsc{\textbf{Practical skills in environmental sensing}}, which covers methods of producing sensor packages that are compact and robust enough to function as practical field instruments.
 \end{itemize}
 Each Part comprises several chapters, which present brief background on a particular subject area, followed by guidance through a sequence of activities described in separate sections and subsections. 
@@ -75,7 +76,7 @@ The \textbf{Skills and tools} section of the Appendix may be useful in selecting
 
 Each activity is distinguished by a \howto icon, and concluded by a \textbf{Milestone} highlighted in a yellow textbox. 
 \textbf{Milestone}s are specific thresholds or results, which students and their mentors can use to assess whether the key skills and experiences motivating the activity have been realized. 
-To provide an overview, all the \textbf{Milestone}s are compiled in the Appendix.
+To provide an overview, all the \textbf{Milestone}s are reproduced together in Appendix \ref{ch:milestones}.
 
 Each chapter includes a list of required parts; these are also compiled (with URLs) in the Appendix.
 Python scripts for running microcontrollers and for data analysis are presented both as formatted code and, more suitable for copying and pasting, as links in margin notes to online plaintext copies.

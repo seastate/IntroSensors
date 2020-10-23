@@ -7,7 +7,7 @@ The purpose of this book is to provide you with the necessary skills and experie
 The ``brain'' of these instruments is a \emph{microcontroller}.
 A microcontroller is a device with a processing unit that can run codes and other instructions, and external connections (called \emph{pins}) to transmit electrical inputs and outputs. 
 The microcontroller is what enables your instrument to receive information from sensors, monitor and regulate its power supply, and communicate for receiving instructions and telemetering data. 
-Learning to communicate with and control a microcontroller is the first step in building and using environmental sensors. 
+Learning to communicate with and control a microcontroller is the first step in building and using environmental sensing instruments. 
 
 There are many types of microprocessors, which vary by overall size, power requirements, capabilities to input and output different kinds of electrical signals, onboard communication hardware like WiFi or USB, and the types of code or instructions they accept. 
 %
@@ -58,6 +58,7 @@ Many of the exercises in this book combine acquiring data from sensors using a m
 			\hline
 			\multirow{1}{4em}{\refsec{WiFi_connect}}  
 			& WiFi router & \ref{mat:router} \\ 
+			& WiFi USB dongle & \ref{mat:dongle} \\ 
 			\hline
 		\end{tabular}
 
@@ -79,6 +80,7 @@ It is small, has built-in WiFi, uses relatively little power, and is low cost fo
 The core ESP8266 microcontroller was originally intended to be placed in ``smart'' lightbulbs.
 \sidenote[][*-3]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Lighten up!]See \htmladdnormallink{Tinnkerman's light bulb hacks}{https://tinkerman.cat/post/yet-another-wifi-light-bulb/} for some fun examples in which the ESP8266 microcontroller is reprogrammed in place within a smart light bulb.
 Very large scale production for this purpose has made this microcontroller inexpensive, which also makes it a good choice for putting in sensors in often-harsh environments.\end{kaobox}}
+Many of the characteristics designed for its intended purpose also make it suitable for environmental sensing instruments.
 
 Note that the exercises in this book can be successfully completed using other microcontrollers. 
 We focus here on the Feather ESP8266 because it's one of the microcontrollers officially supported by \htmladdnormallink{MicroPython}{https://http://micropython.org/}, because Adafruit provides good documentation and support for it, and because it's likely to be available for some time into the future.
@@ -86,12 +88,12 @@ The other officially supported microcontroller, Adafruit's HUZZAH ESP8266 Breako
 Other manufacturers also make microcontroller boards based on the ESP8266. 
 Many of these will work in essentially the same way for exercises in this book. 
 Boards using other processors also can work. 
-These alternative microcontrollers may require modifying details in the MicroPython codes, such which pins are used for electrical inputs and outputs. 
+These alternative microcontrollers may require modifying details in the MicroPython codes, such which connections are used for electrical inputs and outputs. 
 The \htmladdnormallink{MicroPython}{https://http://micropython.org/} website is the best reference if you are considering using alternative microprocessor boards for the activities in this book.
 
 \begin{marginfigure}[2cm]
 	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/ESP8266feather_top.png}}{https://publicsensors.org/IntroSensors/Images/ESP8266feather_top.png}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Images/ESP8266feather_top.png}}{https://publicsensors.org/IntroSensors/Images/ESP8266feather_top.png}
 		\caption[ESP8266 feather microcontroller]{A ESP8266 Feather microcontroller.}
 		\labfig{margin_esp8266}
 	\end{center}
@@ -123,7 +125,7 @@ We will explain how to use these pins in \refch{first_exercises}.
 
 
 %\begin{marginfigure}[0cm]
-%	\includegraphics{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/breadboard_ESP8266feather.jpg}
+%	\includegraphics{Images/breadboard_ESP8266feather.jpg}
 %	\caption[ESP8266 feather microcontroller on breadboard]{Breadboard with ESP8266 feather.}
 %	\labfig{margin_breadboard_esp8266}
 %\end{marginfigure}
@@ -131,7 +133,7 @@ We will explain how to use these pins in \refch{first_exercises}.
 %%
 %%\begin{lstlisting}
 %%	\begin{marginfigure}
-%%		\includegraphics{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/IMG_20181205_082817686.jpg}
+%%		\includegraphics{Images/IMG_20181205_082817686.jpg}
 %%		\caption[ESP8266 feather microcontroller on breadboard, too]{Breadboard with ESP8266 feather, again.}
 %%		\labfig{esp8266brd}
 %%	\end{marginfigure}
@@ -155,7 +157,7 @@ In this case a USB connection, which remains active through the reboot, may be m
 
 To work efficiently and effectively with microcontrollers, we require two essential communication functions: 
 \begin{enumerate}
-	\item We need to be able to issue commands and see output during a REPL session; and, 
+	\item We need to issue commands and see output during a REPL session; and, 
 	\item We need to transfer files, such as MicroPython codes and environmental data, on and off the microcontroller's flash memory.
 \end{enumerate} 
 Both these functions can be accomplished using either USB or WiFi. 
@@ -191,7 +193,8 @@ We will first take you through the steps necessary to connect to your microcontr
 
 \subsection{Installing the driver for USB connections}
 If your laptop runs Windows, OS X (Mac) or Chrome OS, you may need to install a driver to enable your computer to connect with serial USB converter on your ESP8266 Feather microcontroller (this is not needed on linux machines). 
-The driver is available at \htmladdnormallink{this link}{https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx}. \todo{This link is now broken.}
+The driver is available at \htmladdnormallink{this link}{https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx}. 
+%\todo{This link is now broken.}
 
 Computers with older operating systems may require an older version of the driver. 
 If you install the newest one and still cannot connect to the microcontroller, try installing the next older one. 
@@ -206,9 +209,9 @@ BeagleTerm will now appear in your list of \htmladdnormallink{Apps}{chrome://app
 
 \begin{marginfigure}[-18cm]
 	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/BeagleTermConnect.png}}{https://publicsensors.org/IntroSensors/Images/BeagleTermConnect.png}
-		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/BeagleTerm.png}}{https://publicsensors.org/IntroSensors/Images/BeagleTerm.png}
-%		\includegraphics[width=5cm]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/BeagleTermConnect.png}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Images/BeagleTermConnect.png}}{https://publicsensors.org/IntroSensors/Images/BeagleTermConnect.png}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Images/BeagleTerm.png}}{https://publicsensors.org/IntroSensors/Images/BeagleTerm.png}
+%		\includegraphics[width=5cm]{Images/BeagleTermConnect.png}
 		\caption[Connection via BeagleTerm.]{BeagleTerm browser windows. Upper screenshot: The connection prompt with settings. Most of these default into the correct values. The Com port setting, in this case \texttt{ttyUSB0}, is the most likely one you may need to change. Lower screenshot: After connecting, press \texttt{return} on your keyboard to start a REPL session.}
 		\labfig{BeagleTermConnect}
 	\end{center}
@@ -231,7 +234,7 @@ Use the menu to try the available ports until you find the right one.
 
 \subsection{USB connections via \mpfshell}
 \mpfshell is a Python-based file explorer and serial communications package. 
-For communication with ESP8266-based microcontrollers, we have found \mpfshell to be the most convenient utility, because it includes both key communications functions.
+We have found \mpfshell to be the most convenient utility for communication with ESP8266-based microcontrollers, because it includes both key communications functions.
 Users can rapidly switch between interactive REPL sessions and file transfers, with a few keystrokes.
 \mpfshell also works over both USB and WiFi.
 
@@ -249,12 +252,6 @@ See links at \htmladdnormallink{Python}{https://www.python.org/downloads/windows
 	When possible, therefore, we recommend running \mpfshell from a simple terminal, even if you like to edit code from within an \texttt{IDE}. 
 \end{kaobox}
 
-%\marginnote[-4cm]{
-%\mpfshell generally works when installed and used within a Python IDE such as \htmladdnormallink{Enthought Canopy}{https://assets.enthought.com/downloads/}. 
-%Python IDEs can have advantages in generating and debugging code. 
-%However, in some cases, we have found that functions such as copying and pasting text in REPL sessions have been more limited within an IDE session than when running Python within a simple terminal. 
-%When possible, therefore, we recommend running \mpfshell from a simple terminal, even if you like to edit code from within an IDE. 
-%}
 With Python3 installed, the \texttt{pip3} utility makes it straightforward to install \mpfshell and a few other Python packages it requires on Mac OS and linux computers:
 \begin{enumerate}
 	\item \textbf{Open a terminal window.}
@@ -319,12 +316,13 @@ open ttyUSB0
 sudo adduser username dialout
 \end{lstlisting}
 	with your username substitued for \texttt{username}, to add yourself to this group. 
-	You may need to log out and back in for this change to take effect.
+	The \texttt{sudo} means the command should be executed as an administrator (``superuser'') so it will request a password from a qualified user.
+	You may need to log off your computer and back in for this change to take effect.
 	
 \item You can now use simple commands to: \begin{itemize}
 	\item \textbf{List the files} on your microcontroller (\texttt{ls}) or in your laptop's directory (\texttt{lls}); 
-	\item \textbf{Upload a file} \textit{from} your laptop \textit{to} your microcontroller (e.g., \texttt{put blah.py}), where \texttt{blah.py} is one of the files listed by the \texttt{lls}; or,
-	\item \textbf{Download a file} \textit{from} your microcontroller \textit{to} your laptop (e.g., \texttt{get blah2.py}), where \texttt{blah2.py} is one of the files listed by the \texttt{ls}.
+	\item \textbf{Upload a file} \textit{from} your laptop \textit{to} your microcontroller: \texttt{put blah.py}, where \texttt{blah.py} is one of the files listed by the \texttt{lls} command; or,
+	\item \textbf{Download a file} \textit{from} your microcontroller \textit{to} your laptop: \texttt{get blah2.py}, where \texttt{blah2.py} is one of the files listed by the \texttt{ls} command.
 \end{itemize} 
 Many other commands are available in \mpfshell.
 You can learn about them by executing
@@ -344,7 +342,8 @@ When you switch into \texttt{REPL}, \mpfshell gives you a message just above the
 *** Exit REPL with Ctrl+] ***
 \end{lstlisting}
 This tells you the command to switch out of the REPL session and back into file transfer mode. In this example, it's pressing the \verb|Ctrl| and \verb|]| keys on your keyboard simultaneously, but in some installations it's a different combination of keys.
- 
+
+\smallskip 
 You can switch back and forth between REPL and file transfer mode as many times as you want, as you edit your code, upload and execute it on your microcontroller, download data, \etc
 
 \end{enumerate}
@@ -365,15 +364,24 @@ First, a bit of background: Your ESP8266 has two modes for its WiFi connections:
 	This mode is useful, among other reasons, because when you set its name and password they do not change until you explicitly change them. 
 	This means that when you change locations or work in areas lacking Internet access, you can still connect with your microcontroller. 
 	
-	\item In \emph{Station} mode, abbreviated \texttt{STA}, your microcontroller logs onto a pre-existing \texttt{AP}, such your home or classroom WiFi router.
+	\item In \emph{Station} mode, abbreviated \texttt{STA}, your microcontroller logs onto another, pre-existing \texttt{AP}, such your home or classroom WiFi router.
 	This mode is useful, among other reasons, because it enables your microcontroller to transmit data to and from the Internet. 
 	However, if you change locations, previously available \texttt{AP}s will no longer be present.
+	
+	\smallskip
 	If your only connection to your microcontroller is via its STA mode connection to an unavailable AP, this can lead to a conundrum in which you cannot connect to your microcontroller to give it login information to a new AP. 
 	For this reason, \texttt{STA} mode is usually used in conjunction with another method of connecting, such as USB or the microcontroller's own \texttt{AP} mode.
 
 \end{itemize}
-%\begin{itemize}
-%\item [(A)] \textbf{Access Point mode}
+
+One consideration in thinking about \texttt{AP} \textit{vs}. \texttt{STA} mode for your microcontroller work is that many computer use WiFi as their primary connection to the Internet. 
+If your computer (like most) has only one built-in WiFi transceiver, then using it to connect to your microcontroller in \texttt{AP} mode makes it unavailable to connect to the Internet (and vice versa). 
+Several strategies are available to work around this problem:
+If your microcontroller and your computer both connect to the same external Access Point (e.g. your home or classroom router) then you can simultaneously connect to both your microcontroller and the Internet over WiFi (but you will need to reset the router connection if you move to another location).
+You can set up your microcontroller to initiate both \texttt{AP} and \texttt{STA} modes, and connect to whichever is most convenient at a given time.
+On most computers, plugging in an inexpensive WiFi USB dongle (\ref{mat:dongle}) means your computer can have two WiFi connections simultaneously, connecting to both the microcontroller's \texttt{AP} and the local router.
+Finally, in some situations, plugging the computer to the Internet through an ethernet cable is possible, freeing up the WiFi transceiver to connect to the microcontroller's \texttt{AP}. 
+
 \subsubsection{\howto Configure and connect to your microcontroller as an Access Point}
 Your ESP8266 is by default configured as an \emph{Access Point}. 
 That means that it could serve as host for WiFi connections from your laptop or desktop, without making any changes. 
@@ -403,15 +411,16 @@ ap.config("essid")
 
 	\item \textbf{Reset the parameters of your microcontroller's \texttt{AP} with the commands:}
 \begin{lstlisting}[language=Python]
-ap.config(essid="dannyESP8266", authmode=network.AUTH_WPA_WPA2_PSK, password="dg_sEns0r")
+ap.config(essid="dannyESP8266", authmode=network.AUTH_WPA_WPA2_PSK, password="HakDeg?Om9")
 ap.active(True)
 \end{lstlisting}
-	Here, the \texttt{AP} is set to have \verb|dannyESP8266| as its SSID, to have \texttt{WPA/WPA2} encryption, and to have the password ``\verb|dg_sEns0r|''.
+	Here, the \texttt{AP} is set to have \verb|dannyESP8266| as its SSID, to have \texttt{WPA/WPA2} encryption, and to have the password ``\verb|HakDeg?Om9|''.
 	Then, the \texttt{active} parameter is set to \lstinline|True|, meaning the Access Point is turned on. 
 	
 	Try it with your microcontroller, with a SSID that you can easily recognize as your own, and a hard to guess password.
 	%, hopefully with a password that is harder to guess than I used in this example. 
-	The password must be at least 8 characters long.
+	The password must be at least 8 characters long.	\sidenote[][*-4]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Pass the word!]The best passwords are easy to remember and hard to guess. One way to get good passwords is with a utility called \texttt{apg}. \texttt{apg} generates random passwords that are gibberish, so they're hard to guess, but pronounceable, so they're easy to remember by sound.  It is available for both \htmladdnormallink{Windows}{https://sourceforge.net/projects/apg-for-windows/} and \htmladdnormallink{Macs and linux}{https://help.ubuntu.com/community/StrongPasswords}.\end{kaobox}}
+	
 	 
 	\item \textbf{Write the SSID and password down, and put them somewhere safe.}	
 	
@@ -495,7 +504,7 @@ There are two easy ways to stop this unhelpful output:
 \texttt{WebREPL} is a way for you to use a browser window to log onto your microcontroller, when it has an active WiFi interface (either in Access Point or Station mode). 
 \begin{marginfigure}[0cm]
 	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/WebREPLupload2.png}}{https://publicsensors.org/IntroSensors/Images/WebREPLupload2.png}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Images/WebREPLupload2.png}}{https://publicsensors.org/IntroSensors/Images/WebREPLupload2.png}
 		\caption[A WebREPL session with upload.]{An active WebREPL session, showing the login prompt (main terminal frame) and a file upload (right side panel.}
 		\labfig{WebREPL_upload}
 	\end{center}
@@ -505,7 +514,7 @@ It provides access to REPL, and makes it very easy to upload and download files 
 
 %Note: Your microcontroller has to be connected via wifi for WebREPL to work, either with your laptop logged onto an Access Point created by the microcontroller, or with both your laptop and microcontroller logged onto another Access Point.
 
-WebREPL is a free download from this	 \htmladdnormallink{link}{https://github.com/micropython/webrepl}. \sidenote[][*6]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Locally sourced\dots]Note that \texttt{WebREPL} is available to use online, without installing it. 
+WebREPL is a free download from this	 \htmladdnormallink{link}{https://github.com/micropython/webrepl}. \sidenote[][*6]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Locally sourced\dots]\texttt{WebREPL} is available to use online, without installing it. 
 \emph{However, you will most likely want to have it actually installed directly on your computer.} 
 That is because, unless you have multiple internet connections available on your computer, you can’t use the online WebREPL when you connect directly to your ESP8266 as an Access Point.
 You can, however, use the online \texttt{WebREPL} if your laptop and microcontroller are both logged onto another Access Point. 
@@ -583,7 +592,7 @@ import webrepl_setup
 \end{lstlisting}
 Three things then happen:
 \begin{itemize}
-	\item The microcontroller will query you whether you want to ``enable'' \texttt{webrepl} (automatically start it each time the microcontroller reboots). Enter \texttt{E} to enable.
+	\item The microcontroller will ask whether you want to ``enable'' \texttt{webrepl} (automatically start it each time the microcontroller reboots). Enter \texttt{E} to enable.
 	\item The microcontroller will prompt you for a password, which you need to enter twice. 
 	\item The microcontroller will ask whether to reboot, which is necessary to implement your new settings (Enter \texttt{y}, for yes).
 \end{itemize}
@@ -629,7 +638,7 @@ os.listdir()
 
 \begin{marginfigure}[0cm]
 	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{/home/dg/PublicSensors/Textbooks/IntroSensors/Images/WebREPLdownload.png}}{https://publicsensors.org/IntroSensors/Images/WebREPLdownload.png}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Images/WebREPLdownload.png}}{https://publicsensors.org/IntroSensors/Images/WebREPLdownload.png}
 		\caption[A WebREPL session with download.]{An active WebREPL session, showing the commands to list the files on the microcontroller (main terminal frame), a file download (right side panel, and a prompt for how to save or open the file.}
 		\labfig{WebREPL_download}
 	\end{center}
@@ -690,19 +699,19 @@ The great utility of \Micropython is that it makes programming and interacting w
 An additional feature is that \Micropython contains many useful libraries that you can use ``out of the box'', without any external hardware.
 A good source for examples and advice on using \Micropython is the \htmladdnormallink{Micropython forum}{https://forum.micropython.org/viewforum.php?f=16&sid=3b047a13be25c6522d788bfb036217a6}.
 To conclude this first chapter on communicating with your microcontroller, you will implement two examples from this forum that illustrate how to generate random numbers, and how to encrypt a string of characters.
-You will then anticipate later chapters in which you will telemeter environmental data over publicly available websites, by implementing a basic form of data encryption.  
+You will then anticipate later chapters in which you will telemeter environmental data over publicly available websites, by implementing a basic form of data verification.  
 
 \subsection{Generating random numbers and strings}
 \labsec{rnd}
 Random numbers and strings are useful for a variety of purposes in scientific data analysis and modeling. 
 Later in this section, we will use randomized strings to make environmental data transmissions easier to verify.
 Micropython has a built-in utility, \lstinline{getrandbits} in the \lstinline{urandom} library, to generate random bits.
-These random bits can then be converted into random numbers and strings.
+These random bits can then be converted into random numbers and strings. Here's how to do it:
 
 \subsubsection{\howto Generate random numbers and strings}
 A post on the \htmladdnormallink{Micropython forum}{https://forum.micropython.org/viewtopic.php?t=6158} provides an easy-to-use function that converts random bits bits into random integers in a user-supplied range.
 \begin{enumerate}
-	\item \textbf{To generate random integers, download} the \lstinline{random_int.py} \textbf{python script, and use the \lstinline{<ctrl>-e/<ctrl>-d} technique to paste the following commands into a \texttt{REPL} session:}
+	\item \textbf{To generate random integers, download} the \lstinline{random_int.py} \textbf{python script by clicking on the link in the margin. Then, use the \lstinline{<ctrl>-e/<ctrl>-d} technique to paste the following commands into a \texttt{REPL} session:}
 	\lstinputlisting[language=Python,label=random_int,caption={\htmladdnormallink{\texttt{random\textunderscore int.py}}{https://publicsensors.org/IntroSensors/Codes/random_int.py}: A Micropython script demonstrating generation of random integers within a specified range.}]{Codes/random_int.py}
 	
 	This code defines a function, \lstinline{randint}, that returns a single random integer between the input parameters \texttt{min} and \texttt{max} (including \texttt{min} and \texttt{max}).
@@ -753,26 +762,30 @@ With this relatively low standard of encryption in mind, let's demonstrate a bas
 	\item \textbf{To encrypt strings, download} the \lstinline{encrypt_demo.py} \textbf{python script, and use the \lstinline{<ctrl>-e/<ctrl>-d} technique to paste the following commands into a \texttt{REPL} session:}
 \lstinputlisting[language=Python,label=encrypt_demo,caption={\htmladdnormallink{\texttt{encrypt\textunderscore demo.py}}{https://publicsensors.org/IntroSensors/Codes/encrypt_demo.py}: A Micropython script demonstrating simple encryption of short strings.}]{Codes/encrypt_demo.py}
 
-	In this example, two different strings are first placed into the variable \lstinline{data}.
-	Each string is converted to bytes, and stored as the variable \lstinline{data_bytes}.
+	In this example,the string \texttt{input plaintext} is first placed into the variable \lstinline{data}.
+	The string is then converted to bytes, and stored as the variable \lstinline{data_bytes}.
 
+	\smallskip
 	For this encryption method, the input string must be packaged in ``blocks'' of 16 bytes.
 	This means that long messages must be split into shorter messages of 16 or fewer bytes, and that shorter messages must be ``padded'' by tacking on additional bytes to meet the length requirement.
 	This is done in the example above by the modification of \lstinline{data_bytes} into \lstinline{data_bytes16}.
-	The modified characters from the original string are then encrypted.
+	The modified characters from the original string are then encrypted using the \lstinline{encrypt} function from \lstinline{ucryptolib}.
+	
+	\smallskip
+	These steps are then repeated for the second string, \texttt{input pl}.
 
 	The output from these commands should be
 \begin{lstlisting}[language=Python]
 msg1 =  b'\xfe!F\x87?\xdb\x19\x18\xcdM\x83\x9b\xaa\x02\xa9\x04'
 msg2 =  b"[\x9df\xa3\xa0\xa5'\xa5v\xc1\xfeNI\xa9\x96\x03"
 \end{lstlisting}
-	These messages could be conveyed in a public venue, and without knowing or guessing the key (not very hard in this example) it would be inconvenient --- but not impossible --- for a reader to extract the original strings.
+	These messages could be conveyed in a public venue, and without knowing or guessing the key (not very hard in this example) it would be difficult --- but not impossible --- for an eavesdropper to extract the original strings.
 
 	\item \textbf{To decrypt strings, download} the \lstinline{decrypt_demo.py} \textbf{python script, and use the \lstinline{<ctrl>-e/<ctrl>-d} technique to paste the following commands into a \texttt{REPL} session:}
 \lstinputlisting[language=Python,label=decrypt_demo,caption={\htmladdnormallink{\texttt{decrypt\textunderscore demo.py}}{https://publicsensors.org/IntroSensors/Codes/decrypt_demo.py}: A Micropython script demonstrating simple decryption of short strings.}]{Codes/decrypt_demo.py}
 
 	In this command sequence, the key is used to decrypt \lstinline{msg1} and  \lstinline{msg1} into the bytes from which they were generated.
-	Those bytes are then converted back to strings, and the ``padding'' characters \lstinline{\x00} are removed.
+	Those bytes are then converted back to strings, and the ``padding'' characters \lstinline{\x00} are removed (``stripped'')).
 
 	The output from the decryption commands should be
 \begin{lstlisting}[language=Python]
@@ -801,11 +814,11 @@ Instrument1,Sensor3,watertemp,NorthLakeWashingtonWA,3711,2020-3-19 1:20:17,7.687
 \end{lstlisting}
 from an environmental sensor similar to one you will build in later chapters of this book.
 In this message, \lstinline{Intrument1} is a label for a particular \texttt{instrument}, i.e., a microcontroller that may have attached a variety of sensors.
-\lstinline{Sensor3} indicates the particular sensor from which the reported datum was reported.
+\lstinline{Sensor3} indicates the particular sensor from which the reported datum was measured.
 \lstinline{watertemp} indicates that water temperature is the environmental characteristic being measured.
 \lstinline{NorthLakeWashingtonWA} is a geographical reference readable and specific enough to potentially make the data useful to others. 
 
-The actual data, in the part of the message that reads \lstinline{3711,2020-3-19 1:20:17,7.6875}, are the sample number (here, the 3711\textit{th} datum), the date/time stamp, and the temperature reading ($7.6875^\circ$).
+The actual data, in the part of the message that reads \lstinline{3711,2020-3-19 1:20:17,7.6875}, are the sample number (here, the 3711\textit{th} sample), the date/time stamp, and the temperature reading ($7.6875^\circ$).
 Local residents, fishermen, limnologists and many others might find real-time reporting of water temperature from North Lake Washington to be of interest.
 This is particularly true if the data from this sensor can be easily put in context with other data such as air temperature, insolation, wind speed and direction, data from elsewhere on Lake Washington, \etc
 
@@ -816,7 +829,7 @@ In cryptography, a salt is a string of random characters that make encrypted inf
 In our case, the sample number is always incremented after a sample, so no two samples will have the same number.
 This means that even if the salt and environmental data don't change, the encrypted block will be different for every message.
 
-We will include both the encrypted and plaintext versions of the message in the .
+We will include both the encrypted and plaintext versions of the message in the data line.
 Then, any reader who can see the message can get access to the data.
 However, only those with the encryption key -- us, because we placed the key on the instrument -- can decrypt the encrypted part of the message.
 
@@ -835,7 +848,7 @@ This is a simple implementation of this message verification strategy:
 	\lstinputlisting[language=Python,label=encrypt_msg,caption={\htmladdnormallink{\texttt{encrypt\textunderscore msg.py}}{https://publicsensors.org/IntroSensors/Codes/encrypt_msg.py}: A Micropython script demonstrating a simple strategy for augmenting a data message using encryption for verification.}]{Codes/encrypt_msg.py}
 	
 	In this example, both the key and the salt are strings of random letters, generated as in \refsec{rnd}.
-	The key is 16 characters long (as required by the encryption algorithm), and the salt is 10 characters long so that when the sample number is added the total number of characters will not exceed 16.
+	The key is 16 characters long (as required by the encryption algorithm), and the salt is 10 characters long so that when the sample number is added the total number of characters will not exceed 16 (we do not expect to take more than 999,999 samples!).
 	
 	In a real application, this code would be executed by the microcontroller in an instrument in the field.
 	The output, in this example, is the augmented data message
