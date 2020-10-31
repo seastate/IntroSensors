@@ -265,7 +265,11 @@ Despite differences in size, however, the same basic geometry of hidden wires co
 Microcontrollers are useful because they are able to transmit and receive electrical signals to and from other devices.
 These signals are passed through connections called \texttt{General Purpose Input/Output} pins, usually abbreviated as \texttt{GPIOs}.  
 
-Important things to know about GPIOs on the ESP8266 are:
+Before we say anything else about GPIOs, we'll say this: 
+
+\color{red} \textbf{GPIOs on the ESP8266 have a voltage limit of \texttt{3.3 volts}! Be careful not to attach a GPIO to a voltage higher than \texttt{3.3 V} --- it can destroy your microcontroller!} \color{black}
+
+Other important things to know about GPIOs on the ESP8266 are:
 \begin{itemize}
 	\item[$\bullet$] Pins labeled with numbers (0, 2, 4, 5, 12, 13, 14, 15 and 16) are GPIOs.
 	\item[$\bullet$] GPIOs can be set by software commands to work as either \emph{input} or \emph{output} pins (but not both simultaneously).
@@ -277,9 +281,9 @@ Important things to know about GPIOs on the ESP8266 are:
 	\end{itemize}
 	\item[$\bullet$] These GPIOs are \emph{digital}. This means that these pins can only take one of two values:
 	 \begin{itemize}
-	 	\item[$\circ$] 1, or ``high'', corresponding to a voltage $\ge 3.3$ \texttt{volts}\sidenote[][*0]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=What's your limit?]Note that the \texttt{3.3 volt} threshold applies to the ESP8266, and to many other microcontrollers. 
+	 	\item[$\circ$] 1, or ``high'', corresponding to a voltage $> 1.5$ \texttt{volts}\sidenote[][*0]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=What's your limit?]Note that the \texttt{1.5 volt} threshold applies to the ESP8266, and to many other microcontrollers. 
 	 		Some have different thresholds, though, so if you're using a different microcontroller it's a good idea to check.\end{kaobox}}; or,
-	 	\item[$\circ$] 0, or ``low'', corresponding to a voltage $< 3.3$ \texttt{volts}.
+	 	\item[$\circ$] 0, or ``low'', corresponding to a voltage $le 1.5$ \texttt{volts}.
 	\end{itemize}
 	\item There is one other pin on the ESP8266, labeled \texttt{ADC} (for Analog to Digital Conversion), that can measure any voltage between 0  and 1 \texttt{volts}. \refch{circuits_intro} explains how to use the \texttt{ADC} pin to measure battery level, get readings from analog environmental sensors, \etc
 %	this threshold is )\texttt{GND} or 0 volts; or, 
@@ -493,13 +497,13 @@ The first sub-circuit we'll construct will connect the positive and negative rai
 One of the most useful things a GPIO does is let you control your microcontroller through external devices like switches. 
 For example, in an environmental sensor, you might want to turn sampling on and off with a button switch, have nearby motion trigger a camera, or count rotations of a propeller to measure wind speed. All of these involve using GPIOs as inputs. 
 
-As a first step, you will assemble a sub-circuit enabling the microcontroller to respond to button presses. 
+As a first step, you will assemble a sub-circuit enabling the microcontroller to respond to button presses
 \sidenote[][*-12]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Button it up!]
 	The type of switch used in this circuit is called a \emph{momentary} switch. 
 	``Momentary'' means the switch will connect two pins while the button is being pressed, and immediately disconnect them when the button is released. 
 	Many other types of switches are available for different functions. 
 	For example, some switches \emph{toggle}: they form a connection when a button is pressed, and don't disconnect until the next time the button is pressed. Other types of switches are turned off by light, magnetic fields, or electrical signals instead of buttons.
-\end{kaobox}}A typical sub-circuit enabling a microcontroller to respond to button pushes is illustrated in \reffig{feather_switch}. 
+\end{kaobox}}. A typical sub-circuit enabling a microcontroller to respond to button pushes is illustrated in \reffig{feather_switch}. 
 This sub-circuit will require a button switch and two jumpers, and a few lines of code. 
 When this sub-circuit works properly, you'll incorporate it into the other components of the circuit so that a button push starts and stops LED snoozing. 
 
@@ -529,18 +533,34 @@ When the button is released, the narrow side pins are again insulated from each 
 
 \subsubsection{\howto Assemble a button switch sub-circuit}
 \begin{enumerate}
+	\item  \textbf{Check your button with a multimeter, to find out which pins are connected when the button is in its pressed and unpressed state. }
+	
+	Most multimeters have a setting for measuring resistance, often marked by a $\Omega$ symbol. 
+	This can be used for testing which pins on a button are connected to each other: 
+	An ``open line'' (no connection) is indicated by a \texttt{OL}; a closed connection is indicated by a resistance at or near \texttt{0}. 
+	Some multimeters also have a setting specifically for measuring \texttt{continuity}, and can trigger a beeping or buzzing sound when a connection is made. 
+	
+	\smallskip
+	The easiest way to test a button is to insert it into a breadboard, and insert two male-male jumpers into the rows in line with the pins. 
+	Then, use the multimeter to test continuity between the open ends of the two jumpers.  
+	If the button is in the right orientation, the jumpers will be connected when the botton is pressed, but not when the button is released.
+	
 	\item  \textbf{Connect your button to the breadboard.}
+
+	As shown in \reffig{feather_switch}, make sure the wide sides are aligned with a row. 
+	As usual, the exact rows in which the button is placed are not critical. 
+	However, it's a good idea to place the button reasonably close to the bottom of the microcontroller, so there is enough room to assemble other sub-circuits.
 	
-	As shown in \reffig{feather_switch}, make sure the wide sides are aligned with a row. As usual, the exact rows in which the button is placed are not critical. However, it's a good idea to place the button reasonably close to the bottom of the microcontroller, so there is enough room to assemble other sub-circuits.
-	
-\begin{marginfigure}[-0cm]
-	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_switch.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_switch.png}
-%		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_switch.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_switch.png}
-		\caption[Button connections schematic]{An illustration of the layout for connecting a button switch to an input GPIO on the Feather. Notice the orientation of the button: The more widely spaced pins orient along rows, and the more narrowly spaced pins orient along columns.}
-		\labfig{feather_switch}
-	\end{center}
-\end{marginfigure}
+	\begin{marginfigure}[-0cm]
+		\begin{center}
+			\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_switch.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_switch.png}
+			\caption[Button connections schematic]{An illustration of the layout for connecting a button switch to an input GPIO on the Feather. 
+				Notice the orientation of the button: 
+				For this kind of button, the more widely spaced pins orient along rows, and the more narrowly spaced pins orient along columns. 
+				For other types of buttons, the exact placement may vary a bit.}
+			\labfig{feather_switch}
+		\end{center}
+	\end{marginfigure}
 
 	\item  \textbf{Jumper one wide side pin pair to the negative rail.}
 	
@@ -641,10 +661,10 @@ We'll begin by wiring an LED into the existing components on your breadboard.
 As usual, there is some flexibility about exactly which hole and which row a wire is placed. 
 However, it's a good idea to look over \reffig{feather_switch_relay_LED} to see where additional components will be placed, and to leave space for those.
 Placing components similarly to \reffig{feather_switch_LED} is one way to do that. 
-\begin{marginfigure}[-10cm]
+\begin{marginfigure}[-8cm]
 	\begin{center}
 		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_switch_LED.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_switch_LED.png}
-		\caption[Button connections schematic]{An illustration of the layout for an external LED. }
+		\caption[External LED layout]{An illustration of the layout for an external LED. }
 		\labfig{feather_switch_LED}
 	\end{center}
 \end{marginfigure}
@@ -655,7 +675,7 @@ Placing components similarly to \reffig{feather_switch_LED} is one way to do tha
 	\item \textbf{Connect a jumper from the leftmost hole in this row, across the gutter to one row lower.}
 	
 	This jumper placement will make it easy to substitute a relay for the jumper later on. 
-	\item \textbf{Using a 100 Ohm resistor\sidenote[][*-5]{
+	\item \textbf{Using a 100 Ohm resistor\sidenote[][*-3]{
 			\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Pi\`ece de r\'esistance]
 				Depending on which type of LED you use, you may need to modify the value of this resistor. 
 				In \refch{circuits_intro}, you will learn how to calculate appropriate resistor values if you use a different type of LED than the one suggested here (though many types are close enough to work with the suggested resistor). 
@@ -665,7 +685,7 @@ Placing components similarly to \reffig{feather_switch_LED} is one way to do tha
 	
 	It does not matter which end of the resistor you start with, because resistors function the same way in either direction. 
 	The exact row you connect to on the right side of the gutter also doesn't matter --- you are free to use any row as long as it is empty, and it's reasonably convenient to connect with jumpers to the other components in the circuit. 
-	If you are unsure, pick a row and see if it works. 
+	If you are unsure, pick a row and see how it works. 
 	If connections later seem awkward or confusing, it's easy to move components to different rows to make the circuit smaller and neater.
 	
 	
@@ -699,13 +719,13 @@ How, then, can a microcontroller control a device that requires large voltages o
 By switching on and off an external power supply (which may be high voltage or current), relays enable your ESP8266 to control external devices, even ones that require far more current or voltage than the microcontroller can supply directly.
 
 The relay in the circuit you build in this example will control only a small device (an LED).
-However, the same circuit configuration with a larger power supply and more robust relay could be used to control large equipment like winches, pumps, light banks, etc. that use large amounts of current or high voltages. 
+However, the same circuit configuration with a larger power supply and more robust relay could be used to control large equipment like winches, pumps, light banks, \etc that use large amounts of current or high voltages. 
 
 
-\begin{marginfigure}[0cm]
+\begin{marginfigure}[-8cm]
 	\begin{center}
 		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_switch_relay_LED.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_switch_relay_LED.png}
-		\caption[Button connections schematic]{An example of layout for the relay-LED sub-circuit }
+		\caption[Button/external LED layout]{An example of layout for the relay-LED sub-circuit. }
 		\labfig{feather_switch_relay_LED}
 	\end{center}
 \end{marginfigure}
@@ -732,6 +752,7 @@ As you build your circuit, refer to \reffig{feather_switch_relay_LED} %\reffig{m
 		\item[$\circ$] The relay spans across the ``gutter''; and
 		\item[$\circ$] The relay is oriented so that the writing is rightside up (with the tops of letters closest to the ESP8266).
 		
+		\smallskip
 		This may be easier with the aid of a magnifying glass. Note the pins are different on the two sides of the relay, making it easier to tell which side is which.
 	\end{itemize}
 	
@@ -772,12 +793,12 @@ If not, look things over and see if you can find a flaw in the assembly of your 
 \loadMilestone{mlst:02f} % load milestone with tags id: mlst:02f
 
 \subsection{Fine control using Pulse Width Modulation}
-The GPIO pins on your ESP8266 (and many other microcontrollers) are digital, meaning they can output only two values --- high and low. 
+The GPIO pins on your ESP8266 (and many other microcontrollers) can output only two values --- high (\texttt{3.3V}) and low (\texttt{0V}). 
 That's great for devices that need to be fully on or fully off. 
-However, in many cases it’s useful to have an intermediate. 
+However, in many cases it’s useful to have an intermediate -- ``partway on''. 
 One way to approach this is known as \htmladdnormallink{Pulse Width Modulation}{https://en.wikipedia.org/wiki/Pulse-width_modulation} (\texttt{PWM}). 
 In \texttt{PWM}, the GPIO output is switched between ``on'' and ``off'' states very quickly (e.g. 1000 times per second), but the total fraction of time spend in the ``on'' state is varied gradually between 0 and 1. 
-This is a close approximation to being able to continuously adjust pin states between on and off.
+In some uses, this works as a close approximation to being able to continuously adjust pin voltages between on and off.
 
 Let’s test what this does with our LED circuit. 
 This test does not require any hardware modifications. 
