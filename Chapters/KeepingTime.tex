@@ -14,14 +14,21 @@ This places it in the context of previous and subsequent readings, concurrent re
 In this chapter, you will set up and assess three ways of determining time with your \texttt{ESP8266}:
 \begin{enumerate}
 	\item Using the on-board \texttt{Real Time Clock} (often abbreviated as \rtc). 
+	
+	\smallskip
 	Like most modern microcontrollers, the ESP8266 has a built-in \rtc, which a measurement of the current time available through MicroPython. 
 	These are very convenient to use, but vary widely in their reliability.
 
-	\item Using an \rtc mounted on an external circuit board, called a \DS3231, that communicates with your microcontroller via a digital protocol called \i2c.
+	\item Using an \rtc mounted on an external circuit board, called a \DS3231, that communicates with your microcontroller via a digital protocol called \i2c. 
+	
+	\smallskip
+	This requires additional space, wires, power, \etc, but is very accurate. 
 
 	\item From the Internet, using a utility called \texttt{Network Time Protocol} (\ntp). 
+		
+	\smallskip	
 	This utility is the way your desktop and laptop update their internal clocks to maintain accuracy. 
-	Your microcontroller can do the same thing!
+	When connected to the Internet, your microcontroller can do the same thing!
 \end{enumerate}
 Each of these time-keeping methods has an important role to play in environmental sensing. 
 We will explore the advantages and disadvantages of each method partly in this chapter, and in more depth during construction and deployment of field instruments for environmental monitoring in \refch{instr_constr}.
@@ -138,11 +145,10 @@ A more convenient and accurate way to set the clock is to use an online time sou
 A human-readable example is the \htmladdnormallink{official time source}{https://www.time.gov/} for the U.S. government, operated by the National Institute of Standards and Technology (NIST).
 
 For computers and microcontrollers, online time sources are easier to use with a machine-readable format called  
- \texttt{Network Time Protocol}, or \texttt{NTP}. 
-An \texttt{NTP} server is an online portal using this protocol that enables a local machine to calculate the current time.  
+\htmladdnormallink{\texttt{Network Time Protocol}}{https://en.wikipedia.org/wiki/Network_Time_Protocol}, or \texttt{NTP}. 
+An \texttt{NTP server} is an online portal using this protocol that enables a local machine to calculate the current time.  
 Micropython has a built-in utility called \lstinline{ntptime} to automatically obtain the current time from an NTP server (the default is \texttt{pool.ntp.org}), if it is connected to the Internet via WiFi. 
-\lstinline{ntptime} can also reset the on-board \rtc, to match the time from the NTP server. \todo{Create a box or hyperlink to the explanation of how NTP works.}
-%We’ve provided a modified version of this utility, which can also be used in the next step to reset the external RTC.
+\lstinline{ntptime} can also reset the on-board \rtc, to match the time from the NTP server. 
 
 %\marginnote{NOTE: 
 	This part of the exercise assumes that your ESP8266 is connected via WiFi in \texttt{Station mode} to the Internet. If it is not, follow the instructions in \refsec{wifi_sta} to establish this WiFi connection, then continue with the exercise.
@@ -158,12 +164,19 @@ t=ntptime.time()
 print('The result of ntptime.time() is: ',t)
 print("Converted to human-readable time that's: ",utime.localtime(t))
 \end{lstlisting}
-	Note that the results of \lstinline{}
+	Notice that the results of \lstinline{ntptime} is a large integer, like \texttt{657504989}. 
+	This is the number of seconds since the ``epoch'', which in Python3 is January 1, 2000, 00:00:00 (UTC).
+	This format is great for machines, but not easy for humans to read.
+	
+	\smallskip
+	The \lstinline{utime.localtime} utility changes this to a more human-readable format, e.g. \texttt{(2020, 11, 1, 0, 16, 29, 6, 306)}, in which year, month, day, weekday, hour, minute, second and millisecond are returned in a tuple.
+	
 	\item \textbf{Set the time on the \texttt{ESP8266}’s internal RTC}:
 \begin{lstlisting}[language=Python]
 ntptime.settime()
 \end{lstlisting}
 	This command automatically retrieves the current time from the NTP server, and uses it to set time on the on-board RTC.
+	
 	\item \textbf{Query the on-board \rtc to verify the correct time has been set}:
 \begin{lstlisting}[language=Python]
 rtc.datetime() # get date and time
@@ -187,10 +200,6 @@ Connecting the \DS3231 external \rtc to your microcontroller requires just a few
 
 
 \subsubsection{\howto Set up an external \rtc}
-
-
-
-
 As you set up your circuit, refer to the example layout in \reffig{ds3231_breadboard}. 
 Because there is only one component in this exercise, you have a lot of flexibility where to place your components and jumpers.
 \begin{marginfigure}
@@ -218,14 +227,15 @@ Because there is only one component in this exercise, you have a lot of flexibil
 import urtc
 from machine import I2C, Pin
 i2c=I2C(scl=Pin(5),sda=Pin(4))
-rtc3231=urtc.DS3231(i2c)
+rtc_ds3231=urtc.DS3231(i2c)
 \end{lstlisting}
 	\item Query the time from your \DS3231, with:
 \begin{lstlisting}[language=Python]
-rtc3231.datetime()  # print out current date/time tuple
-datetime = rtc3231.datetime() 
-print(datetime.year)          # Or, print out separate elements
-print(datetime.month)         # of the date/time tuple
+rtc_ds3231.datetime()  # print out current date/time tuple
+datetime = rtc_ds3231.datetime()
+# Or, print out separate elements of the date/time tuple
+print(datetime.year)
+print(datetime.month)
 print(datetime.day)
 print(datetime.weekday)
 print(datetime.hour)
@@ -240,20 +250,32 @@ To set the time on the \DS3231 using the \ntp server, the easiest method is to u
 	\item \textbf{Download} \lstinline{SetTimeDS3231.py}\textbf{, copy it onto your microcontroller, and execute:} 
 \begin{lstlisting}[language=Python]
 from SetTimeDS3231 import settimeDS3231
-datetime = rtc3231.datetime()  # obtain and print the pre-existing time
+# obtain and print the pre-existing time
+datetime = rtc_ds3231.datetime()  
 print(datetime)                
 settimeDS3231()                # set the DS3231 with NTP
-datetime = rtc3231.datetime()  # obtain and print the
-print(datetime)                # NTP-set time
+datetime = rtc_ds3231.datetime()  # obtain and print the
+print(datetime)                   # new NTP-set time
 \end{lstlisting}
-	Try it and confirm that the time on the \DS3231 \rtc has been set correctly. 	
-\end{enumerate}
+	Try it and confirm that the time on the \DS3231 \rtc has been set correctly.
+	If you are able to read time from you \DS3231 but setting it from the NTP server does not work, a likely reason is that your microcontroller is not connected to the Internet in \texttt{STA} mode. 
+	If so, instructions in \refsec{wifi_sta} explain how to test and, if necessary, re-establish this WiFi connection. 
 
-You can also set your on-board \rtc from the \DS3231 by pasting (with \texttt{<ctrl>-e}/\texttt{<ctrl>-d} and executing the following two lines:
+	\item \textbf{Set your on-board \rtc from the \DS3231} 
+	
+	You can set the on-board \rtc on your microcontroller to current time from the \DS3231 (remember that the \DS3231 has a battery, so it has correct time even after the microcontroller was turned off).
+	
+	\smallskip
+	Paste (with \texttt{<ctrl>-e}/\texttt{<ctrl>-d}) and execute the following two lines:
 \begin{lstlisting}[language=Python]
-tDS3231=rtc3231.datetime()
+tDS3231=rtc_ds3231.datetime()
 rtc.datetime((tDS3231.year,tDS3231.month,tDS3231.day,0,tDS3231.hour,tDS3231.minute,tDS3231.second,0))
 \end{lstlisting}
+	Then, test that the time has been reset with
+\begin{lstlisting}[language=Python]
+rtc.datetime()
+\end{lstlisting}
+\end{enumerate}
 
 More information about the \DS3231 \rtc can be found at \htmladdnormallink{http://micropython-urtc.readthedocs.io/en/latest/}{http://micropython-urtc.readthedocs.io/en/latest/}.
 
@@ -279,7 +301,7 @@ Together, accuracy and precision metrics enable us to anticipate how errors in t
 To decide how best to select among time-keeping methods for environmental sensing, we need to answer questions like: 
 \begin{itemize}
 	\item How big are the time-keeping errors for each method (that is, how accurate and precise are each of the methods)?
-	\item Are particular \rtcs biased towards run fast or slow (that is, are some units ``defective'' so that they differ \emph{systematically} from the overall population of \rtcs)?
+	\item Are particular \rtcs biased towards running fast or slow (that is, are some units ``defective'' so that they differ \emph{systematically} from the overall population of \rtcs)?
 	\item Does the magnitude or direction of timekeeping error depend on environmental conditions (for example, do higher or lower temperatures affect time-keeping accuracy and precision)?  
 \end{itemize}
 
@@ -344,7 +366,7 @@ rtc_ = RTC()  # Initialize on-board RTC
 i2c = I2C(scl=Pin(5), sda=Pin(4))  # Initialize DS3231 (external) RTC
 rtc3231_=urtc.DS3231(i2c)
 \end{lstlisting}
-	Note the ``\textunderscore'' in some of the variable names. 
+	Notice the ``\textunderscore'' in some of the variable names. 
 	This is to distinguish them from similar variable names in the Micropython function.
 	\item \textbf{Define the sampling parameters, a modification of:}
 \begin{lstlisting}[language=Python]
@@ -361,22 +383,33 @@ n_replicates = 3   # Number of times to replicate the sampling protocol
 		
 		\smallskip
 		In this case, filenames will have the form \lstinline{danny_dda01900_568621029.txt} (starting with the prefix, \lstinline{danny}). 
-		The prefix is followed by the unique ID of the microcontroller (\lstinline{dda01900}), then a timestamp (\lstinline{568621029}) recording when sampling starts, and finally a suffix (\lstinline{txt}) indicating the file type.
+		The prefix is followed by the unique ID of the microcontroller (\lstinline{dda01900}), then a timestamp (\lstinline{568621029}) recording when sampling starts, and finally a suffix (\lstinline{txt}) indicating it is a plain text file.
 		
 		\smallskip
 		This convention gives filenames that are informative --- because of the prefix and microcontroller ID, they can be identified easily by both humans and machines.
 		Also, because the timestamp does not repeat itself, no file can be accidentally overwritten by another file with the same name. 
-		\item[$\circ$] \lstinline{interval_sec} is the parameter determining the length of intervals (in seconds) at which time samples should be taken.
+		\item[$\circ$] \lstinline{interval_sec} is the parameter determining the length of intervals (in seconds) at which time samples should be taken
+		\sidenote[][*-18]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Time-saving tricks]
+				This example illustrates two ``tricks'' that many Micropython users find helpful when collecting and analyzing data.
+				\begin{itemize}
+					\item[$\triangleright$] When sampling at longer intervals (e.g. 3.5 hours) to explicitly write \lstinline{3.5*60*60}. 
+					This expression is much easier to understand at a glance than the same number multiplied out (\lstinline{12600.0}). 
+					\item[$\triangleright$] When exploring parameter space, to comment out rather than delete previous values. 
+					This makes it far easier to keep track of what you've already tried.			
+				\end{itemize}		
+				\end{kaobox}
+		}.
 		
-		\smallskip
-		This example illustrates two ``tricks'' that many Micropython users find helpful when collecting and analyzing data.
-		\begin{itemize}
-			\item[$\triangleright$] When sampling at longer intervals (e.g. 3.5 hours) to explicitly write \lstinline{3.5*60*60}. 
-			This expression is much easier to understand at a glance than the same number multiplied out (\lstinline{12600.0}). 
-			\item[$\triangleright$] When exploring parameter space, to comment out rather than delete previous values. 
-			This makes it far easier to keep track of what you've already tried.			
-		\end{itemize}		
-		\item[$\circ$] \lstinline{n_samples} and \lstinline{n_replicates} specify, respectively, how many samples each data file should contain, and how many data files should be created. 
+%		\smallskip
+%		This example illustrates two ``tricks'' that many Micropython users find helpful when collecting and analyzing data.
+%		\begin{itemize}
+%			\item[$\triangleright$] When sampling at longer intervals (e.g. 3.5 hours) to explicitly write \lstinline{3.5*60*60}. 
+%			This expression is much easier to understand at a glance than the same number multiplied out (\lstinline{12600.0}). 
+%			\item[$\triangleright$] When exploring parameter space, to comment out rather than delete previous values. 
+%			This makes it far easier to keep track of what you've already tried.			
+%		\end{itemize}		
+		\item[$\circ$] \lstinline{n_samples} sets how many samples each data file should contain. 
+		\lstinline{n_replicates} sets how many data files should be created. 
 		
 		\smallskip
 		The total duration of sampling for each file will then be \lstinline{interval_sec} $\times$ \lstinline{n_samples} seconds. 
@@ -435,17 +468,17 @@ sample_num,day_onboard,hour_onboard,min_onboard,sec_onboard,day_external,hour_ex
 	
 	As you watch the output, it is easy to pick out differences in seconds, minutes etc. among the time stamps (if there are any).
 	
-	\item \textbf{Upload data files to your computer, and check that they are being written correctly.}
+	\item \textbf{Upload data files to your computer with \mpfshell or \webrepl, and check that they are being written correctly.}
 	
 	Each line in the data files is the same as the data array printed to the terminal, except that there is no header line.
 	
 	\item \textbf{Agree with your classmates on a consensus set of sampling parameters.}
 	
 	The goal is to obtain a replicated set of time comparisons between time sources, across as many devices as possible. 
-	To be comparable, all the data must be collected with the same sampling parameters.
+	To be comparable, all the data must be collected with the same \lstinline{interval_sec}, \lstinline{n_samples} and \lstinline{n_replicates} sampling parameters.
 	
 	\smallskip
-	In this discussion, keep in mind the tradeoffs among the total sampling time, the length of time over which deviations among time sources are tracked within each data file, and the number of data files for each microcontroller/\rtc combination. 
+	In discussing sampling parameters with your classmates, keep in mind the tradeoffs among the total sampling time, the length of time over which deviations among time sources are tracked within each data file, and the number of data files for each microcontroller/\rtc combination. 
 	
 	\smallskip
 	For example, if the class decides that a total of 8 hours of sampling time is a reasonable limit, then options include fewer, longer runs (e.g., 2 runs of 4 hours each) or more, shorter runs (4 runs of 2 hours each).
@@ -460,12 +493,7 @@ sample_num,day_onboard,hour_onboard,min_onboard,sec_onboard,day_external,hour_ex
 	\item[$\circ$] If you initially interrupt \lstinline{time_compare} after 3.5 hours, it will record the three data files for which sampling was completed, but will \underline{not} record data from the 0.5 hour run that was interrupted.
 	
 	\item[$\circ$] You can later restart \lstinline{time_compare} to run for another 5 hours, to collect the remaining replicates.
-\end{itemize}	
-	 
-%	The files have informative names: they begin with the prefix (e.g. your name), followed by the unique ID of your microcontroller, followed by the timestamp at which they were created. 
-%	This type of name, while it looks a bit clunky, has two key advantages: it makes sure that it is easy for both humans and machines to find the files they’re looking for (because the names all share name and ID); and, no files will be unintentionally overwritten (because each has a unique timestamp in its name). 
-	
-	
+\end{itemize}		
 \end{enumerate}
 \loadMilestone{mlst:03a} % load milestone with tags id: mlst:02
 
@@ -476,7 +504,7 @@ With a set of data files from \lstinline{time_compare}, we can now assess whethe
 %By quantifying these deviations we will get a sense for the relative accuracy and precision of each method of determining time.
 Until now, you have used Micropython on your microcontroller, to interact with devices and collect data.
 In this section, you will work with Python \emph{on your computer} to open, parse and statistically analyze these data to understand the distributions of time-keeping errors.
-You will then be equipped to consider what they imply for the accuracy and precision of time measurements in environmental sensor data.  
+You can then consider what they imply for the accuracy and precision of time measurements in environmental sensor data.  
 
 We'll begin our statistical analysis with a graphical investigation of time-keeping errors. 
 In addition to plotting the raw data, you will generate a type of graphic called a \htmladdnormallink{violin plot}{https://en.wikipedia.org/wiki/Violin_plot}.
@@ -494,8 +522,8 @@ This library also has many other tools that are helpful in statistical analysis 
 
 Why are we concerned whether the distribution of time errors is similar to a standard statistical distribution? 
 There are two important reasons. 
-One is that, if time-keeping errors conformed to a standard statistical distribution, we could make better use of limited data to predict the expected magnitudes of errors, how often they will exceed acceptable error bounds, and many other useful characteristics. 
-The other is that we could then perform more discriminating hypothesis tests.
+One is that, if time-keeping errors conform to a standard statistical distribution, we can make better use of limited data to predict the expected magnitudes of errors, how often they will exceed acceptable error bounds, and many other useful characteristics. 
+The other is that we can then perform more discriminating hypothesis tests.
 For example, we would be better able to detect whether one particular \rtc is significantly more error-prone than the whole population of \rtcs.
 
 
@@ -514,7 +542,7 @@ pip3 install --upgrade scipy matplotlib numpy
 	This file contains functions that you will need to analyze time-keeping errors.
 	
 	\smallskip
-	Note that it will make this and future statistical analysis much easier if you designate a directory on your computer to contain all your \python scripts, and put all the subdirectories with data inside it.
+	It will make this and future statistical analysis much easier if you designate a directory on your computer to contain all your \python scripts, and put all the subdirectories with data inside it.
 	
 %Code overview
 %A synopsis of the code is:
@@ -557,7 +585,7 @@ plt.show()
 \end{lstlisting}
 	The first command sets up a window with three plots stacked one over another.
 	\begin{itemize}
-		\item[$\circ$] Note that, in most \python installations, the window and plots will not appear until after you are finished plotting and issue the final command, \lstinline{plt.show()}.
+		\item[$\circ$] In most \python installations, the window and plots will not appear until after you are finished plotting and issue the final command, \lstinline{plt.show()}.
 		\item[$\circ$] Depending on your computer's display, you may want to adjust the \lstinline{figsize} parameter.
 	\end{itemize}
 	The second command parses and plots time-keeping error data, in files with names that end in ``\lstinline{.txt}'' in a subdirectory called \lstinline{TimeData}.
@@ -692,7 +720,7 @@ violinplot_TC_data(fig,axes,subsample_times,subsample_onbrd_ext,subsample_NTP_ex
 	You can vary the parameters \lstinline{v_widths=200.,bw=0.5} to adjust the width and breadth of the resulting distributions to get a good representation of your data.
 	Details about implementation of violin plots are given in \lstinline{matplotlib}'s \htmladdnormallink{documentation}{	https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.violinplot.html}.
 	
-	Note the differences in vertical axes. 
+	Notice the differences in vertical axes. 
 	What can you say about the distributions of time-keeping errors?
 	Are they \texttt{unimodal} or \texttt{multi-modal}?
 	Do they reflect directional biases towards being more often negative than positive, or \textit{vice versa}?
@@ -712,9 +740,9 @@ The lower the resulting probability, the less likely it is that the null hypothe
 If the probability is less than a threshold --- usually $0.05$, or 1 in 20 --- we consider it so unlikely that we accept the null hypothesis is \emph{falsified}.
 Falsifying the hypothesis that two distributions are the same implies that the distributions are significantly different.
 
-Note that the converse does not apply. 
+The converse does not apply: 
 If the resulting probability is above the threshold, that does not prove the distributions are the same --- only that we failed to establish that they are different.
-It may be that they are truly the same, but it may also be that they are different and our statistical sampling was insufficient to demonstrate it.
+It may be that they are truly the same, but it may also be that they are different and our statistical sampling was insufficient to detect that difference.
 
 For example, consider the question ``Is my \rtc defective?'' 
 In statistical terms, this question can be made more explicit by restating it as ``Are the time-keeping errors from my \rtc different than the errors from the whole population of \rtcs?''
@@ -786,7 +814,7 @@ plt.show()
 	The closer the plotted data points lie to the red line, the more normally distributed they are.
 	
 	\smallskip
-	Note that \lstinline{probplot_TC_data} plots only the last sampling interval in the subsampled dataset. 
+	Notice that \lstinline{probplot_TC_data} plots only the last sampling interval in the subsampled dataset. 
 	
 	\smallskip
 	\texttt{scipy}'s plotting algorithm also provides some useful quantitative metrics:
@@ -818,7 +846,7 @@ hypothesis_TC_data(subsample_times,subsample_onbrd_ext,subsample_onbrd_ext2,pcnt
 		The key output is the $p$-value, representing the probability of getting the observed data if the null hypothesis is true.
 		
 		\smallskip
-		Note that the T-test analysis gives a result, but that result has statistical validity only if the underlying assumption that time-keeping errors are normally distributed are satisfied.
+		Keep in mind that the T-test analysis gives a result, but that result has statistical validity only if the underlying assumption that time-keeping errors are normally distributed are satisfied.
 	\end{itemize}
 
 \end{enumerate}
