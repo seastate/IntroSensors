@@ -216,7 +216,7 @@
 %</mlst:03>
 
 %<*mlst:03a>
-\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Generating a detaset of time-keeping errors]
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Generating a dataset of time-keeping errors]
 	\begin{itemize}
 		\item [$\Box$] This Milestone is to generate a dataset using the \lstinline{time_compare} script. \,
 		
@@ -241,7 +241,7 @@
 %</mlst:03a>
 
 %<*mlst:03b>
-\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Visualizing your devices' \textit{vs.} the population's time-keeping errors]
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Visualizing your device's \textit{vs.} the population's time-keeping errors]
 	\begin{itemize}
 		\item [$\Box$] This Milestone is to replot the time-keeping error dataset, distinguishing your microcontroller/\rtc combination from the population using the \lstinline{template} and \lstinline{exclude} variables in the \lstinline{lineplot_TC_data} script. \,
 		
@@ -253,8 +253,7 @@
 %<*mlst:03c>
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Percentile plots of time-keeping errors]
 	\begin{itemize}
-		\item [$\Box$] This Milestone is to replot the time-keeping error dataset, distinguishing your microcontroller/\rtc combination from the population and adding lines as instructed for the 5th, 25th, 50th, 75th and
-		95th percentiles at several informative time points. \,
+		\item [$\Box$] This Milestone is to replot the time-keeping error dataset, distinguishing your microcontroller/\rtc combination from the population and adding lines as instructed for the 5th, 25th, 50th, 75th and	95th percentiles at several informative time points. \,
 		
 		When you have successfully replotted the datset, complete the assignment by: (a) saving and uploading a \texttt{png} or \texttt{jpg} image of your plots; and (b) uploading a short explanation of how time-keeping errors from your device compare to the focal percentiles of the whole population (e.g., how do magnitude and direction of errors compare between time-keeping methods and microcontroller/\rtc combinations?).
 	\end{itemize}
@@ -319,9 +318,9 @@
 		
 		For at least 6 combinations of resistors, use the following criteria to select the best combination:
 		\begin{itemize}
-			\item[$\circ$] The voltage tolerance of the \texttt{ESP8266}'s \adc is satisfied (i.e., the 5\textit{th} and 7\textit{th} column entries are both \texttt{TRUE}).
-			\item[$\circ$] The power dissipation, \texttt{W}, is low (9\textit{th} column).
-			\item[$\circ$] The resolution uncertainty, \texttt{res}, is small (10\textit{th} column).
+			\item[$\circ$] The voltage tolerance of the \texttt{ESP8266}'s \adc is satisfied (i.e., the 6\textit{th} column entry is \texttt{TRUE}).
+			\item[$\circ$] The power dissipation, \texttt{W}, is low (8\textit{th} column).
+			\item[$\circ$] The resolution uncertainty, \texttt{res}, is small (9\textit{th} column).
 		\end{itemize}
 		Select the values of $R_1$ and $R_2$ that you think best satisfy this combination of design criteria, and write a short explanation of why you chose these over other possible combinations. \,
 		When you have selected your resistors, complete the assignment by uploading your spreadsheet and summary statement.

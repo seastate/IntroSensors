@@ -2,7 +2,7 @@
 \setchapterpreamble[u]{\margintoc}
 \chapter[Environmental sensing with voltage, current and resistance]{Introduction to circuits: Environmental sensing with voltage, current and resistance}
 \labch{circuits_intro}
-Environments and the ecosystems within them are governed by physical characteristics like temperature, light intensity, $O_2$ concentration, $pH$, seawater salinity, and wind or current velocity.
+Natural environments and the ecosystems within them are governed by physical characteristics like temperature, light intensity, $O_2$ concentration, $pH$, seawater salinity, and wind or current velocity.
 Instruments for environmental sensing generate electrical signals that vary with one or more of these characteristics.
 For this to be useful, the relationship between electrical outputs and environmental inputs must be consistent and quantifiable. 
 The process of establishing this quantitative relationship is called \emph{calibration}.
@@ -70,12 +70,12 @@ for the \texttt{ESP8266}, where $ADC$ is the integer value read from the \adc pi
 	\end{kaobox}
 }.
 
-\subsection{Voltage of an 18650 lithium-ion battery}
-The task at hand in this section is to measure the voltage of a rechargeable lithium-ion battery called an \htmladdnormallink{``18650''}{https://en.wikipedia.org/wiki/Lithium-ion_battery}.
-The name 18650 derives from its dimensions: an 18650 battery is \texttt{18mm} in diameter and \texttt{65mm} long.
-18650s are a common standard of rechargeable battery, widely available and well suited to powering environmental sensors. 
+\subsection{Voltage of an \texttt{18650} lithium-ion battery}
+The task at hand in this section is to measure the voltage of a rechargeable lithium-ion battery called an \htmladdnormallink{``\texttt{18650}''}{https://en.wikipedia.org/wiki/Lithium-ion_battery}.
+The name \texttt{18650} derives from its dimensions: an \texttt{18650} battery is \texttt{18mm} in diameter and \texttt{65mm} long.
+\texttt{18650}s are a common standard of rechargeable battery, widely available and well suited to powering environmental sensors. 
 
-18650 voltages typically range from 3.7-4.2V, depending on how charged they are, ambient temperature, \etc
+\texttt{18650} voltages typically range from 3.7-4.2V, depending on how charged they are, ambient temperature, \etc
 For an instrument in the field, the capacity to monitor its own battery level can be valuable.
 For example, an instrument on the verge of power failure can, if connected to the Internet, send a message indicating it needs maintenance.
 Alternatively, it can be programmed to alter its sampling schedule to stretch whatever power remains over a longer duration, even if less frequently.
@@ -86,13 +86,13 @@ Well, it \emph{is} pretty easy.
 But, there's a wrinkle we need to contend with: \adcs have strict limits to how large a voltage they can tolerate.
 In fact, for many types of microcontroller these limits are quite low.
 For \texttt{ESP8266}s, the limit is \texttt{1V}.
-That's much lower than even a mostly discharged 18650 battery's voltage.
-If we attach the terminals of an 18650 directly to an ESP8266 \adc, we risk destroying the \adc and possibly other components as well.
+That's much lower than even a mostly discharged \texttt{18650} battery's voltage.
+If we attach the terminals of an \texttt{18650} directly to an ESP8266 \adc, we risk destroying the \adc and possibly other components as well.
 
-We need a way to \emph{represent} the voltage of an 18650 with a voltage that we know will never exceed \texttt{1V}.
+We need a way to \emph{represent} the voltage of an \texttt{18650} with a voltage that we know will never exceed \texttt{1V}.
 To accomplish this, we'll create a sensor in the typical 3-connection analog format: \texttt{GND}, $V_{in}$ and $V_{data}$.
-In this sensor, \texttt{GND} and $V_{in}$ will come from the 18650 terminals. 
-$V_{data}$ will come from the circuit we're about to design, in such a way as to insure that it accurately represents battery voltage according to a known calibration and stays within the \texttt{1V} limit.
+In this sensor, \texttt{GND} and $V_{in}$ will come from the \texttt{18650} terminals. 
+$V_{data}$ will come from the circuit we're about to design, in such a way as to insure that it accurately represents battery voltage according to a known calibration while staying within the \texttt{1V} limit.
 
 \subsubsection{Ohm's Law for voltage, current and resistance}
 The design of our current sensor is based on one of the fundamental laws governing electricity, \htmladdnormallink{Ohm's Law}{https://en.wikipedia.org/wiki/Ohm\%27s\_law}.
@@ -251,8 +251,8 @@ V_{data} = V_{in} \frac{R_2}{R_1+R_2}
 \end{equation}
 That is, $V_{data}$ is always a fixed fraction of $V_{in}$, and that fraction is the same as the fraction $R_2$ represents of the total resistance $R_1+R_2$. 
 
-Equation \ref{vd4} is the information we need to design a voltage divider enabling an ESP8266 \adc to safely measure the voltage of an 186560 battery.
-To leave a margin of safety, we'll assume the highest voltage an 18650 can reach is $V_{in}=5V$. Then, to meet the \texttt{1V} limit on $V_{data}$ (the \adc pin), our circuit must have
+Equation \ref{vd4} is the information we need to design a voltage divider enabling an ESP8266 \adc to safely measure the voltage of an \texttt{18650} battery.
+To leave a margin of safety, we'll assume the highest voltage an \texttt{18650} can reach is $V_{in}=5V$. Then, to meet the \texttt{1V} limit on $V_{data}$ (the \adc pin), our circuit must have
 \begin{equation}\label{vd5}
 V_{data} = V_{in} \frac{R_2}{R_1+R_2}  \le 1 .
 \end{equation}
@@ -286,7 +286,7 @@ W = \frac{V_{in}^2}{R_1+R_2}
 \end{equation}
 That is, the power dissipated across both resistors of the voltage divider equals the square of the imposed voltage, divided by the total resistance.
 This tells us that, for a given voltage, higher values of $R_1+R_2$ mean less power dissipated. 
-In a battery-powered field instrument, less dissipated power is generally a good thing --- it means that instruments can collect data for longer.
+In a battery-powered field instrument, less dissipated power is generally a good thing --- it may mean that instruments can collect data for longer.
 This suggests that, among resistor combinations that satisfy  Equation \ref{vd6}, those combinations in which $R_1+R_2$ is larger will be more economical of power.
 
 Note that there are limits to reducing power losses by increasing $R_1+R_2$.
@@ -296,12 +296,12 @@ But, sufficiently high resistor values will make the total current so small that
 
 \subsubsection{\howto Design a voltage divider circuit}
 \labsec{vd_design}
-With these insights into the working principles of voltage dividers, you are now equipped to design your own voltage dividing circuit to measure 18650 battery voltage with your ESP8266's \adc. 
+With these insights into the working principles of voltage dividers, you are now equipped to design your own voltage dividing circuit to measure \texttt{18650} battery voltage with your ESP8266's \adc. 
 In this design process, you will consider alternative choices of resistors.
 You will exclude resistor combinations that exceed the \adc's voltage tolerance.
 Among the remaining combinations, you will calculate power consumption and estimate the resolution %accuracy and precision 
 of its voltage measurements, as a basis for a final selection of resistors for your circuit design. 
-Then, in \refsec{vd_make}, you will assemble your voltage divider design and assess its accuracy and precision. 
+Then, in \refsec{vd_assem}, you will assemble your voltage divider design and assess its accuracy and precision. 
 \begin{enumerate}
 	\item \textbf{Select a focal set of resistors, among those you have at hand.}
 	
@@ -325,6 +325,8 @@ Then, in \refsec{vd_make}, you will assemble your voltage divider design and ass
 	\centering \begin{small}
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
 		\hline 
+		\textbf{A}  & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{E} & \textbf{F} & \textbf{G} & \textbf{H} & \textbf{I} \\ 
+		\hline 
 		Vin  & R1 & R2 & R2/R1 & Vdata & Vdata<1? & I & W & Vres \\ 
 		\hline 
 		&  &  &  &  &  &  &  &  \\ 
@@ -346,6 +348,8 @@ Then, in \refsec{vd_make}, you will assemble your voltage divider design and ass
 		\centering \begin{small}
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
 			\hline 
+			\textbf{A}  & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{E} & \textbf{F} & \textbf{G} & \textbf{H} & \textbf{I} \\ 
+			\hline 
 			Vin  & R1 & R2 & R2/R1 & Vdata & Vdata<1? & I & W & Vres \\ 
 			\hline 
 			5 & 470  & 47 &  &  &  &  &  &  \\ 
@@ -362,12 +366,15 @@ Then, in \refsec{vd_make}, you will assemble your voltage divider design and ass
 	In this entry, the ``='' tells the spreadsheet you will enter a formula that should be calculated based on existing values in the spreadsheet.
 	The result of this calculation is $R_2$ as a fraction of $R_1$.
 	
-	Then, enter the formula \lstinline{=C2<(B2/(A1-1))} in the spreadsheet cell below \texttt{R2<R1/(Vin-1)?}.
-	Here again, the  ``='' tells the spreadsheet you will enter a formula.
-	In this case, though, the formula is a logical statement, \lstinline{C2<(B2/4)}, that is either True or False.
+	% This entry removed to save space
+	%	Then, enter the formula \lstinline{=C2<(B2/(A1-1))} in the spreadsheet cell below \texttt{R2<R1/(Vin-1)?}.
+	%	Here again, the  ``='' tells the spreadsheet you will enter a formula.
+	%	In this case, though, the formula is a logical statement, \lstinline{C2<(B2/4)}, that is either True or False.
 	\begin{table}[H]
 	\centering \begin{small}
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+		\hline 
+		\textbf{A}  & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{E} & \textbf{F} & \textbf{G} & \textbf{H} & \textbf{I} \\ 
 		\hline 
 		Vin  & R1 & R2 & R2/R1 & Vdata & Vdata<1? & I & W & Vres \\ 
 		\hline 
@@ -376,18 +383,22 @@ Then, in \refsec{vd_make}, you will assemble your voltage divider design and ass
 	\end{tabular} 
 	\end{small}
 	\end{table}
-	If the result of the second calculation is \texttt{TRUE}, then the values for $R_1$ and $R_2$ satisfy the voltage limitations of the ESP8266 \adc.
+%	If the result of this calculation is \texttt{TRUE}, then the values for $R_1$ and $R_2$ satisfy the voltage limitations of the ESP8266 \adc.
 	
-	\item \textbf{Calculate the output voltage, $V_{data}$, using Equation \ref{vd4}.}
+	\item \textbf{Calculate the maximum output voltage, $V_{data}$, using Equation \ref{vd4}.}
 
 	First, enter the formula \lstinline{=A2*C2/(B2+C2)} in the spreadsheet cell below \texttt{Vdata}.
 	In this formula, the cell references correspond to the correct variables in Equation \ref{vd4}.
 
 	Then, enter the formula \lstinline{=F2<1} in the spreadsheet cell below \texttt{Vdata<1?}.
-	This formula uses the result from the \texttt{Vdata} column, and returns \texttt{TRUE} if $V_{data} < 1$ \texttt{volt}. 
+	Here, again, the  ``='' tells the spreadsheet you will enter a formula.
+	In this case, though, the formula is a logical statement, \lstinline{F2<1}, that is either true or false.
+	This formula uses the result from the \texttt{Vdata} column; it returns \texttt{TRUE} if $V_{data} < 1$ \texttt{volt} and the voltage divider is safe for the ESP8266's \adc. 
 	\begin{table}[H]
 	\centering \begin{small}
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+		\hline 
+		\textbf{A}  & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{E} & \textbf{F} & \textbf{G} & \textbf{H} & \textbf{I} \\ 
 		\hline 
 		Vin  & R1 & R2 & R2/R1 & Vdata & Vdata<1? & I & W & Vres \\ 
 		\hline 
@@ -400,13 +411,15 @@ Then, in \refsec{vd_make}, you will assemble your voltage divider design and ass
 
 	\item \textbf{Calculate current flowing through the voltage divider, and the power dissipated to heat.}
 	
-	First, enter the formula \lstinline{=A5/(B5+C5)} in the spreadsheet cell below \texttt{I}.
+	First, enter the formula \lstinline{=A2/(B2+C2)} in the spreadsheet cell below \texttt{I}.
 	
-	Then, enter the formula \lstinline{=A5^2/(B5+C5)} in the spreadsheet cell below \texttt{W}.
+	Then, enter the formula \lstinline{=A2^2/(B2+C2)} in the spreadsheet cell below \texttt{W}.
 	This formula corresponds to Equation \ref{watts2}, for calculating the power dissipated to heat in the voltage divider.
 	\begin{table}[H]
 	\centering \begin{small}
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+		\hline 
+		\textbf{A}  & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{E} & \textbf{F} & \textbf{G} & \textbf{H} & \textbf{I} \\ 
 		\hline 
 		Vin  & R1 & R2 & R2/R1 & Vdata & Vdata<1? & I & W & Vres \\ 
 		\hline 
@@ -415,15 +428,15 @@ Then, in \refsec{vd_make}, you will assemble your voltage divider design and ass
 	\end{tabular} 
 	\end{small}
 	\end{table}
+	In this example, the new entries show that the current through the voltage divider at the assumed maximum input voltage is \texttt{0.00967 A}, or \texttt{9.67 mA}, and the power dissipated by that current is \texttt{0.0484 W}.
 
 	\item \textbf{Calculate the resolution of \adc measurements of $V_{in}$.}
 
-	In Equation \ref{adc_volt2}, we calculated that the theoretical resolution of the \texttt{ESP8266}'s \adc is just under $10^{-3}$ \texttt{volts}. 
-	In our voltage sensor, the \adc will measure $V_{data}$, each integer result from the \adc has this magnitude of uncertainty (plus any accuracy and precision errors).
+	Let's use the quantity $V_{res}$ to denote the smallest input voltage change we can resolve with our voltage divider/\adc combination --- that is, its \emph{resolution}.
 	
 	\smallskip
-	What does this imply for our calculation of $V_{in}$?
-	\smallskip
+	In Equation \ref{adc_volt2}, we calculated that the theoretical resolution of the \texttt{ESP8266}'s \adc is $\frac{1}{1024}$, or just under $10^{-3}$ \texttt{volts}. 
+	What does this imply for our calculation of  $V_{res}$?
 %	\begin{table}[H]
 %	\centering
 %	\begin{small}
@@ -439,17 +452,33 @@ Then, in \refsec{vd_make}, you will assemble your voltage divider design and ass
 %	\end{small}
 %	\end{table}
 	
-	The highest value that the \adc can return (when $V_{in}$ is at its maximum value, \texttt{5 volts}) is $V_{data}$.
-	This value is $1024 V_{data}$, and to satisfy the voltage tolerance we know that this number must be less than or equal to 1024.
-	Because the $0$-$1024 V_{data}$ integer range corresponds to the entire $0-5$ \texttt{volt} range of $V_{in}$, the resolution limit in $V_{in}$ must be
-	\begin{equation}\label{vd8}
-	\Delta V_{in} = \frac{V_{in}}{1024 V_{data}}.
+	\smallskip
+	By the design of our voltage divider, $V_{in}$ is always in constant proportion to $V_{data}$.
+	That is, a change of input voltage, $\Delta V_{in}$, is always related to a change in \adc voltage, $\Delta V_{data}$, by 
+	\begin{equation}\label{vd9}
+	\Delta V_{in} =  \Delta V_{data} \frac{V_{in}}{V_{data}}.
 	\end{equation}
-	To implement this calculation in your spreadsheet, enter the formula \lstinline{=1/(F5*1024)*A5} in the spreadsheet cell below \texttt{Vres}.
+	Equation \ref{vd9} tells us that, if the smallest measurable \adc voltage change is $\Delta V_{data_{min}}=\frac{1}{1024}$, then the smallest measurable input voltage change, $\Delta V_{in_{min}}=V_{res}$, must be
+	\begin{equation}\label{vd8}
+	V_{res} = \frac{1}{1024} \frac{V_{in}}{V_{data}} = \frac{1}{1024} \frac{R_1+R_2}{R_2}.
+\end{equation}
+%	
+%	 varies from
+%	
+%	In our voltage sensor, the \adc will measure $V_{data}$, each integer result from the \adc has this magnitude of uncertainty (plus any accuracy and precision errors).
+%	The highest value that the \adc can return (when $V_{in}$ is at its maximum value, \texttt{5 volts}) is $V_{data}$.
+%	This value is $1024 V_{data}$, and to satisfy the voltage tolerance we know that this number must be less than or equal to 1024.
+%	Because the $0$-$1024 V_{data}$ integer range corresponds to the entire $0-5$ \texttt{volt} range of $V_{in}$, the resolution limit in $V_{in}$ must be
+%	\begin{equation}\label{vd8}
+%	\Delta V_{in} = \frac{V_{in}}{1024 V_{data}}.
+%	\end{equation}
+	To implement this calculation in your spreadsheet, enter the formula \lstinline{=(1/1024)*(B2+C2)/C2} in the spreadsheet cell below \texttt{Vres}.
 	\begin{table}[H]
 	\centering 
 	\begin{small}
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+		\hline 
+		\textbf{A}  & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{E} & \textbf{F} & \textbf{G} & \textbf{H} & \textbf{I} \\ 
 		\hline 
 		Vin  & R1 & R2 & R2/R1 & Vdata & Vdata<1? & I & W & Vres \\ 
 		\hline 
@@ -462,13 +491,16 @@ Then, in \refsec{vd_make}, you will assemble your voltage divider design and ass
 
 	\item \textbf{Copy your calculations into additional rows to test new combinations of resistors.}
 
-	To replicate your calculations for other resistor value, select all the cells you filled out in the second row, and paste them into the row below.
+	To replicate your calculations for other resistor values, select all the cells you filled out in the second row, and paste them into the row below.
 	You can then change the $R_1$ and $R_2$ resistor values, and compare the results to previous combinations.
 	
 	For example, we can see the effects of substituting a $10 \Omega$ resistor for the $47 \Omega$ resistor, with
 	\begin{table}[H]
 	\centering \begin{small}
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+		\hline 
+		\textbf{A}  & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{E} & \textbf{F} & \textbf{G} & \textbf{H} & \textbf{I} \\ 
+ 
 		\hline 
 		Vin  & R1 & R2 & R2/R1 & Vdata & Vdata<1? & I & W & Vres \\ 
 		\hline 
@@ -489,11 +521,11 @@ Then, in \refsec{vd_make}, you will assemble your voltage divider design and ass
 \subsubsection{\howto Assemble and test a voltage divider circuit}
 \labsec{vd_assem}
 
-Now that you've designed an analog voltage sensor for monitoring an \texttt{18650} battery, it's time to build it and see how it works!
+Now that you've designed an analog voltage sensor for monitoring an \texttt{\texttt{18650}} battery, it's time to build it and see how it works!
 \begin{marginfigure}[-0cm]
 	\begin{center}
 		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_voltage_divider2_bb.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_voltage_divider2_bb.png}
-		\caption[Voltage divider schematic]{An illustration of the layout for an analog voltage sensor, using a \texttt{voltage divider} to measure voltage from an \texttt{18650} battery. 
+		\caption[Voltage divider schematic]{An illustration of the layout for an analog voltage sensor, using a \texttt{voltage divider} to measure voltage from an \texttt{\texttt{18650}} battery. 
 		In the schematic, jumpers that are not needed but may be left in place if already present are indicated in gray.}
 		\labfig{feather_voltage_divider2}
 	\end{center}
@@ -531,7 +563,7 @@ Here's the step-by-step (\underline{be sure to do these in order}):
 	
 	\item \textbf{Use a jumper to connect the free end of your $R_2$ resistor to the negative rail.}
 	
-	\item \textbf{Insert your \texttt{18650} battery into the battery holder, making sure to have the positive terminal of the battery in the positive end of the battery holder.}
+	\item \textbf{Insert your \texttt{\texttt{18650}} battery into the battery holder, making sure to have the positive terminal of the battery in the positive end of the battery holder.}
 
 	\item \textbf{Insert the ``\texttt{-}'' (black) wire from the battery holder into the negative rail  (\texttt{GND}).}
 
@@ -581,7 +613,7 @@ adc.read()    # read the ADC and print the result
 from BatteryVoltage import battery_voltage
 battery_voltage(R1=470.,R2=47.)
 \end{lstlisting}	
-	should now return a measurement of your \texttt{18650} battery voltage.	
+	should now return a measurement of your \texttt{\texttt{18650}} battery voltage.	
 	If you change to other resistor values, you can calculate voltage for the new voltage divider by changing the \texttt{R1} and \texttt{R2} arguments of the function.
 \end{enumerate}
 
