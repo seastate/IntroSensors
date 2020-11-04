@@ -547,7 +547,7 @@ Here's the step-by-step (\underline{be sure to do these in order}):
 		\item[$\circ$] Label each resistor with a piece of tape, identifying it as to the role it will play ($R_1$ or $R_2$) and its actual resistance.		
 	\end{itemize}
 	By measuring and labeling, you account for the possibility that the actual resistances differ substantially from the nominal resistances.
-	You also reduce the risk that you will accidentally reverse $R_1$ and $R_2$ in your circuit and destroy the \adc.
+	You also reduce the risk that you will accidentally reverse $R_1$ and $R_2$ in your circuit, which could destroy the \adc.
 	
 	\item \textbf{Insert your microcontroller in your breadboard, in the standard position.}	
 	
@@ -603,7 +603,7 @@ adc.read()    # read the ADC and print the result
 	
 	Use the following code to define your function, replacing the example resistor values with the correct values for your voltage divider:
 
-	\lstinputlisting[language=Python,label=BatteryVoltage,caption={\htmladdnormallink{\texttt{BatteryVoltage.py}}{https://publicsensors.org/IntroSensors/Codes/BatteryVoltage.py}: A Python function to calculate battery voltage using the \adc and a voltage divider.}]{Codes/BatteryVoltage.py}
+	\lstinputlisting[language=Python,label=BatteryVoltage,caption={\htmladdnormallink{\texttt{BatteryVoltage.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/BatteryVoltage.py}: A Python function to calculate battery voltage using the \adc and a voltage divider.}]{Codes/BatteryVoltage.py}
 	
 	\item \textbf{Execute your function on your microcontroller.}
 	
@@ -640,7 +640,7 @@ battery_voltage(R1=470.,R2=47.)
 A \htmladdnormallink{thermistor}{https://en.wikipedia.org/wiki/Thermistor} is an electrical component whose resistance changes with temperature.
 Thermistors are readily available and inexpensive, and low cost temperature sensors made from them can have very good accuracy and precision.
 Unsurprisingly, thermistors are widely used as temperature sensors in industry and household appliances. 
-For example, the temperature in refrigerators and ovens are controlled by circuits using a thermistor to sense temperature.
+For example, the temperature in refrigerators and ovens are often controlled by circuits using a thermistor to sense temperature.
 In this section you will design, assemble and calibrate an analog sensor using a thermistor, and use it to measure variations in environmental temperature.
 
 The voltage divider you built in \refsec{meas_volt} was designed to measure voltage from a battery. % that was outside the \texttt{ESP8266} \adc's tolerance limits. 
@@ -665,11 +665,11 @@ Then, solving Equation \ref{vd4} for $R_2 = R_{therm}$ gives us
 R_{therm} = \frac{V_{data}}{V_{in}-V_{data}}R_1.
 \end{equation}
 We do not know ahead of time which strategy will yield a better temperature sensor.
-Which resistor to replace, and what the value to choose for the remaining resistor, will emerge from the sensor design process.
+Which resistor to replace, and what value to choose for the remaining resistor, will emerge from the sensor design process.
 
 \subsection{Thermistor temperature-resistance curves}
-Thermistors are usually referred to by their \texttt{nominal resistance value}, which is their resistance at the reference temperature, $25^\circ$ \texttt{C} ($77^\circ$ \texttt{F}).
-Common nominal resistance values range from $100\Omega$ through $100k\Omega$.
+Thermistors are usually referred to by their \texttt{nominal resistance value}, which is their designed resistance at the reference temperature, $25^\circ$ \texttt{C} ($77^\circ$ \texttt{F}).
+Common nominal resistance values for thermistors range from $100\Omega$ through $100k\Omega$.
 Within this range are many nominal resistance values that are somewhat standard for specific purposes.
 For example, many 3D printers use a $22k\Omega$ thermistor to measure the temperature at which melted plastic is being extruded to build up a part. 
 
@@ -749,7 +749,7 @@ Substitute the values you obtain from your thermistor into these calculations.
 	\end{itemize} 
 
 	A good way to create ``water baths'' at these three temperatures for thermistor calibration is with paper bowls or cups, filled with a water/ice mixture, boiling water and room temperature water.
-	Cover the bath with a lid, so that it maintains its temperature for longer and does not cool through evaporation. 
+	Cover each bath with a lid, so that it maintains its temperature for longer and does not cool through evaporation. 
 	Confirm the actual temperatures of your water baths with the most accurate thermometer you can find, e.g. by inserting it through a small hole in the lid.
 	
 	\item \textbf{Prepare your thermistor for resistance measurements.}
@@ -802,16 +802,14 @@ Substitute the values you obtain from your thermistor into these calculations.
 	You may run these functions on your computer or, using the \texttt{<ctrl>-e / <ctrl>-d} technique, copy and run them on your microcontroller.
 	
 	\smallskip
-	Use \lstinline{SH_coeffs_kelvins} if your temperatures are in $^\circ$\texttt{Kelvin}, and \lstinline{SH_coeffs_celsius} if your temperatures are in $^\circ$\texttt{Celsius}.
-	\lstinputlisting[language=Python,label=SteinhartHart,caption={\htmladdnormallink{\texttt{SteinhartHart.py}}{https://publicsensors.org/IntroSensors/Codes/SteinhartHart.py}: Python functions to calculate Steinhart-Hart coefficients for thermistor calibration.}]{Codes/SteinhartHart.py}
-	
-	
+	Use \lstinline{SH_coeffs_kelvins} if your temperatures are in $^\circ$\texttt{Kelvin}, and \lstinline{SH_coeffs_celsius} if your temperatures are in $^\circ$\texttt{Celsius}. Both functions return the Steinhart-Hart coefficients \lstinline{(A, B, C)} as a Python tuple.
+	\lstinputlisting[language=Python,label=SteinhartHart,caption={\htmladdnormallink{\texttt{SteinhartHart.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/SteinhartHart.py}: Python functions to calculate Steinhart-Hart coefficients for thermistor calibration.}]{Codes/SteinhartHart.py}
 	
 	
 	\item \textbf{Verify the resistor and temperature calculations.}
 	
 	The Python functions below calculate temperature from resistance and \textit{vice versa} for a calibrated thermistor.
-	\lstinputlisting[language=Python,label=thermistor,caption={\htmladdnormallink{\texttt{thermistor.py}}{https://publicsensors.org/IntroSensors/Codes/thermistor.py}: Python functions to calculate temperature from resistance and \textit{vice versa} for a calibrated thermistor.}]{Codes/thermistor.py}
+	\lstinputlisting[language=Python,label=thermistor,caption={\htmladdnormallink{\texttt{thermistor.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/thermistor.py}: Python functions to calculate temperature from resistance and \textit{vice versa} for a calibrated thermistor.}]{Codes/thermistor.py}
 	As an initial test, try calculations with your known values: $R_1$ from $T_{k,1}$, $T_{k,2}$ from $R_2$, \etc
 	For \emph{consistency}, you should get the same result as you entered for your calibration.
 	
@@ -821,7 +819,6 @@ Substitute the values you obtain from your thermistor into these calculations.
 	
 \end{enumerate}
 \loadMilestone{mlst:04c} % load milestone with tags id: mlst:04c
-
 
 
 \subsection{Thermistor circuit design}
@@ -1173,7 +1170,7 @@ The hardware for sub-circuit 1 is now complete.
 
 \smallskip
 To measure frequency from the \texttt{TSL237} sensor, we will use a modification of code posted on the \htmladdnormallink{MicroPython forum}{https://forum.micropython.org/viewtopic.php?f=18\&t=5724\&p=32921}:
-\lstinputlisting[language=Python,label=FrequencyMedian,caption={\htmladdnormallink{\texttt{frequency\textunderscore median.py}}{https://publicsensors.org/IntroSensors/Codes/frequency_median.py}: A Python function to calculate the period of an oscillating voltage.}]{Codes/frequency_median.py}
+\lstinputlisting[language=Python,label=FrequencyMedian,caption={\htmladdnormallink{\texttt{frequency\textunderscore median.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/frequency_median.py}: A Python function to calculate the period of an oscillating voltage.}]{Codes/frequency_median.py}
 This code uses a \Micropython \, utility called \lstinline{time_pulse_us} to measure the time, in microseconds, for a complete high/low cycle of oscillating voltage on \texttt{Pin p}.
 
 To improve precision, the code repeats this measurement \texttt{n} times, and returns the median value. 
