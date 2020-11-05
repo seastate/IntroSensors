@@ -500,7 +500,6 @@ Then, in \refsec{vd_assem}, you will assemble your voltage divider design and as
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
 		\hline 
 		\textbf{A}  & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{E} & \textbf{F} & \textbf{G} & \textbf{H} & \textbf{I} \\ 
- 
 		\hline 
 		Vin  & R1 & R2 & R2/R1 & Vdata & Vdata<1? & I & W & Vres \\ 
 		\hline 
@@ -891,6 +890,8 @@ In these circuit diagrams, the box with the diagonal line represents the thermis
 	\centering
 	\begin{small}
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+		\hline 
+			\textbf{A}  & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{E} & \textbf{F} & \textbf{G} & \textbf{H} & \textbf{I} \\ 
 			\hline 
 			Vin  & RTH1 & R2 & R2/RTH1 & Vdata & Vdata<1? & I & W & Vres \\ 
 			\hline 
@@ -929,6 +930,8 @@ In these circuit diagrams, the box with the diagonal line represents the thermis
 	\begin{small}
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 			\hline 
+			\textbf{A}  & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{E} & \textbf{F} & \textbf{G} & \textbf{H} & \textbf{I} & \textbf{J} \\ 
+			\hline 
 			Vin  & RTH1 & R2 & R2/RTH1 & Vdata & Vdata<1? & I & W & Vres & WTH1\\ 
 			\hline 
 			3.3 & 32648  & 100 & 3.06E-03 & 1.01E-02 & TRUE & 1.01E-04 & 3.33E-04 & 3.20E-01 & 3.32E-04\\ 
@@ -959,6 +962,8 @@ In these circuit diagrams, the box with the diagonal line represents the thermis
 	\centering
 	\begin{small}
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+			\hline 
+			\textbf{A}  & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{E} & \textbf{F} & \textbf{G} & \textbf{H} & \textbf{I} & \textbf{J} \\ 
 			\hline 
 			Vin  & R1 & RTH2 & RTH2/R1 & Vdata & Vdata<1? & I & W & Vres & WTH2\\ 
 			\hline 
@@ -1104,7 +1109,7 @@ Like most of the analog sensors we've considered, this sensor has three wires.
 Two are the usual inputs, $GND$ and $V_{in}$. 
 The third is the output, $V_{data}$, which oscillates between $GND$ and $V_{in}$ at a frequency, $f$, proportional to light intensity.
 
-Important information about this sensor is contained in the \texttt{data sheet} linked above.
+Important information about this sensor is contained in the \texttt{datasheet} linked above.
 The oscillation frequency in absolute darkness, $f_{dark}$, is typically around \texttt{0.1 Hz} (it varies somewhat with temperature).
 The ``\texttt{full-scale frequency}'' --- the highest frequency that can be put out by the sensor --- is $f_{full}=1000kHz=1MHz$.
 Figure 9 in the datasheet shows how irradiance, $E$, varies with frequency across more than 5 orders of magnitude in both quantities.
@@ -1133,7 +1138,7 @@ E_e \approx R_e f .
  
 \subsubsection{\howto Assemble and test a frequency-based light sensor circuit}
 \labsec{tsl237}
-\begin{marginfigure}[-14cm]
+\begin{marginfigure}[-3cm]
 	\begin{center}
 		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_tsl237module1_bb.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_tsl237module1_bb.png}
 		\caption[Light sensor sub-circuit 1 schematic]{An illustration of the circuit layout for sensing light using a \texttt{TSL237} Light-to-Frequency sensor. 
@@ -1160,7 +1165,7 @@ An example layout of the \texttt{TSK237} sub-circuit is shown in \reffig{feather
 	These jumpers are optional --- you may connect the sensor directly into the breadboard, or use female-male jumpers between the sensor and the breadboard.
 	
 	\smallskip
-	Note, however, that very long wires between the sensor and the microcontroller can affect the sensor reading.
+	Very long wires between the sensor and the microcontroller can affect the sensor reading.
 	So, it's best to restrict these wires to about the length of standard jumpers.	
 
 	\item \textbf{Connect the sensor's \texttt{Vout} to \texttt{Pin 4} on the microcontroller.}
@@ -1197,7 +1202,7 @@ nrep=7
 median_of_n(p4,nrep,timeout,verbose=True)
 \end{lstlisting}	
 	These commands first import the necessary modules.
-	In your sensor, \texttt{Vout} from the \texttt{TSL237} is attached to \texttt{Pin 4}, so this pin is initialized as \texttt{p4} and used in the function call.
+	In your circuit, \texttt{Vout} from the \texttt{TSL237} is attached to \texttt{Pin 4}, so this pin is initialized as \texttt{p4} and used in the function call.
 	The parameter \texttt{timeout} is here set to \texttt{300000 us}, or \texttt{0.3 s}.
 	The measurement is repeated \texttt{nrep=7} times.
 	In this example, \texttt{verbose=True} is used to print out the individual measurements.
@@ -1208,7 +1213,7 @@ median_of_n(p4,nrep,timeout,verbose=True)
 \end{lstlisting}		
 	This gives you a sense for the precision of successive measurements, under essentially constant ambient light conditions.
 	 	
-	\item \textbf{Take several measurements under different light conditions (e.g. shade the sensor with your hand and shine a bright light directly on it).}
+	\item \textbf{Take several measurements under different light conditions (e.g. shade the sensor with your hand, and shine a bright light directly on it).}
 	
 	Enter the results from \lstinline{median_of_n} in one column of a spreadsheet, under the column header \texttt{Period}.
 	
@@ -1220,14 +1225,23 @@ median_of_n(p4,nrep,timeout,verbose=True)
 	\item \textbf{Critically assess your observations.}
 	
 	What is the largest and smallest period and frequency you observe in your tests?
-	Do you see any evidence of limits to the sensor's range, either at high or low light intensities?
+	Do you see any evidence of limits to the range of the \texttt{TSL237}/\texttt{ESP8266} combination, either at high or low light intensities?
 \end{enumerate}
 
+\loadMilestone{mlst:04f} % load milestone with tags id: mlst:04e
+%A ``driver'' is code designed to interface with a piece of hardware. 
+%In the case of your light sensor, a driver should be a function that provides a clear and intuitive way to measure light. 
+%\ref{irrad}
 
 \subsection{Dividing frequency to increase sensor range}
 To identify situations in which light levels exceed the capacity of the sub-circuit constructed in \refsec{tsl237}, and to get more accurate readings in those cases, you will now add sub-circuit 2 to your sensor.
-This sub-circuit implements a counter/divider, called a \htmladdnormallink{CD4017B} {https://www.ti.com/lit/ds/symlink/cd4017b.pdf} to reduce frequency by a factor of 10.
-By measuring the period of signals coming from the \texttt{CD4017B}, your circuit effectively extends your microcontroller's time measurement capacity to a ten-fold higher light intensity. 
+This sub-circuit implements a counter/divider, called a \htmladdnormallink{CD4017B} {https://www.ti.com/lit/ds/symlink/cd4017b.pdf}, to reduce frequency by a factor of 10.
+
+\smallskip
+By measuring the period of signals coming from the \texttt{CD4017B}, sub-circuit 2 effectively extends your microcontroller's time measurement capacity to a ten-fold higher light intensity. 
+That is, some periods in  \texttt{TSL237} output which are too short to measure directly can be measured after being ``lengthened'' by  a factor of 10. 
+The tradeoff is that the longest period which can be measured is also reduced by a factor of 10. 
+%In effect, the \texttt{CD4017B} shifts the working range of the \texttt{TSL237} to tenfold higher light intensity.
 
 \subsubsection{\howto Measure divided frequency from a light sensor}
 \labsec{cd4017b}
@@ -1294,6 +1308,7 @@ median_of_n(p5,nrep,timeout,verbose=True)
 	Do you see any evidence of changes in limits to the sensor's range, either at high or low light intensities, when the frequency signal is divided by the \texttt{CD4017B}?
 	
 \end{enumerate}
+
 
 
 \subsection{Optimizing light sensor design}

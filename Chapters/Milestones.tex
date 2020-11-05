@@ -401,8 +401,51 @@
 \end{kaobox}
 %</mlst:04e>
 
+%<*mlst:04f>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Writing a driver for a \texttt{TSL237} light sensor]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to write a ``driver'' for your \texttt{TSL237} light sensor.
+		A driver is code designed to interface with a piece of hardware.  \,
+		In the case of your light sensor, a driver should be a \Micropython function that runs on your microcontroller, and that provides a clear and intuitive way to measure light. \, 
+		The file containing your driver should import \lstinline{median_of_n} as you did before, followed by these four elements: 
+		\begin{itemize}
+		\item[$\circ$] The first line is a \texttt{definition} statement, e.g. \\
+	
+		 \lstinline{def readTSL237(pd,nrep,timeout):} \\
+	 
+	 	This line defines a new function called  \lstinline{def readTSL237}, specifying it has the required arguments \lstinline{pd,nrep,timeout}. \,
+	 	These are the parameters needed to pass to \lstinline{median_of_n} to measure the period of the \texttt{TSL237} signal.
+	
+		\item[$\circ$] In the body of the function, call \lstinline{median_of_n} with the parameters needed to measure the period of the \texttt{TSL237} signal.
+		\item[$\circ$] Use Equation \ref{irrad} to calculate the nominal irradiance, $E_e$, and assign it to a Python variable with an informative name like \lstinline{E_e}.
+		\item[$\circ$] The final line is a \texttt{return} statement, e.g. \lstinline{return E_e}.
+		\item[$\circ$] Remember to observe the indentation requirements of Python for the statements inside the function.
+		\end{itemize}
+		%\smallskip
+		\item [$\Box$] Copy your driver onto your microcontroller, and use it to take light readings. \,
+		If you saved your function into a file named e.g. \texttt{lightTSL237.py}, you can test it with commands like \\
 
+		\lstinline{from lightTSL237 import readTSL237} \\
+		
+		\lstinline{from machine import Pin} \\
+		
+		\lstinline{p4 = Pin(4, Pin.IN)} \\
+		
+		\lstinline{timeout=300000} \\
 
+		\lstinline{nrep=7} \\
+
+		\lstinline{E_e=readTSL237(p4,nrep,timeout)} \\
+		
+		\lstinline{print('Measured nominal irradiance: E_e = ',E_e)}
+	\end{itemize}
+	It's quite common to encounter bugs in testing new Python codes. \,
+	If you do, correct the code, recopy it to your microcontroller and try again. \,
+	Don't forget that, if you imported \lstinline{lightTSL237} already, you will have to reboot your microcontroller with \texttt{ctrl-d} before you can import your corrected version.
+	
+	When you have a working driver, complete the assignment by uploading: (a) your driver and the code you used to get measurements using it; and, (b) five to ten measurements of nominal irradiance across a range of light levels.
+\end{kaobox}
+%</mlst:04f>
 
 
 
