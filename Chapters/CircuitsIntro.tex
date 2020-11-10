@@ -1138,7 +1138,7 @@ E_e \approx R_e f .
  
 \subsubsection{\howto Assemble and test a frequency-based light sensor circuit}
 \labsec{tsl237}
-\begin{marginfigure}[-3cm]
+\begin{marginfigure}[-4cm]
 	\begin{center}
 		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_tsl237module1_bb.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_tsl237module1_bb.png}
 		\caption[Light sensor sub-circuit 1 schematic]{An illustration of the circuit layout for sensing light using a \texttt{TSL237} Light-to-Frequency sensor. 
@@ -1164,9 +1164,9 @@ An example layout of the \texttt{TSK237} sub-circuit is shown in \reffig{feather
 	These are to make clear how the inputs and output are connected. 
 	These jumpers are optional --- you may connect the sensor directly into the breadboard, or use female-male jumpers between the sensor and the breadboard.
 	
-	\smallskip
-	Very long wires between the sensor and the microcontroller can affect the sensor reading.
-	So, it's best to restrict these wires to about the length of standard jumpers.	
+%	\smallskip
+%	Very long wires between the sensor and the microcontroller can affect the sensor reading.
+%	So, it's best to restrict these wires to about the length of standard jumpers.	
 
 	\item \textbf{Connect the sensor's \texttt{Vout} to \texttt{Pin 4} on the microcontroller.}
 	
@@ -1182,10 +1182,16 @@ To improve precision, the code repeats this measurement \texttt{n} times, and re
 It also returns \texttt{True} if the measurements completed without errors.
 This result is presented as a Python tuple, \lstinline{(per,valid)}, where \lstinline{per} is the measured period in $\mu s$ and \lstinline{valid} is \texttt{True} for a successful measurement.
 
-One thing to note about the \lstinline{time_pulse_us} function is that, if the pin it is monitoring does not change state within the interval \texttt{timeout}, an error is triggered.
+One thing to notice about the \lstinline{time_pulse_us} function is that, if the pin it is monitoring does not change state within the interval \texttt{timeout}, an error is triggered.
 In this case, \lstinline{time_pulse_us} returns \texttt{-1} or \texttt{-2} as an error message.
-To prevent these error messages from contaminating frequency estimates from the light sensor, the \lstinline{median_of_n} code returns the value of \texttt{timeout} for \lstinline{per}, instead of a measured period.
-It also returns \texttt{False} for \lstinline{valid} to reflect the error status.
+Two things happen if an error is returned.
+The \lstinline{median_of_n} code returns \texttt{False} for \lstinline{valid}, flagging the error status.
+Also, the  \lstinline{median_of_n} code returns the value of \texttt{timeout} for \lstinline{per}, instead of a measured period. 
+
+That is, \lstinline{median_of_n} code returns the \emph{either} the measured pulse interval \emph{or} the parameter \texttt{timeout}, whichever is lower.
+The code is designed this way for two reasons.
+One is to prevent these error messages from contaminating frequency estimates from the light sensor. Spurious measurements of \texttt{-1} or \texttt{-2}, if treated like true measurements, would erroneously reduce the reported period and increase the inferred light intensity.
+The other is to prevent the frequency measurement from being stuck for an indefinite period if there are no pulses, if the sensor is damaged or sees very low light intensity.
 
 \smallskip
 In other words, \texttt{timeout} is the maximum value for the period reported by \lstinline{median_of_n}, even if the true period is longer.
@@ -1228,27 +1234,48 @@ median_of_n(p4,nrep,timeout,verbose=True)
 	Do you see any evidence of limits to the range of the \texttt{TSL237}/\texttt{ESP8266} combination, either at high or low light intensities?
 \end{enumerate}
 
-\loadMilestone{mlst:04f} % load milestone with tags id: mlst:04e
+\loadMilestone{mlst:04f} % load milestone with tags id: mlst:04f
 %A ``driver'' is code designed to interface with a piece of hardware. 
 %In the case of your light sensor, a driver should be a function that provides a clear and intuitive way to measure light. 
 %\ref{irrad}
 
 \subsection{Dividing frequency to increase sensor range}
-To identify situations in which light levels exceed the capacity of the sub-circuit constructed in \refsec{tsl237}, and to get more accurate readings in those cases, you will now add sub-circuit 2 to your sensor.
-This sub-circuit implements a counter/divider, called a \htmladdnormallink{CD4017B} {https://www.ti.com/lit/ds/symlink/cd4017b.pdf}, to reduce frequency by a factor of 10.
+\labsec{divider}
+The sub-circuit you set up to measure light in \refsec{tsl237} should work well over a range of light conditions. 
+However, there are limits to this range.
+At very low light levels, readings from the sensor are limited by the parameter \texttt{timeout}, which the longest pulse interval that can be measured by the \lstinline{median_of_n} script.
 
-\smallskip
-By measuring the period of signals coming from the \texttt{CD4017B}, sub-circuit 2 effectively extends your microcontroller's time measurement capacity to a ten-fold higher light intensity. 
-That is, some periods in  \texttt{TSL237} output which are too short to measure directly can be measured after being ``lengthened'' by  a factor of 10. 
-The tradeoff is that the longest period which can be measured is also reduced by a factor of 10. 
+At very high light levels, readings are limited by the microcontroller hardware.
+The \lstinline{time_pulse_us} function cannot accurately measure intervals shorter than a few microseconds.
+The \texttt{tsl237} light sensor gives a frequency up to 1 $MHz$.
+This corresponds to a 1 $\mu s$ pulse interval, which is much too short for the \texttt{ESP8266} to resolve. 
+
+How can we increase the range of light levels over which meaningful measurements can be taken by your \texttt{TSL237}/\texttt{ESP8266} instrument?
+One approach is to add an additional sub-circuit to the existing circuit, that implements a counter/divider, called a \htmladdnormallink{CD4017B} {https://www.ti.com/lit/ds/symlink/cd4017b.pdf}.
+The \texttt{CD4017B} takes in an input frequency, and outputs a frequency reduced by a factor of 10.
+Some periods in \texttt{TSL237} output that are too short for the \texttt{ESP8266} to measure directly can be measured after being ``lengthened'' by  a factor of 10. 
+This significantly extends the range of your instrument into higher light intensities. 
+
+However, there is a tradeoff:
+The longest period which can be measured is also reduced by a factor of 10, meaning that the range of the instrument is reduced at lower light intensities.
+Also, its resolution is reduced by a factor of 10.
+
+Clearly, the ideal would be the best of both worlds --- to use the high resolution, direct measurement of \texttt{TSL237} when it is within the \texttt{ESP8266}'s capabilities, and to use the frequency-divided \texttt{CD4017B} output when light levels are too high for direct measurements.
+The activities in this section take you through implementing this improved instrument. 
+First, you will build a new sub-circuit using a \texttt{CD4017B} to generate a $10\times$-reduced frequency signal.
+Then, you will code a driver to automatically select between the direct and reduced frequency signals, to obtain the best light measurement.
+ 
+%To identify situations in which light levels exceed the capacity of the sub-circuit constructed in \refsec{tsl237}, and to get more accurate readings in those cases, you will now add sub-circuit 2 to your sensor.
+%\smallskip
+%By measuring the period of signals coming from the \texttt{CD4017B}, sub-circuit 2 effectively extends your microcontroller's time measurement capacity to a ten-fold higher light intensity. 
+
 %In effect, the \texttt{CD4017B} shifts the working range of the \texttt{TSL237} to tenfold higher light intensity.
-
 \subsubsection{\howto Measure divided frequency from a light sensor}
 \labsec{cd4017b}
-\begin{marginfigure}[-0cm]
+\begin{marginfigure}[-10cm]
 	\begin{center}
 		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_tsl237_bb.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_tsl237_bb.png}
-		\caption[Complete light sensor circuit schematic]{An illustration of the circuit layout for sensing light coupling a \texttt{CD4017B} counter/divider with a \texttt{TSL237} Light-to-Frequency sensor. 
+		\caption[Complete light sensor circuit schematic]{An illustration of the circuit layout for sensing light coupling a \texttt{CD4017B} divider/counter with a \texttt{TSL237} Light-to-Frequency sensor. 
 		Sub-circuit 2 is an addition to sub-circuit 1, which is not modified. 
 		Wire colors retain the same meaning as in sub-circuit 1, with the additional purple wire representing divided frequency from the frequency-modulated sensor output.
 		in which frequency is read directly from the sensor.}
@@ -1265,7 +1292,7 @@ The layout for adding sub-circuit 2 to your sensor assembly is shown in \reffig{
 	
 	\item \textbf{Connect power and ground to the \texttt{CD4017B}.}
 	
-	The pins on the \texttt{CD4017B} are explained in the datasheet, linked to above.
+	The pins on the \texttt{CD4017B} are explained in the \htmladdnormallink{CD4017B datasheet} {https://www.ti.com/lit/ds/symlink/cd4017b.pdf}.
 	The lower left pin is \texttt{GND}.
 	The upper right pin is \texttt{Vin}, which in this case is connected via the power rail to \texttt{3.3 volts} from the microcontroller.
 	
@@ -1309,11 +1336,13 @@ median_of_n(p5,nrep,timeout,verbose=True)
 	
 \end{enumerate}
 
+\loadMilestone{mlst:04g} % load milestone with tags id: mlst:04g
 
 
-\subsection{Optimizing light sensor design}
-A ``driver'' is code designed to interface with a piece of hardware. 
-In the case of your light sensor, a driver should provide a clear and intuitive method to measure light. 
+\subsection{Optimizing a light sensor driver}
+With a working circuit that takes both direct and reduced frequency signals, you are now ready to code a driver to automatically select the best light measurement.
+
+
 
 \subsubsection{\howto Code a ``driver'' for a \texttt{TSL237} light sensor}
 \labsec{light_driv}

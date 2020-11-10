@@ -404,7 +404,7 @@
 %<*mlst:04f>
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Writing a driver for a \texttt{TSL237} light sensor]
 	\begin{itemize}
-		\item [$\Box$] This Milestone is to write a ``driver'' for your \texttt{TSL237} light sensor.
+		\item [$\Box$] This Milestone is to write a ``driver'' for your \texttt{TSL237} light sensor. \,
 		A driver is code designed to interface with a piece of hardware.  \,
 		In the case of your light sensor, a driver should be a \Micropython function that runs on your microcontroller, and that provides a clear and intuitive way to measure light. \, 
 		The file containing your driver should import \lstinline{median_of_n} as you did before, followed by these four elements: 
@@ -413,10 +413,10 @@
 	
 		 \lstinline{def readTSL237(pd,nrep,timeout):} \\
 	 
-	 	This line defines a new function called  \lstinline{def readTSL237}, specifying it has the required arguments \lstinline{pd,nrep,timeout}. \,
-	 	These are the parameters needed to pass to \lstinline{median_of_n} to measure the period of the \texttt{TSL237} signal.
+	 	This line defines a new function called  \lstinline{readTSL237}, specifying it has the required arguments \lstinline{pd,nrep,timeout}. \,
+	 	These are the parameters needed to pass to \lstinline{median_of_n}, to measure the period of the \texttt{TSL237} signal.
 	
-		\item[$\circ$] In the body of the function, call \lstinline{median_of_n} with the parameters needed to measure the period of the \texttt{TSL237} signal.
+		\item[$\circ$] In the body of the function, call \lstinline{median_of_n} with the passed parameters.
 		\item[$\circ$] Use Equation \ref{irrad} to calculate the nominal irradiance, $E_e$, and assign it to a Python variable with an informative name like \lstinline{E_e}.
 		\item[$\circ$] The final line is a \texttt{return} statement, e.g. \lstinline{return E_e}.
 		\item[$\circ$] Remember to observe the indentation requirements of Python for the statements inside the function.
@@ -441,11 +441,29 @@
 	\end{itemize}
 	It's quite common to encounter bugs in testing new Python codes. \,
 	If you do, correct the code, recopy it to your microcontroller and try again. \,
-	Don't forget that, if you imported \lstinline{lightTSL237} already, you will have to reboot your microcontroller with \texttt{ctrl-d} before you can import your corrected version.
+	Don't forget that, if you imported \lstinline{lightTSL237} already, you will have to reboot your microcontroller with \texttt{ctrl-d} before you can import your corrected version. \,
 	
-	When you have a working driver, complete the assignment by uploading: (a) your driver and the code you used to get measurements using it; and, (b) five to ten measurements of nominal irradiance across a range of light levels.
+	When you have a working driver, complete the assignment by uploading: (a) your driver and the code you used to get measurements using it; and, (b) five to ten measurements of nominal irradiance across a range of light levels, with descriptions of conditions in which you measured them.
 \end{kaobox}
 %</mlst:04f>
+
+%<*mlst:04g>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Measuring light with a \texttt{CD4017B} frequency divider]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to enhance your \texttt{TSL237} light sensor circuit, by adding a sub-circuit to measure a frequency reduced $10\times$ through a \texttt{CD4017B} frequency divider. \,
+		Assemble the sub-circuit, and show (with the suggested commands) that it works correctly.  
+		\item [$\Box$] Compare the results of direct measurements from the \texttt{TSL237} through the \texttt{CD4017B} frequency divider. \,
+		Use a spreadsheet to construct a table of five to ten side-by-side comparisons, in which you record direct and divided measurements taken under the same light levels. \,
+		Include a range of illumination, with both low- and high-intensity light conditions.
+		\item [$\Box$] Add columns in your spreadsheet in which you use Equation \ref{irrad} to calculate the nominal irradiance, $E_e$, for direct and divided measurements. \,
+		Remember that since the divided signal is $10\times$ as long as the original \texttt{TSL237} signal, the recorded period must be reduced by a factor of ten before using it in Equation \ref{irrad}.
+		\item [$\Box$] Use your spreadsheet to construct a plot, with the divided periods on the horizontal axis and as the original \texttt{TSL237} periods on the vertical axis. \,
+		To improve the readability of this plot, double click on both axes and select options to use a log-log scale. \,
+		Remember to label your axes.
+	\end{itemize}	
+	When you have a working circuit and code, complete the assignment by uploading: (a) an image or sketch of your circuit; (b) the code you used to get measurements; and, (c) your spreadsheet or screenshot of your table and plot, with descriptions of conditions in which you measured them.
+\end{kaobox}
+%</mlst:04g>
 
 
 
