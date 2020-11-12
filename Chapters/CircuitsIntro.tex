@@ -602,7 +602,7 @@ adc.read()    # read the ADC and print the result
 	
 	Use the following code to define your function, replacing the example resistor values with the correct values for your voltage divider:
 
-	\lstinputlisting[language=Python,label=BatteryVoltage,caption={\htmladdnormallink{\texttt{BatteryVoltage.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/BatteryVoltage.py}: A Python function to calculate battery voltage using the \adc and a voltage divider.}]{Codes/BatteryVoltage.py}
+	\lstinputlisting[language=Python,label=BatteryVoltage,caption={\htmladdnormallink{\texttt{BatteryVoltage.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/BatteryVoltage.py}: A Python function to calculate battery voltage using the \adc and a voltage divider.}]{Codes/BatteryVoltage.py}
 	
 	\item \textbf{Execute your function on your microcontroller.}
 	
@@ -802,13 +802,13 @@ Substitute the values you obtain from your thermistor into these calculations.
 	
 	\smallskip
 	Use \lstinline{SH_coeffs_kelvins} if your temperatures are in $^\circ$\texttt{Kelvin}, and \lstinline{SH_coeffs_celsius} if your temperatures are in $^\circ$\texttt{Celsius}. Both functions return the Steinhart-Hart coefficients \lstinline{(A, B, C)} as a Python tuple.
-	\lstinputlisting[language=Python,label=SteinhartHart,caption={\htmladdnormallink{\texttt{SteinhartHart.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/SteinhartHart.py}: Python functions to calculate Steinhart-Hart coefficients for thermistor calibration.}]{Codes/SteinhartHart.py}
+	\lstinputlisting[language=Python,label=SteinhartHart,caption={\htmladdnormallink{\texttt{SteinhartHart.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/SteinhartHart.py}: Python functions to calculate Steinhart-Hart coefficients for thermistor calibration.}]{Codes/SteinhartHart.py}
 	
 	
 	\item \textbf{Verify the resistor and temperature calculations.}
 	
 	The Python functions below calculate temperature from resistance and \textit{vice versa} for a calibrated thermistor.
-	\lstinputlisting[language=Python,label=thermistor,caption={\htmladdnormallink{\texttt{thermistor.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/thermistor.py}: Python functions to calculate temperature from resistance and \textit{vice versa} for a calibrated thermistor.}]{Codes/thermistor.py}
+	\lstinputlisting[language=Python,label=thermistor,caption={\htmladdnormallink{\texttt{thermistor.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/thermistor.py}: Python functions to calculate temperature from resistance and \textit{vice versa} for a calibrated thermistor.}]{Codes/thermistor.py}
 	As an initial test, try calculations with your known values: $R_1$ from $T_{k,1}$, $T_{k,2}$ from $R_2$, \etc
 	For \emph{consistency}, you should get the same result as you entered for your calibration.
 	
@@ -1175,7 +1175,7 @@ The hardware for sub-circuit 1 is now complete.
 
 \smallskip
 To measure frequency from the \texttt{TSL237} sensor, we will use a modification of code posted on the \htmladdnormallink{MicroPython forum}{https://forum.micropython.org/viewtopic.php?f=18\&t=5724\&p=32921}:
-\lstinputlisting[language=Python,label=FrequencyMedian,caption={\htmladdnormallink{\texttt{frequency\textunderscore median.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/frequency_median.py}: A Python function to calculate the period of an oscillating voltage.}]{Codes/frequency_median.py}
+\lstinputlisting[language=Python,label=FrequencyMedian,caption={\htmladdnormallink{\texttt{frequency\textunderscore median.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/frequency_median.py}: A Python function to calculate the period of an oscillating voltage.}]{Codes/frequency_median.py}
 This code uses a \Micropython \, utility called \lstinline{time_pulse_us} to measure the time, in microseconds, for a complete high/low cycle of oscillating voltage on \texttt{Pin p}.
 
 To improve precision, the code repeats this measurement \texttt{n} times, and returns the median value. 
@@ -1347,6 +1347,10 @@ With a working circuit that takes both direct and reduced frequency signals, you
 \subsubsection{\howto Code a ``driver'' for a \texttt{TSL237} light sensor}
 \labsec{light_driv}
 
+\ref{LightFreq}
+
+
+%\lstinputlisting[language=Python,label=LightFreq,caption={\htmladdnormallink{\texttt{light\textunderscore freq.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/light_freq.py}: Python functions to obtain and record direct and frequency-divided measurements of period from a \texttt{TSL237} light sensor.}]{Codes/light_freq.py}
 
 
 \begin{marginfigure}[-0cm]

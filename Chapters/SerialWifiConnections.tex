@@ -712,7 +712,7 @@ These random bits can then be converted into random numbers and strings. Here's 
 A post on the \htmladdnormallink{Micropython forum}{https://forum.micropython.org/viewtopic.php?t=6158} provides an easy-to-use function that converts random bits bits into random integers in a user-supplied range.
 \begin{enumerate}
 	\item \textbf{To generate random integers, download} the \lstinline{random_int.py} \textbf{python script by clicking on the link in the margin. Then, use the \lstinline{<ctrl>-e/<ctrl>-d} technique to paste the following commands into a \texttt{REPL} session:}
-	\lstinputlisting[language=Python,label=random_int,caption={\htmladdnormallink{\texttt{random\textunderscore int.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/random_int.py}: A Micropython script demonstrating generation of random integers within a specified range.}]{Codes/random_int.py}
+	\lstinputlisting[language=Python,label=random_int,caption={\htmladdnormallink{\texttt{random\textunderscore int.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/random_int.py}: A Micropython script demonstrating generation of random integers within a specified range.}]{Codes/random_int.py}
 	
 	This code defines a function, \lstinline{randint}, that returns a single random integer between the input parameters \texttt{min} and \texttt{max} (including \texttt{min} and \texttt{max}).
 	
@@ -760,7 +760,7 @@ For this purpose, it's sufficient to include an encrypted password or token that
 With this relatively low standard of encryption in mind, let's demonstrate a basic use of \lstinline{ucryptolib} posted on the Micropython forum by \htmladdnormallink{@jimmo}{https://forum.micropython.org/viewtopic.php?t=6726}.
 \begin{enumerate}
 	\item \textbf{To encrypt strings, download} the \lstinline{encrypt_demo.py} \textbf{python script, and use the \lstinline{<ctrl>-e/<ctrl>-d} technique to paste the following commands into a \texttt{REPL} session:}
-\lstinputlisting[language=Python,label=encrypt_demo,caption={\htmladdnormallink{\texttt{encrypt\textunderscore demo.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/encrypt_demo.py}: A Micropython script demonstrating simple encryption of short strings.}]{Codes/encrypt_demo.py}
+\lstinputlisting[language=Python,label=encrypt_demo,caption={\htmladdnormallink{\texttt{encrypt\textunderscore demo.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/encrypt_demo.py}: A Micropython script demonstrating simple encryption of short strings.}]{Codes/encrypt_demo.py}
 
 	In this example,the string \texttt{input plaintext} is first placed into the variable \lstinline{data}.
 	The string is then converted to bytes, and stored as the variable \lstinline{data_bytes}.
@@ -782,7 +782,7 @@ msg2 =  b"[\x9df\xa3\xa0\xa5'\xa5v\xc1\xfeNI\xa9\x96\x03"
 	These messages could be conveyed in a public venue, and without knowing or guessing the key (not very hard in this example) it would be difficult --- but not impossible --- for an eavesdropper to extract the original strings.
 
 	\item \textbf{To decrypt strings, download} the \lstinline{decrypt_demo.py} \textbf{python script, and use the \lstinline{<ctrl>-e/<ctrl>-d} technique to paste the following commands into a \texttt{REPL} session:}
-\lstinputlisting[language=Python,label=decrypt_demo,caption={\htmladdnormallink{\texttt{decrypt\textunderscore demo.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/decrypt_demo.py}: A Micropython script demonstrating simple decryption of short strings.}]{Codes/decrypt_demo.py}
+\lstinputlisting[language=Python,label=decrypt_demo,caption={\htmladdnormallink{\texttt{decrypt\textunderscore demo.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/decrypt_demo.py}: A Micropython script demonstrating simple decryption of short strings.}]{Codes/decrypt_demo.py}
 
 	In this command sequence, the key is used to decrypt \lstinline{msg1} and  \lstinline{msg1} into the bytes from which they were generated.
 	Those bytes are then converted back to strings, and the ``padding'' characters \lstinline{\x00} are removed (``stripped'')).
@@ -845,7 +845,7 @@ If the message contains a different sample number, the encrypted and plaintext v
 This is a simple implementation of this message verification strategy:
 \begin{enumerate}
 	\item \textbf{To augment a message using encryption for verification, download} the \lstinline{encrypt_msg.py} \textbf{python script, and use the \lstinline{<ctrl>-e/<ctrl>-d} technique to paste the following commands into a \texttt{REPL} session:}
-	\lstinputlisting[language=Python,label=encrypt_msg,caption={\htmladdnormallink{\texttt{encrypt\textunderscore msg.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/encrypt_msg.py}: A Micropython script demonstrating a simple strategy for augmenting a data message using encryption for verification.}]{Codes/encrypt_msg.py}
+	\lstinputlisting[language=Python,label=encrypt_msg,caption={\htmladdnormallink{\texttt{encrypt\textunderscore msg.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/encrypt_msg.py}: A Micropython script demonstrating a simple strategy for augmenting a data message using encryption for verification.}]{Codes/encrypt_msg.py}
 	
 	In this example, both the key and the salt are strings of random letters, generated as in \refsec{rnd}.
 	The key is 16 characters long (as required by the encryption algorithm), and the salt is 10 characters long so that when the sample number is added the total number of characters will not exceed 16 (we do not expect to take more than 999,999 samples!).
@@ -858,7 +858,7 @@ Instrument1,Sensor3,watertemp,NorthLakeWashingtonWA,3711,2020-3-19 1:20:17,7.687
 	where the rightmost entry in quotes is the encrypted block.
 	
 	\item \textbf{To verify the message using decryption, download} the \lstinline{decrypt_msg.py} \textbf{python script, and use the \lstinline{<ctrl>-e/<ctrl>-d} technique to paste the following commands into a \texttt{REPL} session:}
-\lstinputlisting[language=Python,label=decrypt_msg,caption={\htmladdnormallink{\texttt{decrypt\textunderscore msg.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/decrypt_msg.py}: A Micropython script demonstrating decryption of an augmented data message for verification.}]{Codes/decrypt_msg.py}
+\lstinputlisting[language=Python,label=decrypt_msg,caption={\htmladdnormallink{\texttt{decrypt\textunderscore msg.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/decrypt_msg.py}: A Micropython script demonstrating decryption of an augmented data message for verification.}]{Codes/decrypt_msg.py}
 
 	In a real application, this code would be executed on the receiving machine.
 	In this demonstration, you can run it from within the \texttt{REPL} session on your microcontroller or in a Python session on your computer.

@@ -7,11 +7,22 @@ This appendix contains listings of codes, in order of first appearance. Unless o
 \begin{itemize}
 	\item Micropython codes are distributed from \htmladdnormallink{MicroPython's github repository}{https://github.com/micropython/micropython} under the \htmladdnormallink{MIT license}{https://github.com/micropython/micropython/blob/master/LICENSE}.
 	\item Adafruit codes are distributed from \htmladdnormallink{Adafruit's github repository}{https://github.com/adafruit/Adafruit-uRTC} under the \htmladdnormallink{MIT license}{https://github.com/adafruit/Adafruit-uRTC/blob/master/LICENSE}.
+	\item Other codes are distributed from the \htmladdnormallink{publicsensors github repository}{https://github.com/publicsensors/IntroSensors/tree/main/Codes} under the \htmladdnormallink{MIT license}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/LICENSE.md}
 \end{itemize}
 
-\todo{There seems to be no way to preserve spaces in LaTeX output such that a simple copy/paste results in correct indentation. Change this section to have hyperlinks to codes on the github site? Or, just live with possibly ephemeral external links?}
+
+\section{Communicating with your microcontroller}
+
+\section{Circuit-building with MicroPython on the ESP8266 microcontroller}
+
+
+\lstinputlisting[language=Python,label=LightFreq,caption={\htmladdnormallink{\texttt{light\textunderscore freq.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/light_freq.py}: Python functions to obtain and record direct and frequency-divided measurements of period from a \texttt{TSL237} light sensor.}]{Codes/light_freq.py}
+
 
 \section{Keeping Track of Time}
+\lstinputlisting[language=Python,label=LightFreq,caption={\htmladdnormallink{\texttt{light\textunderscore freq.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/light_freq.py}: Python functions to obtain and record direct and frequency-divided measurements of period from a \texttt{TSL237} light sensor.}]{Codes/light_freq.py}
+
+
 \subsection{\htmladdnormallink{urtc.py}{https://github.com/adafruit/Adafruit-uRTC/blob/master/urtc.py}}
 %\subsection{\texttt{urtc.py}}
 %Reproduced from \htmladdnormallink{Adafruit's github repository}{https://github.com/adafruit/Adafruit-uRTC}. %, where it is distributed under the \htmladdnormallink{MIT license}{https://github.com/adafruit/Adafruit-uRTC/blob/master/LICENSE}. 

@@ -17,3 +17,8 @@
 *.xdy
 *.synctex.gz
 *.py~
+*.tex~
+*.zip
+*.py#
+*.tar
+*.tar.sav

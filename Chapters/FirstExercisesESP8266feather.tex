@@ -622,7 +622,7 @@ These steps are best explained with an example.
 Suppose we would like to set up our microcontroller so that, when we press the button, it \emph{toggles} the red LED (that is, it alternately switches \texttt{Pin 0} on and off). \verb|button_interrupt.py| is an example of code giving this behavior using our button sub-circuit:
 \begin{enumerate}
 	\item \textbf{Download the} \lstinline{button_interrupt.py} \textbf{python script, and copy it onto your microcontroller.}
-	\lstinputlisting[language=Python,label=ButtonInterrupt,caption={\htmladdnormallink{\texttt{button\textunderscore interrupt.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/button_interrupt.py}: A Micropython script to toggle the state of GPIO 2 when GPIO 0 changes state.}]{Codes/button_interrupt.py}
+	\lstinputlisting[language=Python,label=ButtonInterrupt,caption={\htmladdnormallink{\texttt{button\textunderscore interrupt.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/button_interrupt.py}: A Micropython script to toggle the state of GPIO 2 when GPIO 0 changes state.}]{Codes/button_interrupt.py}
 	In this code, \lstinline{togglePin0} is the ``handler'' -- it is the function that will get called when the interrupt is triggered. 
 	The ``irq'' in the \lstinline{pin2.irq} command stands for ``interrupt request'' -- this is the command that tells the microcontroller to execute the handler function in response to a change in the state of \lstinline{pin2}. 
 	
@@ -826,7 +826,7 @@ We just need to redefine GPIO 14 in the code, to be a \texttt{PWM} pin instead o
 	pwm14.duty(100)  # set a lower duty cycle
 	\end{lstlisting}
 	\item \textbf{Using the \texttt{<ctrl>-e}/\texttt{<ctrl>-d} technique (or by downloading for the link), copy and execute the following code on your microcontroller:}
-	\lstinputlisting[language=Python,label=SnoozeLED,caption={\htmladdnormallink{\texttt{snoozeLED.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/snoozeLED.py}: A Micropython script to ``snooze'' an LED regulated by \texttt{GPIO 14}, using Pulse Width Modulation.}]{Codes/snoozeLED.py}
+	\lstinputlisting[language=Python,label=SnoozeLED,caption={\htmladdnormallink{\texttt{snoozeLED.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/snoozeLED.py}: A Micropython script to ``snooze'' an LED regulated by \texttt{GPIO 14}, using Pulse Width Modulation.}]{Codes/snoozeLED.py}
 	
 	This code defines a method that automatically changes the \texttt{duty} parameter to cycle between brighter and fainter LED settings. 
 	To execute it, use:

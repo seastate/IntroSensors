@@ -244,7 +244,7 @@ print(datetime.second)
 \end{enumerate}
 
 To set the time on the \DS3231 using the \ntp server, the easiest method is to use the following utility, called \texttt{SetTimeDS3231.py}:
-\lstinputlisting[language=Python,label=SetTimeDS3231,caption={\htmladdnormallink{\texttt{SetTimeDS3231.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/SetTimeDS3231.py}: A Micropython utility to set a \DS3231 \rtc to time from a Network Time Protocol (NTP) server.}]{Codes/SetTimeDS3231.py}
+\lstinputlisting[language=Python,label=SetTimeDS3231,caption={\htmladdnormallink{\texttt{SetTimeDS3231.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/SetTimeDS3231.py}: A Micropython utility to set a \DS3231 \rtc to time from a Network Time Protocol (NTP) server.}]{Codes/SetTimeDS3231.py}
 %\lstinputlisting[language=Python]{Codes/settimeDS3231.py}
 \begin{enumerate}[resume]
 	\item \textbf{Download} \lstinline{SetTimeDS3231.py}\textbf{, copy it onto your microcontroller, and execute:} 
@@ -328,7 +328,7 @@ We will therefore attempt to learn as much as possible using much shorter sampli
 
 \begin{kaobox}[frametitle=A download-able dataset of time-keeping errors]
 	In a classroom setting with multiple microcontrollers and \rtcs (ideally 10 or more), generating your own dataset with the steps outlined below is the most informative strategy. 
-	If you do not have access to a sufficient number of devices, or if you would like to focus on understanding the data analysis rather than acquiring new data, you can download an \htmladdnormallink{archived dataset}{https://github.com/seastate/IntroSensors/tree/main/Codes/Data/TimeData} of time-keeping errors.
+	If you do not have access to a sufficient number of devices, or if you would like to focus on understanding the data analysis rather than acquiring new data, you can download an \htmladdnormallink{archived dataset}{https://github.com/publicsensors/IntroSensors/tree/main/Codes/Data/TimeData} of time-keeping errors.
 	This archive ``unzips'' to provide a directory called \lstinline{TimeData} containing 90 
 	time-keeping error data files.
 	You can use these files instead of your own dataset.
@@ -355,7 +355,7 @@ This process is repeated a specified number of times, each time producing a new 
 Follow these steps to generate your dataset:
 \begin{enumerate}
 	\item \textbf{Connect your microcontroller to \texttt{WiFi} in \texttt{STA} mode, so it can access the \texttt{NTP} server.}
-	\item \textbf{Download the file} \todo{Include several passes through NTP connection because it's not always successful even if internet is available.} \htmladdnormallink{TimeCompare.py}{https://github.com/seastate/IntroSensors/blob/main/Codes/TimeCompare.py}\textbf{ onto your computer, and use }\lstinline{mpfshell} \textbf{or} \lstinline{WebREPL} \textbf{to copy it onto your microcontroller.}
+	\item \textbf{Download the file} \todo{Include several passes through NTP connection because it's not always successful even if internet is available.} \htmladdnormallink{TimeCompare.py}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/TimeCompare.py}\textbf{ onto your computer, and use }\lstinline{mpfshell} \textbf{or} \lstinline{WebREPL} \textbf{to copy it onto your microcontroller.}
 	\item \textbf{Initialize the on-board and external (\DS3231) \rtcs:}
 \begin{lstlisting}[language=Python]
 from machine import RTC
@@ -528,7 +528,7 @@ For example, we would be better able to detect whether one particular \rtc is si
 
 
 \subsubsection{\howto Plot time-keeping error distributions}
-In this and the following sections, you can use either your own data or the \htmladdnormallink{archived dataset}{https://github.com/seastate/IntroSensors/tree/main/Codes/Data/TimeData} to demonstrate steps in the statistical analysis. 
+In this and the following sections, you can use either your own data or the \htmladdnormallink{archived dataset}{https://github.com/publicsensors/IntroSensors/tree/main/Codes/Data/TimeData} to demonstrate steps in the statistical analysis. 
 
 \begin{enumerate}
 	\item \textbf{Install the required \python libraries.}
@@ -538,7 +538,7 @@ In this and the following sections, you can use either your own data or the \htm
 pip3 install --upgrade scipy matplotlib numpy
 \end{lstlisting}	
 	
-	\item \textbf{Download the file}  \htmladdnormallink{TimeAccPrec.py}{https://github.com/seastate/IntroSensors/blob/main/Codes/TimeAccPrec.py}\textbf{ onto your computer.}
+	\item \textbf{Download the file}  \htmladdnormallink{TimeAccPrec.py}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/TimeAccPrec.py}\textbf{ onto your computer.}
 	This file contains functions that you will need to analyze time-keeping errors.
 	
 	\smallskip
@@ -553,7 +553,7 @@ pip3 install --upgrade scipy matplotlib numpy
 %– add the data extracted from the file to the comparison plots (the left column of axes)
 %– accumulate data for the violin plots, at the sample numbers specified in the list \lstinline{violin_samples} (line 25). 
 	
-	\item \textbf{If you will use the archived dataset, download the}  \htmladdnormallink{TimeData}{https://github.com/seastate/IntroSensors/tree/main/Codes/Data/TimeData}\textbf{ directory onto your computer.}
+	\item \textbf{If you will use the archived dataset, download the}  \htmladdnormallink{TimeData}{https://github.com/publicsensors/IntroSensors/tree/main/Codes/Data/TimeData}\textbf{ directory onto your computer.}
 	This directory called containing 90 sample data files.
 		
 	\item \textbf{If you will be analyzing your own independent dataset, copy the data files from your microcontroller into a directory on your computer.}
@@ -609,7 +609,7 @@ parsed  13  data lines...
 	
 	When the scripts have run successfully, they will produce a set of plots like \reffig{TAPplt1}.
 	\begin{itemize}
-		\item[$\circ$] This example assumes the \lstinline{TimeData} subdirectory is in the same directory that contains \htmladdnormallink{TimeAccPrec.py}{https://github.com/seastate/IntroSensors/blob/main/Codes/TimeAccPrec.py} and from which you launched the \python session.
+		\item[$\circ$] This example assumes the \lstinline{TimeData} subdirectory is in the same directory that contains \htmladdnormallink{TimeAccPrec.py}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/TimeAccPrec.py} and from which you launched the \python session.
 		If you have used file names or directories other than these defaults, adjust your commands accordingly. 
 		\item[$\circ$] The \lstinline{plt_style} parameter determines the type of symbol and line in the plots. 
 		The value in the example, \lstinline{plt_style}, means that each data point will be plotted as a small circle, with no lines connecting sequential data points.
