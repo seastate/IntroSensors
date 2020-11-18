@@ -3,7 +3,7 @@
 \chapter{Code Listings}
 \labch{code_listings}
 
-This appendix contains listings of codes, in order of first appearance. Unless otherwise stated:
+This appendix contains listings of selected codes, in order of first appearance. Additional codes are listed and linked within the relevant chapters. Unless otherwise stated:
 \begin{itemize}
 	\item Micropython codes are distributed from \htmladdnormallink{MicroPython's github repository}{https://github.com/micropython/micropython} under the \htmladdnormallink{MIT license}{https://github.com/micropython/micropython/blob/master/LICENSE}.
 	\item Adafruit codes are distributed from \htmladdnormallink{Adafruit's github repository}{https://github.com/adafruit/Adafruit-uRTC} under the \htmladdnormallink{MIT license}{https://github.com/adafruit/Adafruit-uRTC/blob/master/LICENSE}.
@@ -16,56 +16,19 @@ This appendix contains listings of codes, in order of first appearance. Unless o
 \section{Circuit-building with MicroPython on the ESP8266 microcontroller}
 
 
-\lstinputlisting[language=Python,label=LightFreq,caption={\htmladdnormallink{\texttt{light\textunderscore freq.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/light_freq.py}: Python functions to obtain and record direct and frequency-divided measurements of period from a \texttt{TSL237} light sensor.}]{Codes/light_freq.py}
-
-
 \section{Keeping Track of Time}
+\subsection{\lstinline{urtc.py}}
+\lstinputlisting[language=Python,label=urtc,caption={\htmladdnormallink{\texttt{urtc.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/urtc.py}: Driver for the \texttt{DS3231} Real Time Clock. See also the \htmladdnormallink{documentation}{https://micropython-urtc.readthedocs.io/en/latest/urtc.html\#}.}]{Codes/urtc.py}
+
+\subsection{\lstinline{SetTimeDS3231.py}}
+\lstinputlisting[language=Python,label=SetTimeDS3231,caption={\htmladdnormallink{\texttt{SetTimeDS3231.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/SetTimeDS3231.py}: Utility to set time from a Network Time Protocol (\texttt{NTP}) server.}]{Codes/SetTimeDS3231.py}
+Modified from  \htmladdnormallink{ntptime.py}{https://github.com/micropython/micropython/blob/master/ports/esp8266/modules/ntptime.py}, distributed from \htmladdnormallink{MicroPython's github repository}{https://github.com/micropython/micropython}.% under the 
+
+
+
+\section{Environmental sensing with voltage, current and resistance}
+\subsection{\lstinline{light_freq.py}}
 \lstinputlisting[language=Python,label=LightFreq,caption={\htmladdnormallink{\texttt{light\textunderscore freq.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/light_freq.py}: Python functions to obtain and record direct and frequency-divided measurements of period from a \texttt{TSL237} light sensor.}]{Codes/light_freq.py}
 
-
-\subsection{\htmladdnormallink{urtc.py}{https://github.com/adafruit/Adafruit-uRTC/blob/master/urtc.py}}
-%\subsection{\texttt{urtc.py}}
-%Reproduced from \htmladdnormallink{Adafruit's github repository}{https://github.com/adafruit/Adafruit-uRTC}. %, where it is distributed under the \htmladdnormallink{MIT license}{https://github.com/adafruit/Adafruit-uRTC/blob/master/LICENSE}. 
-See also the \htmladdnormallink{documentation}{https://micropython-urtc.readthedocs.io/en/latest/urtc.html\#}.
-\lstinputlisting[language=Python,numbers=none]{Codes/urtc.py}
-
-%horse
-
-\newpage\subsection{\texttt{settimeDS3231.py}}
-Modified from  \htmladdnormallink{ntptime.py}{https://github.com/micropython/micropython/blob/master/ports/esp8266/modules/ntptime.py}, distributed from \htmladdnormallink{MicroPython's github repository}{https://github.com/micropython/micropython}.% under the \htmladdnormallink{MIT license}{https://github.com/micropython/micropython/blob/master/LICENSE}. 
-%See also the \htmladdnormallink{documentation}{https://micropython-urtc.readthedocs.io/en/latest/urtc.html\#}.
-\lstinputlisting[language=Python,numbers=none]{Codes/settimeDS3231.py}
-
-%\newpage\subsection{ Try this in minted: \texttt{settimeDS3231.py}}
-%
-%\inputminted[python3=True,showspaces=True,space=~]{python}{Codes/settimeDS3231.py}
-%
-%
-%\newpage\subsection{ Try this in verbatim: \texttt{settimeDS3231.py}}
-%
-%\verbatiminput{Codes/settimeDS3231.py}
-%
-%\begin{pyverbatim}
-%def settimeDS3231(sclPin=5, sdaPin=4):
-%	t = time()
-%	import urtc
-%	from machine import I2C, Pin
-%	import utime
-%	tm = utime.localtime(t)
-%	#tm = tm[0:3] + (0,) + tm[3:6] + (0,)
-%	i2c = I2C(scl=Pin(sclPin), sda=Pin(sdaPin))
-%	rtc = urtc.DS1307(i2c)
-%	#machine.RTC().datetime(tm)
-%	datetime = urtc.datetime_tuple(year=tm[0], month=tm[1], day=tm[2],hour=tm[3],minute=tm[4],second=tm[5])
-%	print('setting urtc datetime to: ',datetime)
-%	rtc.datetime(datetime)
-%	#rtc.datetime(tm)
-%	datetime = rtc.datetime()
-%	#    print(datetime.year)
-%	#    print(datetime.month)
-%	#    print(datetime.day)
-%	#    print(datetime.weekday)
-%	#print(utime.localtime())
-%	
-%\end{pyverbatim}
-
+\subsection{\lstinline{plot_tsl237_divider.py}}
+\lstinputlisting[language=Python,label=PlotFreq,caption={\htmladdnormallink{\texttt{plot\textunderscore tsl2337\textunderscore divider.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/plot_tsl237_divider.py}: Python functions to parseand plot direct and frequency-divided measurements of period from a \texttt{TSL237} light sensor.}]{Codes/plot_tsl237_divider.py}
