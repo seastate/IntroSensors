@@ -157,7 +157,7 @@ Furthermore, holes on one side of the gutter are not connected to the holes on t
 
 The breadboard's hidden connections mean that any set of wires inserted into holes in the same row on the same side of the gutter are connected. 
 On the other hand, any wires inserted into holes in different rows, or in the same row but on opposite sides of the gutter, are \emph{insulated} from each other (not connected). 
-This straightforward geometry makes it easy to make it easy to understand the layout of an existing circuit, or to build a new one. 
+This straightforward geometry simplifies makes it easy to understand the layout of an existing circuit, or to build a new one. 
  
 Alongside the interior blocks of holes, most breadboards have paired columns of holes. 
 Unlike the interior holes, these exterior sets of holes are connected in columns but not in rows. 
@@ -591,7 +591,7 @@ pin2 = Pin(2, Pin.IN,pull=Pin.PULL_UP)
 \begin{lstlisting}[language=Python]
 pin2.value() 
 \end{lstlisting}	
-	Try it, to confirm that \texttt{GPIO 2} turns from value 1 (\texttt{3.3V}) to value 0 (\texttt{0V}) when you press the button, and reverts to value 1 when you release it.
+	Try it, to confirm that \texttt{GPIO 2} turns from value 1 (\texttt{3.3V}) to value 0 (\texttt{0V}) while you press the button, and reverts to value 1 when you release it.
 	
 \end{enumerate}
 Does this happen? 
@@ -834,7 +834,7 @@ We just need to redefine GPIO 14 in the code, to be a \texttt{PWM} pin instead o
 	snooze_led(pin=14)
 	\end{lstlisting}
 \end{enumerate}
-If your LED is now “snoozing” (gradually getting brighter and dimmer) then you’ve successfully implemented Pulse Width Modulation control through your relay
+If your LED is now “snoozing” (gradually getting brighter and dimmer) then you’ve successfully implemented Pulse Width Modulation control through your relay.
 \begin{enumerate}[resume]
 	\item \textbf{Try different choices of the parameters \texttt{freq}, \texttt{delta}, \texttt{delay} and \texttt{verbose}, e.g.} 
 	\begin{lstlisting}[language=Python]

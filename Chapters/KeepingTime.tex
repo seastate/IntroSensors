@@ -229,7 +229,7 @@ from machine import I2C, Pin
 i2c=I2C(scl=Pin(5),sda=Pin(4))
 rtc_ds3231=urtc.DS3231(i2c)
 \end{lstlisting}
-	\item Query the time from your \DS3231, with:
+	\item \textbf{Query the time from your \DS3231}, with:
 \begin{lstlisting}[language=Python]
 rtc_ds3231.datetime()  # print out current date/time tuple
 datetime = rtc_ds3231.datetime()
@@ -388,8 +388,12 @@ n_replicates = 3   # Number of times to replicate the sampling protocol
 		\smallskip
 		This convention gives filenames that are informative --- because of the prefix and microcontroller ID, they can be identified easily by both humans and machines.
 		Also, because the timestamp does not repeat itself, no file can be accidentally overwritten by another file with the same name. 
+	
+		\smallskip
+		Another useful attribute of this file-naming convention is that, among a set of data files collected by a given user and microcontroller, the alphabetical order of filenames reflects the chronological order in which they were collected. This makes it easier to select the replicates associated with a particular data collection session. 
+		
 		\item[$\circ$] \lstinline{interval_sec} is the parameter determining the length of intervals (in seconds) at which time samples should be taken
-		\sidenote[][*-18]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Time-saving tricks]
+		\sidenote[][*-0]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Time-saving tricks]
 				This example illustrates two ``tricks'' that many Micropython users find helpful when collecting and analyzing data.
 				\begin{itemize}
 					\item[$\triangleright$] When sampling at longer intervals (e.g. 3.5 hours) to explicitly write \lstinline{3.5*60*60}. 
@@ -554,7 +558,7 @@ pip3 install --upgrade scipy matplotlib numpy
 %– accumulate data for the violin plots, at the sample numbers specified in the list \lstinline{violin_samples} (line 25). 
 	
 	\item \textbf{If you will use the archived dataset, download the}  \htmladdnormallink{TimeData}{https://github.com/publicsensors/IntroSensors/tree/main/Codes/Data/TimeData}\textbf{ directory onto your computer.}
-	This directory called containing 90 sample data files.
+	This directory contains 90 sample data files.
 		
 	\item \textbf{If you will be analyzing your own independent dataset, copy the data files from your microcontroller into a directory on your computer.}
 	
@@ -754,7 +758,7 @@ This statistical form of the question can be tested in the form of a null hypoth
 Because you have time-keeping error samples from your \rtc and a population of other \rtcs, you can estimate the probability that your samples could have been drawn from the whole population of \rtcs.
 This probability can be estimated in several ways, depending on what we know about the characteristics of the distributions. 
 
-If we know nothing about the observed error distributions, or if we know their shapes but they does not conform to any standard distribution, we can use \emph{non-parametric tests}.
+If we know nothing about the observed error distributions, or if we know their shapes but they do not conform to any standard distribution, we can use \emph{non-parametric tests}.
 Non-parametric tests rely only on the order of samples in two datasets, not the shape of their distributions.
 Among the most useful non-parametric tests are:
 \begin{itemize}
@@ -839,7 +843,7 @@ plt.show()
 \begin{lstlisting}[language=Python]
 hypothesis_TC_data(subsample_times,subsample_onbrd_ext,subsample_onbrd_ext2,pcnts=[5.,25.,50.,75.,95.])
 \end{lstlisting}
-	In this example, we have focused on the time-keeping differences between the onboard and external \rtcs,but in working with your data you can make other comparisons.
+	In this example, we have focused on the time-keeping differences between the onboard and external \rtcs, but in working with your data you can make other comparisons.
 
 	\smallskip
 	The output of this command has two parts:
@@ -851,7 +855,7 @@ hypothesis_TC_data(subsample_times,subsample_onbrd_ext,subsample_onbrd_ext2,pcnt
 		The key output is the $p$-value, representing the probability of getting the observed data if the null hypothesis is true.
 		
 		\smallskip
-		Keep in mind that the T-test analysis gives a result, but that result has statistical validity only if the underlying assumption that time-keeping errors are normally distributed are satisfied.
+		Keep in mind that the T-test analysis always gives a result, but that result has statistical validity only if the underlying assumption that time-keeping errors are normally distributed are satisfied.
 	\end{itemize}
 
 \end{enumerate}
@@ -894,6 +898,12 @@ Use the methods of this chapter in collaboration with your classmates to test th
 	In many cases, using outdoor conditions for the hot or cold subpopulations might be practical.
 	Make sure, however, that your devices are protected from moisture and other damaging conditions, e.g. by placing them in a sealed plastic bag. 
 	
+	\item \textbf{Agree on an informative naming convention.}
+	
+	For example, if the keywords ``hot'' and `cold'' are included in the filename prefix, it will then be easy to subsample from the corresponding treatments in the resulting dataset.
+	\sidenote[][*-0]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Avoid unnecessary drama!]Keep in mind that \python is case sensitive, so that ``Hot'' is not the same as ``hot''. So, if one of your classmates will use the prefix ``Hotspur'', that may confound sorting between hot and cold treatments if the keyword is ``Hot'', but won't if the keyword is ``hot''.\end{kaobox}
+	}
+	 
 	\item \textbf{Visualize the resulting populations, using different plotting symbols and line types to indicate how percentiles evolve over time and assess distribution shapes.}
 	\item \textbf{Perform statistical tests of the null hypothesis, using the non-parametric tests and --- if justified --- the \texttt{T-test}.}
 	

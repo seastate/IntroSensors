@@ -117,6 +117,7 @@ In a diagram of an electrical circuit, a resistor is illustrated by a zig-zag li
 \end{figure}
 
 In this circuit, $R$ is the value of the resistor.
+$V_1$ is the voltage imposed on the left wire from the resistor, and $V_2$ is the voltage imposed on the right wire. 
 The voltage drop across this resistor is $V = V_1 - V_2$.
 The current flowing through the resistor is $I$.
 
@@ -674,7 +675,7 @@ For example, many 3D printers use a $22k\Omega$ thermistor to measure the temper
 
 The most common type of thermistor in temperature sensors is a \texttt{``negative temperature coefficient''} (\texttt{NTC}) thermistor.
 In an \texttt{NTC} thermistor, the resistance is lower at higher temperatures, and higher at lower temperatures.
-(The converse --- a \texttt{``positive temperature coefficient''} (\texttt{PTC}) thermistor, has higher resistance at higher temperatures, and lower resistance at lower temperatures.)
+(The converse --- a \texttt{``positive temperature coefficient''} or \texttt{PTC} thermistor, has higher resistance at higher temperatures, and lower resistance at lower temperatures.)
 This change in resistance with temperature is what makes a thermistor suitable as the basis of a temperature sensor. 
 However, it also means that we must anticipate the entire range of possible resistance values in our circuit design, to get the best possible resolution while insuring that the voltage divider will never exceed the \adc voltage tolerance.
 
@@ -742,7 +743,7 @@ Substitute the values you obtain from your thermistor into these calculations.
 	In most classrooms and laboratories, three suitable temperatures that are easy to produce in water baths are:
 	\begin{itemize}
 		\item[$\circ$] $0^\circ$ \texttt{C}, which is the equilibruim temperature of a mixture of frozen and liquid fresh water. 		
-		\item[$\circ$] $100^\circ$ \texttt{C}, which is the boiling temperature of a cup of fresh water. 
+		\item[$\circ$] $100^\circ$ \texttt{C}, which is the boiling temperature of fresh water. 
 		\item[$\circ$] Room temperature, which is usually close to $25^\circ$ \texttt{C}.
 %  Human body temp: $36.5–37.5^\circ$ \texttt{C}		
 	\end{itemize} 
@@ -1278,7 +1279,7 @@ One approach is to add an additional sub-circuit to the existing circuit, that i
 
 The \texttt{CD4017B} takes in an input frequency, and outputs a frequency reduced by a factor of 10.
 More specifically, it sends pulses to different pins, representing ``counts'' from 0 to 9. 
-A microcontroller \texttt{GPIO} attached to the \texttt{CD4017B} pin associated with 9 see only every 10th input pulse. puts 
+A microcontroller \texttt{GPIO} attached to the \texttt{CD4017B} pin associated with one of those pins will see only every 10th input pulse. 
 Some periods in \texttt{TSL237} output that are too short for the \texttt{ESP8266} to measure directly can be measured after being ``lengthened'' by  this factor of 10. 
 As you can see from \ref{irrad2}, this extends the range of your instrument into roughly $10\times$ higher light intensities. 
 
@@ -1335,7 +1336,7 @@ The layout for adding sub-circuit 2 to your sensor assembly is shown in \reffig{
 	The \texttt{CLOCK} pin is the input frequency signal for the \texttt{CD4017B}.
 	Here, we connect it to \texttt{Vout} from the \texttt{TSL237}, which carries the voltage oscillating at the frequency to be divided. 
 	
-	\item \textbf{Connect \texttt{CARRY OUT} pin on the \texttt{CD4017B} to \texttt{Pin 5} on your \texttt{ESP8266}.}
+	\item \textbf{Connect the \texttt{CARRY OUT} pin on the \texttt{CD4017B} to \texttt{Pin 5} on your \texttt{ESP8266}.}
 	
 	The \texttt{CARRY OUT} pin is the \texttt{CD4017B}'s output, which has $\frac{1}{10}$th the frequency of the \texttt{CLOCK} pin input. 
 
@@ -1435,7 +1436,7 @@ If the direct period is below the threshold, it remeasures using the divided dri
 	
 	Save its value with an informative name, like \lstinline{E_E_dir}.
 	
-	\item \textbf{Use an} \lstinline{if} statement to return \lstinline{E_E_dir} if it is above \lstinline{E_E_thresh}.
+	\item \textbf{Use an} \lstinline{if} \textbf{statement to return} \lstinline{E_E_dir} \textbf{20} \lstinline{E_E_thresh}.
 	
 	\item \textbf{Otherwise evaluate the nominal irradiance using your} \lstinline{read_divTSL237} \textbf{driver.}
 
