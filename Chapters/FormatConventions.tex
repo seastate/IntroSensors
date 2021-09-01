@@ -13,14 +13,14 @@ Thus contributers should not be offended if it proves impossible to follow any s
 However, this is a Creative Commons textbook. 
 That means users are able to rework, improve or ignore the suggested formatting conventions, substituting their own in their modifications of the text. 
 
-In some cases there are deviations from the indicated formats, either because the formats have changed and the text has not caught up with them.
+In some cases there are deviations from the indicated formats, possibly because the formats have changed and the text has not caught up with them.
 These should be corrected in successive drafts of the book.
 Occasionally, a special awkwardness or lack of clarity arises in a given context, that is mitigated by a deviation from the specified formatting. 
 In that case, contributers should consider the costs and benefits for students of unexpected formatting.
-If possible, a minor rewriting or restructuring may be possible to reconcile convention with clarity.
+In some cases, minor rewriting or restructuring may make it possible to reconcile convention with clarity.
 
 \section{Book structure}
-This book was typeset in \href{https://www.latex-project.org/}{\LaTeX}, primarily using TexStudio on machine running an Ubuntu 18.04 linux operating system.
+This book was typeset in \href{https://www.latex-project.org/}{\LaTeX}, primarily using TexStudio on machine running Ubuntu 18.04 or 20.04 linux operating systems.
 
 The essential textbook style is created using \href{https://sourceforge.net/projects/koma-script/}{\KOMAScript} and the \href{https://github.com/fmarotta/kaobook/}{kaobook} class.
 
@@ -32,7 +32,7 @@ The essential textbook style is created using \href{https://sourceforge.net/proj
 	\item The general text styles are set, unless otherwise specified (mainly in the document \verb|IntroSensors.tex|), by the default \verb|kaobook| document type.
 	\item Sentences in the text should be on their own separate lines.
 	This is so that updates in the \texttt{git} repository, which are tracked by line, will reflect changes to specific lines and not include e.g. full paragraphs when only one line has been modified.
-	\item Some frequently used special words, like \Micropython, are defined as shortcuts so that formatting and links can be quickly and uniformly updated.
+	\item Some frequently used special words, like \Micropython, are defined as shortcuts in the document \verb+FormatConventions.tex+ so that formatting and links can be quickly and uniformly updated.
 	\item Jargon and other special words not defined in shortcuts are usually distinguished by being written in \texttt{textt} format.
 	\item Jargon and other special words are typically defined in their first use. 
 	Definitions are distinguished by being written in \texttt{textt}/\textbf{textbf} format.
@@ -128,13 +128,194 @@ The key attributes of formatting for step-by-step instructions include:
 	\item If a Milestone is associated with a task, it should appear immediately after the How-To Guide for that task.
 \end{enumerate}
 
+\section{Figures}
+As with many other formatting choices, the number and presentation of figures reflects compromises between the large amount of page space taken up by large figures \textit{vs.} the illegibility of small ones.
+In this book, we attempt to finesse this difficulty by presenting figures in two ways:
+\begin{itemize}
+	\item An ``enlarged thumbnail'' form presented in the page margins, with caption and a hyperlink (obtained by clicking on the thumbnail) to \textellipsis
+	\item A full-sized image at a publicly accessible URL.
+\end{itemize}
+Images are placed in informatively-named subdirectories, e.g. \texttt{Images}, \texttt{Fritzing} (for images derived from Fritzing), \etc
+
+An example of a figure insertion is
+\begin{verbatim}
+\begin{marginfigure}[-8cm]
+	\begin{center}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/
+		feather_thermistor_bb.png}}{https://publicsensors.org/Intro
+		Sensors/Fritzing/feather_thermistor_bb.png}
+		\caption[Thermistor circuit schematic]{An illustration of the 
+		layout for a circuit using a thermistor to measure temperature. 
+			This schematic represents Configuration 2, in which the 
+			thermistor (here labeled \texttt{RTH2}) takes the place of 
+			resistor $R_2$ in the original voltage divider circuit.
+			In Configuration 1, the thermistor would instead take the 
+			place of resistor $R_1$. 
+			In the schematic, jumpers that are not needed but may be 
+			left in place if already present are indicated in gray.}
+		\labfig{example_label}
+	\end{center}
+\end{marginfigure}
+\end{verbatim}
+which results in the figure at right.
+\begin{marginfigure}[-8cm]
+	\begin{center}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_thermistor_bb.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_thermistor_bb.png}
+		\caption[Thermistor circuit schematic]{An illustration of the layout for a circuit using a thermistor to measure temperature. 
+			This schematic represents Configuration 2, in which the thermistor (here labeled \texttt{RTH2}) takes the place of resistor $R_2$ in the original voltage divider circuit.
+			In Configuration 1, the thermistor would instead take the place of resistor $R_1$. 
+			In the schematic, jumpers that are not needed but may be left in place if already present are indicated in gray.}
+		\labfig{example_label}
+	\end{center}
+\end{marginfigure}
+
+This figure can be referred to in the text with \verb|\reffig{example_label}| to produce a hyperlinked reference, as in \reffig{example_label}.
+
+Note that the \verb|[-8cm]| in the marginfigure begin statement is a manual adjustment of the vertical position of the figure. 
+This is for situations, which occur frequently, when the default placement of the figure (or, below, other margin content) is less than ideal.
+
+Note also that figures and other margin content often require several \LaTeX compilations to acquire their final formatting, implement hyperlinks, \etc
+
 \section{Notes, tables and margin content}
+Several kinds of colored text boxes appear in the book, used to emphasize important points or provide background relevant to a specific idea or activity. 
+As long as there are not too many of these special text boxes, they are both conspicuous while reading the text and easy to find later, if the reader remembers there was useful information somewhere but not where that was.
+\subsection{Textboxes}
+Textboxes are generally used for short sections of text that are integral parts of the text, but which are especially important for students to read and understand.
+These often occur at the end of subsections, where readers whose patience is being tried by a long stream of detailed information may be tempted to skip them.
+
+Textboxes appear in the default \verb|kaobox| color, currently light blue. 
+They typically appear as their own separate paragraph, \eg,
+  
+\begin{verbatim}
+\begin{kaobox}[frametitle=WiFi special powers]
+	One of the best features of the ESP8266 is that it's
+	 built-in WiFi can operate in both Access Point and 
+	 Station mode simultaneously. 
+	That is, you do not have to stop the connection in AP 
+	mode to initiate a connection in station mode, or 
+	\textit{vice versa}.
+	
+	Having these two types of connections at the same time
+	 can be very useful.
+	For example, if you move your microcontroller from 
+	school to home, your classroom's Access Point is no 
+	longer available.
+	To connect to your home Access Point, you can log 
+	directly onto your ESP8266 using its own AP mode SSID. 
+	Using that connection, you can repeat the steps above, 
+	with the name and password of your home Access Point, 
+	to reconnect to the Internet.   
+\end{kaobox}
+\end{verbatim}
+
+which results in
+
+\begin{kaobox}[frametitle=WiFi special powers]
+	One of the best features of the ESP8266 is that it's built-in WiFi can operate in both Access Point and Station mode simultaneously. 
+	That is, you do not have to stop the connection in AP mode to initiate a connection in station mode, or \textit{vice versa}.
+	
+	Having these two types of connections at the same time can be very useful.
+	For example, if you move your microcontroller from school to home, your classroom's Access Point is no longer available.
+	To connect to your home Access Point, you can log directly onto your ESP8266 using its own AP mode SSID. 
+	Using that connection, you can repeat the steps above, with the name and password of your home Access Point, to reconnect to the Internet.   
+\end{kaobox}
+
+\subsection{Sidenotes}
+\emph{Sidenotes} are short snippets of text, functioning more as an aside than a ``plain'' textbox. 
+Examples include concisely stating an idea complementary to those in the main text, a brief explanation or suggestion, or a relevant link.
+Sidenotes are colored by the parameter \verb|\SNcolor|, currently light green. 
+
+Sidenotes are produced by inclusions like
+\begin{verbatim}
+\sidenote[][*-4]{\begin{kaobox}[backgroundcolor=\SNcolor,
+frametitlebackgroundcolor=\SNcolor,frametitle=Pass the
+ word!]The best passwords are easy to remember and hard 
+ to guess. One way to get good passwords is with a 
+ utility called \texttt{apg}. \texttt{apg} generates 
+ random passwords that are gibberish, so they're hard to 
+ guess, but pronounceable, so they're easy to remember 
+ by sound.  It is available for both \htmladdnormallink{Windows}
+ {https://sourceforge.net/projects/apg-for-windows/} and 
+ \htmladdnormallink{Macs and linux}{https://help.ubuntu.
+ com/community/StrongPasswords}.\end{kaobox}}
+\end{verbatim}
+Sidenote inclusions are embedded within the sentence or paragraph to which they apply, and result in a in a footnote-style reference number
+\sidenote[][*-4]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Pass the word!]The best passwords are easy to remember and hard to guess. One way to get good passwords is with a utility called \texttt{apg}. \texttt{apg} generates random passwords that are gibberish, so they're hard to guess, but pronounceable, so they're easy to remember by sound.  It is available for both \htmladdnormallink{Windows}{https://sourceforge.net/projects/apg-for-windows/} and \htmladdnormallink{Macs and linux}{https://help.ubuntu.com/community/StrongPasswords}.\end{kaobox}}
+in addition to the sidenote.
+
+Sidenotes sometimes have weak puns in their headers, the idea being that students will groan but nonetheless feel compelled to read them.
+
+\subsection{Tables}
+The primary use of tables in the current version of the book is in lists of materials.
+Material lists that include inexpensive microcontrollers, sensors, connectors and other components are challenging in that the basic technologies, vendors and links to specific items change frequently.
+The strategy for coping with this challenge adopted here is to have summary lists of materials, organized where possible by the subsections in which items are first required, in a highly condensed format at the beginning of each chapter.
+This enables readers to anticipate which materials are required for given activities, and which activities are possible with a given set of materials.
+
+These condensed tables include links to corresponding items in \refch{materials}, where a larger ``master'' table provides URLs to vendors or other information useful for acquiring components. 
+
+It's to be expected that some of those URLs will become obsolete over relatively rapid timescales, but hopefully this information will still be a starting point for chasing down new components and vendors.
+
+Materials lists currently have three columns: A section label, an item and a link to \refch{materials}.
+An example materials table is
+\begin{verbatim}
+\begin{table}[h]
+\caption[\refch{time_keeping} materials]{\textbf{Materials you'll need\dots} 
+
+See Table \ref{tab:materials} for additional information.}
+\labtab{materials_time_keeping}
+\begin{center}
+\raggedright
+%\begin{tabular}{ c c c c } 
+\begin{tabular}{ c r c}
+\hline
+Sections & item & link \\
+\hline
+\multirow{2}{4em}{\refsec{set_read_time}} 
+& breadboard & \ref{mat:bb} \\
+& ESP8266 ``Feather'' & \ref{mat:mc} \\
+& micro-USB cable & \ref{mat:usb_cbl} \\
+%		\hline
+%		\multirow{3}{4em}{\vrefsec{circuits}}  
+& male-male jumpers & \ref{mat:jmp_mm} \\ 
+& pliers & \ref{mat:plr} \\ 
+& DS3231 RTC & \ref{mat:RTC} \\ 
+\hline
+\end{tabular}
+
+\end{center}\end{table}
+\end{verbatim}
+which produces 
+\begin{table}[h]
+	\caption[\refch{time_keeping} materials]{\textbf{Materials you'll need\dots} 
+		
+		See Table \ref{tab:materials} for additional information.}
+	\labtab{materials_time_keeping}
+	\begin{center}
+		\raggedright
+		%\begin{tabular}{ c c c c } 
+		\begin{tabular}{ c r c}
+			\hline
+			Sections & item & link \\
+			\hline
+			\multirow{2}{4em}{\refsec{set_read_time}} 
+			& breadboard & \ref{mat:bb} \\
+			& ESP8266 ``Feather'' & \ref{mat:mc} \\
+			& micro-USB cable & \ref{mat:usb_cbl} \\
+			%		\hline
+			%		\multirow{3}{4em}{\vrefsec{circuits}}  
+			& male-male jumpers & \ref{mat:jmp_mm} \\ 
+			& pliers & \ref{mat:plr} \\ 
+			& DS3231 RTC & \ref{mat:RTC} \\ 
+			\hline
+		\end{tabular}
+		
+\end{center}\end{table}
 
 
 
 \section{Milestones}
 \begin{enumerate}
-	\item Milestones accomplished tasks or functioning hard- and software that: (a) enables instructors to assign credit for hands-on activities; and, (b) indicates to instructors and students competence in a given topic and readiness to proceed to subsequent topics.
+	\item Milestones document accomplished tasks or functioning hard- and software that: (a) enables instructors to assign credit for hands-on activities; and, (b) indicates to instructors and students competence in a given topic and readiness to proceed to subsequent topics.
 	\item Milestones appear at relevant places in the text, typically immediately following the How-To Guide explaining how to accomplish the task.
 	\item Milestones are reprinted together in \refch{milestones}. This is to make it easier to select among and modify the Milestones for a given classroom situation.
 	\item Milestones descriptions should be short, and the required activities should be specific.
