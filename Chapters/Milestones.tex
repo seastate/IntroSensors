@@ -114,8 +114,8 @@
 	\item [$\Box$] %\textbf{Using GPIOs as outputs}
 	
 	Demonstrate to an instructor the Python commands to create an informatively named Pin object connected to GPIO 2 in output mode, and use it to turn on and off the blue LED.
-	Then, complete the assignment by uploading a screenshot of your \texttt{mpfshell} or \texttt{WebREPL} session.
 \end{itemize}
+	Then, complete the assignment by uploading a screenshot of your \texttt{mpfshell} or \texttt{WebREPL} session.
 \end{kaobox}
 %</mlst:02a>
 
@@ -128,8 +128,8 @@
 		Demonstrate to an instructor a correctly wired breadboard, in which: \,
 		Both negative rails are connected to the microcontroller's \texttt{GND} pin; and, both positive rails are connected to the \texttt{3V} pin. \,
 		Use a multimeter to show that all the rails are properly connected.
-		\, Then, complete the assignment by uploading a photograph or sketch of your circuit.
 	\end{itemize}
+	Then, complete the assignment by uploading a photograph or sketch of your circuit.
 \end{kaobox}
 %</mlst:02b>
 
@@ -208,10 +208,9 @@
 	\begin{itemize}
 		\item [$\Box$] This Milestone is to demonstrate use of the onboard and external \texttt{RTC}s. \,
 		
-		The specific goal is to use your ESP8266's \texttt{WiFi} connection to your classroom or home router to: (a) obtain the current time from a \texttt{NTP} server, and (b) set both the on-board and \texttt{DS3231} \texttt{RTC}s to correct time. \,
-		
-		When you have set your \texttt{RTC}s, complete the assignment by uploading a screenshot or transcript of your REPL session.
+		The specific goal is to use your ESP8266's \texttt{WiFi} connection to your classroom or home router to: (a) obtain the current time from a \texttt{NTP} server, and (b) set both the on-board and \texttt{DS3231} \texttt{RTC}s to correct time.	
 	\end{itemize}
+	When you have set your \texttt{RTC}s, complete the assignment by uploading a screenshot or transcript of your REPL session.
 \end{kaobox}
 %</mlst:03>
 
@@ -220,10 +219,9 @@
 	\begin{itemize}
 		\item [$\Box$] This Milestone is to generate a dataset using the \lstinline{time_compare} script. \,
 		
-		The specific goal is to agree with your peers on time sampling parameters, and to collect a full dataset using your microcontroller/\rtc combination.  \,
-		
-		When your sampling runs are finished, complete the assignment by uploading your data files so that they may be collected and shared with others in your class for a comparative statistical analysis in the next section.
+		The specific goals are to agree with your peers on time sampling parameters, and to collect a full dataset using your microcontroller/\rtc combination.  \,
 	\end{itemize}
+	When your sampling runs are finished, complete the assignment by uploading your data files so that they may be collected and shared with others in your class for a comparative statistical analysis in the next section.
 \end{kaobox}
 %</mlst:03a>
 
@@ -234,9 +232,8 @@
 		
 		Use this script to visualize the magnitude and direction of errors, represented by differences between elapsed time measured using the onboard \rtc, the xternal \rtc and \ntp.
 		Demonstrate using the interactive navigation widgets to zoom into specific parts of the dataset.  \,
-		
-		When you have successfully plotted the datset, complete the assignment by saving and uploading a \texttt{png} or \texttt{jpg} image of your plots.
 	\end{itemize}
+	When you have successfully plotted the dataset, complete the assignment by saving and uploading a \texttt{png} or \texttt{jpg} image of your plots.
 \end{kaobox}
 %</mlst:03a>
 
@@ -244,19 +241,17 @@
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Visualizing your device's \textit{vs.} the population's time-keeping errors]
 	\begin{itemize}
 		\item [$\Box$] This Milestone is to replot the time-keeping error dataset, distinguishing your microcontroller/\rtc combination from the population using the \lstinline{template} and \lstinline{exclude} variables in the \lstinline{lineplot_TC_data} script. \,
-		
-		When you have successfully replotted the datset, complete the assignment by saving and uploading a \texttt{png} or \texttt{jpg} image of your plots.
 	\end{itemize}
+	When you have successfully replotted the dataset, complete the assignment by saving and uploading a \texttt{png} or \texttt{jpg} image of your plots.
 \end{kaobox}
 %</mlst:03b>
 
 %<*mlst:03c>
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Percentile plots of time-keeping errors]
 	\begin{itemize}
-		\item [$\Box$] This Milestone is to replot the time-keeping error dataset, distinguishing your microcontroller/\rtc combination from the population and adding lines as instructed for the 5th, 25th, 50th, 75th and	95th percentiles at several informative time points. \,
-		
-		When you have successfully replotted the datset, complete the assignment by: (a) saving and uploading a \texttt{png} or \texttt{jpg} image of your plots; and (b) uploading a short explanation of how time-keeping errors from your device compare to the focal percentiles of the whole population (e.g., how do magnitude and direction of errors compare between time-keeping methods and microcontroller/\rtc combinations?).
+		\item [$\Box$] This Milestone is to replot the time-keeping error dataset, distinguishing your microcontroller/\rtc combination from the population and adding lines as instructed for the 5th, 25th, 50th, 75th and	95th percentiles at several informative time points.		
 	\end{itemize}
+	When you have successfully replotted the dataset, complete the assignment by: (a) saving and uploading a \texttt{png} or \texttt{jpg} image of your plots; and (b) uploading a short explanation of how time-keeping errors from your device compare to the focal percentiles of the whole population (e.g., how do magnitude and direction of errors compare between time-keeping methods and microcontroller/\rtc combinations?).
 \end{kaobox}
 %</mlst:03c>
 
@@ -264,19 +259,17 @@
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Violin plots of time-keeping errors]
 	\begin{itemize}
 		\item [$\Box$] This Milestone is to generate violin plots of the time-keeping error dataset, at several informative time points. \,
-		
-		When you have successfully replotted the datset, complete the assignment by: (a) saving and uploading a \texttt{png} or \texttt{jpg} image of your plots; and (b) summarizing the key features of the time-keeping error distribution (do they grow or shrink in time, are they unimodal or multimodal, \etc).
 	\end{itemize}
+	When you have successfully replotted the dataset, complete the assignment by: (a) saving and uploading a \texttt{png} or \texttt{jpg} image of your plots; and (b) summarizing the key features of the time-keeping error distribution (do they grow or shrink in time, are they unimodal or multimodal, \etc).
 \end{kaobox}
 %</mlst:03d>
 
 %<*mlst:03e>
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Probability plots of time-keeping errors]
 	\begin{itemize}
-		\item [$\Box$] This Milestone is to generate probability plots of the time-keeping error dataset, to visualize how well observed errors conform to a normal distribution. \,
-		
-		When you have successfully replotted the datset, complete the assignment by: (a) saving and uploading a \texttt{png} or \texttt{jpg} image of your plots; and (b) summarizing the ways in which the observed errors conform or deviate from a normal distribution.
+		\item [$\Box$] This Milestone is to generate probability plots of the time-keeping error dataset, to visualize how well observed errors conform to a normal distribution.		
 	\end{itemize}
+	When you have successfully replotted the dataset, complete the assignment by: (a) saving and uploading a \texttt{png} or \texttt{jpg} image of your plots; and (b) summarizing the ways in which the observed errors conform or deviate from a normal distribution.
 \end{kaobox}
 %</mlst:03e>
 
@@ -284,26 +277,24 @@
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Hypothesis tests on time-keeping errors]
 	\begin{itemize}
 		\item [$\Box$] This Milestone is to conduct hypothesis tests on the time-keeping error dataset with the script \lstinline{hypothesis_TC_data}, to assess whether your microcontroller/\rtc combination differs from the whole population of microcontroller/\rtc combinations. \,
-		
-		When you have successfully conducted the tests, complete the assignment by: (a) uploading a screenshot or copy of the output; and (b) summarizing your assessment of the applicability of both non-parametric tests and the \texttt{T-test}, and your inferences from applicable tests.
 	\end{itemize}
+	When you have successfully conducted the tests, complete the assignment by: (a) uploading a screenshot or copy of the output; and (b) summarizing your assessment of the applicability of both non-parametric tests and the \texttt{T-test}, and your inferences from applicable tests.
 \end{kaobox}
 %</mlst:03f>
 
 %<*mlst:03g>
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Hypothesis tests of temperature effects on time-keeping errors]
 	\begin{itemize}
-		\item [$\Box$] This Milestone is to design and conduct a mini-study assessing temperature effects on time-keeping.
-		Specifically, the goal is to test the null hypothesis that \emph{errors from cold and hot devices have the same statistical distributions}. 
+		\item [$\Box$] This Milestone is to design and conduct a mini-study assessing temperature effects on time-keeping. \,
+		Specifically, the goal is to test the null hypothesis that \emph{errors from cold and hot devices have the same statistical distributions}. \,
 		This involves using the methods of this chapter to:
 		\begin{itemize}
 			\item[$\circ$] Design a sampling protocol so that devices have consistent and appropriate sampling duration, intervals and replicates, and that there are defined ``hot'' and ``cold'' sub-populations.
 			\item[$\circ$] Collect and visualize datasets, to assess the shape of error distributions and consistency with normal distributions.
 			\item[$\circ$] Conduct tests of the null hypothesis, stating and justifying your conclusions about whether variations in temperature need to be considered for time-keeping under field conditions. Be explicit about what you can and cannot say, based on your statistical analysis. What modifications of your study might provide additional insights?
-		\end{itemize}
-		
-		When you have successfully conducted the tests, complete the assignment by: (a) uploading screenshot or copies of output; and (b) summarizing your inferences about temperature effects and the rationale justifying those inferences.
+		\end{itemize}		
 	\end{itemize}
+	When you have successfully conducted the tests, complete the assignment by: (a) uploading screenshot or copies of output; and (b) summarizing your inferences about temperature effects and the rationale justifying those inferences.
 \end{kaobox}
 %</mlst:03g>
 
@@ -392,7 +383,7 @@
 		\item [$\Box$] This Milestone is to assemble and test the thermistor circuit you designed, and to demonstrate that it correctly measures ambient temperatures. \,
 		\begin{itemize}
 			\item[$\circ$] After leaving an adequate time for all components to equilibrate with ambient temperature, take 5 measurements using your microcontroller (waiting several seconds between measurements).
-			\item[$\circ$] Using a laboratory thermometer to ``ground-truth'' your instrument, by taking 5 similar measurements of ambient temperature. \,
+			\item[$\circ$] Use a laboratory thermometer to ``ground-truth'' your instrument, by taking 5 similar measurements of ambient temperature. \,
 			\item[$\circ$] Using the median of each set of measurements as the basis for comparison, calculate the percent different in temperature measurements.
 		\end{itemize}
 %\smallskip
@@ -407,23 +398,31 @@
 		\item [$\Box$] This Milestone is to write a ``driver'' for your \texttt{TSL237} light sensor. \,
 		A driver is code designed to interface with a piece of hardware.  \,
 		In the case of your light sensor, a driver should be a \Micropython function that runs on your microcontroller, and that provides a clear and intuitive way to measure light. \, 
-		The file containing your driver should import \lstinline{median_of_n} as you did before, followed by these four elements: 
+		Give the file containing your driver an informative name, like \lstinline{lightTSL237.py}. \, 
+		In this file, code the following steps: 
 		\begin{itemize}
-		\item[$\circ$] The first line is a \texttt{definition} statement, e.g. \\
+		\item[$\circ$] At the start of the file, import \lstinline{median_of_n}, so it can be called by your driver. 
+		\item[$\circ$] The first line of the driver function is a \texttt{definition} statement, e.g. \\
 	
-		 \lstinline{def readTSL237(pd,nrep,timeout):} \\
+		 \lstinline{def readTSL237(pt,nrep,timeout):} \\
 	 
-	 	This line defines a new function called  \lstinline{readTSL237}, specifying it has the required arguments \lstinline{pd,nrep,timeout}. \,
+	 	This line defines a new function called  \lstinline{readTSL237}, specifying it has the required arguments \lstinline{pt,nrep,timeout}. \,
 	 	These are the parameters needed to pass to \lstinline{median_of_n}, to measure the period of the \texttt{TSL237} signal.
 	
-		\item[$\circ$] In the body of the function, call \lstinline{median_of_n} with the passed parameters.
-		\item[$\circ$] Use Equation \ref{irrad} to calculate the nominal irradiance, $E_e$, and assign it to a Python variable with an informative name like \lstinline{E_e}.
-		\item[$\circ$] The final line is a \texttt{return} statement, e.g. \lstinline{return E_e}.
+		\item[$\circ$] In the body of the function, call \lstinline{median_of_n} with the passed parameters, and assign the values it returns to informatively named variables like \lstinline{period} and  \lstinline{success}. \,
+		\item[$\circ$] Use the measured period to calculate the frequency, in \texttt{Hz}.
+		\item[$\circ$] Calculate the frequency in \texttt{kHz}.
+		\item[$\circ$] Use the frequency (in \texttt{kHz}) with Equation \ref{irrad} to calculate the nominal irradiance, $E_e$. \,
+		Assign it to a Python variable with an informative name like \lstinline{E_e}.
+		\item[$\circ$] The final line is a \texttt{return} statement, e.g. \\
+		
+		\lstinline{return E_e} 
+		
 		\item[$\circ$] Remember to observe the indentation requirements of Python for the statements inside the function.
 		\end{itemize}
 		%\smallskip
 		\item [$\Box$] Copy your driver onto your microcontroller, and use it to take light readings. \,
-		If you saved your function into a file named e.g. \texttt{lightTSL237.py}, you can test it with commands like \\
+		You can test it with commands like \\
 
 		\lstinline{from lightTSL237 import readTSL237} \\
 		
@@ -441,29 +440,72 @@
 	\end{itemize}
 	It's quite common to encounter bugs in testing new Python codes. \,
 	If you do, correct the code, recopy it to your microcontroller and try again. \,
-	Don't forget that, if you imported \lstinline{lightTSL237} already, you will have to reboot your microcontroller with \texttt{ctrl-d} before you can import your corrected version. \,
+	Don't forget that, if you imported \lstinline{lightTSL237} already, you will have to reboot your microcontroller with \texttt{ctrl-d} before you can import your corrected version. \\
 	
-	When you have a working driver, complete the assignment by uploading: (a) your driver and the code you used to get measurements using it; and, (b) five to ten measurements of nominal irradiance across a range of light levels, with descriptions of conditions in which you measured them.
+	When you have a working driver, complete the assignment by uploading: (a) your driver and the commands you used to get measurements using it; and, (b) five to ten measurements of nominal irradiance across a range of light levels, with descriptions of conditions in which you measured them.
 \end{kaobox}
 %</mlst:04f>
 
 %<*mlst:04g>
-\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Measuring light with a \texttt{CD4017B} frequency divider]
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Writing a \texttt{TSL237} driver with frequency dividing]
 	\begin{itemize}
-		\item [$\Box$] This Milestone is to enhance your \texttt{TSL237} light sensor circuit, by adding a sub-circuit to measure a frequency reduced $10\times$ through a \texttt{CD4017B} frequency divider. \,
-		Assemble the sub-circuit, and show (with the suggested commands) that it works correctly.  
-		\item [$\Box$] Compare the results of direct measurements from the \texttt{TSL237} through the \texttt{CD4017B} frequency divider. \,
-		Use a spreadsheet to construct a table of five to ten side-by-side comparisons, in which you record direct and divided measurements taken under the same light levels. \,
-		Include a range of illumination, with both low- and high-intensity light conditions.
-		\item [$\Box$] Add columns in your spreadsheet in which you use Equation \ref{irrad} to calculate the nominal irradiance, $E_e$, for direct and divided measurements. \,
-		Remember that since the divided signal is $10\times$ as long as the original \texttt{TSL237} signal, the recorded period must be reduced by a factor of ten before using it in Equation \ref{irrad}.
-		\item [$\Box$] Use your spreadsheet to construct a plot, with the divided periods on the horizontal axis and as the original \texttt{TSL237} periods on the vertical axis. \,
-		To improve the readability of this plot, double click on both axes and select options to use a log-log scale. \,
-		Remember to label your axes.
-	\end{itemize}	
-	When you have a working circuit and code, complete the assignment by uploading: (a) an image or sketch of your circuit; (b) the code you used to get measurements; and, (c) your spreadsheet or screenshot of your table and plot, with descriptions of conditions in which you measured them.
+		\item [$\Box$] This Milestone is to write a new driver that queries the \texttt{TSL237} light sensor through the  \texttt{CD4017B} frequency divider. \,
+		This driver is substantially the same as the driver querying the \texttt{TSL237} directly. /,
+		The only differences are that it queries \texttt{Pin 5} rather than \texttt{Pin 4}, and adjusts its output to take into account the $10\times$ reduction in the divided frequency.
+		\begin{itemize}
+			\item[$\circ$] Make a copy of your \texttt{TSL237} driver file, and give it an informative name. \,
+			Use a name like \lstinline{readTSL237div.py} to indicate that this version of the driver will read the \texttt{TSL237} sensor both directly and through the frequency divider.
+			\item[$\circ$] In this file, paste a copy your original driver function at the bottom, so that you have two duplicate copies. \,
+			The new copy will be your driver for using the frequency divider. \,
+			Rename the new function in an informative way, e.g. by changing \\
+			\lstinline{def readTSL237(pt,nrep,timeout):} \\
+			to \\
+			\lstinline{def read_divTSL237(pd,nrep,timeout):} \\
+			Notice that, to make it easier to keep track of pins, the \lstinline{Pin} object parameter is named \lstinline{pd}.			
+			\item[$\circ$] In the body of the \lstinline{read_divTSL237} function, replace the references to \lstinline{pt} with references to \lstinline{pd}.
+			\item[$\circ$] Adjust your calculation of the period. \,
+			The interval measured through the frequency divider is $10\times$ the true period. \,
+			Therefore you need to divide the interval returned from the \lstinline{median_of_n} function by a factor of 10 to get the true period.
+		\end{itemize}
+		%\smallskip
+		\item [$\Box$] Copy your new driver file onto your microcontroller, and use it to take light readings. \,
+		If you saved your function into a file named \texttt{lightTSL237div.py}, you can test it with commands like \\
+		
+		\lstinline{from lightTSL237div import readTSL237, read_divTSL237} \\
+		
+		\lstinline{from machine import Pin} \\
+		
+		\lstinline{p5 = Pin(5, Pin.IN)} \\
+		
+		\lstinline{timeout=300000} \\
+		
+		\lstinline{nrep=7} \\
+		
+		\lstinline{E_e_div=read_divTSL237(p5,nrep,timeout)} \\
+		
+		\lstinline{print('Measured nominal irradiance: E_e_div = ',E_e_div)}
+	\end{itemize}
+	As before, some debugging is often necessary. \,
+	If you find a bug, correct the code, recopy it to your microcontroller, reboot and try again. \,
+	
+	When you have a working driver, complete the assignment by uploading: (a) your driver and the commands you used to get measurements using it; and, (b) five to ten measurements of nominal irradiance taken through the frequency divider across a range of light levels, with descriptions of conditions in which you measured them.
 \end{kaobox}
 %</mlst:04g>
+
+%<*mlst:04h>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Writing an optimized light sensor driver]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to add a function to your \texttt{lightTSL237div.py} that: executes a measurement using the \lstinline{readTSL237} driver; accepts it if it is above the parameter \lstinline{thresh_per}; and, otherwise, returns the value of the \lstinline{read_optTSL237} driver.
+		\item [$\Box$] Use a spreadsheet to construct a table of five to ten side-by-side comparisons of nominal irradiance, using direct measurements, divided measurements, and measurements from your optimized driver. \,
+		Include a range of illumination, with both low- and high-intensity light conditions.
+		\item [$\Box$] In a sentence or two, summarize how your calculations of $E_e$ agreed or differed between the three measurement methods across different light levels.
+%		\item [$\Box$] Use your spreadsheet to construct a plot, with the divided periods on the horizontal axis and as the original \texttt{TSL237} periods on the vertical axis. \,
+%		To improve the readability of this plot, double click on both axes and select options to use a log-log scale. \,
+%		Remember to label your axes.
+	\end{itemize}	
+	When you have a working code, complete the assignment by uploading: (a) the code you used to get measurements; and, (c) your spreadsheet or screenshot of your table and summary, with descriptions of conditions in which you measured them.
+\end{kaobox}
+%</mlst:04h>
 
 
 

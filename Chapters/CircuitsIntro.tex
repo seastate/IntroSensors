@@ -117,6 +117,7 @@ In a diagram of an electrical circuit, a resistor is illustrated by a zig-zag li
 \end{figure}
 
 In this circuit, $R$ is the value of the resistor.
+$V_1$ is the voltage imposed on the left wire from the resistor, and $V_2$ is the voltage imposed on the right wire. 
 The voltage drop across this resistor is $V = V_1 - V_2$.
 The current flowing through the resistor is $I$.
 
@@ -602,7 +603,7 @@ adc.read()    # read the ADC and print the result
 	
 	Use the following code to define your function, replacing the example resistor values with the correct values for your voltage divider:
 
-	\lstinputlisting[language=Python,label=BatteryVoltage,caption={\htmladdnormallink{\texttt{BatteryVoltage.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/BatteryVoltage.py}: A Python function to calculate battery voltage using the \adc and a voltage divider.}]{Codes/BatteryVoltage.py}
+	\lstinputlisting[language=Python,label=BatteryVoltage,caption={\htmladdnormallink{\texttt{BatteryVoltage.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/BatteryVoltage.py}: A Python function to calculate battery voltage using the \adc and a voltage divider.}]{Codes/BatteryVoltage.py}
 	
 	\item \textbf{Execute your function on your microcontroller.}
 	
@@ -674,7 +675,7 @@ For example, many 3D printers use a $22k\Omega$ thermistor to measure the temper
 
 The most common type of thermistor in temperature sensors is a \texttt{``negative temperature coefficient''} (\texttt{NTC}) thermistor.
 In an \texttt{NTC} thermistor, the resistance is lower at higher temperatures, and higher at lower temperatures.
-(The converse --- a \texttt{``positive temperature coefficient''} (\texttt{PTC}) thermistor, has higher resistance at higher temperatures, and lower resistance at lower temperatures.)
+(The converse --- a \texttt{``positive temperature coefficient''} or \texttt{PTC} thermistor, has higher resistance at higher temperatures, and lower resistance at lower temperatures.)
 This change in resistance with temperature is what makes a thermistor suitable as the basis of a temperature sensor. 
 However, it also means that we must anticipate the entire range of possible resistance values in our circuit design, to get the best possible resolution while insuring that the voltage divider will never exceed the \adc voltage tolerance.
 
@@ -742,7 +743,7 @@ Substitute the values you obtain from your thermistor into these calculations.
 	In most classrooms and laboratories, three suitable temperatures that are easy to produce in water baths are:
 	\begin{itemize}
 		\item[$\circ$] $0^\circ$ \texttt{C}, which is the equilibruim temperature of a mixture of frozen and liquid fresh water. 		
-		\item[$\circ$] $100^\circ$ \texttt{C}, which is the boiling temperature of a cup of fresh water. 
+		\item[$\circ$] $100^\circ$ \texttt{C}, which is the boiling temperature of fresh water. 
 		\item[$\circ$] Room temperature, which is usually close to $25^\circ$ \texttt{C}.
 %  Human body temp: $36.5–37.5^\circ$ \texttt{C}		
 	\end{itemize} 
@@ -802,13 +803,13 @@ Substitute the values you obtain from your thermistor into these calculations.
 	
 	\smallskip
 	Use \lstinline{SH_coeffs_kelvins} if your temperatures are in $^\circ$\texttt{Kelvin}, and \lstinline{SH_coeffs_celsius} if your temperatures are in $^\circ$\texttt{Celsius}. Both functions return the Steinhart-Hart coefficients \lstinline{(A, B, C)} as a Python tuple.
-	\lstinputlisting[language=Python,label=SteinhartHart,caption={\htmladdnormallink{\texttt{SteinhartHart.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/SteinhartHart.py}: Python functions to calculate Steinhart-Hart coefficients for thermistor calibration.}]{Codes/SteinhartHart.py}
+	\lstinputlisting[language=Python,label=SteinhartHart,caption={\htmladdnormallink{\texttt{SteinhartHart.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/SteinhartHart.py}: Python functions to calculate Steinhart-Hart coefficients for thermistor calibration.}]{Codes/SteinhartHart.py}
 	
 	
 	\item \textbf{Verify the resistor and temperature calculations.}
 	
 	The Python functions below calculate temperature from resistance and \textit{vice versa} for a calibrated thermistor.
-	\lstinputlisting[language=Python,label=thermistor,caption={\htmladdnormallink{\texttt{thermistor.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/thermistor.py}: Python functions to calculate temperature from resistance and \textit{vice versa} for a calibrated thermistor.}]{Codes/thermistor.py}
+	\lstinputlisting[language=Python,label=thermistor,caption={\htmladdnormallink{\texttt{thermistor.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/thermistor.py}: Python functions to calculate temperature from resistance and \textit{vice versa} for a calibrated thermistor.}]{Codes/thermistor.py}
 	As an initial test, try calculations with your known values: $R_1$ from $T_{k,1}$, $T_{k,2}$ from $R_2$, \etc
 	For \emph{consistency}, you should get the same result as you entered for your calibration.
 	
@@ -1114,27 +1115,33 @@ The oscillation frequency in absolute darkness, $f_{dark}$, is typically around 
 The ``\texttt{full-scale frequency}'' --- the highest frequency that can be put out by the sensor --- is $f_{full}=1000kHz=1MHz$.
 Figure 9 in the datasheet shows how irradiance, $E$, varies with frequency across more than 5 orders of magnitude in both quantities.
 
-The responsiveness of the \texttt{TSK237} sensor varies with wavelength of the incident light, at maximum near 700nm and dropping to half the maximum at approximately 400nm and 875nm (Figure 10 of the datasheet).
+The responsiveness of the \texttt{TSL237} sensor varies with wavelength of the incident light, at maximum near 700nm and dropping to half the maximum at approximately 400nm and 875nm (Figure 10 of the datasheet).
 Figures 13 and 14 show how responsiveness varies with the angle of the incident light --- it has relatively high responsiveness ($>75\%$) within roughly $30^\circ$ of the sensor's centerline.
 
 Both color and angular variation (which are present for nearly all light sensors) often introduce some complications in interpretation of light intensity data in a specific location.
 For example, across depth in an ocean or lake, the ambient light usually becomes bluer, as redder light is more quickly absorbed.
 Depending on scattering by particles, the angular distribution of light rays may also broaden substantially.
-Under a forest canopy, much of the ambient light might be in the green part of the spectrum which contributes little to photosynthesis.
-In environments like these, understanding the dynamics of light may require separate measurements at different parts of the color spectrum and different angles.
+Under a forest canopy, much of the ambient light might be in the green part of the spectrum, which is not absorbed by photosynthesizing plants.
+In environments like these, informative metrics of light intensity may require separate measurements in different parts of the color spectrum and at different angles.
 
 With all these caveats in mind, we can see from the datasheet that the irradiance responsivity of the \texttt{TSL237} sensor is $R_e=2.3 \frac{\mathtt{kHz}}{\mathtt{uW}/\mathtt{cm}^2}$.
 This implies that a \emph{nominal irradiance} --- subject to corrections for wavelength, angle and temperature --- is given by
 \begin{equation}\label{irrad}
-E_e = R_e (f-f_{dark}) .
+E_e = \frac{1}{R_e} (f-f_{dark}) .
 \end{equation}
+Notice that, in Equation \ref{irrad}, the calculation for $R_e$ assumes frequency in units of \texttt{kHz}. 
+Because we typically use \htmladdnormallink{SI units}{https://en.wikipedia.org/wiki/International_System_of_Units}, we need to remember to convert from \texttt{Hz} to \texttt{kHz} when we apply this formula.
+
 Equation \ref{irrad} gives us an approximate way to calibrate irradiation as a function of frequency, and to predict frequency for specific irradiances.
-Because $f_{dark}$ is very small compared to $f$ in all but nearly absolute darkness, and because the errors associated with wavelength, angle and temperature are typically much larger, we can usually neglect the $f_{dark}$ term in Equation \ref{irrad}.
+This calibration is ``approximate'' because it neglects variation between individual sensors.
+It also neglects adjustments for the color and angle of incident light.
+
+Because $f_{dark}$ is very small compared to $f$ in all situations except nearly absolute darkness, and because the errors associated with wavelength, angle and temperature are typically much larger, we can usually neglect the $f_{dark}$ term in Equation \ref{irrad}.
 In that case we can simplify to a proportionality,
 \begin{equation}\label{irrad2}
-E_e \approx R_e f .
+E_e \approx \frac{1}{R_e} f,
 \end{equation}
-
+where again $f$ is measured in \texttt{kHz}.
  
 \subsubsection{\howto Assemble and test a frequency-based light sensor circuit}
 \labsec{tsl237}
@@ -1149,7 +1156,7 @@ E_e \approx R_e f .
 		\labfig{feather_tsl237module1}
 	\end{center}
 \end{marginfigure}
-An example layout of the \texttt{TSK237} sub-circuit is shown in \reffig{feather_tsl237module1}.
+An example layout of the \texttt{TSL237} sub-circuit is shown in \reffig{feather_tsl237module1}.
 
 
 
@@ -1174,33 +1181,41 @@ An example layout of the \texttt{TSK237} sub-circuit is shown in \reffig{feather
 The hardware for sub-circuit 1 is now complete.
 
 \smallskip
-To measure frequency from the \texttt{TSL237} sensor, we will use a modification of code posted on the \htmladdnormallink{MicroPython forum}{https://forum.micropython.org/viewtopic.php?f=18\&t=5724\&p=32921}:
-\lstinputlisting[language=Python,label=FrequencyMedian,caption={\htmladdnormallink{\texttt{frequency\textunderscore median.py}}{https://github.com/seastate/IntroSensors/blob/main/Codes/frequency_median.py}: A Python function to calculate the period of an oscillating voltage.}]{Codes/frequency_median.py}
-This code uses a \Micropython \, utility called \lstinline{time_pulse_us} to measure the time, in microseconds, for a complete high/low cycle of oscillating voltage on \texttt{Pin p}.
+To measure frequency from the \texttt{TSL237} sensor, we will first measure its \texttt{\textbf{period}}. 
+The period is the time taken for a complete high/low cycle of the oscillating voltage on \texttt{Pin p}. 
+The \texttt{TSL237}'s frequency is the inverse of this period.
+
+To measure the period, we will use a modification of code posted on the \htmladdnormallink{MicroPython forum}{https://forum.micropython.org/viewtopic.php?f=18\&t=5724\&p=32921}:
+\lstinputlisting[language=Python,label=FrequencyMedian,caption={\htmladdnormallink{\texttt{period\textunderscore median.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/period_median.py}: A Python function to calculate the period of an oscillating voltage.}]{Codes/period_median.py}
+This code uses a \Micropython  utility called \lstinline{time_pulse_us} to measure the period, in microseconds, of the  oscillating voltage on \texttt{Pin p}.
 
 To improve precision, the code repeats this measurement \texttt{n} times, and returns the median value. 
 It also returns \texttt{True} if the measurements completed without errors.
 This result is presented as a Python tuple, \lstinline{(per,valid)}, where \lstinline{per} is the measured period in $\mu s$ and \lstinline{valid} is \texttt{True} for a successful measurement.
 
-One thing to notice about the \lstinline{time_pulse_us} function is that, if the pin it is monitoring does not change state within the interval \texttt{timeout}, an error is triggered.
+One thing to know about the \lstinline{time_pulse_us} function is that, if the pin it is monitoring does not change state within the interval \texttt{timeout}, an error is triggered.
 In this case, \lstinline{time_pulse_us} returns \texttt{-1} or \texttt{-2} as an error message.
-Two things happen if an error is returned.
+Two things happen if this error occurs.
 The \lstinline{median_of_n} code returns \texttt{False} for \lstinline{valid}, flagging the error status.
 Also, the  \lstinline{median_of_n} code returns the value of \texttt{timeout} for \lstinline{per}, instead of a measured period. 
 
-That is, \lstinline{median_of_n} code returns the \emph{either} the measured pulse interval \emph{or} the parameter \texttt{timeout}, whichever is lower.
-The code is designed this way for two reasons.
-One is to prevent these error messages from contaminating frequency estimates from the light sensor. Spurious measurements of \texttt{-1} or \texttt{-2}, if treated like true measurements, would erroneously reduce the reported period and increase the inferred light intensity.
-The other is to prevent the frequency measurement from being stuck for an indefinite period if there are no pulses, if the sensor is damaged or sees very low light intensity.
-
-\smallskip
+\emph{That is, the} \lstinline{median_of_n} \emph{code returns the either the measured pulse interval or the parameter} \lstinline{timeout}\emph{, whichever is lower}.
 In other words, \texttt{timeout} is the maximum value for the period reported by \lstinline{median_of_n}, even if the true period is longer.
 This is something to keep in mind as you assess the sensor measurements.
 
+The code is designed this way for two reasons.
+One is to prevent error messages from contaminating frequency estimates from the light sensor. 
+Spurious measurements of \texttt{-1} or \texttt{-2}, if treated like true measurements, would erroneously reduce the reported period and increase the inferred light intensity.
+It could even give negative frequency values!
+The other is to prevent the \lstinline{median_of_n} function from being stuck for an indefinite period if there are no pulses.
+This could happen if the sensor is accidentally detached or damaged, or takes a reading in near-absolute darkness.
+
+
 \begin{enumerate}[resume]
+	\item \textbf{Copy the \lstinline{period_median.py} file containing the \lstinline{median_of_n} function onto your microcontroller.}
 	\item \textbf{Test your light sensor circuit using the commands:}
 \begin{lstlisting}[language=Python]
-from frequency_median import median_of_n
+from period_median import median_of_n
 from machine import Pin
 p4 = Pin(4, Pin.IN)
 timeout=300000
@@ -1209,7 +1224,7 @@ median_of_n(p4,nrep,timeout,verbose=True)
 \end{lstlisting}	
 	These commands first import the necessary modules.
 	In your circuit, \texttt{Vout} from the \texttt{TSL237} is attached to \texttt{Pin 4}, so this pin is initialized as \texttt{p4} and used in the function call.
-	The parameter \texttt{timeout} is here set to \texttt{300000 us}, or \texttt{0.3 s}.
+	The parameter \texttt{timeout} is here set to \texttt{300000} $\mu s$, or \texttt{0.3 s}.
 	The measurement is repeated \texttt{nrep=7} times.
 	In this example, \texttt{verbose=True} is used to print out the individual measurements.
 	The results will be similar to
@@ -1217,16 +1232,25 @@ median_of_n(p4,nrep,timeout,verbose=True)
 52 [41, 51, 52, 52, 53, 54, 54]
 (52, True)
 \end{lstlisting}		
-	This gives you a sense for the precision of successive measurements, under essentially constant ambient light conditions.
-	 	
-	\item \textbf{Take several measurements under different light conditions (e.g. shade the sensor with your hand, and shine a bright light directly on it).}
-	
-	Enter the results from \lstinline{median_of_n} in one column of a spreadsheet, under the column header \texttt{Period}.
+	The verbose output gives you a sense for the precision of successive measurements, under essentially constant ambient light conditions.
 	
 	\smallskip
-	In the next column, enter the header \texttt{Frequency}.
-	Next each entry in \texttt{Period}, enter the formula to calculate 1000000/\texttt{Period}.
-	Because \lstinline{median_of_n} measures time in microseconds, this quotient is the frequency of the signal in \texttt{herz} (cycles per second).
+	Except when testing, it's often helpful to set \lstinline{verbose=False}, to see only the second line of this output (the median of measured periods, and whether the measurements completed successfully).
+	 	
+	\item \textbf{Take several measurements of period under different light conditions (e.g. shade the sensor with your hand, and shine a bright light directly on it).}
+	
+	Enter the measurements of \texttt{TSL237}'s period from \lstinline{median_of_n} in one column of a spreadsheet, under the column header \texttt{Period}.
+	
+	\item \textbf{Calculate frequency from your period measurements.}
+	
+	In the next column, enter the header \texttt{Hz}.
+	Next to each value in the \texttt{Period} column, enter the formula to calculate 1000000/\texttt{Period}.
+	Because \lstinline{median_of_n} measures time in microseconds, this quotient is the frequency of the signal in \texttt{herz} (cycles per second, abbreviated \texttt{Hz}).
+	
+	\smallskip
+	In the next column, enter the header \texttt{kHz}, representing frequency in units of \texttt{kiloherz}.
+	Next to each value in \texttt{Hz} column, enter the formula to calculate \texttt{Hz}/1000.
+	This column now contains your observed frequencies converted to \texttt{kHz}, which are the units expected for in Equation \ref{irrad}.
 	
 	\item \textbf{Critically assess your observations.}
 	
@@ -1252,13 +1276,16 @@ This corresponds to a 1 $\mu s$ pulse interval, which is much too short for the 
 
 How can we increase the range of light levels over which meaningful measurements can be taken by your \texttt{TSL237}/\texttt{ESP8266} instrument?
 One approach is to add an additional sub-circuit to the existing circuit, that implements a counter/divider, called a \htmladdnormallink{CD4017B} {https://www.ti.com/lit/ds/symlink/cd4017b.pdf}.
+
 The \texttt{CD4017B} takes in an input frequency, and outputs a frequency reduced by a factor of 10.
-Some periods in \texttt{TSL237} output that are too short for the \texttt{ESP8266} to measure directly can be measured after being ``lengthened'' by  a factor of 10. 
-This significantly extends the range of your instrument into higher light intensities. 
+More specifically, it sends pulses to different pins, representing ``counts'' from 0 to 9. 
+A microcontroller \texttt{GPIO} attached to the \texttt{CD4017B} pin associated with one of those pins will see only every 10th input pulse. 
+Some periods in \texttt{TSL237} output that are too short for the \texttt{ESP8266} to measure directly can be measured after being ``lengthened'' by  this factor of 10. 
+As you can see from \ref{irrad2}, this extends the range of your instrument into roughly $10\times$ higher light intensities. 
 
 However, there is a tradeoff:
-The longest period which can be measured is also reduced by a factor of 10, meaning that the range of the instrument is reduced at lower light intensities.
-Also, its resolution is reduced by a factor of 10.
+The longest \texttt{TSL237} period that can be measured is also reduced by a factor of 10, meaning that the range of the instrument is reduced at lower light intensities.
+Also, its resolution is reduced by this same factor of 10.
 
 Clearly, the ideal would be the best of both worlds --- to use the high resolution, direct measurement of \texttt{TSL237} when it is within the \texttt{ESP8266}'s capabilities, and to use the frequency-divided \texttt{CD4017B} output when light levels are too high for direct measurements.
 The activities in this section take you through implementing this improved instrument. 
@@ -1272,7 +1299,7 @@ Then, you will code a driver to automatically select between the direct and redu
 %In effect, the \texttt{CD4017B} shifts the working range of the \texttt{TSL237} to tenfold higher light intensity.
 \subsubsection{\howto Measure divided frequency from a light sensor}
 \labsec{cd4017b}
-\begin{marginfigure}[-10cm]
+\begin{marginfigure}[0cm]
 	\begin{center}
 		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_tsl237_bb.png}}{https://publicsensors.org/IntroSensors/Fritzing/feather_tsl237_bb.png}
 		\caption[Complete light sensor circuit schematic]{An illustration of the circuit layout for sensing light coupling a \texttt{CD4017B} divider/counter with a \texttt{TSL237} Light-to-Frequency sensor. 
@@ -1309,13 +1336,13 @@ The layout for adding sub-circuit 2 to your sensor assembly is shown in \reffig{
 	The \texttt{CLOCK} pin is the input frequency signal for the \texttt{CD4017B}.
 	Here, we connect it to \texttt{Vout} from the \texttt{TSL237}, which carries the voltage oscillating at the frequency to be divided. 
 	
-	\item \textbf{Connect \texttt{CARRY OUT} pin on the \texttt{CD4017B} to \texttt{Pin 5} on your \texttt{ESP8266}.}
+	\item \textbf{Connect the \texttt{CARRY OUT} pin on the \texttt{CD4017B} to \texttt{Pin 5} on your \texttt{ESP8266}.}
 	
 	The \texttt{CARRY OUT} pin is the \texttt{CD4017B}'s output, which has $\frac{1}{10}$th the frequency of the \texttt{CLOCK} pin input. 
 
 	\item \textbf{Test your frequency dividing circuit using the commands:}
 \begin{lstlisting}[language=Python]
-from frequency_median import median_of_n
+from period_median import median_of_n
 from machine import Pin
 p5 = Pin(5, Pin.IN)
 timeout=300000
@@ -1335,45 +1362,129 @@ median_of_n(p5,nrep,timeout,verbose=True)
 	Do you see any evidence of changes in limits to the sensor's range, either at high or low light intensities, when the frequency signal is divided by the \texttt{CD4017B}?
 	
 \end{enumerate}
-
 \loadMilestone{mlst:04g} % load milestone with tags id: mlst:04g
 
 
+
 \subsection{Optimizing a light sensor driver}
-With a working circuit that takes both direct and reduced frequency signals, you are now ready to code a driver to automatically select the best light measurement.
+\labsec{opt_driver}
+With a working circuit that takes both direct and reduced frequency signals, you are now ready to code a driver to automatically select the best light measurement. 
+
+The basic idea is that, for very low light levels, you want to measure period directly from the \texttt{TSL237}. 
+For very high light levels, you want to measure the frequency divided period from the \texttt{CD4017B}. 
+At intermediate light levels, it may not matter which way you measure period, because both are acceptably accurate.
+
+How can you determine what is ``high'', ``low'' and ``intermediate'' for your instrument? 
+One simple approach is to construct a log-log plot, with direct period measurements on the vertical axis and divided period measurements on the horizontal axis.
+In such a plot, we expect that within the ``intermediate'' range --- where both methods are accurate --- the measurements will fall on the $1:10$ line.
+
+We also expect that, at very high light levels, the direct measurements will ``bottom-out'' --- that is, they'll reach the smallest measurable interval on the \texttt{ESP8266} --- while the divided measurements continue to decrease.
+If so, those points on the plot will lie above the $1:10$ line, and their vertical coordinates will never be below the smallest measurable interval.  
+
+Conversely, at very low light levels, the divided measurements will ``top-out'' --- that is, they'll reach the \texttt{timeout} limit --- while the direct measurements continue to increase.
+If so, those points on the plot will lie above the $1:10$ line, and their horizontal coordinates will never be above the \texttt{timeout} limit.  
 
 
-
-\subsubsection{\howto Code a ``driver'' for a \texttt{TSL237} light sensor}
-\labsec{light_driv}
-
-
-
-\begin{marginfigure}[-0cm]
+\begin{marginfigure}[-8cm]
 	\begin{center}
 		\htmladdnormallink{\includegraphics[width=\MFW]{Images/period_tsl237_divider.png}}{https://publicsensors.org/IntroSensors/Images/period_tsl237_divider.png}
 		\caption[Periods from a light sensor and frequency divider]{Comparison of periods measured directly from a \texttt{TSL237} Light-to-Frequency sensor \textit{vs.} through a \texttt{CD4017B} counter/divider. 
-		Note the \texttt{1:10} offsets in axis scales. 
-		The solid line is the \texttt{1:10} line. 
-		Because the divider reduces frequency 10-fold, the true ratio of periods (aside from signal noise) lies exactly on this line. 
-		Deviations from the line indicate limits to one or both period measurements at high or low light levels.}
+			Note the \texttt{1:10} offsets in axis scales. 
+			The black dotted line is the \texttt{1:10} line. 
+			Because the divider reduces frequency 10-fold, the true ratio of periods (aside from signal noise) lies exactly on this line. 
+			Deviations from the line indicate limits to one or both period measurements at high or low light levels.}
 		\labfig{period_tsl237_divider}
 	\end{center}
 \end{marginfigure}
 
-\reffig{period_tsl237_divider}
+\reffig{period_tsl237_divider} is an example of such a plot. 
+Each blue dot in this figure represents a coordinate pair of divided and direct period measurements. 
+The black dotted line is the $1:10$ line.
+The blue dotted lines represent an approximate smallest measurable interval on the \texttt{ESP8266}, \texttt{4} $\mu s$, inferred from the deviations of the measurements from the $1:10$ line at high frequencies.
+The red dotted lines represent the \texttt{timeout} limit used to collect these data --- in this case, \texttt{300000} $\mu s$.
+
+\subsubsection{\howto Optimize a light sensor driver}
+\labsec{optdriver}
+In this activity, you will use the drivers you wrote in \refsec{tsl237} and \refsec{cd4017b} and the information in \reffig{period_tsl237_divider} to code an ``optimized'' driver that automatically selects the more accurate between direct and divided period measurements.
+
+Here, ``optimized'' means two things:
+\begin{itemize}
+	\item[$\circ$] If one measurement method is in an inaccurate part of its range, the driver will always choose the alternative, more accurate measurement.
+	\item[$\circ$] If both measurement methods are acceptably accurate, it will use the fastest method.
+\end{itemize} 
+Both these criteria are met by an algorithm that first makes a measurement using the direct driver, and accepts it if the period is well above the lower threshold of \texttt{4} $\mu s$.
+If the direct period is below the threshold, it remeasures using the divided driver and accepts its value as the better measurement.
+\begin{enumerate}
+	\item \textbf{Define a new function,} \lstinline{read_optTSL237}\textbf{, in your} \lstinline{readTSL237div.py} \textbf{file.}
+	
+	This function will implement the optimization algorithm.
+	The arguments of this function are: the pins assignments for both direct and divided measurements; the \lstinline{timeout} and \lstinline{nrep} parameters required by \lstinline{median_of_n}; and, a new parameter called \lstinline{thresh_per}.
+	
+	\smallskip
+	\lstinline{thresh_per} is the threshold your new function will use to decide whether the directly measured period is unacceptably low.
+	Use a default value somewhat above the  \texttt{4} $\mu s$, to leave a margin of safety.
+	
+	\item \textbf{Calculate the frequency corresponding to the threshold period,} \lstinline{thresh_per}.
+	
+	Save it under an informative name like \lstinline{f_thresh}.
+
+	\item \textbf{Use Equation \ref{irrad} to calculate the nominal irradiance corresponding to} \lstinline{f_thresh}.
+	
+	Save its value with an informative name, like \lstinline{E_E_thresh}.
+
+	\item \textbf{In the body of the new function, evaluate the nominal irradiance $E_e$ using your} \lstinline{readTSL237} \textbf{driver.}
+	
+	Save its value with an informative name, like \lstinline{E_E_dir}.
+	
+	\item \textbf{Use an} \lstinline{if} \textbf{statement to return} \lstinline{E_E_dir} \textbf{20} \lstinline{E_E_thresh}.
+	
+	\item \textbf{Otherwise evaluate the nominal irradiance using your} \lstinline{read_divTSL237} \textbf{driver.}
+
+	Save its value with an informative name, like \lstinline{E_E_div}, and return its value.	
+\end{enumerate}
+
+\loadMilestone{mlst:04h} % load milestone with tags id: mlst:04h
+
+
+%This plot was constructed in two steps:
+%\begin{enumerate}
+%	\item The Python script, \lstinline{light_freq.py}, was copied onto the microcontroller.
+%	A listing and link for this file are given in Appendix \ref{LightFreq}.
+%	Then, the function \lstinline{record_tsl237_divider} was used to tabulate comparisons of direct and frequency-divided periods, with the commands:
+%	\begin{lstlisting}[language=Python]
+%	from light_freq import record_tsl237_divider
+%	from machine import Pin
+%	
+%	p4 = Pin(4, Pin.IN) # p4 measures directly from the TSL237
+%	p5 = Pin(5, Pin.IN) # p5 measures through the CD4017B
+%	record_tsl237_divider(p_tsl237=4,p_div=5, \
+%	   timeout=300000,nrep=7,navg=8,divide=10.,nsample=5, \
+%	   filename='DG_tsl237_divider.dat')
+%	\end{lstlisting}	
+%	
+%	
+%\end{enumerate}
+
+
+
+
+%\reffig{period_tsl237_divider} 
+%
+%\ref{PlotFreq}
+
+
+%\lstinputlisting[language=Python,label=LightFreq,caption={\htmladdnormallink{\texttt{light\textunderscore freq.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/light_freq.py}: Python functions to obtain and record direct and frequency-divided measurements of period from a \texttt{TSL237} light sensor.}]{Codes/light_freq.py}
+
+
+
+
+
+
 
 
 \vspace{4cm}
 
 %https://www.amazon.com/gp/product/B01GMYPSWM/ref=ppx_od_dt_b_asin_title_s00?ie=UTF8&psc=1
-
-
-
-
-\begin{itemize}
-	\item  
-\end{itemize}
 
 
 \section{Environmental sensing with time: calibrate an acoustic distance sensor}
