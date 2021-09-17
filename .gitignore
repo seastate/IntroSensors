@@ -22,3 +22,7 @@
 *.py#
 *.tar
 *.tar.sav
+*.png
+*.jpg
+*.fzz
+
