@@ -3,20 +3,20 @@
 \chapter{Digital interfaces for environmental sensors}
 \labch{digital_interfaces}
 
-The fundamentals of constructing circuits that exploit the abilities of microcontrollers to measure voltage and time to quantify environmental variables were introduced in \refch{circuits_intro}. 
+In \refch{circuits_intro}, we considered the fundamentals of constructing circuits that exploit the abilities of microcontrollers to measure voltage and time to quantify environmental variables. 
 These circuits were based on \textit{analog} sensors -- that is, sensors that return signals in the form of continuously variable voltages or time lags. 
-By integrating the microcontroller, circuit and analog sensor components you assembled a device that provided a \textit{digital} signal -- a number that represents an observation of the corresponding environmental parameter.
+By integrating the microcontroller, circuit and analog sensor components, you assembled a device that provided a \textit{digital} signal -- a number that represents an observation of the corresponding environmental parameter.
 
-A modern trend in sensor development is to produce \textit{digital sensors}, whose output is intrinsically in the form of numbers rather than voltage or time.
+A modern trend in sensor development is \textit{digital sensors}, whose output is intrinsically in the form of numbers rather than voltage or time.
 If you used the external \DS3231 Real Time Clock in \refch{time_keeping}, you have already used a digital sensor. 
 In digital sensors, the circuitry and some of the microcontroller functions have been placed on the sensor itself.
-This means the user-designed circuitry and microcontroller interfaces can often be greatly simplified compared to an analog sensor measuring the same quantity.
+This means the user-designed circuitry and microcontroller interfaces can usually be greatly simplified compared to an analog sensor measuring the same quantity.
 
+Because digital sensors typically return observations as numbers with many decimal places, it's tempting to overlook the fact that in many cases they may be less accurate and precise than analog sensors (or may cost m ore for comparable accuracy and precision). 
 It's important to keep in mind that digital sensors have the same basic operating principles and limitations as analog sensors.
 The internal circuitry of digital sensors is designed by professionals and mass-produced in sophisticated factories.
 This means that the tradeoffs and optimizations in sensitivity, resolution, power consumption, \etc that you considered in working with analog sensors have been decided by highly skilled professionals.
 Remember, though, that these circuits (and hence the digital sensors that use them) still have most of the same constraints you wrestled with in your own sensor design.
-Because digital sensors typically return observations as numbers with many decimal places, it's especially tempting to overlook the fact that in many cases they may be less accurate and precise than analog sensors (as well as costing more). 
 
 With those caveats in mind, digital sensors often have a number of advantages relative to analog sensors.
 Depending on the type of digital sensor and the context, these advantages may include:
@@ -24,7 +24,7 @@ Depending on the type of digital sensor and the context, these advantages may in
 	\item Digital sensors use digital \texttt{GPIO}s, which are more abundant than analog \texttt{GPIO}s on most microcontrollers;
 	\item Protocols for communicating with digital sensors are two-way -- information such as settings, commands to take readings \etc can be sent to digital sensors to make them more efficient and versatile; 
 	\item Some digital sensor protocols support multiple sensors on one set of \texttt{GPIO}s and wires, and those sensors can often identify themselves to the microcontroller to clarify the meaning of different data streams;
-	\item Some digital protocols support very long cables (though others are limited to very short cables);
+	\item Some digital protocols support very long wire connections (though others are limited to very short wires);
 	\item Some digital sensors do complex computations internally, such as integrating angular orientation from angular accelerations, which would be expensive in terms of processor cycles and energy to perform on a microcontroller. 
 \end{itemize}
 These advantages are evident in many industrial applications (cars, phones, \etc).
@@ -36,10 +36,12 @@ If so, it may be an efficient strategy to focus on that subset of protocols, ret
 Many other examples appear elsewhere in this book, particularly in \refch{inferences}, which emphasizes inferences and hypothesis testing about environmental mechanisms using data from sensors.
 
 \subsection{Communicating with digital sensors}
-Using digital sensors usually involves two main elements: establishing the appropriate circuit connections, and finding (or, occasionally, writing) a \emph{driver}, which is a short piece of code that interfaces between a microcontroller and digital sensor.
-The driven enables the user to interact with a digital sensor, \eg by setting parameters or querying for measurement data, with simple, intuitive high-level \Micropython commands.
-The driver handles data exchanges between the microcontroller and the digital sensor at a very low level, that takes some technical expertise and patience to understand.
+Getting measurements from digital sensors usually involves two main elements: establishing the appropriate circuit connections, and finding (or, occasionally, writing) a \emph{driver}.
+A driver is a short piece of code that interfaces between a microcontroller and digital sensor.
+The driver enables the user to interact with a digital sensor, \eg by setting measurement parameters or querying for data, with simple, intuitive high-level \Micropython commands.
+The driver handles messages between the microcontroller and the digital sensor at a very low level, that takes some technical expertise and patience to understand.
 Fortunately, \Micropython-based drivers are freely available online for many of the most useful digital environmental sensors, and more are being written all the time.
+You typically don't need to know much about the inner workings of a driver to use it for obtaining environmental sensor readings.
 
 Most digital sensors used in environmental sensing communicate using one of four protocols:
 
@@ -114,7 +116,7 @@ Most digital sensors used in environmental sensing communicate using one of four
 \labsec{i2c_sensors}
 \subsection{Background}
 	%Adafruit provides a useful \htmladdnormallink{overview of \i2c}{https://learn.adafruit.com/adafruit-ft232h-with-spi-and-i2c-libraries/i2c-devices}.
-\i2c is a ``2 wire'' protocol: it has two connections, \texttt{SDA} and \texttt{SCL}, in addition to \texttt{Vin} and \texttt{GND}.
+\i2c is a ``2 wire'' protocol: it has two communications connections, \texttt{SDA} and \texttt{SCL}, in addition to \texttt{Vin} and \texttt{GND}.
 Most microcontrollers have built-in hardware  \texttt{GPIO}s preconfigured as \texttt{SDA} and \texttt{SCL} for \i2c communications.
 On most microcontrollers, it is also possible to use other \texttt{GPIO} pins for software-driven \i2c communications (``bit-banging''), often with somewhat reduced but perfectly adequate capabilities.
 %This provides helpful flexibility when preconfigured \texttt{SDA} and \texttt{SCL} \texttt{GPIO}s are need for other uses, or when too many \i2c devices are needed .
@@ -128,7 +130,7 @@ Each type of \i2c-based digital sensor is typically pre-programmed with an addre
 This is very helpful for authors of \emph{drivers} (short codes designed to interface between a microcontroller and digital sensor).
 However, it means that trying to use multiple sensors of the same type on a single \i2c cable often runs afoul of the unique address constraint.
 
-Because there are more types of devices than distinct addresses, there is also overlap between the addresses of some different sensor types.
+Because there are more types of devices than distinct addresses, there are also overlaps between the addresses of some different sensor types.
 Adafruit has written a useful \htmladdnormallink{summary of default \i2c addresses}{https://cdn-learn.adafruit.com/downloads/pdf/i2c-addresses.pdf}, describing addresses used by different types of sensors and other devices.
 
 
