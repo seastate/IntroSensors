@@ -10,11 +10,13 @@
 %\usepackage{xcolor}
 %
 %\usepackage{pdfcomment}
-
+% \usepackage{array}
+\newcounter{rowno}
+\setcounter{rowno}{0}
 
 
 \usepackage{tikz}
-\usetikzlibrary{matrix,calc,shapes}
+\usetikzlibrary{matrix,calc,shapes,decorations.pathreplacing,calligraphy}
 \tikzset{
   treenode/.style = {shape=rectangle, rounded corners,
 	draw, anchor=center,
@@ -44,6 +46,7 @@
   \matrix (chart)
     [
       matrix of nodes,
+      %anchor=west,
       column sep      = 3em,
       row sep         = 5ex,
       column 1/.style = {nodes={section}},
@@ -52,6 +55,8 @@
 	    column 4/.style = {nodes={skill}},
       column 5/.style = {nodes={topic}},
 	    column 6/.style = {nodes={concept}}
+      % ,\stepcounter{rowno}
+      % \stepcounter{rowno}\therowno \hspace{1cm}
 %      column 7/.style = {nodes={concept}},
 %	  column 8/.style = {nodes={section}},
 %	  column 9/.style = {nodes={background}}
@@ -76,7 +81,7 @@
           & 1.4.3 Encrypted authentication of data messages &  Verify a data message  & &  Data encoding (Hexadecimal system, refer to UART section?)    &  Data handling, security \& accessibility    \\
 
       2. Circuit-building with MicroPython   &  &    & &        &      \\
-      2.1 Assembling circuits with breadboards    & 2.1.1 breadboard basics &    & &        &      \\
+      2.1 Assembling circuits with breadboards    & 2.1.1 Breadboard basics &    & Breadboard circuit layout \& debugging &        &      \\
           & 2.1.2 Using GPIOs &    & &        &      \\
           &  GPIOs as outputs &  Turn on/off on-board LEDs  & GPIO interfaces &        &      \\
       2.2 Creating circuits on a  breadboard   & 2.2.1 Distributing power & Create power distribution sub-circuit   & &        &      \\
@@ -113,27 +118,38 @@
 
       5. Digital interfaces for environmental sensors   & 5.0.1 Communicating with digital sensors &    & &        &      \\
       5.1 ****I2C sensors   & 5.1.1 Background &      \\
-
-                 & 5.1.X I2C over long cables with differential extenders   &  &        &    \\
+             & 5.1.2 Measuring temperature with a high-resolution sensor   &  &        &    \\
+             & 5.1.3 Dispersion of collimated \& diffuse light beams  & Digital devices (I2C) &        &    \\
+             & 5.1.4 Construction, calibration and use of a colorimetric pH sensor   &       \\
+             & 5.1.5 Using I2C over long cables with differential extenders   &  &        &    \\
 
       5.2 ****1-wire sensors   &  5.2.1 Background &      \\
                  & 5.2.2 Temperature measurements with DS18B20 digital sensors &  Sample temperatures from multiple ``cabled'' sensors   &  &        &    \\
-                 & 5.2.3 Monitoring temperature changes across time & Logging temperature time series   &  &        &    \\
-                 & 5.2.4 Inferring atmospheric conditions using temperature & Calculate humidity from wet- and dry-bulb temperatures   &  &        &    \\
-                 & 5.2.5 Heating and cooling of lakes \& oceans & Monitor temperature across depth during heating \& cooling   &  &        &    \\
+                 & 5.2.3 Inferring atmospheric conditions using temperature & Calculate humidity from wet- and dry-bulb temperatures   &  &        &    \\
+                 & 5.2.4 Accuracy \& precision of DS18B20 temperature sensors & Quantifying errors with a high-resolution temperature sensor   &   &        &    \\
+                 &  & Recalibration of DS18B20 temperature sensors   &   &        &    \\
+                 & 5.2.5 Monitoring temperature changes across time & Logging temperature time series   &   &        &    \\
+                 &  & Feedback \& control of temperature using a thermostat  & Assemble and code a digital thermostat using an LED \& a DS18B20  &        &    \\
+                 &  & Interpolate \& plot temperature time series using numpy  &   &        &    \\
+                 & 5.2.5 Measuring heat transfer by conduction   &  Temperature transients \& heat flow in a metal bar &        &    \\
+                 &  & Interpolate \& plot temperature time series using Pandas  &   &        &    \\
+                 & 5.2.6 Modeling heating and cooling of lakes \& oceans & Monitor temperature in a laboratory column during heating \& cooling   &  &        &    \\
       5.3 ****UART sensors   &  5.3.1 Background &      \\
+                 & 5.3.2 Measuring position \& velocity using the Global Positioning System (GPS) &  Track a route using a GPS receiver  &  &        &    \\
+                 & 5.3.3 Measuring atmospheric particle pollution &  Sample Air Quality Index   &  &        &    \\
+                 & 5.3.4 Tracking ships using Automatic Identification System (AIS) &  Track vessels using an AIS receiver  &  &        &    \\
+
       5.4 ****SPI sensors   &  5.4.1 Background (SD card interfaces)&      \\
                  & 5.4.2 SPI control of TFT display panels &    &  &        &    \\
 
 
-      5.2 ****Construction, calibration and use of a colorimetric pH sensor   & &      \\
 
       6. Data telemetry and protocols for sensor communications   &  &    & &        &      \\
       6.1 Message Queuing Telemetry Transport (MQTT)    & 6.1.1 Publishing \& subscribing to MQTT messages &    & &        &      \\
                  & 6.1.2 Telemetry of sampling requests \& data &  Internet communications   &  &  Data encoding      &   Data handling, security \& accessibility   \\
                  & 6.1.3 Logging, archiving \& disseminating MQTT data  & File I/O, data logging    & &        &  Data visualization    \\
       6.2 Microcontroller-based web servers   & 6.2.1 Web server setup \& testing &    & &        &      \\
-                 & 6.2.2 Data acquisition & dissemination via a web server &  Internet communications   & Data encoding &        &   Data handling, security \& accessibility   \\
+                 & 6.2.2 Data acquisition & dissemination via a web server &  Internet communications   & Data encoding &   Data handling, security \& accessibility   \\
 %
       %
       %1.1 Estab. Comms    &  &    & &        &      \\
@@ -149,15 +165,26 @@
       %  & & |[activity]|  link in photo dir.: e.g. photo\_data/zoocam-xfer 1498157727  & & matched\_datadrive\_ ctd\_11\_20.csv      \\
       % &     & & pull\_downcast\_frames\_parallel aqdp\_matching\_frames.py      \\
 };
-
-%      aligned at relation sign?  & align, flalign \\
-%      aligned at several places? & alignat        \\
-%      first left, centered,
-%        last right?              & multline       \\
-%      & & |[concept]| replicate \\
-%      & & |[treenode]| Add a \texttt{*} & |[finish]| Hypoth. Test \\
-%      & &  \\
-%    };
+% % Simple brace
+% \draw [-,decorate,
+%     decoration = {brace,mirror}] (chart-1-4)[left=] --  (chart-5-4)[midway,left];
+%     % decoration = {brace,mirror}] (chart-1-4) --  (chart-5-4)[midway,left];
+%
+% % Calligraphic brace
+% \draw [-,ultra thick,,decorate,
+%     decoration = {calligraphic brace,mirror}] (0.2,1) --  (1.2,1);
+% %      aligned at relation sign?  & align, flalign \\
+% %      aligned at several places? & alignat        \\
+% %      first left, centered,
+% %        last right?              & multline       \\
+% %      & & |[concept]| replicate \\
+% %      & & |[treenode]| Add a \texttt{*} & |[finish]| Hypoth. Test \\
+% %      & &  \\
+% %    };
+%   \draw[-]
+% %    (chart-1-3) edge node [above] {data} (chart-2-1);
+%     (chart-1-3) edge (chart-2-1)
+%     (chart-1-3) edge (chart-2-3);
 \end{tikzpicture}
 \end{document}
 
