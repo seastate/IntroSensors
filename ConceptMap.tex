@@ -13,6 +13,8 @@
 % \usepackage{array}
 \newcounter{rowno}
 \setcounter{rowno}{0}
+\newcounter{chptno}
+\setcounter{chptno}{0}
 
 
 \usepackage{tikz}
@@ -68,160 +70,161 @@
 %
        |[part]| \textbf{PART I: INTRODUCTION}   & &      & &        &      \\
 
-      1. \textbf{Communicating w/ your microcontroller}   & & Meet your microcontroller     & &        &      \\
-          1.1 Establishing communications    &  &    & &        &      \\
-          1.2 Connecting via USB    & 1.2.1 Installing drivers for USB &    & &        &      \\
-              & 1.2.2 USB connections via Chrome & Connect via BeagleTerm & Wired communication with microcontrollers &        &      \\
-              & 1.2.3 USB connections via mpfshell &   Install mpfshell & &        &      \\
+      \stepcounter{chptno}\thechptno. \textbf{Communicating w/ your microcontroller}   & & Meet your microcontroller     & &        &      \\
+      % 1. \textbf{Communicating w/ your microcontroller}   & & Meet your microcontroller     & &        &      \\
+          \thechptno.1 Establishing communications    &  &    & &        &      \\
+          \thechptno.2 Connecting via USB    & \thechptno.2.1 Installing drivers for USB &    & &        &      \\
+              & \thechptno.2.2 USB connections via Chrome & Connect via BeagleTerm & Wired communication with microcontrollers &        &      \\
+              & \thechptno.2.3 USB connections via mpfshell &   Install mpfshell & &        &      \\
               &  &   Connect via mpfshell & &        &      \\
-          1.3 Connecting via WiFi     & 1.3.1 WiFi access points \& stations &  Configure/connect to AP  &  &        &      \\
+          \thechptno.3 Connecting via WiFi     & \thechptno.3.1 WiFi access points \& stations &  Configure/connect to AP  &  &        &      \\
                                  &   &  Configure/connect in station mode  & &        &      \\
-              & 1.3.2 WiFi connections via WebREPL &  Launch WebREPL  & Wireless communications with microcontrollers &        & Fundamentals of microcontroller function     \\
+              & \thechptno.3.2 WiFi connections via WebREPL &  Launch WebREPL  & Wireless communications with microcontrollers &        & Fundamentals of microcontroller function     \\
                                  &   &  Upload a file  & &        &      \\
                                  &   &  Download a file  & &        &      \\
-              & 1.3.3 WiFi connections via mpfshell & Connect over WiFi w/ mpfshell  & &        &      \\
-      1.4 Computing on your microcontroller    &  1.4.1 Generating random numbers and strings &  Generate random numbers and strings  & & Pseudo-random number generation         &      \\
-              & 1.4.2 Encryption of character strings &  Encrypt/decrypt messages  & Python coding &        &  \\
-              & 1.4.3 Encrypted authentication of data messages &  Verify a data message  & &  Data encoding (Hexadecimal system, refer to UART section?)    &  Data handling, security \& accessibility    \\
+              & \thechptno.3.3 WiFi connections via mpfshell & Connect over WiFi w/ mpfshell  & &        &      \\
+      \thechptno.4 Computing on your microcontroller    &  \thechptno.4.1 Generating random numbers and strings &  Generate random numbers and strings  & & Pseudo-random number generation         &      \\
+              & \thechptno.4.2 Encryption of character strings &  Encrypt/decrypt messages  & Python coding &        &  \\
+              & \thechptno.4.3 Encrypted authentication of data messages &  Verify a data message  & &  Data encoding (Hexadecimal system, refer to UART section?)    &  Data handling, security \& accessibility    \\
 
-      2. \textbf{Circuit-building with MicroPython}   &  &    & &        &      \\
-          2.1 Assembling circuits with breadboards    & 2.1.1 Breadboard basics &    & Breadboard circuit layout \& debugging &        &      \\
-              & 2.1.2 Using GPIOs &    & &        &      \\
+      \stepcounter{chptno}\thechptno. \textbf{Circuit-building with MicroPython}   &  &    & &        &      \\
+          \thechptno.1 Assembling circuits with breadboards    & \thechptno.1.1 Breadboard basics &    & Breadboard circuit layout \& debugging &        &      \\
+              & \thechptno.1.2 Using GPIOs &    & &        &      \\
               &  GPIOs as outputs &  Turn on/off on-board LEDs  & GPIO interfaces &        &      \\
-          2.2 Creating circuits on a  breadboard   & 2.2.1 Distributing power & Create power distribution sub-circuit   & &        &      \\
-             & 2.2.2 GPIOs as inputs & Assemble button switch sub-circuit   & Breadboard circuit layout \& debugging &        &  Circuit design, analysis \& testing   \\
-             & 2.2.3 GPIO interrupts and handlers & Program an interrupt   & GPIO interfaces, Python coding (functions) &  Microcontroller responses to environmental signals      &      \\
-             & 2.2.4 Controlling external devices & Power an external LED   & &        &      \\
+          \thechptno.2 Creating circuits on a  breadboard   & \thechptno.2.1 Distributing power & Create power distribution sub-circuit   & &        &      \\
+             & \thechptno.2.2 GPIOs as inputs & Assemble button switch sub-circuit   & Breadboard circuit layout \& debugging &        &  Circuit design, analysis \& testing   \\
+             & \thechptno.2.3 GPIO interrupts and handlers & Program an interrupt   & GPIO interfaces, Python coding (functions) &  Microcontroller responses to environmental signals      &      \\
+             & \thechptno.2.4 Controlling external devices & Power an external LED   & &        &      \\
              &  & Switch an LED with a relay   &  &  Actuation \& switching of external devices      &      \\
              &  & Control an electric fan motor   &  &        &      \\
-             & 2.2.5 Fine control with Pulse Width Modulation & Snooze an LED   & Power modulation \& device control &        & Sensor range, resolution \& saturation (human vision) \\
+             & \thechptno.2.5 Fine control with Pulse Width Modulation & Snooze an LED   & Power modulation \& device control &        & Sensor range, resolution \& saturation (human vision) \\
              &       & Control a servo motor   & &        &  \\
 
-      3. \textbf{Keeping track of time}   &  &    & &        &      \\
-          3.1 Accuracy and precision    &  &    & &        &      \\
-          3.2 Setting/reading time on the ESP8266    & 3.2.1 On-board RTC & Read/set on-board RTC   & Measuring time &        &      \\
-              & 3.2.2 Network Time Protocol  & Obtain time from NTP   & Internet communications &  Signal propagation latency  & Calibration \& ground truthing     \\
-              & 3.2.3 DS3231 (external) RTC & Set up an external RTC   & I2C digital devices (preview) &       &      \\
-      3.3 Accuracy \& precision of time-keeping on the ESP8266    & 3.3.1 Generating a dataset of time-keeping errors & Generate a time-keeping dataset   & Python coding (File I/O, data logging) &          \\
-              & 3.3.2 Visualizing distributions of errors  & Plot time-keeping errors   & Python coding (plotting) &        & Data visualization     \\
-              & 3.3.3 Hypothesis tests about RTC accuracy \& precision  & Probability plots \& hypothesis tests w/ RTC data   & Python coding (statistical tests) &   & Hypothesis generation \& testing \\
-              & 3.3.4 Environmental effects on RTC accuracy \& precision \& precision  & Quantifying temperature effects on time-keeping errors   & & Temperature effects on sensors  &      \\
+      \stepcounter{chptno}\thechptno. \textbf{Keeping track of time}   &  &    & &        &      \\
+          \thechptno.1 Accuracy and precision    &  &    & &        &      \\
+          \thechptno.2 Setting/reading time on the ESP8266    & \thechptno.2.1 On-board RTC & Read/set on-board RTC   & Measuring time &        &      \\
+              & \thechptno.2.2 Network Time Protocol  & Obtain time from NTP   & Internet communications &  Signal propagation latency  & Calibration \& ground truthing     \\
+              & \thechptno.2.3 DS3231 (external) RTC & Set up an external RTC   & I2C digital devices (preview) &       &      \\
+      \thechptno.3 Accuracy \& precision of time-keeping on the ESP8266    & \thechptno.3.1 Generating a dataset of time-keeping errors & Generate a time-keeping dataset   & Python coding (File I/O, data logging) &          \\
+              & \thechptno.3.2 Visualizing distributions of errors  & Plot time-keeping errors   & Python coding (plotting) &        & Data visualization     \\
+              & \thechptno.3.3 Hypothesis tests about RTC accuracy \& precision  & Probability plots \& hypothesis tests w/ RTC data   & Python coding (statistical tests) &   & Hypothesis generation \& testing \\
+              & \thechptno.3.4 Environmental effects on RTC accuracy \& precision \& precision  & Quantifying temperature effects on time-keeping errors   & & Temperature effects on sensors  &      \\
 %
 %
        |[part]| \textbf{PART II: FUNDAMENTALS OF ENVIRONMENTAL SENSING}   & &      & &        &      \\
 
-      4. \textbf{Environmental sensing w/ voltage, current and resistance}   &  &    & &        &      \\
-          4.1 Measuring voltage    & 4.1.1 Voltage of an 18650 battery &    & &        &      \\
+      \stepcounter{chptno}\thechptno. \textbf{Environmental sensing w/ voltage, current and resistance}   &  &    & &        &      \\
+          \thechptno.1 Measuring voltage    & \thechptno.1.1 Voltage of an 18650 battery &    & &        &      \\
               & Ohm's Law for voltage, current and resistance &    & & Voltage, current \& resistance/ Ohm's Law   &   Sensor range, resolution \& saturation (ADC voltage limits \& resolution)   \\
               & Designing a voltage divider using Ohm's Law & Design a voltage divider circuit   & Ohm's Law calculations  &        & Circuit design, analysis \& testing     \\
               &  & Assemble/test a voltage divider circuit   & Breadboard circuit layout \& debugging &        &   \\
-          4.2 Environmental sensing w/ voltage: measure voltage w/ a thermistor    & 4.2.1 Thermistor temperature resistance curves & Calibrate a thermistor   & &   Temperature effects on sensors     &      \\
-              & 4.2.2 Thermistor circuit design & Design a voltage divider for a thermistor   & GPIO interfaces (ADC) &  Data encoding  &  Calibration \& ground truthing    \\
-              & 4.2.3 Thermistor circuit assembly \& programming & Build \& test a thermistor circuit   & &        &      \\
-          4.3 Environmental sensing w/ time: measuring light intensity with frequency    & 4.3.1 Measuring light with frequency & Assemble \& test a frequency-based light sensor circuit   & Breadboard circuit layout \& debugging &        &      \\
-              & 4.3.2 Dividing frequency to increase sensor range & Measure divided frequency from a light sensor   & GPIO interfaces & Microcontroller responses to environmental signals       &      Sensor range, resolution \& saturation ($\mu s$ measurement limits)\\
-              & 4.3.3 Optimizing a light sensor driver & Optimize a light sensor driver   & Python coding (drivers) &        &      \\
-          4.4 Environmental sensing with time: Calibrate an acoustic distance sensor   &  &      \\
+          \thechptno.2 Environmental sensing w/ voltage: measure voltage w/ a thermistor    & \thechptno.2.1 Thermistor temperature resistance curves & Calibrate a thermistor   & &   Temperature effects on sensors     &      \\
+              & \thechptno.2.2 Thermistor circuit design & Design a voltage divider for a thermistor   & GPIO interfaces (ADC) &  Data encoding  &  Calibration \& ground truthing    \\
+              & \thechptno.2.3 Thermistor circuit assembly \& programming & Build \& test a thermistor circuit   & &        &      \\
+          \thechptno.3 Environmental sensing w/ time: measuring light intensity with frequency    & \thechptno.3.1 Measuring light with frequency & Assemble \& test a frequency-based light sensor circuit   & Breadboard circuit layout \& debugging &        &      \\
+              & \thechptno.3.2 Dividing frequency to increase sensor range & Measure divided frequency from a light sensor   & GPIO interfaces & Microcontroller responses to environmental signals       &      Sensor range, resolution \& saturation ($\mu s$ measurement limits)\\
+              & \thechptno.3.3 Optimizing a light sensor driver & Optimize a light sensor driver   & Python coding (drivers) &        &      \\
+          \thechptno.4 Environmental sensing with time: Calibrate an acoustic distance sensor   &  &      \\
 
-      5. \textbf{Digital interfaces for environmental sensors}   & 5.0.1 Communicating with digital sensors &    & &        &      \\
-          5.1 I2C sensors   & 5.1.1 Background &      \\
-             & 5.1.2 Measuring temperature with a high-resolution sensor   & Measure temperature with an MCP9808 precision temperature sensor &        &    \\
-             & 5.1.5 Using I2C over long cables with differential extenders   & Implement an I2C sensor over an ethernet cable &        &    \\
-          5.2 1-wire sensors   &  5.2.1 Background &      \\
-             & 5.2.2 Temperature measurements with DS18B20 digital sensors &  Sample temperatures from multiple ``cabled'' sensors   &  &        &    \\
-             & 5.2.4 Accuracy \& precision of DS18B20 temperature sensors & Quantify errors with a high-resolution temperature sensor   &   &        &    \\
+      \stepcounter{chptno}\thechptno. \textbf{Digital interfaces for environmental sensors}   & \thechptno.0.1 Communicating with digital sensors &    & &        &      \\
+          \thechptno.1 I2C sensors   & \thechptno.1.1 Background &      \\
+             & \thechptno.1.2 Measuring temperature with a high-resolution sensor   & Measure temperature with an MCP9808 precision temperature sensor &        &    \\
+             & \thechptno.1.\thechptno Using I2C over long cables with differential extenders   & Implement an I2C sensor over an ethernet cable &        &    \\
+          \thechptno.2 1-wire sensors   &  \thechptno.2.1 Background &      \\
+             & \thechptno.2.2 Temperature measurements with DS18B20 digital sensors &  Sample temperatures from multiple ``cabled'' sensors   &  &        &    \\
+             & \thechptno.2.4 Accuracy \& precision of DS18B20 temperature sensors & Quantify errors with a high-resolution temperature sensor   &   &        &    \\
              &  & Improve the accuracy of DS18B20 temperature measurements with recalibration   &   &        &    \\
-             & 5.2.5 Monitoring temperature changes across time & Log samples to generate a temperature time series   &   &        &    \\
+             & \thechptno.2.5 Monitoring temperature changes across time & Log samples to generate a temperature time series   &   &        &    \\
 
-          5.3 UART sensors   &  5.3.1 Background &   & Hexadecimal system   \\
-             & 5.3.2 Measuring position \& velocity using the Global Positioning System (GPS) &  Track a route using a GPS receiver  &  &        &    \\
-             & 5.3.3 Measuring atmospheric particle pollution &  Sample Air Quality Index   &  &        &    \\
-             & 5.3.4 Tracking ships using Automatic Identification System (AIS) &  Track vessels using an AIS receiver  &  &        &    \\
-          5.4 SPI sensors   &  5.4.1 Background (SD card interfaces)&      \\
-             & 5.4.2 SPI control of TFT display panels &    &  &        &    \\
+          \thechptno.3 UART sensors   &  \thechptno.3.1 Background &   & Hexadecimal system   \\
+             & \thechptno.3.2 Measuring position \& velocity using the Global Positioning System (GPS) &  Track a route using a GPS receiver  &  &        &    \\
+             & \thechptno.3.3 Measuring atmospheric particle pollution &  Sample Air Quality Index   &  &        &    \\
+             & \thechptno.3.4 Tracking ships using Automatic Identification System (AIS) &  Track vessels using an AIS receiver  &  &        &    \\
+          \thechptno.4 SPI sensors   &  \thechptno.4.1 Background (SD card interfaces)&      \\
+             & \thechptno.4.2 SPI control of TFT display panels &    &  &        &    \\
 
-      6. \textbf{Data telemetry and protocols for sensor communications}   &  &    & &        &      \\
-          6.1 Message Queuing Telemetry Transport (MQTT)    & 6.1.1 Publishing \& subscribing to MQTT messages &    & &        &      \\
-             & 6.1.2 Telemetry of sampling requests \& data &  Internet communications   &  &  Data encoding      &   Data handling, security \& accessibility   \\
-             & 6.1.3 Logging, archiving \& disseminating MQTT data  & File I/O, data logging    & &        &  Data visualization    \\
-          6.2 Microcontroller-based web servers   & 6.2.1 Web server setup \& testing &    & &        &      \\
-             & 6.2.2 Data acquisition & dissemination via a web server &  Internet communications   & Data encoding &   Data handling, security \& accessibility   \\
+      \stepcounter{chptno}\thechptno. \textbf{Data telemetry and protocols for sensor communications}   &  &    & &        &      \\
+          \thechptno.1 Message Queuing Telemetry Transport (MQTT)    & \thechptno.1.1 Publishing \& subscribing to MQTT messages &    & &        &      \\
+             & \thechptno.1.2 Telemetry of sampling requests \& data &  Internet communications   &  &  Data encoding      &   Data handling, security \& accessibility   \\
+             & \thechptno.1.3 Logging, archiving \& disseminating MQTT data  & File I/O, data logging    & &        &  Data visualization    \\
+          \thechptno.2 Microcontroller-based web servers   & \thechptno.2.1 Web server setup \& testing &    & &        &      \\
+             & \thechptno.2.2 Data acquisition & dissemination via a web server &  Internet communications   & Data encoding &   Data handling, security \& accessibility   \\
 %
 %
        |[part]| \textbf{PART III: WORKING WITH ENVIRONMENTAL SENSORS}   & &      & &        &      \\
 
-      7. \textbf{Measuring heat and energy flow}   & 7.1 Background: Conservation \& diffusion (conduction) of heat  &    & &        &      \\
-          7.2 Evaporative cooling & 7.2.1 Inferring atmospheric conditions using temperature & Calculate humidity from wet- and dry-bulb temperatures   &  &        &    \\
-          7.3 Heat transfer by conduction & 7.3.1 Measuring heat transfer by conduction   &  Temperature transients \& heat flow in a metal bar &        &    \\
+      \stepcounter{chptno}\thechptno. \textbf{Measuring heat and energy flow}   & \thechptno.1 Background: Conservation \& diffusion (conduction) of heat  &    & &        &      \\
+          \thechptno.2 Evaporative cooling & \thechptno.2.1 Inferring atmospheric conditions using temperature & Calculate humidity from wet- and dry-bulb temperatures   &  &        &    \\
+          \thechptno.3 Heat transfer by conduction & \thechptno.3.1 Measuring heat transfer by conduction   &  Temperature transients \& heat flow in a metal bar &        &    \\
                  &  & Interpolate \& plot temperature time series using Pandas  &   &        &    \\
                  &  & Animated data visualizations  &   &        &    \\
-          7.4 Heating and cooling of lakes \& oceans & 7.4.1 Laboratory models of lakes \& oceans & Monitor temperature in a laboratory column during heating \& cooling   &  &        &    \\
-                 & & 7.4.2 Heat transport in salinity-stratified water columns   &  &        &    \\
-                 & & 7.4.3 Heat transport by turbuent mixing   &  &        &    \\
-          7.5 Thermoelectric (Peltier) heating \& cooliing & 7.5.1 Temperature control using a Peltier device & Assemble and code a digital thermostat  & Power modulation \& control & & Feedback \& control   \\
+          \thechptno.4 Heating and cooling of lakes \& oceans & \thechptno.4.1 Laboratory models of lakes \& oceans & Monitor temperature in a laboratory column during heating \& cooling   &  &        &    \\
+                 & & \thechptno.4.2 Heat transport in salinity-stratified water columns   &  &        &    \\
+                 & & \thechptno.4.3 Heat transport by turbuent mixing   &  &        &    \\
+          \thechptno.5 Thermoelectric (Peltier) heating \& cooliing & \thechptno.5.1 Temperature control using a Peltier device & Assemble and code a digital thermostat  & Power modulation \& control & & Feedback \& control   \\
 
-      8.  \textbf{Quantifying light \& color}   &  &    & &        &      \\
-          8.1 Dispersion of collimated \& diffuse light beams  & 8.1.1 Energy conservation \& the $r^2$ law &    &    &    \\
-          8.2 Light attentuation through the water column & 8.2.1 Color-dependence of light absorption  & Digital devices (I2C) &        &    \\
-                 &  8.2.2  Light scattering by suspended particles & Construct a turbidity sensor   &  &        &    \\
-                % &  8.2.3 Light scattering by atmospheric pollution particles & Use scattering to measure Air Quality Index   &  &        &    \\
-          8.3 Construction, calibration and use of a colorimetric pH sensor   &       \\
+      \stepcounter{chptno}\thechptno.  \textbf{Quantifying light \& color}   &  &    & &        &      \\
+          \thechptno.1 Dispersion of collimated \& diffuse light beams  & \thechptno.1.1 Energy conservation \& the $r^2$ law &    &    &    \\
+          \thechptno.2 Light attentuation through the water column & \thechptno.2.1 Color-dependence of light absorption  & Digital devices (I2C) &        &    \\
+                 &  \thechptno.2.2  Light scattering by suspended particles & Construct a turbidity sensor   &  &        &    \\
+                % &  \thechptno.2.3 Light scattering by atmospheric pollution particles & Use scattering to measure Air Quality Index   &  &        &    \\
+          \thechptno.3 Construction, calibration and use of a colorimetric pH sensor   &       \\
 
-      9.  \textbf{Environmental effects on electrical characteristics}   &  &    & &        &      \\
-          9.1 Capacitance  & 9.1.1  Make a proximity/touch sensor &    &    &    \\
-                 & 9.1.2  Use a capacitance touchpad as a Human Interface Devices  &    &    &    \\
-                 & 9.1.3  Measuring water levels with capacitance  &    &    &    \\
-          9.2 Conductivity as an indicator of salinity  & 9.2.1  Measuring conductivity & Make a conductivity sensor     &    &    \\
-          9.3 Photoresistors \& photodiodes  & 9.3.1  & & & & \\
-          9.4 Pyroelectric motion detectors  & &    &    &    \\
-          9.5 Electrical effects of shape \& deformation & 9.5.1 Engineering stress \& strain & & & & \\
-                 & 9.5.2 Piezo-electric materials & & & & \\
-                 & 9.5.3 Strain gauges & Measure strain with a Wheatstone bridge & & & \\
+      \stepcounter{chptno}\thechptno.  \textbf{Environmental effects on electrical characteristics}   &  &    & &        &      \\
+          \thechptno.1 Capacitance  & \thechptno.1.1  Make a proximity/touch sensor &    &    &    \\
+                 & \thechptno.1.2  Use a capacitance touchpad as a Human Interface Devices  &    &    &    \\
+                 & \thechptno.1.3  Measuring water levels with capacitance  &    &    &    \\
+          \thechptno.2 Conductivity as an indicator of salinity  & \thechptno.2.1  Measuring conductivity & Make a conductivity sensor     &    &    \\
+          \thechptno.3 Photoresistors \& photodiodes  & \thechptno.3.1  & & & & \\
+          \thechptno.4 Pyroelectric motion detectors  & &    &    &    \\
+          \thechptno.5 Electrical effects of shape \& deformation & \thechptno.5.1 Engineering stress \& strain & & & & \\
+                 & \thechptno.5.2 Piezo-electric materials & & & & \\
+                 & \thechptno.5.3 Strain gauges & Measure strain with a Wheatstone bridge & & & \\
 %
 %
        |[part]| \textbf{PART IV: PRACTICAL SKILLS IN ENVIRONMENTAL SENSING}   & &      & &        &      \\
 
-      10.  \textbf{Computer Aided Design (CAD) \& fabrication} & & & & & \\
+      \stepcounter{chptno}\thechptno.  \textbf{Computer Aided Design (CAD) \& fabrication} & & & & & \\
 
-      11.  \textbf{Design of Printed Circuit Boards (PCBs)} & & & & & \\
+      \stepcounter{chptno}\thechptno.  \textbf{Design of Printed Circuit Boards (PCBs)} & & & & & \\
 
-      12.  \textbf{Power supply \& regulation for environmental instruments} & 12.1 Power usage measurement \& calculation & & & & \\
-          12.2 Battery power for environmental instruments
-          12.3 Low-cost solar power systems
+      \stepcounter{chptno}\thechptno.  \textbf{Power supply \& regulation for environmental instruments} & \thechptno.1 Power usage measurement \& calculation & & & & \\
+          \thechptno.2 Battery power for environmental instruments & & & & & \\
+          \thechptno.3 Low-cost solar power systems & & & & & \\
 
-      13.  \textbf{Water- \& weather-proofing environmental sensing instruments} & & & & & \\
+      \stepcounter{chptno}\thechptno.  \textbf{Water- \& weather-proofing environmental sensing instruments} & & & & & \\
 %
 %
        |[part]| \textbf{PART V: QUANTIFYING ENVIRONMENTAL PROCESSES}   & &      & &        &      \\
 
-      14. \textbf{Best practices for data management \& dissemination}   & 13.1 Deployment metadata  &    & &        &      \\
-          14.1 Deployment metadata  &    & &        &      \\
-          14.2 Data archiving \& database management
+      \stepcounter{chptno}\thechptno. \textbf{Best practices for data management \& dissemination}   & \thechptno.1 Deployment metadata  &    & &        &      \\
+          \thechptno.1 Deployment metadata  &    & &        &      \\
+          \thechptno.2 Data archiving \& database management & & & & & \\
 
-      15. Monitoring meteorologial conditions \& air chemistry
-          15.1 Monitoring air flow & 15.1.1 Measuring wind speed   & Build and calibrate an anemometer &      \\
-                 & 15.1.2 Measuring wind direction   & Build and calibrate a wind vane &      \\
-          15.2 Air chemistry measurements & 15.2.1 Measuring $CO_2$ concentration   & Build and calibrate a $CO_2$ monitor &      \\
-                 & 15.2.2 Ventilation of interior spaces   & Estimate air replacement rates with a $CO_2$ monitor &      \\
-          15.3 Monitoring particulate pollutants and the Air Quality Index  &  15.3.1 Light scattering by atmospheric pollution particles & Use scattering to measure Air Quality Index   &  &        &    \\
+      \stepcounter{chptno}\thechptno. Monitoring meteorologial conditions \& air chemistry & & & & & \\
+          \thechptno.1 Monitoring air flow & \thechptno.1.1 Measuring wind speed   & Build and calibrate an anemometer &      \\
+                 & \thechptno.1.2 Measuring wind direction   & Build and calibrate a wind vane &      \\
+          \thechptno.2 Air chemistry measurements & \thechptno.2.1 Measuring $CO_2$ concentration   & Build and calibrate a $CO_2$ monitor &      \\
+                 & \thechptno.2.2 Ventilation of interior spaces   & Estimate air replacement rates with a $CO_2$ monitor &      \\
+          \thechptno.3 Monitoring particulate pollutants and the Air Quality Index  &  \thechptno.3.1 Light scattering by atmospheric pollution particles & Use scattering to measure Air Quality Index   &  &        &    \\
 
-      16. \textbf{Monitoring water level \& flow}   &  &    & &        &      \\
-          16.1 Monitoring water level  & 16.1.1 Hydrostatics \& hydrodynamics & & & & \\
-                 & 16.1.2 Measure water height with an acoustic distance sensor & & & & \\
-                 & 16.1.3 Measure water height with a pressure sesor & & & & \\
-          16.2 Monitoring rainfall   & 16.2.1 Sensing magnetism with Hall effect sensors & Measure signals from latching, non-latching and linear Hall effect sensors   & &        &      \\
-                 & 16.2.2 Construct a tipping rain gauge & & & & \\
-          16.3 Monitoring flow of air \& water   & 16.3.1 Measuring pipe flow   & Measure flow with a yf-s201c flow meter &      \\
-                 & 16.3.2 Measuring wind speed   & Build and calibrate an anemometer &      \\
-                 & 16.3.3 Measuring wind direction   & Build and calibrate a wind vane &      \\
-                 & Measuring velocity of water currents   & Build and calibrate a taffrail log &      \\
-          16.4 Monitoring waves \& tides   & 16.4.1 Characteristics of water waves & Measure wave amplitude \& frequency with an acoustic distance sensor  & &        &      \\
-                 & 16.4.2 Resolving fluctuating signals: Aliasing, Nyquist frequencies \& noise reduction & Assess sampling requirements for resolving water waves & & & \\
-                 & 16.4.3 Measurement \& prediction of tides & Analyze a water height time series to predict tides & & & \\
+      \stepcounter{chptno}\thechptno. \textbf{Monitoring water level \& flow}   &  &    & &        &      \\
+          \thechptno.1 Monitoring water level  & \thechptno.1.1 Hydrostatics \& hydrodynamics & & & & \\
+                 & \thechptno.1.2 Measure water height with an acoustic distance sensor & & & & \\
+                 & \thechptno.1.3 Measure water height with a pressure sesor & & & & \\
+          \thechptno.2 Monitoring rainfall   & \thechptno.2.1 Sensing magnetism with Hall effect sensors & Measure signals from latching, non-latching and linear Hall effect sensors   & &        &      \\
+                 & \thechptno.2.2 Construct a tipping rain gauge & & & & \\
+          \thechptno.3 Monitoring water flow  & \thechptno.3.1 Measuring pipe flow   & Measure flow with a yf-s201c flow meter &      \\
+                 & \thechptno.3.2 Measuring current speed   & Build and calibrate a current meter &      \\
+                 & \thechptno.3.3 Measuring current direction   & Build and calibrate a water flow vane &      \\
+                 & \thechptno.3.4 Measuring velocity of boat speed through water  & Build and calibrate a taffrail log &      \\
+          \thechptno.4 Monitoring waves \& tides   & \thechptno.4.1 Characteristics of water waves & Measure wave amplitude \& frequency with an acoustic distance sensor  & &        &      \\
+                 & \thechptno.4.2 Resolving fluctuating signals: Aliasing, Nyquist frequencies \& noise reduction & Assess sampling requirements for resolving water waves & & & \\
+                 & \thechptno.4.3 Measurement \& prediction of tides & Analyze a water height time series to predict tides & & & \\
 
 
 
-      17.  \textbf{Tracking position, displacement, velocity \& orientation} & & & & & \\
+      \stepcounter{chptno}\thechptno.  \textbf{Tracking position, displacement, velocity \& orientation} & & & & & \\
 };
 % % Simple brace
 % \draw [-,decorate,
@@ -277,7 +280,7 @@
 
     ;
 %    (chart-4-2) edge (chart-4-1);
-%    (chart-1-2) edge (chart-2-7)
+%    (chart-1-2) edge (chart-2-7)8
 %    \foreach \x/\y in {2/3, 3/4, 4/5, 5/6} {
 %      (chart-\x-1) \no (chart-\y-1) }
 %    %\foreach \x in {2,...,6} {
