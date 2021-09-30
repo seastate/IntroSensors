@@ -125,13 +125,13 @@
 
       5. \textbf{Digital interfaces for environmental sensors}   & 5.0.1 Communicating with digital sensors &    & &        &      \\
           5.1 I2C sensors   & 5.1.1 Background &      \\
-             & 5.1.2 Measuring temperature with a high-resolution sensor   &  &        &    \\
-             & 5.1.5 Using I2C over long cables with differential extenders   &  &        &    \\
+             & 5.1.2 Measuring temperature with a high-resolution sensor   & Measure temperature with an MCP9808 precision temperature sensor &        &    \\
+             & 5.1.5 Using I2C over long cables with differential extenders   & Implement an I2C sensor over an ethernet cable &        &    \\
           5.2 1-wire sensors   &  5.2.1 Background &      \\
              & 5.2.2 Temperature measurements with DS18B20 digital sensors &  Sample temperatures from multiple ``cabled'' sensors   &  &        &    \\
-             & 5.2.4 Accuracy \& precision of DS18B20 temperature sensors & Quantifying errors with a high-resolution temperature sensor   &   &        &    \\
-             &  & Recalibration of DS18B20 temperature sensors   &   &        &    \\
-             & 5.2.5 Monitoring temperature changes across time & Logging temperature time series   &   &        &    \\
+             & 5.2.4 Accuracy \& precision of DS18B20 temperature sensors & Quantify errors with a high-resolution temperature sensor   &   &        &    \\
+             &  & Improve the accuracy of DS18B20 temperature measurements with recalibration   &   &        &    \\
+             & 5.2.5 Monitoring temperature changes across time & Log samples to generate a temperature time series   &   &        &    \\
 
           5.3 UART sensors   &  5.3.1 Background &   & Hexadecimal system   \\
              & 5.3.2 Measuring position \& velocity using the Global Positioning System (GPS) &  Track a route using a GPS receiver  &  &        &    \\
@@ -164,16 +164,19 @@
           8.1 Dispersion of collimated \& diffuse light beams  & 8.1.1 Energy conservation \& the $r^2$ law &    &    &    \\
           8.2 Light attentuation through the water column & 8.2.1 Color-dependence of light absorption  & Digital devices (I2C) &        &    \\
                  &  8.2.2  Light scattering by suspended particles & Construct a turbidity sensor   &  &        &    \\
-                 &  8.2.3 Light scattering by atmospheric pollution particles & Use scattering to measure Air Quality Index   &  &        &    \\
+                % &  8.2.3 Light scattering by atmospheric pollution particles & Use scattering to measure Air Quality Index   &  &        &    \\
           8.3 Construction, calibration and use of a colorimetric pH sensor   &       \\
 
       9.  \textbf{Environmental effects on electrical characteristics}   &  &    & &        &      \\
           9.1 Capacitance  & 9.1.1  Make a proximity/touch sensor &    &    &    \\
-            & 9.1.2  Use a capacitance touchpad as a Human Interface Devices  &    &    &    \\
-            & 9.1.3  Measuring water levels with capacitance  &    &    &    \\
+                 & 9.1.2  Use a capacitance touchpad as a Human Interface Devices  &    &    &    \\
+                 & 9.1.3  Measuring water levels with capacitance  &    &    &    \\
           9.2 Conductivity as an indicator of salinity  & 9.2.1  Measuring conductivity & Make a conductivity sensor     &    &    \\
           9.3 Photoresistors \& photodiodes  & 9.3.1  & & & & \\
-          9.4  Pyroelectric motion detectors  & &    &    &    \\
+          9.4 Pyroelectric motion detectors  & &    &    &    \\
+          9.5 Electrical effects of shape \& deformation & 9.5.1 Engineering stress \& strain & & & & \\
+                 & 9.5.2 Piezo-electric materials & & & & \\
+                 & 9.5.3 Strain gauges & Measure strain with a Wheatstone bridge & & & \\
 %
 %
        |[part]| \textbf{PART IV: PRACTICAL SKILLS IN ENVIRONMENTAL SENSING}   & &      & &        &      \\
@@ -186,7 +189,7 @@
           12.2 Battery power for environmental instruments
           12.3 Low-cost solar power systems
 
-      13.  \textbf{Water- \& weather-proofing \& environmental instruments} & & & & & \\
+      13.  \textbf{Water- \& weather-proofing environmental sensing instruments} & & & & & \\
 %
 %
        |[part]| \textbf{PART V: QUANTIFYING ENVIRONMENTAL PROCESSES}   & &      & &        &      \\
@@ -195,12 +198,30 @@
           14.1 Deployment metadata  &    & &        &      \\
           14.2 Data archiving \& database management
 
-      15. \textbf{Monitoring flow of air \& water}   &  &    & &        &      \\
-          15.1 Sensing magnetism with Hall effect sensors & Measuring pipe flow   & Measure flow with a yf-s201c flow meter &      \\
-                     & Measuring wind speed and direction   & Build and calibrate an anemometer &      \\
-                     & Measuring velocity of water currents   & Build and calibrate a taffrail log &      \\
+      15. Monitoring meteorologial conditions \& air chemistry
+          15.1 Monitoring air flow & 15.1.1 Measuring wind speed   & Build and calibrate an anemometer &      \\
+                 & 15.1.2 Measuring wind direction   & Build and calibrate a wind vane &      \\
+          15.2 Air chemistry measurements & 15.2.1 Measuring $CO_2$ concentration   & Build and calibrate a $CO_2$ monitor &      \\
+                 & 15.2.2 Ventilation of interior spaces   & Estimate air replacement rates with a $CO_2$ monitor &      \\
+          15.3 Monitoring particulate pollutants and the Air Quality Index  &  15.3.1 Light scattering by atmospheric pollution particles & Use scattering to measure Air Quality Index   &  &        &    \\
 
-      16.  \textbf{Tracking position, displacement, velocity \& orientation} & & & & & \\
+      16. \textbf{Monitoring water level \& flow}   &  &    & &        &      \\
+          16.1 Monitoring water level  & 16.1.1 Hydrostatics \& hydrodynamics & & & & \\
+                 & 16.1.2 Measure water height with an acoustic distance sensor & & & & \\
+                 & 16.1.3 Measure water height with a pressure sesor & & & & \\
+          16.2 Monitoring rainfall   & 16.2.1 Sensing magnetism with Hall effect sensors & Measure signals from latching, non-latching and linear Hall effect sensors   & &        &      \\
+                 & 16.2.2 Construct a tipping rain gauge & & & & \\
+          16.3 Monitoring flow of air \& water   & 16.3.1 Measuring pipe flow   & Measure flow with a yf-s201c flow meter &      \\
+                 & 16.3.2 Measuring wind speed   & Build and calibrate an anemometer &      \\
+                 & 16.3.3 Measuring wind direction   & Build and calibrate a wind vane &      \\
+                 & Measuring velocity of water currents   & Build and calibrate a taffrail log &      \\
+          16.4 Monitoring waves \& tides   & 16.4.1 Characteristics of water waves & Measure wave amplitude \& frequency with an acoustic distance sensor  & &        &      \\
+                 & 16.4.2 Resolving fluctuating signals: Aliasing, Nyquist frequencies \& noise reduction & Assess sampling requirements for resolving water waves & & & \\
+                 & 16.4.3 Measurement \& prediction of tides & Analyze a water height time series to predict tides & & & \\
+
+
+
+      17.  \textbf{Tracking position, displacement, velocity \& orientation} & & & & & \\
 };
 % % Simple brace
 % \draw [-,decorate,
