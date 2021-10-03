@@ -103,22 +103,25 @@
           & 3.3.4 Environmental effects on RTC accuracy \& precision \& precision  & Quantifying temperature effects on time-keeping errors   & & Temperature effects on sensors  &      \\
 
       4. Environmental sensing w/ voltage, current and resistance   &  &    & &        &      \\
-      4.1 Measuring voltage    & 4.1.1 Voltage of an 18650 battery &    & &        &      \\
+      4.1 Measuring voltage    & 4.1.1 Voltage of an 18650 battery &    & Using a Multimeter &        &      \\
       & Ohm's Law for voltage, current and resistance &    & & Voltage, current \& resistance/ Ohm's Law   &   Sensor range, resolution \& saturation (ADC voltage limits \& resolution)   \\
       & Designing a voltage divider using Ohm's Law & Design a voltage divider circuit   & Ohm's Law calculations  &        & Circuit design, analysis \& testing     \\
       &  & Assemble/test a voltage divider circuit   & Breadboard circuit layout \& debugging &        &   \\
-      4.2 Environmental sensing w/ voltage: measure voltage w/ a thermistor    & 4.2.1 Thermistor temperature resistance curves & Calibrate a thermistor   & &   Temperature effects on sensors     &      \\
+      4.2 Environmental sensing w/ voltage \& current: temperature and conductivity with thermistor/EC electrodes    & 4.2.1 Thermistor temperature resistance curves & Calibrate a thermistor   & &   Temperature effects on sensors     &      \\
            & 4.2.2 Thermistor circuit design & Design a voltage divider for a thermistor   & GPIO interfaces (ADC) &  Data encoding  &  Calibration \& ground truthing    \\
            & 4.2.3 Thermistor circuit assembly \& programming & Build \& test a thermistor circuit   & &        &      \\
+          & 4.2.4 Electrical Conductivity Measurement & Assemble \& calibrate EC electrodes in parallel with thermistor & GPIO interfaces (Digital output, current limits), Classes in Python & Parallel circuits (thermistor and EC in parallel), AC vs. DC & Temperature dependence, sensitivity across range of ADC, calibration     \\
       4.3 Environmental sensing w/ time: measuring light intensity with frequency    & 4.3.1 Measuring light with frequency & Assemble \& test a frequency-based light sensor circuit   & Breadboard circuit layout \& debugging &        &      \\
            & 4.3.2 Dividing frequency to increase sensor range & Measure divided frequency from a light sensor   & GPIO interfaces & Microcontroller responses to environmental signals       &      Sensor range, resolution \& saturation ($\mu s$ measurement limits)\\
            & 4.3.3 Optimizing a light sensor driver & Optimize a light sensor driver   & Python coding (drivers) &        &      \\
       4.4 ****Environmental sensing with time: Calibrate an acoustic distance sensor   &  &      \\
       4.5 ****Environmental sensing with magnetism: measuring current and wind velocity   &  &      \\
+      4.6 ****Environmental sensing with acceleration and vibration:  measuring wave period amplitude with accelerometer &&&& Sampling Frequency \\
 
       5. Digital interfaces for environmental sensors   & 5.0.1 Communicating with digital sensors &    & &        &      \\
       5.1 ****I2C sensors   & 5.1.1 Background &      \\
              & 5.1.2 Measuring temperature with a high-resolution sensor   &  &        &    \\
+             & 5.1.3 Multiple Sensors on a Device: Temperature and Pressure on MS5803  &   Water depth/temperature profiles &    Printed Circuit Boards/SMT Assembly   & Hydrostatics, temperature stratification & Sensor Range and Error Propagation  \\
              & 5.1.3 Dispersion of collimated \& diffuse light beams  & Digital devices (I2C) &        &    \\
              & 5.1.4 Construction, calibration and use of a colorimetric pH sensor   &       \\
              & 5.1.5 Using I2C over long cables with differential extenders   &  &        &    \\
@@ -150,6 +153,16 @@
                  & 6.1.3 Logging, archiving \& disseminating MQTT data  & File I/O, data logging    & &        &  Data visualization    \\
       6.2 Microcontroller-based web servers   & 6.2.1 Web server setup \& testing &    & &        &      \\
                  & 6.2.2 Data acquisition & dissemination via a web server &  Internet communications   & Data encoding &   Data handling, security \& accessibility   \\
+      7. Use of sensors in the field  &  &    & Deployment, battery life, data storage needs &   & Documentation, Data management and archiving    \\
+      8. Potential Sensing Projects--Scientific Hypotheses  & & & Water Proofing, Battery Life & Data Encoding   &  Field Protocol      \\
+                & 8.1 Log Depth by differencing MS5803 from BMP280 & Measure rainfall, evaporation, and/or sap accumulation in bucket &  & Precipitation Processes, snow vs. rain, weather and climate, plant physiology, atmospheric pressure & Hypothesis: Biological Sensitivity to Temperature\\
+                & 8.2 Depth Profiling w/ EC/ MS5803 pressure device  & Create CDT profiles in lake/pond/estuary &  & Water Quality& Hypothesis: Stratification \\
+                & 8.3 Wave period/amplitude w/ Accoustic/pressure/acceleration devices & Record wave statistics on nearby body of water &  & Energy and Frequency, Sampling Frequency & Hypothesis: Dependence on Fetch\\
+                & 8.4 Capacitative Soil Moisture & Record soil moisture before/after lawn irrigation & & Groundwater & Hypothesis: Mass Conservation \\
+                & 8.5 Logging Direction or position w/ accelerometer or magnetometer or GPS & Record direction of flow in tidal body of water &  & Tides & Hypothesis: Tidal Exchange \\
+                & 8.6 Air Quality Monitor & Record CO2 and Particulate matter decay in Classroom, kitchen, etc. after seeding & & Mixing & Hypothesis: Exponential Decay\\
+                & 8.7 Record sound levels (Easiest to use RP2040 Connect) & Look for Inverse Distance Squared decrease in sound energy &  & Log Scales & Hypothesis: Inverse Distance Relationships ??? \\
+                & 8.8 Use TSL23X to record light & Record PAR ??? (Need filter) &  & Spectra, Log Scales & Hypothesis: Dependence on Solar Angle and/or correlation with temperature ??? \\
 %
       %
       %1.1 Estab. Comms    &  &    & &        &      \\
