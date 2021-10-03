@@ -10,7 +10,7 @@
 % https://github.com/fmarotta/kaobook
 %
 % Authors:
-% Daniel Gr\"unbaum (publicsensors@gmail.com) 
+% Daniel Gr\"unbaum (publicsensors@gmail.com)
 % Uses the kaobook LaTeX class by Federico Marotta (federicomarotta@mail.com)
 % which was itself based on the dissertation by Ken Arroyo Ohori (https://3d.bk.tudelft.nl/ken/en)
 % and on the Tufte-LaTeX class, and modified for LaTeX Templates by Vel (vel@latextemplates.com)
@@ -25,6 +25,7 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass[
+	a4paper, % Page size
 	fontsize=10pt, % Base font size
 	twoside=false, % Use different layouts for even and odd pages (in particular, if twoside=true, the margin column will be always on the outside)
 	%open=any, % If twoside=true, uncomment this to force new chapters to start on any page, not only on right (odd) pages
@@ -50,7 +51,7 @@
 \usepackage{float}
 %\usepackage{tabularx}
 
-% Infrastructure for labeling in margin tables for materials, as per 
+% Infrastructure for labeling in margin tables for materials, as per
 % https://tex.stackexchange.com/questions/356815/reference-table-row-in-latex
 \usepackage{array}
 \newcounter{rowcntr}[table]
@@ -73,12 +74,12 @@
 
 \usepackage{enumitem}
 
-\usepackage{scrhack}
+%\usepackage{scrhack}
 
 % package for circuit schematics within LaTeX
-\usepackage{circuitikz}
+\usepackage[EFvoltages]{circuitikz}
 
-% Packages for Creative Commons license graphics 
+% Packages for Creative Commons license graphics
 %\usepackage{xcolor}
 %\usepackage[framemethod=tikz]{mdframed}
 %\definecolor{cccolor}{rgb}{.67,.7,.67}
@@ -97,27 +98,35 @@
 %\usepackage{cleveref}
 
 % Load packages for testing
-\usepackage{blindtext}
+%\usepackage{blindtext}
 %\usepackage{showframe} % Uncomment to show boxes around the text area, margin, header and footer
 %\usepackage{showlabels} % Uncomment to output the content of \label commands to the document where they are used
 
 % Load the bibliography package
-\usepackage{styles/kaobiblio}
+\usepackage{kaobiblio}
+% \usepackage{styles/kaobiblio}
 \addbibresource{IntroSensors.bib} % Bibliography file
 
 % Load mathematical packages for theorems and related environments. NOTE: choose only one between 'mdftheorems' and 'plaintheorems'.
 %\usepackage{mdftheorems_no_amssymb}
 %\usepackage{styles/mdftheorems}
 %\usepackage{styles/plaintheorems}
+% Load mathematical packages for theorems and related environments
+\usepackage[framed=true]{kaotheorems}
 
 % Load package defining kaobook section labels and other utilities
-\usepackage{styles/kaorefs}
+\usepackage{kaorefs}
+% \usepackage{styles/kaorefs}
 
 % Infrastructure to selectively load sections (e.g. Milestones) from a common tex file
 \usepackage{catchfilebetweentags} % load the package
 %\newcommand{\loadFigure}[1]{ % define command to load figures
 %   \ExecuteMetaData[figures.tex]{#1} % call the package macro to load chunk from file
 %}
+
+\usepackage{scrhack}
+
+
 \newcommand{\loadMilestone}[1]{ % define command to load milestones
 	\ExecuteMetaData[Chapters/Milestones.tex]{#1} % call the package macro to load chunk from file
 }
@@ -133,7 +142,7 @@
 	\endgroup
 }
 
-% This is needed for the lstset hack to preserve indentation spaces 
+% This is needed for the lstset hack to preserve indentation spaces
 %\usepackage[T1]{fontenc}%required
 
 \graphicspath{{Images/}{./}} % Paths in which to look for images
@@ -198,16 +207,16 @@
 	%This book is released under a to-be-determined Creative Commons license. In the meantime \dots \\
 	\textbf{Copyright: Daniel Gr\"unbaum, 2021.}
 	\doclicenseThis
-	
+
 	\medskip
-	
+
 	\textbf{Colophon} \\
 	This document was typeset with the help of \href{https://sourceforge.net/projects/koma-script/}{\KOMAScript} and \href{ttps://www.latex-project.org/}{\LaTeX} using the \href{https://github.com/fmarotta/kaobook/}{kaobook} class.
-	
+
 	\medskip
-	
+
 	\textbf{Publisher} \\
-	
+
 	First printed in November 2020 by \@publishers
 }
 \makeatother
@@ -291,7 +300,7 @@
 %	{-}{{\char45}}1
 %}
 
-%\input{Chapters/Preface.tex}
+\input{Chapters/Preface.tex}
 
 \pagelayout{wide} % No margins
 \addpart{Introduction}
@@ -300,31 +309,29 @@
 \input{Chapters/SerialWifiConnections.tex}
 \input{Chapters/FirstExercisesESP8266feather.tex}
 
-\input{Chapters/KeepingTime.tex}     
+\input{Chapters/KeepingTime.tex}
 
 \pagelayout{wide} % No margins
 \addpart{Working with environmental sensors}
 %\addpart{Working with electrical circuits}
 \pagelayout{margin} % Restore margins
 
-\input{Chapters/CircuitsIntro.tex}                 
-%\input{Chapters/ThermistorCalib.tex}
-%\input{Chapters/CircuitDesign.tex}                 
+\input{Chapters/CircuitsIntro.tex}
+\input{Chapters/ThermistorCalib.tex}
+\input{Chapters/CircuitDesign.tex}
 
 %\pagelayout{wide} % No margins
 %\addpart{Digital interfaces for environmental analysis: Quantifying temperature, light and water chemistry}
 %\pagelayout{margin} % Restore margins
 
-\input{Chapters/DigitalSensors.tex}                
+\input{Chapters/DigitalSensors.tex}
 \input{Chapters/TelemetrySensorComms.tex}
 
 \pagelayout{wide} % No margins
 \addpart{Practical skills in environmental sensing}
 \pagelayout{margin} % Restore margins
-\input{Chapters/CADfabrication.tex}                
-\input{Chapters/PCBdesign.tex}
-\input{Chapters/InstrConstruct.tex}  
-\input{Chapters/Inferences.tex}                    
+\input{Chapters/CADfabrication.tex}
+\input{Chapters/PCBdesign.tex}s \input{Chapters/Inferences.tex}
 
 %\pagelayout{wide} % No margins
 %\addpart{Sound and water waves}
@@ -337,7 +344,7 @@
 %\addpart{Inference of mechanisms and processes from environmental sensor data}
 %\pagelayout{margin} % Restore margins
 %
-%\input{Chapters/Inferences.tex}                    
+%\input{Chapters/Inferences.tex}
 %\input{Chapters/WaterCols.tex}
 %%%\chapter{Vertical structure in lab and field water columns}
 %%
@@ -402,10 +409,10 @@
 %	\newcommand{\pronounced}[1]{\hspace*{.2em}\small\textit{#1}}
 %	\begin{tabular}{l l @{\hspace*{3em}} l l}
 %		\toprule
-%		Character & Name & Character & Name \\ 
+%		Character & Name & Character & Name \\
 %		\midrule
 %		$\alpha$ & alpha \pronounced{AL-fuh} & $\nu$ & nu \pronounced{NEW} \\
-%		$\beta$ & beta \pronounced{BAY-tuh} & $\xi$, $\Xi$ & xi \pronounced{KSIGH} \\ 
+%		$\beta$ & beta \pronounced{BAY-tuh} & $\xi$, $\Xi$ & xi \pronounced{KSIGH} \\
 %		$\gamma$, $\Gamma$ & gamma \pronounced{GAM-muh} & o & omicron \pronounced{OM-uh-CRON} \\
 %		$\delta$, $\Delta$ & delta \pronounced{DEL-tuh} & $\pi$, $\Pi$ & pi \pronounced{PIE} \\
 %		$\epsilon$ & epsilon \pronounced{EP-suh-lon} & $\rho$ & rho \pronounced{ROW} \\
