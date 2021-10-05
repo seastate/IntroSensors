@@ -103,9 +103,10 @@ How did we know which resistor to use?
 We calculated it using Ohm's Law.
 
 In a diagram of an electrical circuit, a resistor is illustrated by a zig-zag line:
-\begin{figure}[H]
+\begin{figure}[h!]
 		\labfig{res}
-	\begin{center}
+		\centering
+%	\begin{center}
 		\begin{tikzpicture}[american voltages]
 		\draw
 		(0,0) to [short,l=$V_{1}$, *-] (1,0)
@@ -113,7 +114,7 @@ In a diagram of an electrical circuit, a resistor is illustrated by a zig-zag li
 		to [short,l=$V_{2}$, -*] (4,0);
 		\end{tikzpicture}
 		\caption[Circuit diagram: Resistor]{Circuit diagram of a resistor.}
-	\end{center}
+%	\end{center}
 \end{figure}
 
 In this circuit, $R$ is the value of the resistor.
@@ -183,9 +184,10 @@ For example:
 We'll now apply Ohm's Law several times to understand voltage, current and resistance in a configuration of two resistors called a \htmladdnormallink{\texttt{voltage divider}}{https://en.wikipedia.org/wiki/Voltage\_divider}.
 A voltage divider is a simple circuit composed of two resistors, connected in \emph{series} so that a wire from one resistor is connected directly to one wire from the other.
 
-\begin{figure}[H]
+\begin{figure}[h!]
 		\labfig{volt_div}
-	\begin{center}
+		\centering
+%	\begin{center}
 		\begin{tikzpicture}[american voltages]
 		\draw
 		(0,0) to [short,l=$V_{in}$, *-] (1,0)
@@ -194,10 +196,8 @@ A voltage divider is a simple circuit composed of two resistors, connected in \e
 		to [R, l=$R_2$] (6,0)
 		to [short,l=GND, -*] (7,0);
 		\end{tikzpicture}
-		
 		\caption[Voltage divider schematic]{Schematic diagram of a voltage divider circuit.}
-	
-	\end{center}
+%	\end{center}
 \end{figure}
 
 
@@ -315,7 +315,8 @@ Then, in \refsec{vd_assem}, you will assemble your voltage divider design and as
 	
 	These entries are, in order:
 	\begin{table}[H]
-	\centering \begin{small}
+	\centering 
+	\begin{small}
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
 		\hline 
 		\textbf{A}  & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{E} & \textbf{F} & \textbf{G} & \textbf{H} & \textbf{I} \\ 
@@ -820,7 +821,8 @@ There are two circuit configurations that you need to consider:
 \begin{itemize}
 	\item Configuration 1, in which the thermistor replaces resistor $R_1$ from the voltage divider circuit:
 	\begin{figure}[H]
-	\begin{center}
+		\centering
+%	\begin{center}
 		\begin{tikzpicture}[american voltages]
 		\draw
 		(0,0) to [short,l=$V_{in}$, *-] (1,0)
@@ -831,12 +833,13 @@ There are two circuit configurations that you need to consider:
 		\end{tikzpicture}
 		\caption[Thermistor circuit \#1]{Schematic diagram of a voltage divider circuit, with the thermistor replacing resistor $R_1$.}
 		\labfig{therm_cir1}
-	\end{center}
+%	\end{center}
 	\end{figure}
 
 	\item Configuration 2, in which the thermistor replaces resistor $R_2$ from the voltage divider circuit:
 	\begin{figure}[H]
-	\begin{center}
+		\centering
+%	\begin{center}
 		\begin{tikzpicture}[american voltages]
 		\draw
 		(0,0) to [short,l=$V_{in}$, *-] (1,0)
@@ -847,7 +850,7 @@ There are two circuit configurations that you need to consider:
 		\end{tikzpicture}
 		\caption[Thermistor circuit \#2]{Schematic diagram of a voltage divider circuit, with the thermistor replacing resistor $R_2$.}
 		\labfig{therm_cir2}
-	\end{center}
+%	\end{center}
 	\end{figure}
 \end{itemize}
 In these circuit diagrams, the box with the diagonal line represents the thermistor, in which resistance is modulated by temperature. We have labeled the thermistor in these positions $RTH_1$ and $RTH_2$, to remind us that these thermistors replace resistors $R_1$ and $R_2$, respectively, in our voltage divider calculations.
