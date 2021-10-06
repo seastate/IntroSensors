@@ -1,22 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% kaobook
-% LaTeX Template
-% Version 1.0 (5/6/19)
 %
-% This template originates from:
-% https://www.LaTeXTemplates.com
-%
-% For the latest template development version and to make contributions:
-% https://github.com/fmarotta/kaobook
-%
-% Authors:
-% Daniel Gr\"unbaum (publicsensors@gmail.com)
-% Uses the kaobook LaTeX class by Federico Marotta (federicomarotta@mail.com)
-% which was itself based on the dissertation by Ken Arroyo Ohori (https://3d.bk.tudelft.nl/ken/en)
-% and on the Tufte-LaTeX class, and modified for LaTeX Templates by Vel (vel@latextemplates.com)
-%
-% License: (for now...)
-% Copyright Daniel Gr\"unbaum 2019, All rights reserved
+% Copyright Daniel Gr\"unbaum 2021
+% This work is licensed under a Creative Commons ‘Attribution-NonCommercial-ShareAlike 4.0 International’ license.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -74,8 +59,6 @@
 
 \usepackage{enumitem}
 
-%\usepackage{scrhack}
-
 % package for circuit schematics within LaTeX
 \usepackage[EFvoltages]{circuitikz}
 
@@ -94,29 +77,15 @@
 %\usepackage[firstpageonly,text=DRAFT\\COPY]{draftwatermark}
 
 
-% Don't use this, it breaks everything
-%\usepackage{cleveref}
-
-% Load packages for testing
-%\usepackage{blindtext}
-%\usepackage{showframe} % Uncomment to show boxes around the text area, margin, header and footer
-%\usepackage{showlabels} % Uncomment to output the content of \label commands to the document where they are used
-
 % Load the bibliography package
 \usepackage{kaobiblio}
-% \usepackage{styles/kaobiblio}
 \addbibresource{IntroSensors.bib} % Bibliography file
 
-% Load mathematical packages for theorems and related environments. NOTE: choose only one between 'mdftheorems' and 'plaintheorems'.
-%\usepackage{mdftheorems_no_amssymb}
-%\usepackage{styles/mdftheorems}
-%\usepackage{styles/plaintheorems}
 % Load mathematical packages for theorems and related environments
 \usepackage[framed=true]{kaotheorems}
 
 % Load package defining kaobook section labels and other utilities
 \usepackage{kaorefs}
-% \usepackage{styles/kaorefs}
 
 % Infrastructure to selectively load sections (e.g. Milestones) from a common tex file
 \usepackage{catchfilebetweentags} % load the package
@@ -397,36 +366,6 @@
 %
 %\printnomenclature % Output the nomenclature
 
-%----------------------------------------------------------------------------------------
-%	GREEK ALPHABET
-% 	Originally from https://gitlab.com/jim.hefferon/linear-algebra
-%----------------------------------------------------------------------------------------
-
-%\vspace{1cm}
-%
-%{\usekomafont{chapter}Greek Letters with Pronounciation} \\[2ex]
-%\begin{center}
-%	\newcommand{\pronounced}[1]{\hspace*{.2em}\small\textit{#1}}
-%	\begin{tabular}{l l @{\hspace*{3em}} l l}
-%		\toprule
-%		Character & Name & Character & Name \\
-%		\midrule
-%		$\alpha$ & alpha \pronounced{AL-fuh} & $\nu$ & nu \pronounced{NEW} \\
-%		$\beta$ & beta \pronounced{BAY-tuh} & $\xi$, $\Xi$ & xi \pronounced{KSIGH} \\
-%		$\gamma$, $\Gamma$ & gamma \pronounced{GAM-muh} & o & omicron \pronounced{OM-uh-CRON} \\
-%		$\delta$, $\Delta$ & delta \pronounced{DEL-tuh} & $\pi$, $\Pi$ & pi \pronounced{PIE} \\
-%		$\epsilon$ & epsilon \pronounced{EP-suh-lon} & $\rho$ & rho \pronounced{ROW} \\
-%		$\zeta$ & zeta \pronounced{ZAY-tuh} & $\sigma$, $\Sigma$ & sigma \pronounced{SIG-muh} \\
-%		$\eta$ & eta \pronounced{AY-tuh} & $\tau$ & tau \pronounced{TOW (as in cow)} \\
-%		$\theta$, $\Theta$ & theta \pronounced{THAY-tuh} & $\upsilon$, $\Upsilon$ & upsilon \pronounced{OOP-suh-LON} \\
-%		$\iota$ & iota \pronounced{eye-OH-tuh} & $\phi$, $\Phi$ & phi \pronounced{FEE, or FI (as in hi)} \\
-%		$\kappa$ & kappa \pronounced{KAP-uh} & $\chi$ & chi \pronounced{KI (as in hi)} \\
-%		$\lambda$, $\Lambda$ & lambda \pronounced{LAM-duh} & $\psi$, $\Psi$ & psi \pronounced{SIGH, or PSIGH} \\
-%		$\mu$ & mu \pronounced{MEW} & $\omega$, $\Omega$ & omega \pronounced{oh-MAY-guh} \\
-%		\bottomrule
-%	\end{tabular} \\[1.5ex]
-%	Capitals shown are the ones that differ from Roman capitals.
-%\end{center}
 
 %----------------------------------------------------------------------------------------
 %	GLOSSARY
