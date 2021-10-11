@@ -15,6 +15,9 @@
 \setcounter{rowno}{0}
 \newcounter{chptno}
 \setcounter{chptno}{0}
+\newcounter{appno}
+\setcounter{appno}{0}
+\Alph{appno}
 \newcounter{deviceno}
 \setcounter{deviceno}{0}
 
@@ -71,23 +74,25 @@
       |[blank]|Section     & |[blank]|Background  & |[blank]|Activity/HOW-TO/ Milestone  & |[blank]|Skill &  |[blank]|Science/Engineering topic & |[blank]|Core concept  \\
 %
        |[part]| \textbf{PART I: PRELIMINARIES}   & &      & &        &      \\
-       \stepcounter{chptno}
 %
-       \thechptno. \textbf{Introduction}\\
+       \stepcounter{chptno}\thechptno. \textbf{Introduction}\\
 %
-       \thechptno.1 \textbf{Setting things up} & \thechptno.1.1 Hardware/software choices for textbook & & & Explain distinction between single board computer and microcontroller, MicroPython vs. Arduino & Open source hardware development \\
-       & \thechptno.1.2 Types of microcontrollers & & Evalute features of microcontrollers relevant for environmental sensing \\
-       & \thechptno.1.3 Tools needed for developing in MicroPython & Install Drivers for USB  & & & & \\
-       & & Install Thonny & & & & \\
-       & & Updating/Flashing Micropython & & Software versioning, Code repositories & \\
-      \thechptno.2 \textbf{Communicating w/ your microcontroller} & & Meet your microcontroller & & & \\
+          & \thechptno.1.1 Hardware/software choices for textbook & & & Explain distinction between single board computer and microcontroller, MicroPython vs. Arduino & Open source hardware development \\
+          & \thechptno.1.2 Types of microcontrollers & & Evalute features of microcontrollers relevant for environmental sensing \\
+          & \thechptno.1.3 Tools needed for working with MicroPython &  & & & Software versioning, Code repositories & \\
+       % \thechptno.1 \textbf{Setting things up} & \thechptno.1.1 Hardware/software choices for textbook & & & Explain distinction between single board computer and microcontroller, MicroPython vs. Arduino & Open source hardware development \\
+       % & \thechptno.1.2 Types of microcontrollers & & Evalute features of microcontrollers relevant for environmental sensing \\
+       % & \thechptno.1.3 Tools needed for developing in MicroPython & Install Drivers for USB  & & & & \\
+       % & & Install Thonny & & & & \\
+       % & & Updating/Flashing Micropython & & Software versioning, Code repositories & \\
+      \stepcounter{chptno}\thechptno. \textbf{Communicating w/ your microcontroller} & & Meet your microcontroller & & & \\
           % 1. \textbf{Communicating w/ your microcontroller}   & & Meet your microcontroller     & &        &      \\
-          \thechptno.2 Establishing communications    &  &    & &        &      \\
-          \thechptno.2 Connecting via USB    & \thechptno.2.1 Installing drivers for USB &    & &        &      \\
-              & \thechptno.2.2 USB connections via Chrome & Connect via BeagleTerm & Wired communication with microcontrollers &        &      \\
-              & \thechptno.2.3 USB connections via mpfshell &   Install mpfshell & &        &      \\
-              &  &   Connect via mpfshell & &        &      \\
-          \thechptno.3 Connecting via WiFi     & \thechptno.3.1 WiFi access points \& stations &  Configure/connect to AP  &  &        &      \\
+      \thechptno.1 Establishing communications    &  &    & &        &      \\
+      \thechptno.2 Connecting via USB    & \thechptno.2.1 Installing drivers for USB &    & &        &      \\
+              & \thechptno.2.2 USB connections via Chrome & Connect via BeagleTerm &  &        &      \\
+              & \thechptno.2.3 USB connections via thonny & Install \& connect via thonny (Chromebooks,Windows, Macs, linux) & Wired communication with microcontrollers &        &      \\
+              & \thechptno.2.4 USB connections via mpfshell &   Connect via mpfshell & &        &      \\
+      \thechptno.3 Connecting via WiFi     & \thechptno.3.1 WiFi access points \& stations &  Configure/connect to AP  &  &        &      \\
                                  &   &  Configure/connect in station mode  & &        &      \\
               & \thechptno.3.2 WiFi connections via WebREPL &  Launch WebREPL  & Wireless communications with microcontrollers &        & Fundamentals of microcontroller function     \\
                                  &   &  Upload a file  & &        &      \\
@@ -98,9 +103,9 @@
               & \thechptno.4.3 Encrypted authentication of data messages &  Verify a data message  & &  Data encoding (Hexadecimal system, refer to UART section?)    &  Data handling, security \& accessibility    \\
 
       \stepcounter{chptno}\thechptno. \textbf{Circuit-building with MicroPython}   &  &    & &        &      \\
-          \thechptno.1 Assembling circuits with breadboards    & \thechptno.1.1 Breadboard basics &    & Breadboard circuit layout \& debugging &        &      \\
+          \thechptno.1 Assembling circuits with breadboards    & \thechptno.1.1 Breadboard basics &  Use a multimeter to test connectivity   & Breadboard circuit layout \& debugging &        &      \\
               & \thechptno.1.2 Using GPIOs &    & &        &      \\
-              &  GPIOs as outputs &  Turn on/off on-board LEDs  & GPIO interfaces &        &      \\
+              &  GPIOs as outputs &  Turn on/off on-board LEDs  & GPIO interfaces & Use a multimeter to measure voltage  &      \\
           \thechptno.2 Creating circuits on a  breadboard   & \thechptno.2.1 Distributing power & Create power distribution sub-circuit   & &        &      \\
              & \thechptno.2.2 GPIOs as inputs & Assemble button switch sub-circuit   & Breadboard circuit layout \& debugging &        &  Circuit design, analysis \& testing   \\
              & \thechptno.2.3 GPIO interrupts and handlers & Program an interrupt   & GPIO interfaces, Python coding (functions) &  Microcontroller responses to environmental signals      &      \\
@@ -124,7 +129,7 @@
        |[part]| \textbf{PART II: FUNDAMENTALS OF ENVIRONMENTAL SENSING}   & &      & &        &      \\
 
       \stepcounter{chptno}\thechptno. \textbf{Environmental sensing w/ voltage, current and resistance}   &  &    & &        &      \\
-          \thechptno.1 Measuring voltage    & \thechptno.1.1 Voltage of an 18650 battery  & Use a multimeter &        &      \\
+          \thechptno.1 Measuring voltage    & \thechptno.1.1 Voltage of an 18650 battery  & &        &      \\
               & \thechptno.1.2 Ohm's Law for voltage, current and resistance &    & & Voltage, current \& resistance/ Ohm's Law   &   Sensor range, resolution \& saturation (ADC voltage limits \& resolution)   \\
               & \thechptno.1.3 Designing a voltage divider using Ohm's Law & Design a voltage divider circuit   & Ohm's Law calculations  &        & Circuit design, analysis \& testing     \\
               &  & Assemble/test a voltage divider circuit   & Breadboard circuit layout \& debugging &        &   \\
@@ -236,7 +241,24 @@
                  & \thechptno.4.3 Measurement \& prediction of tides & Analyze a water height time series to predict tides & & & \\
       \stepcounter{chptno}\thechptno.  \textbf{Tracking position, displacement, velocity and orientation} & & & & & \\
       %
-      |[part]| \textbf{APPENDIX: SENSOR ASSEMBLIES/BUILD INSTRUCTIONS. This section provides guidance on sensor/microcontroller configuration, 3-D printed/lasercut mounts, waterproofing/power recommendatins, and build instructions.}   & &      & &        &      \\
+      |[part]| \textbf{APPENDIX}   & &      & &        &      \\
+
+      \stepcounter{appno}\Alph{appno}. \textbf{Milestones} & &  & \\
+
+      \stepcounter{appno}\Alph{appno}. \textbf{Materials} & &  & \\
+
+      \stepcounter{appno}\Alph{appno}. \textbf{Skills \& tools} & &  & \\
+
+      \stepcounter{appno}\Alph{appno}. \textbf{Code listings} & &  & \\
+
+      \stepcounter{appno}\Alph{appno}. \textbf{Formatting conventions} & &  & \\
+
+
+      \stepcounter{appno}\Alph{appno}. \textbf{Updating/Flashing Micropython} & &  & \\
+
+      \stepcounter{appno}\Alph{appno}. \textbf{SENSOR ASSEMBLIES/BUILD INSTRUCTIONS. This section provides guidance on sensor/microcontroller configuration, 3-D printed/lasercut mounts, waterproofing/power recommendatins, and build instructions.}   & &      & &        &      \\
+
+
      \stepcounter{deviceno} DEVICE \thedeviceno. Array of DS18B20 (for use on conduction experiment) & & & & \\
      \stepcounter{deviceno} DEVICE \thedeviceno. MS5803 (for use on depth temperature profiling, water level logging, rainfall measurement, sap measurement) \\
      \stepcounter{deviceno} DEVICE \thedeviceno. CDT Sensor (for use on profiling, water temprature, water quality) \\
@@ -246,6 +268,9 @@
      \stepcounter{deviceno} DEVICE \thedeviceno. Ultrasonic water level sensor \\
      \stepcounter{deviceno} DEVICE \thedeviceno. Soil moisture sensor \\
      \stepcounter{deviceno} DEVICE \thedeviceno. Tipping bucket rain gage \\
+%
+      |[part]| \textbf{BIBLIOGRAPHY}   & &      & &        &      \\
+      |[part]| \textbf{INDEX}   & &      & &        &      \\
 };
 % % Simple brace
 % \draw [-,decorate,
