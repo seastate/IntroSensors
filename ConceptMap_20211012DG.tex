@@ -164,6 +164,8 @@
 %
        |[part]| \textbf{PART III: EXPERIMENTS WITH ENVIRONMENTAL SENSORS}   & &      & &        &      \\
       %
+      \stepcounter{chptno}\thechptno. \textbf{Best practices for data management}   & \thechptno.1 Deployment metadata  &    & &        &      \\
+          \thechptno.2 Data archiving \& database management & & & & & \\
       \stepcounter{chptno}\thechptno. \textbf{Measuring heat and energy flow}   & \thechptno.1 Background: Conservation \& diffusion (conduction) of heat  &    & &        &      \\
           \thechptno.2 Evaporative cooling & \thechptno.2.1 Inferring atmospheric conditions using temperature & Calculate humidity from wet- and dry-bulb temperatures   &  &        &    \\
           \thechptno.3 Heat transfer by conduction & \thechptno.3.1 Measuring heat transfer by conduction   &  Temperature transients \& heat flow in a metal bar &        &    \\
@@ -199,15 +201,16 @@
                  & \thechptno.5.3 Strain gauges & Measure strain with a Wheatstone bridge & & & \\
 %
 %
+%
+%
       |[part]| \textbf{PART IV: PRACTICAL SKILLS IN ENVIRONMENTAL SENSING}   & &      & &        &      \\
       \stepcounter{chptno}\thechptno. \textbf{Planning and field skills}   & \thechptno.1 Documenting field conditions, Deployment checklists   & &        &      \\
       \stepcounter{chptno}\thechptno.  \textbf{Power supply \& regulation for environmental instruments} & \thechptno.1 Power usage measurement \& calculation & & & & \\
          \thechptno.2 Battery power for environmental instruments & & & & & \\
          \thechptno.3 Low-cost solar power systems & & & & & \\
       \stepcounter{chptno}\thechptno.  \textbf{Water- \& weather-proofing environmental sensing instruments} & & Build a generic waterproof enclosure from clear PVC; consider a system that uses either 2" PVC unions glued to clear plastic for enclosure and to each individual sensor package on the other (expensive because a separate union is required for each experiment). An alternative is to use 1.5" to 2" Fernco coupings that allow connections to the outside of PVC. This allows sensors be potted in 1.5" PVC and swapped out at will, so is much less expensive.  The build could be based on a laser-cut or 3d printed holder that the microcontroller, batteries, and DS3231 could be screwed to. This slides into the 1.5" PVC so ensures the data logging setup is secure even when the clear plastic cap is not mounted.  We should test this. & & & \\
-      \stepcounter{chptno}\thechptno. \textbf{Best practices for data management \& dissemination}   & \thechptno.1 Deployment metadata  &    & &        &      \\
-          \thechptno.1 Deployment metadata  &    & &        &      \\
-          \thechptno.2 Data archiving \& database management & & & & & \\
+      % \stepcounter{chptno}\thechptno. \textbf{Best practices for data management \& dissemination}   & \thechptno.1 Deployment metadata  &    & &        &      \\
+      %     \thechptno.2 Data archiving \& database management & & & & & \\
       \stepcounter{chptno}\thechptno. \textbf{Data telemetry and protocols for sensor communications}   &  &    & &        &      \\
           \thechptno.1 Message Queuing Telemetry Transport (MQTT)    & \thechptno.1.1 Publishing \& subscribing to MQTT messages &    & &        &      \\
              & \thechptno.1.2 Telemetry of sampling requests \& data &  Internet communications   &  &  Data encoding      &   Data handling, security \& accessibility   \\
@@ -259,6 +262,8 @@
           \theappno.1 Adafruit Feather form factor microcontrollers & & & \\
           \theappno.2 STM32-based microcontrollers (Pyboards \& related) & & & \\
           \theappno.3 ESP32-based microcontrollers & & & \\
+                 & \thechptno.3.1 Lolin D32 Pro &  & & & \\
+
           \theappno.3 ESP8266-based microcontrollers & & & \\
 
       \stepcounter{appno}\Alph{appno}. \textbf{Updating/Flashing Micropython} & &  & \\
