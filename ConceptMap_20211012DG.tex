@@ -157,40 +157,22 @@
 
           \thechptno.3 UART sensors   &  \thechptno.3.1 Background &   & Hexadecimal system   \\
              & \thechptno.3.2 Measuring position \& velocity using the Global Positioning System (GPS) &  Track a route using a GPS receiver  &  &        &    \\
-             & \thechptno.3.3 Measuring atmospheric particle pollution &  Sample Air Quality Index   &  &        &    \\
-             & \thechptno.3.4 Tracking ships using Automatic Identification System (AIS) &  Track vessels using an AIS receiver  &  &        &    \\
+             % & \thechptno.3.3 Measuring atmospheric particle pollution &  Sample Air Quality Index   &  &        &    \\
+             % & \thechptno.3.4 Tracking ships using Automatic Identification System (AIS) &  Track vessels using an AIS receiver  &  &        &    \\
           \thechptno.4 SPI sensors   &  \thechptno.4.1 Background (SD card interfaces)&      \\
              & \thechptno.4.2 SPI control of TFT display panels &    &  &        &    \\
 %
-%
-      |[part]| \textbf{PART III: PRACTICAL SKILLS IN ENVIRONMENTAL SENSING}   & &      & &        &      \\
-      \stepcounter{chptno}\thechptno. \textbf{Planning and field skills}   & \thechptno.1 Documenting field conditions, Deployment checklists   & &        &      \\
-      \stepcounter{chptno}\thechptno.  \textbf{Power supply \& regulation for environmental instruments} & \thechptno.1 Power usage measurement \& calculation & & & & \\
-         \thechptno.2 Battery power for environmental instruments & & & & & \\
-         \thechptno.3 Low-cost solar power systems & & & & & \\
-      \stepcounter{chptno}\thechptno.  \textbf{Water- \& weather-proofing environmental sensing instruments} & & Build a generic waterproof enclosure from clear PVC; consider a system that uses either 2" PVC unions glued to clear plastic for enclosure and to each individual sensor package on the other (expensive because a separate union is required for each experiment). An alternative is to use 1.5" to 2" Fernco coupings that allow connections to the outside of PVC. This allows sensors be potted in 1.5" PVC and swapped out at will, so is much less expensive.  The build could be based on a laser-cut or 3d printed holder that the microcontroller, batteries, and DS3231 could be screwed to. This slides into the 1.5" PVC so ensures the data logging setup is secure even when the clear plastic cap is not mounted.  We should test this. & & & \\
-      \stepcounter{chptno}\thechptno. \textbf{Best practices for data management \& dissemination}   & \thechptno.1 Deployment metadata  &    & &        &      \\
-          \thechptno.1 Deployment metadata  &    & &        &      \\
-          \thechptno.2 Data archiving \& database management & & & & & \\
-      \stepcounter{chptno}\thechptno. \textbf{Data telemetry and protocols for sensor communications}   &  &    & &        &      \\
-          \thechptno.1 Message Queuing Telemetry Transport (MQTT)    & \thechptno.1.1 Publishing \& subscribing to MQTT messages &    & &        &      \\
-             & \thechptno.1.2 Telemetry of sampling requests \& data &  Internet communications   &  &  Data encoding      &   Data handling, security \& accessibility   \\
-             & \thechptno.1.3 Logging, archiving \& disseminating MQTT data  & File I/O, data logging    & &        &  Data visualization    \\
-           \thechptno.2 Representational State Transfer (REST) & \thechptno.2.1 HTTP Get and Put & Post Data to Web Service & Internet communications & Data encoding & Data handling, security, archives    \\
-          \thechptno.3 Microcontroller-based web servers   & \thechptno.2.1 Web server setup \& testing &    & &        &      \\
-             & \thechptno.2.2 Data acquisition & dissemination via a web server &  Internet communications   & Data encoding &   Data handling, security \& accessibility   \\
-      \stepcounter{chptno}\thechptno.  \textbf{Computer Aided Design (CAD) \& fabrication} & & & & & \\
-      \stepcounter{chptno}\thechptno.  \textbf{Design of Printed Circuit Boards (PCBs)} & & & & & \\
-       |[part]| \textbf{PART IV: EXPERIMENTS WITH ENVIRONMENTAL SENSORS}   & &      & &        &      \\
+       |[part]| \textbf{PART III: EXPERIMENTS WITH ENVIRONMENTAL SENSORS}   & &      & &        &      \\
       %
       \stepcounter{chptno}\thechptno. \textbf{Measuring heat and energy flow}   & \thechptno.1 Background: Conservation \& diffusion (conduction) of heat  &    & &        &      \\
           \thechptno.2 Evaporative cooling & \thechptno.2.1 Inferring atmospheric conditions using temperature & Calculate humidity from wet- and dry-bulb temperatures   &  &        &    \\
           \thechptno.3 Heat transfer by conduction & \thechptno.3.1 Measuring heat transfer by conduction   &  Temperature transients \& heat flow in a metal bar &        &    \\
                  &  & Interpolate \& plot temperature time series using Pandas  &   &        &    \\
                  &  & Animated data visualizations  &   &        &    \\
-          \thechptno.4 Heating and cooling of lakes \& oceans & \thechptno.4.1 Laboratory models of lakes \& oceans & Monitor temperature in a laboratory column during heating \& cooling   &  &        &    \\
-                 & & \thechptno.4.2 Heat transport in salinity-stratified water columns   &  &        &    \\
-                 & & \thechptno.4.3 Heat transport by turbuent mixing   &  &        &    \\
+          \thechptno.4 Heating and cooling of lakes \& oceans & \thechptno.4.1 Stratification and advective heat transfer in lakes \& oceans &   &  &        &    \\
+                  & \thechptno.4.2 Laboratory models of lakes \& oceans & Monitor temperature in a laboratory column during heating \& cooling   &  &        &    \\
+                 & \thechptno.4.3 Heat transport in salinity-stratified water columns   &  Monitor temperature in a stratified laboratory column during heating \& cooling  &        &    \\
+                 & \thechptno.4.4 Heat transport by turbuent mixing   &  Monitor temperature in a mixed laboratory column during heating \& cooling  &        &    \\
           \thechptno.5 Thermoelectric (Peltier) heating \& cooliing & \thechptno.5.1 Temperature control using a Peltier device & Assemble and code a digital thermostat  & Power modulation \& control & & Feedback \& control   \\
       %
       \stepcounter{chptno}\thechptno.  \textbf{Quantifying light \& color}   &  &    & &        &      \\
@@ -216,6 +198,25 @@
                  & \thechptno.5.2 Piezo-electric materials & & & & \\
                  & \thechptno.5.3 Strain gauges & Measure strain with a Wheatstone bridge & & & \\
 %
+%
+      |[part]| \textbf{PART IV: PRACTICAL SKILLS IN ENVIRONMENTAL SENSING}   & &      & &        &      \\
+      \stepcounter{chptno}\thechptno. \textbf{Planning and field skills}   & \thechptno.1 Documenting field conditions, Deployment checklists   & &        &      \\
+      \stepcounter{chptno}\thechptno.  \textbf{Power supply \& regulation for environmental instruments} & \thechptno.1 Power usage measurement \& calculation & & & & \\
+         \thechptno.2 Battery power for environmental instruments & & & & & \\
+         \thechptno.3 Low-cost solar power systems & & & & & \\
+      \stepcounter{chptno}\thechptno.  \textbf{Water- \& weather-proofing environmental sensing instruments} & & Build a generic waterproof enclosure from clear PVC; consider a system that uses either 2" PVC unions glued to clear plastic for enclosure and to each individual sensor package on the other (expensive because a separate union is required for each experiment). An alternative is to use 1.5" to 2" Fernco coupings that allow connections to the outside of PVC. This allows sensors be potted in 1.5" PVC and swapped out at will, so is much less expensive.  The build could be based on a laser-cut or 3d printed holder that the microcontroller, batteries, and DS3231 could be screwed to. This slides into the 1.5" PVC so ensures the data logging setup is secure even when the clear plastic cap is not mounted.  We should test this. & & & \\
+      \stepcounter{chptno}\thechptno. \textbf{Best practices for data management \& dissemination}   & \thechptno.1 Deployment metadata  &    & &        &      \\
+          \thechptno.1 Deployment metadata  &    & &        &      \\
+          \thechptno.2 Data archiving \& database management & & & & & \\
+      \stepcounter{chptno}\thechptno. \textbf{Data telemetry and protocols for sensor communications}   &  &    & &        &      \\
+          \thechptno.1 Message Queuing Telemetry Transport (MQTT)    & \thechptno.1.1 Publishing \& subscribing to MQTT messages &    & &        &      \\
+             & \thechptno.1.2 Telemetry of sampling requests \& data &  Internet communications   &  &  Data encoding      &   Data handling, security \& accessibility   \\
+             & \thechptno.1.3 Logging, archiving \& disseminating MQTT data  & File I/O, data logging    & &        &  Data visualization    \\
+           \thechptno.2 Representational State Transfer (REST) & \thechptno.2.1 HTTP Get and Put & Post Data to Web Service & Internet communications & Data encoding & Data handling, security, archives    \\
+          \thechptno.3 Microcontroller-based web servers   & \thechptno.2.1 Web server setup \& testing &    & &        &      \\
+             & \thechptno.2.2 Data acquisition & dissemination via a web server &  Internet communications   & Data encoding &   Data handling, security \& accessibility   \\
+      \stepcounter{chptno}\thechptno.  \textbf{Computer Aided Design (CAD) \& fabrication} & & & & & \\
+      \stepcounter{chptno}\thechptno.  \textbf{Design of Printed Circuit Boards (PCBs)} & & & & & \\
 %
 %
 %
@@ -254,6 +255,11 @@
 
       \stepcounter{appno}\Alph{appno}. \textbf{Formatting conventions} & &  & \\
 
+      \stepcounter{appno}\Alph{appno}. \textbf{Overview of selected microcontrollers} & &  & \\
+          \theappno.1 Adafruit Feather form factor microcontrollers & & & \\
+          \theappno.2 STM32-based microcontrollers (Pyboards \& related) & & & \\
+          \theappno.3 ESP32-based microcontrollers & & & \\
+          \theappno.3 ESP8266-based microcontrollers & & & \\
 
       \stepcounter{appno}\Alph{appno}. \textbf{Updating/Flashing Micropython} & &  & \\
 
