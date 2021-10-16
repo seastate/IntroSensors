@@ -3,7 +3,7 @@
 \chapter{Code Listings}
 \labch{code_listings}
 
-This appendix contains listings of selected codes, in order of first appearance. Additional codes are listed and linked within the relevant chapters. Unless otherwise stated:
+This appendix contains links to listings of selected codes, aggregated by chapter in order of first appearance. Additional codes are listed and linked within the relevant chapters. Unless otherwise stated:
 \begin{itemize}
 	\item Micropython codes are distributed from \htmladdnormallink{MicroPython's github repository}{https://github.com/micropython/micropython} under the \htmladdnormallink{MIT license}{https://github.com/micropython/micropython/blob/master/LICENSE}.
 	\item Adafruit codes are distributed from \htmladdnormallink{Adafruit's github repository}{https://github.com/adafruit/Adafruit-uRTC} under the \htmladdnormallink{MIT license}{https://github.com/adafruit/Adafruit-uRTC/blob/master/LICENSE}.
@@ -17,18 +17,37 @@ This appendix contains listings of selected codes, in order of first appearance.
 
 
 \section{Keeping Track of Time}
-\subsection{\lstinline{urtc.py}}
-\lstinputlisting[language=Python,label=urtc,caption={\htmladdnormallink{\texttt{urtc.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/urtc.py}: Driver for the \texttt{DS3231} Real Time Clock. See also the \htmladdnormallink{documentation}{https://micropython-urtc.readthedocs.io/en/latest/urtc.html\#}.}]{Codes/urtc.py}
 
-\subsection{\lstinline{SetTimeDS3231.py}}
-\lstinputlisting[language=Python,label=SetTimeDS3231,caption={\htmladdnormallink{\texttt{SetTimeDS3231.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/SetTimeDS3231.py}: Utility to set time from a Network Time Protocol (\texttt{NTP}) server.}]{Codes/SetTimeDS3231.py}
-Modified from  \htmladdnormallink{ntptime.py}{https://github.com/micropython/micropython/blob/master/ports/esp8266/modules/ntptime.py}, distributed from \htmladdnormallink{MicroPython's github repository}{https://github.com/micropython/micropython}.% under the 
+%\subsection{\lstinline{urtc.py}}
+%\lstinputlisting[language=Python,label=urtc,caption={\htmladdnormallink{\texttt{urtc.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/urtc.py}: Driver for the \texttt{DS3231} Real Time Clock. See also the \htmladdnormallink{documentation}{https://micropython-urtc.readthedocs.io/en/latest/urtc.html\#}.}]{Codes/urtc.py}
 
+%\subsection{\lstinline{SetTimeDS3231.py}}
+%\lstinputlisting[language=Python,label=SetTimeDS3231,caption={\htmladdnormallink{\texttt{SetTimeDS3231.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/SetTimeDS3231.py}: Utility to set time from a Network Time Protocol (\texttt{NTP}) server.}]{Codes/SetTimeDS3231.py}
+%Modified from  \htmladdnormallink{ntptime.py}{https://github.com/micropython/micropython/blob/master/ports/esp8266/modules/ntptime.py}, distributed from \htmladdnormallink{MicroPython's github repository}{https://github.com/micropython/micropython}.% under the 
+\begin{itemize}
+	\item Driver for the \texttt{DS3231} Real Time Clock: \htmladdnormallink{\texttt{urtc.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/urtc.py}
+	
+	See also the \htmladdnormallink{documentation}{https://micropython-urtc.readthedocs.io/en/latest/urtc.html\#}.
+	
+	\item Utility to set time from a Network Time Protocol (\texttt{NTP}) server:
+	\htmladdnormallink{\texttt{SetTimeDS3231.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/SetTimeDS3231.py}	
+	
+	Modified from  \htmladdnormallink{ntptime.py}{https://github.com/micropython/micropython/blob/master/ports/esp8266/modules/ntptime.py}, distributed from \htmladdnormallink{MicroPython's github repository}{https://github.com/micropython/micropython}.
+\end{itemize}
 
 
 \section{Environmental sensing with voltage, current and resistance}
-\subsection{\lstinline{light_freq.py}}
-\lstinputlisting[language=Python,label=LightFreq,caption={\htmladdnormallink{\texttt{light\textunderscore freq.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/light_freq.py}: Python functions to obtain and record direct and frequency-divided measurements of period from a \texttt{TSL237} light sensor.}]{Codes/light_freq.py}
+%\subsection{\lstinline{light_freq.py}}
+\begin{itemize}
+	\item Python functions to obtain and record direct and frequency-divided measurements of period from a \texttt{TSL237} light sensor:
+	\htmladdnormallink{\texttt{light\textunderscore freq.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/light_freq.py}
+	
+	\item Python functions to parse and plot direct and frequency-divided measurements of period from a \texttt{TSL237} light sensor:
+	
+	\htmladdnormallink{\texttt{plot\textunderscore tsl2337\textunderscore divider.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/plot_tsl237_divider.py}
 
-\subsection{\lstinline{plot_tsl237_divider.py}}
-\lstinputlisting[language=Python,label=PlotFreq,caption={\htmladdnormallink{\texttt{plot\textunderscore tsl2337\textunderscore divider.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/plot_tsl237_divider.py}: Python functions to parseand plot direct and frequency-divided measurements of period from a \texttt{TSL237} light sensor.}]{Codes/plot_tsl237_divider.py}
+\end{itemize}
+%lstinputlisting[language=Python,label=LightFreq,caption={\htmladdnormallink{\texttt{light\textunderscore freq.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/light_freq.py}: Python functions to obtain and record direct and frequency-divided measurements of period from a \texttt{TSL237} light sensor.}]{Codes/light_freq.py}
+%
+%%\subsection{\lstinline{plot_tsl237_divider.py}}
+%\lstinputlisting[language=Python,label=PlotFreq,caption={\htmladdnormallink{\texttt{plot\textunderscore tsl2337\textunderscore divider.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/plot_tsl237_divider.py}: Python functions to parseand plot direct and frequency-divided measurements of period from a \texttt{TSL237} light sensor.}]{Codes/plot_tsl237_divider.py}
