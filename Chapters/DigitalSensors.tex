@@ -25,7 +25,7 @@ Depending on the type of digital sensor and the context, these advantages may in
 	\item Protocols for communicating with digital sensors are two-way -- information such as settings, commands to take readings \etc can be sent to digital sensors to make them more efficient and versatile;
 	\item Some digital sensor protocols support multiple sensors on one set of \texttt{GPIO}s and wires, and those sensors can often identify themselves to the microcontroller to clarify the meaning of different data streams;
 	\item Some digital protocols support very long wire connections (though others are limited to very short wires);
-	\item Some digital sensors internally do complex computations, such as integrating angular orientation from angular accelerations, which would be expensive in terms of processor cycles and energy to perform on a microcontroller. 
+	\item Some digital sensors internally do complex computations, such as integrating angular orientation from angular accelerations, which would be expensive in terms of processor cycles and energy to perform on a microcontroller.
 \end{itemize}
 These advantages are evident in many industrial applications (cars, phones, \etc).
 As a result, many useful digital environmental sensors are mass produced and amazingly cheap for their capabilities.
@@ -112,9 +112,9 @@ Most digital sensors used in environmental sensing communicate using one of four
 
 
 
-\section{\i2c sensors}
+\section{\color{gray}\i2c sensors \color{black}}
 \labsec{i2c_sensors}
-\subsection{Background}
+\subsection{\color{gray} Background \color{black}}
 	%Adafruit provides a useful \htmladdnormallink{overview of \i2c}{https://learn.adafruit.com/adafruit-ft232h-with-spi-and-i2c-libraries/i2c-devices}.
 \i2c is a ``2 wire'' protocol: it has two communications connections, \texttt{SDA} and \texttt{SCL}, in addition to \texttt{Vin} and \texttt{GND}.
 Most microcontrollers have built-in hardware  \texttt{GPIO}s preconfigured as \texttt{SDA} and \texttt{SCL} for \i2c communications.
@@ -139,10 +139,16 @@ It's largely a matter of luck whether two sensor types have conflicting addresse
 Some \i2c devices have a mechanism, like movable jumpers, to change \i2c addresses so that two or more of these devices can co-exist on the same cable.
 Another alternative, of course, is to have more than one \i2c bus, \eg by having separate hardware and bit-banged \i2c buses.
 
-\refsec{ext_i2c_time}
+The reference to the external RTC is \refsec{ext_i2c_time}
 
-\section{1-wire sensors}
+\subsection{\color{gray} Measuring temperature with a high-resolution sensor \color{black}}
+\subsection{\color{gray} Multiple sensors on a device: Temperature and pressure on an MS5803 \color{black}}
+\subsection{\color{gray} Using I2C over long cables with differential extenders \color{black}}
+
+
+\section{\color{gray}1-wire sensors \color{black}}
 \labsec{1wire_sensors}
+\subsection{\color{gray} Background \color{black}}
 1-wire is a proprietary protocol design that, as the name implies, uses only one wire in addition to \texttt{Vin} and \texttt{GND}.
 1-wire is used in relatively few sensor types, but is worth knowing about because one of those is an inexpensive and versatile \htmladdnormallink{temperature sensor}{https://datasheets.maximintegrated.com/en/ds/DS18B20.pdf} that is among the most useful available for environmental monitoring.
 
@@ -150,29 +156,35 @@ Another alternative, of course, is to have more than one \i2c bus, \eg by having
 1-wire supports many (up to hundreds) of devices on a single cable, each of which can be independently queried for sensor readings because it has a unique ROM address.
 1-wire supports lower (but still generally sufficient) data rates than \i2c, which (when properly configured) can operate over much longer cables.
 
+\subsection{\color{gray} Temperature measurements with DS18B20 digital sensors \color{black}}
+\subsection{\color{gray} Accuracy and precision of DS18B20 temperature sensors \color{black}}
+\subsubsection{\color{gray} Improve the accuracy and precision of DS18B20 temperature measurements with recalibration \color{black}}
+\subsubsection{\color{gray} Monitoring temperature changes across time \color{black}}
 
-\section{\uart sensors}
+
+\section{\color{gray}\uart sensors \color{black}}
 \labsec{UART_sensors}
+\subsection{\color{gray} Background \color{black}}
 	\uart supports communication between only two devices, and these devices must share common settings for a number of parameters. %(bit speed, character length, parity, and stop bits).
 Common applications in environmental sensing include \texttt{GPS} receivers and Air Quality Index sensors.
 
 \uart uses two wires (in addition to \texttt{Vin} and \texttt{GND}), one for transmitting and one for receiving.
 In some applications (\eg, some \texttt{GPS} configurations) only one of these functions is utilized (\eg, transmit on the \texttt{GPS} and receive on the microcontroller) in which case only one of these wires is necessary.
+\subsection{\color{gray} Measuring position and velocity using the Global Positioning System (GPS) \color{black}}
 
-\section{\spi sensors}
+\section{\color{gray}\spi sensors \color{black}}
 \labsec{spi_sensors}
+\subsection{\color{gray} Background \color{black}}
 	Additional details about \spi are provided by \htmladdnormallink{WikiPedia}{https://en.wikipedia.org/wiki/Serial\_Peripheral\_Interface\_Bus} uses four wires (in addition to \texttt{Vin} and \texttt{GND}), three of which can be shared by multiple devices on the same cable but the fourth of which must be unique to each device.
 Maximum data rates are higher than for \i2c devices.
 Some digital sensors have both \spi and \i2c interfaces, so they can be used with either protocol.
+\subsection{\color{gray} SPI control of a TFT display panel \color{black}}
 
 
-
-
-
-
-\vspace{10cm}
-
-
-\section{Construction, calibration and use of a colorometric pH sensor}
-\labsec{pH_sensor}
-Placeholder for pH sensor section.
+%
+% \vspace{10cm}
+%
+%
+% \section{Construction, calibration and use of a colorometric pH sensor}
+% \labsec{pH_sensor}
+% Placeholder for pH sensor section.

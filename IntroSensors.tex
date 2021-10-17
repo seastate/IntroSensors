@@ -140,11 +140,13 @@
 \title[Foundations of Environmental Sensing]{Foundations of Environmental Sensing}
 \subtitle{A practical introduction to making and using environmental sensors}
 
-\author[DG]{Daniel Gr\"unbaum}
+% \author[DG]{Daniel Gr\"unbaum}
+\author{Daniel Gr\"unbaum and J. Wesley Lauer}
 
 %\date{\today}
 
-\publishers{Daniel Gr\"unbaum and \htmladdnormallink{www.publicsensors.org}{www.publicsensors.org}}
+\publishers{\htmladdnormallink{www.publicsensors.org}{www.publicsensors.org}}
+% \publishers{Daniel Gr\"unbaum, J. Wesley Lauer and \htmladdnormallink{www.publicsensors.org}{www.publicsensors.org}}
 
 %----------------------------------------------------------------------------------------
 
@@ -272,35 +274,54 @@
 \input{Chapters/Preface.tex}
 
 \pagelayout{wide} % No margins
-\addpart{Introduction}
+\addpart{Preliminaries}
 \pagelayout{margin} % Restore margins
 
+\input{Chapters/Introduction.tex}
 \input{Chapters/SerialWifiConnections.tex}
 \input{Chapters/FirstExercisesESP8266feather.tex}
 
 \input{Chapters/KeepingTime.tex}
 
 \pagelayout{wide} % No margins
-\addpart{Working with environmental sensors}
+\addpart{Fundamentals of environmental sensing}
 %\addpart{Working with electrical circuits}
 \pagelayout{margin} % Restore margins
 
 \input{Chapters/CircuitsIntro.tex}
-\input{Chapters/ThermistorCalib.tex}
-\input{Chapters/CircuitDesign.tex}
+% \input{Chapters/ThermistorCalib.tex}
+% \input{Chapters/CircuitDesign.tex}
 
 %\pagelayout{wide} % No margins
 %\addpart{Digital interfaces for environmental analysis: Quantifying temperature, light and water chemistry}
 %\pagelayout{margin} % Restore margins
 
 \input{Chapters/DigitalSensors.tex}
-\input{Chapters/TelemetrySensorComms.tex}
+% \input{Chapters/TelemetrySensorComms.tex}
+
+\pagelayout{wide} % No margins
+\addpart{Experiments with environmental sensors}
+\pagelayout{margin} % Restore margins
+
+\input{Chapters/BestPracticesData.tex}
+\input{Chapters/HeatEnergyFlow.tex}
+\input{Chapters/LightColor.tex}
+\input{Chapters/SoundVibration.tex}
+\input{Chapters/EnvirEffectsElectChars.tex}
+
+
 
 \pagelayout{wide} % No margins
 \addpart{Practical skills in environmental sensing}
 \pagelayout{margin} % Restore margins
+
+
 \input{Chapters/CADfabrication.tex}
 \input{Chapters/PCBdesign.tex}s \input{Chapters/Inferences.tex}
+
+\pagelayout{wide} % No margins
+\addpart{Quantifying environmental processes}
+\pagelayout{margin} % Restore margins
 
 %\pagelayout{wide} % No margins
 %\addpart{Sound and water waves}
