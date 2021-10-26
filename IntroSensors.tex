@@ -8,9 +8,6 @@
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
-\input{childdoc.def}
-\childdocmain{}
-
 \documentclass[
 	a4paper, % Page size
 	fontsize=10pt, % Base font size
@@ -22,6 +19,10 @@
 	%draft=true, % If uncommented, rulers will be added in the header and footer
 	%overfullrule=true, % If uncommented, overly long lines will be marked by a black box; useful for correcting spacing problems
 ]{kaobook}
+
+% Example for compiling only a subset of book chapters
+% \includeonly{FESshortcuts,Chapters/SerialWifiConnections}
+ % \includeonly{Chapters/DigitalSensors,Chapters/KeepingTime}
 
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{2}
@@ -37,6 +38,8 @@
 \usepackage{graphicx}
 %\usepackage{float}
 %\usepackage{tabularx}
+
+\usepackage[xindy,toc]{glossaries}
 
 % Infrastructure for labeling in margin tables for materials, as per
 % https://tex.stackexchange.com/questions/356815/reference-table-row-in-latex
@@ -99,10 +102,10 @@
 
 
 \newcommand{\loadMilestone}[1]{ % define command to load milestones
-	\ExecuteMetaData[Chapters/Milestones.tex]{#1} % call the package macro to load chunk from file
+	\ExecuteMetaData[Chapters/Milestones]{#1} % call the package macro to load chunk from file
 }
 \newcommand{\loadCode}[1]{ % define command to load milestones
-	\ExecuteMetaData[Codes/CodeCollection.tex]{#1} % call the package macro to load chunk from file
+	\ExecuteMetaData[Codes/CodeCollection]{#1} % call the package macro to load chunk from file
 }
 
 % Define command to place graphics into HOW-TO titles
@@ -121,6 +124,7 @@
 \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
 
 \makeglossaries % Make LaTeX produce the files required to compile the glossary
+\input{Chapters/glossary.tex} % Include the glossary definitions
 
 \makenomenclature % Make LaTeX produce the files required to compile the nomenclature
 
@@ -128,7 +132,7 @@
 
 \begin{document}
 % Shortcuts are now centralized in their own tex file:
-\input{FESshortcuts.tex}
+\input{FESshortcuts}
 
 
 %----------------------------------------------------------------------------------------
@@ -216,10 +220,6 @@
 \maketitle
 \KOMAoptions{twoside=false}
 
-%----------------------------------------------------------------------------------------
-%	PREFACE
-%----------------------------------------------------------------------------------------
-%\input{Chapters/Preface.tex} % Preface now comes after table of contents
 
 %----------------------------------------------------------------------------------------
 %	TABLE OF CONTENTS & LIST OF FIGURES/TABLES
@@ -273,85 +273,61 @@
 %	{-}{{\char45}}1
 %}
 
-\input{Chapters/Preface.tex}
+%----------------------------------------------------------------------------------------
+%	PREFACE
+%----------------------------------------------------------------------------------------
+\include{Chapters/Preface}
 
 \pagelayout{wide} % No margins
 \addpart{Preliminaries}
 \pagelayout{margin} % Restore margins
 
-\input{Chapters/Introduction.tex}
-\input{Chapters/SerialWifiConnections.tex}
-\input{Chapters/FirstExercisesESP8266feather.tex}
+\include{Chapters/Introduction}
+\include{Chapters/SerialWifiConnections}
+\include{Chapters/FirstExercisesESP8266feather}
 
-\input{Chapters/KeepingTime.tex}
+\include{Chapters/KeepingTime}
 
 \pagelayout{wide} % No margins
 \addpart{Fundamentals of environmental sensing}
-%\addpart{Working with electrical circuits}
 \pagelayout{margin} % Restore margins
 
-\input{Chapters/CircuitsIntro.tex}
-% \input{Chapters/ThermistorCalib.tex}
-% \input{Chapters/CircuitDesign.tex}
+\include{Chapters/CircuitsIntro}
 
-%\pagelayout{wide} % No margins
-%\addpart{Digital interfaces for environmental analysis: Quantifying temperature, light and water chemistry}
-%\pagelayout{margin} % Restore margins
-
-\input{Chapters/DigitalSensors.tex}
-% \input{Chapters/TelemetrySensorComms.tex}
+\include{Chapters/DigitalSensors}
 
 \pagelayout{wide} % No margins
 \addpart{Experiments with environmental sensors}
 \pagelayout{margin} % Restore margins
 
-\input{Chapters/BestPracticesData.tex}
-\input{Chapters/HeatEnergyFlow.tex}
-\input{Chapters/LightColor.tex}
-\input{Chapters/SoundVibration.tex}
-\input{Chapters/EnvirEffectsElectChars.tex}
+\include{Chapters/BestPracticesData}
+\include{Chapters/HeatEnergyFlow}
+\include{Chapters/LightColor}
+\include{Chapters/SoundVibration}
+\include{Chapters/EnvirEffectsElectChars}
 
 
 
 \pagelayout{wide} % No margins
 \addpart{Practical skills in environmental sensing}
 \pagelayout{margin} % Restore margins
-\input{Chapters/PlanFieldSkills.tex}
-\input{Chapters/PowerSupply.tex}
-\input{Chapters/WaterProofing.tex}
-\input{Chapters/DataTelemetry.tex}
+\include{Chapters/PlanFieldSkills}
+\include{Chapters/PowerSupply}
+\include{Chapters/WaterProofing}
+\include{Chapters/DataTelemetry}
 
 
-\input{Chapters/CADfabrication.tex}
-\input{Chapters/PCBdesign.tex}s
+\include{Chapters/CADfabrication}
+\include{Chapters/PCBdesign}s
 
 \pagelayout{wide} % No margins
 \addpart{Quantifying environmental processes}
 \pagelayout{margin} % Restore margins
 
-\input{Chapters/Meteorology.tex}
-\input{Chapters/WaterLevelFlow.tex}
-\input{Chapters/PositionVelocity.tex}
+\include{Chapters/Meteorology}
+\include{Chapters/WaterLevelFlow}
+\include{Chapters/PositionVelocity}
 
-% \input{Chapters/Inferences.tex}
-%\pagelayout{wide} % No margins
-%\addpart{Sound and water waves}
-%\pagelayout{margin} % Restore margins
-%
-%\input{Chapters/Waves.tex}
-%\input{Chapters/SpeedSound.tex}
-
-%\pagelayout{wide} % No margins
-%\addpart{Inference of mechanisms and processes from environmental sensor data}
-%\pagelayout{margin} % Restore margins
-%
-%\input{Chapters/Inferences.tex}
-%\input{Chapters/WaterCols.tex}
-%%%\chapter{Vertical structure in lab and field water columns}
-%%
-%\pagelayout{wide} % No margins
-%\addpart{Quantifying position, orientation and movement}
-%\pagelayout{margin} % Restore margins
 
 \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
 
@@ -365,14 +341,14 @@
 \labpart{conns}
 \pagelayout{margin} % Restore margins
 
-\input{Chapters/Milestones.tex}
-\input{Chapters/MaterialsSkills.tex}
-\input{Chapters/CodeListings.tex}
-\input{Chapters/FormatConventions.tex}
+\include{Chapters/Milestones}
+\include{Chapters/MaterialsSkills}
+\include{Chapters/CodeListings}
+\include{Chapters/FormatConventions}
 
-\input{Chapters/MicroOverview.tex}
-\input{Chapters/Flashing.tex}
-\input{Chapters/SensorAssembly.tex}
+\include{Chapters/MicroOverview}
+\include{Chapters/Flashing}
+\include{Chapters/SensorAssembly}
 
 %----------------------------------------------------------------------------------------
 
@@ -408,16 +384,21 @@
 %----------------------------------------------------------------------------------------
 
 % The glossary needs to be compiled on the command line with 'makeglossaries main' from the template directory
+%\newglossaryentry{computer}{
+%	name=computer,
+%	description={is a programmable machine that receives input, stores and manipulates data, and provides output in a useful format}
+%}
+%\newglossaryentry{solder seal wire connector}{
+%	name=ssw_connector,
+%	description={is a short length of heat shrink tubing, inside of which is prelaid glue and low temperature solder so that the ends of two wwwires are joined and sealed with a single application of a heat gun.}
+%}
+%
+%% Glossary entries (used in text with e.g. \acrfull{fpsLabel} or \acrshort{fpsLabel})
+%\newacronym[longplural={Tables of Contents}]{tocLabel}{TOC}{Table of Contents}
+%\newacronym[longplural={Frames per Second}]{fpsLabel}{FPS}{Frame per Second}
+%\newacronym[longplural={Samples per Second}]{spsLabel}{SPS}{Sample per Second}
 
-\newglossaryentry{computer}{
-	name=computer,
-	description={is a programmable machine that receives input, stores and manipulates data, and provides output in a useful format}
-}
-
-% Glossary entries (used in text with e.g. \acrfull{fpsLabel} or \acrshort{fpsLabel})
-\newacronym[longplural={Frames per Second}]{fpsLabel}{FPS}{Frame per Second}
-\newacronym[longplural={Tables of Contents}]{tocLabel}{TOC}{Table of Contents}
-
+%\setglossarystyle{listhypergroup} % Set the style of the glossary (see https://en.wikibooks.org/wiki/LaTeX/Glossary for a reference)
 \setglossarystyle{listgroup} % Set the style of the glossary (see https://en.wikibooks.org/wiki/LaTeX/Glossary for a reference)
 \printglossary[title=Special Terms, toctitle=List of Terms] % Output the glossary, 'title' is the chapter heading for the glossary, toctitle is the table of contents heading
 
@@ -427,7 +408,7 @@
 
 % The index needs to be compiled on the command line with 'makeindex main' from the template directory
 
-\printindex % Output the index
+%\printindex % Output the index
 
 %----------------------------------------------------------------------------------------
 %	BACK COVER
