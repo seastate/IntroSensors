@@ -112,7 +112,7 @@ Most digital sensors used in environmental sensing communicate using one of four
 
 
 
-\section{\color{gray}\i2c sensors \color{black}}
+\section{ \i2c sensors }
 \labsec{i2c_sensors}
 \subsection{Background}
 	%Adafruit provides a useful \htmladdnormallink{overview of \i2c}{https://learn.adafruit.com/adafruit-ft232h-with-spi-and-i2c-libraries/i2c-devices}.
@@ -141,9 +141,32 @@ Another alternative, of course, is to have more than one \i2c bus, \eg by having
 Still another workaround is an \i2c \htmladdnormallink{multiplexer}{https://github.com/mcauser/micropython-tca9548a}, which is an \i2c device that can direct communications to any of eight \i2c devices attached to it (whether or  not they have the same addresses).
 % The reference to the external RTC is \refsec{ext_i2c_time}
 
-\subsection{\color{gray} Measuring temperature with a high-resolution sensor \color{black}}
+\subsection{ Measuring temperature with a high-resolution sensor }
+As a first demonstration of sampling environmental conditions using the \i2c protocol, we will work with the \MCP9808 digital temperature sensor.
+This is an inexpensive but high resolution sensor manufactured by Microchip Technology Inc., described in detail in the \htmladdnormallink{datasheet}{https://ww1.microchip.com/downloads/en/DeviceDoc/25095A.pdf}.
+The basic sensor component is packaged onto a ``breakout board'' by a number of vendoers, including \htmladdnormallink{Adafruit}{https://www.adafruit.com/product/1782}.
+
+The \MCP9808's temperature sensitivity is provided by a \htmladdnormallink{bandgap temperature sensor}{https://en.wikipedia.org/wiki/Silicon_bandgap_temperature_sensor}, whose output is relayed to an internal \adc before being passed to the \i2c interface.
+This progression, which is typical of digital environmental sensors, closely reflects the fundamental similarity between the signal processing steps you used in \refsec{cal_therm} to obtain numerical output from an analog thermistor signal.
+However, in the digital sensor, the steps you performed on the microcontroller (analog to digital conversion, calculation of temperature from voltage using a calibration) are instead performed inside the sensor.
+
+As shown in Table 5-2 and Figure 2-12 in the datasheet, the \MCP9808 can be set to take very high resolution temperature measurements at a relatively slow rate ($\pm 0.0625^\circ$ \texttt{C} at 4 \gls{spsLabel}), or lower resolution measurements at faster rates (\eg,$\pm 0.5 ^\circ$ \texttt{C} at 33 \gls{spsLabel}).
+In this and the next sections, accuracy and precision are higher priorities than high sampling rates.
+We will therefore use \i2c to command the sensor to use the slowest, highest resolution sampling rates.
 
 \subsubsection{\howto Set up an \MCP9808 temperature sensor}
+
+\begin{marginfigure}
+	\begin{center}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Images/MCP9808_on_cable_cropped.jpg}}{https://github.com/publicsensors/IntroSensors/blob/digital/Images/MCP9808_on_cable_cropped.jpg}
+		%\includegraphics[height=5cm]{Images/DS3231breadboard.jpg}
+		\caption[MCP9808 on breadboard]{An \MCP9808 temperature sensor soldered onto a cable with 4 conductors (red $\leftrightarrow$ \texttt{Vdd}, black $\leftrightarrow$ \texttt{GND}, white $\leftrightarrow$ \texttt{SCL} and green $\leftrightarrow$ \texttt{SDA}).
+		Male jumper ends are connected to the other end of the cable with \glspl{ssw_connector}.
+		Note that, for clarity, the jumpers on the other end of the cable have colors consistent with the corresponding wires attached to the sensor.}
+		\labfig{mcp9808_cable}
+	\end{center}
+\end{marginfigure}
+
 
 \begin{marginfigure}
 	\begin{center}
@@ -155,49 +178,67 @@ Still another workaround is an \i2c \htmladdnormallink{multiplexer}{https://gith
 \end{marginfigure}
 
 
-The circuit layout for the \MCP9808 is shown in \reffig{mcp9808_breadboard}.
-
-https://github.com/kfricke/micropython-mcp9808
-
 \begin{enumerate}
-	\item This is a test of the glossary: \gls{ssw_connector}. \Gls{ssw_connector}, too.
-	\item This is a test of the glossary: \gls{computer}.
-
-	\item \textbf{Connect the GND and 3V pins on the ESP8266 to the GND and Vdd pins on the \MCP9808}.
+	\item \textbf{Connect wires to the GND, Vdd, SCL and SDA pins on the \MCP9808}.
 
 	Like in the thermistor calibration in \refsec{cal_therm}, we will use ``water baths'' made of paper cups to expose the \MCP9808 sensors to known temperatures without getting them wet.
 	This is most easily done if the sensor is connected to the microcontroller by extra long wires.
+
+	\smallskip
 	If your \MCP9808 has pins soldered to it, you can use two or more jumpers attached in series to give enough scope to move the sensor around.
-	If your sensor does not have pins, you can solder some on, or alternatively solder long wires directly to the sensor.
-	You can then connect the other ends of the wires to the breadboard by soldering pins onto them, or by using terminals (\eg, like \htmladdnormallink{these}{https://www.adafruit.com/product/2137?gclid=CjwKCAjwq9mLBhB2EiwAuYdMtZGP6ggrSAALQm8J7sbJ8Mwr6zWCWucqFVLvuSnaAGO22bPzFGNxmhoCVvEQAvD_BwE}) that insert into breadboards.
+	If your sensor does not have pins, you can solder some on, or alternatively solder long wires directly to the sensor (\reffig{mcp9808_cable}).
+
+	You can then connect the other ends of the wires to the breadboard by soldering pins or male jumpers onto them; \reffig{mcp9808_cable} shows an example of this.
+	The cable in this figure was made with \glspl{ssw_connector}, a fast and convenient way to join and protect two wire ends.
+
+	Alternatively, you can attach wires directly to terminals (\eg, like \htmladdnormallink{these}{https://www.adafruit.com/product/2137?gclid=CjwKCAjwq9mLBhB2EiwAuYdMtZGP6ggrSAALQm8J7sbJ8Mwr6zWCWucqFVLvuSnaAGO22bPzFGNxmhoCVvEQAvD_BwE}), that then insert into breadboards.
+
+
+	\item \textbf{Connect the GND and 3V pins on the ESP8266 to the GND and Vdd pins on the \MCP9808}.
+
+	The circuit layout for the \MCP9808 is shown in \reffig{mcp9808_breadboard}.
+
 
 	\item Connect the \texttt{SDA} (\#4) pin on the ESP8266 to the \texttt{SDA} pin on the \MCP9808, and the  \texttt{SCL} (\#5) pin on the ESP8266 to \texttt{SCL} on the \MCP9808.
 	\item \textbf{Download the driver module provided on github by \texttt{@kfricke} called \htmladdnormallink{mcp9808.py}{https://raw.githubusercontent.com/kfricke/micropython-mcp9808/master/mcp9808.py} for the \MCP9808 temperature sensor.}
 
 	Save it into a \texttt{Codes} directory on your computer.
 
-	\item \textbf{Copy } \lstinline{mcp9808.py} \textbf{onto your microcontroller, using either \thonny, \texttt{WebREPL} or \mpfshell (see the methods from \refch{connect} if you have questions).}
+	\item \textbf{Copy } \lstinline{mcp9808.py} \textbf{onto your microcontroller, using \thonny, \texttt{WebREPL} or \mpfshell (see the methods from \refch{connect} if you have questions).}
 	\item %You are now ready to test your \DS3231 \rtc.
 	\textbf{Set up the \i2c connection to your \MCP9808:}
 \begin{lstlisting}[language=Python]
-import urtc
 from machine import I2C, Pin
+import mcp9808
+
 i2c=I2C(scl=Pin(5),sda=Pin(4))
-rtc_ds3231=urtc.DS3231(i2c)
+temp_mcp9808=mcp9808.MCP9808(i2c=i2c)
 \end{lstlisting}
-	\item \textbf{Query the time from your \DS3231}, with:
+	\item \textbf{Set the resolution on your \MCP9808 to the highest possible}, with:
 \begin{lstlisting}[language=Python]
-rtc_ds3231.datetime()  # print out current date/time tuple
-datetime = rtc_ds3231.datetime()
-# Or, print out separate elements of the date/time tuple
-print(datetime.year)
-print(datetime.month)
-print(datetime.day)
-print(datetime.weekday)
-print(datetime.hour)
-print(datetime.second)
+temp_mcp9808.set_resolution(mcp9808.TEMP_RESOLUTION_MAX)
 \end{lstlisting}
+
+	\item \textbf{Query the temperature from your \MCP9808}:
+
+	Here, there are two choices:
+	If your microcontroller can do floating point math, use
+\begin{lstlisting}[language=Python]
+temp_mcp9808.get_temp()
+\end{lstlisting}
+The result of this command is the temperature in degrees Celsius, expressed as a floating point number.
+
+\smallskip
+If your microcontroller cannot do floating point math, use
+\begin{lstlisting}[language=Python]
+temp_mcp9808.get_temp_int()
+\end{lstlisting}
+The result of this command is two numbers.
+The first is the temperature in whole degrees Celsius, expressed as an integer.
+The second is the remaining fraction of a degrees Celsius, expressed as another integer.
+
 \end{enumerate}
+\loadMilestone{mlst:05a} % load milestone with tags id: mlst:04c
 
 
 \subsection{\color{gray} Multiple sensors on a device: Temperature and pressure on an MS5803 \color{black}}
