@@ -1,0 +1,104 @@
+%\documentclass[../IntroSensors.tex]{subfiles}
+%\graphicspath{{\subfix{../images/}}}
+%\begin{document}
+  \setchapterstyle{kao}
+  \setchapterpreamble[u]{\margintoc}
+  \chapter{Selecting a Microcontroller}
+  \labch{Microcontrollers}
+
+  \begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Estimated build time] Approximately two hours, plus 3D printing and epoxy set time.
+  \end{kaobox}
+
+  This chapter provides an overview of the main feature of microcontrollers that are relevant for environmental sensing.
+  Because microcontroller breakout boards are released regularly, it is not possible to provide a comprehsenive review of all currently-avialble poarts.  Intead, the chapter focuses on the ability of he board to log, process, and display data..
+
+  %\todo{Images still need to be uploaded to PublicSensors. WL 10/9/21}
+
+  \subsection{Essential Features for Environmental Sensing}
+  Each environmental sensing application is different. While many applications require just small amounts of data to be recorded every few minutes, others can require large amounts of data storage. Other projects may benefit from long periods of time away from a power source, and still others may require wireless communciation. The right microcontroller for a given project also depends on the way the way perhipherals are integrated into the device.  As described in Chapter \ref{connect}, some microcontrollers include real time clocks (RTCs) that are sufficiently accurate for short-term deploymets, while others are poorly suited for even hour-long deployments.
+
+  \subsubsection{Real Time Clock}
+  On-processor crystal/clock
+  Clock calibration (available on STM32F405 boards)
+
+  \subsubsection{Power Management and Battery Compatibiltiy}
+  Battery charging
+  Compatibility with standard non-rechargable off-the-shelf batteries
+  Backup batteries
+  Processor speed
+  Deep sleep current
+  Powering perhipherals (e.g., power rail)
+  Auto-shut off
+  Fuse/reverse current protection
+
+  \subsubsection{Display}
+
+  \subsubsection{CircuitPython vs. MicroPython vs. other languages}
+  WifiNina library as implemented in Circuitpython
+  Large database of Arduino users/codes
+
+  \subsubsection{Form Factor and Connections for Perhipherals}
+  size
+  Serial ports (UARTs, USB)
+
+  \subsubsection(GPIO Pins)
+  Number of Pins
+  Are pins re-mappable?
+  Internal Pull-ups/Pull-downs
+
+  \subsubsection{Connectivity}
+  Wired vs. wirelessly
+  Wireless backpacks vs. built-in
+  Security
+  Wifi power use
+  Touch screen input
+  Built in USB
+  Sound (e.g., onboard amplifiers, etc.)
+  Connectivity range (include discussion of external antennas)
+
+  \subsubsection{OnBoard Sensors}
+  ADC resolution/accuracy/precision/sample rate
+  Timers
+  Environmental sensors such as acceleration, capacitative touch, light, temperature
+  Camera ports
+  MicroPhones
+
+  \subsubsection{Interrupts}
+
+  \subsubsection{Cost}
+
+  \subsubsection{LEDs}
+
+  \subsubsection{Reset buttons}
+
+  \subsubsection{IO pin current}
+
+  \subsubsection{Memory}
+  Flash
+  QSPI
+  SD
+
+  \subsection{Comparison of Common Devices}
+  Include a table that mentions board families including ESP8266/32, RP2040, STM32, M0/M4,
+
+
+
+
+
+  Feather Formfactor
+
+  Language (Circuitpython vs. Micropython)
+
+  \subsection{Flashing: Installing MicroPython}
+
+
+
+
+  \subsection{\lstinline{ms5803_test.py}}
+  \lstinputlisting[language=Python,label=ms5803_test,caption={Test code for the \texttt{MS5803\_05} pressure and temperature sensor.}]{Codes/ms5803_test.py}
+
+  \subsection{\lstinline{ms5803.py}}
+  \lstinputlisting[language=Python,label=ms5803,caption={Driver for the \texttt{MS5803\_05} pressure and temperature sensor.}]{Codes/ms5803.py}
+
+  Modified from \htmladdnormallink{ms5803\_05BA.py}{https://github.com/ControlEverythingCommunity/MS5803-05BA/blob/master/Python/MS5803_05BA.py}, distributed at \htmladdnormallink{Control Everything github repository}{https://github.com/ControlEverythingCommunity}.
+%\end{document}
