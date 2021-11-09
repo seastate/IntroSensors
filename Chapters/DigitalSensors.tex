@@ -144,7 +144,7 @@ Still another workaround is an \i2c \htmladdnormallink{multiplexer}{https://gith
 \subsection{ Measuring temperature with a high-resolution sensor }
 As a first demonstration of sampling environmental conditions using the \i2c protocol, we will work with the \MCP9808 digital temperature sensor.
 This is an inexpensive but high resolution sensor manufactured by Microchip Technology Inc., described in detail in the \htmladdnormallink{datasheet}{https://ww1.microchip.com/downloads/en/DeviceDoc/25095A.pdf}.
-The basic sensor component is packaged onto a ``breakout board'' by a number of vendoers, including \htmladdnormallink{Adafruit}{https://www.adafruit.com/product/1782}.
+The basic sensor component is packaged onto a ``breakout board'' by a number of venders, including \htmladdnormallink{Adafruit}{https://www.adafruit.com/product/1782}.
 
 The \MCP9808's temperature sensitivity is provided by a \htmladdnormallink{bandgap temperature sensor}{https://en.wikipedia.org/wiki/Silicon_bandgap_temperature_sensor}, whose output is relayed to an internal \adc before being passed to the \i2c interface.
 This progression, which is typical of digital environmental sensors, closely reflects the fundamental similarity between the signal processing steps you used in \refsec{cal_therm} to obtain numerical output from an analog thermistor signal.
@@ -242,6 +242,81 @@ The second is the remaining fraction of a degrees Celsius, expressed as another 
 
 
 \subsection{\color{gray} Multiple sensors on a device: Temperature and pressure on an MS5803 \color{black}}
+
+\subsection{\color{gray} Resolving \i2c address conflicts with a multiplexer \color{black}}
+The requirement that each device on an \i2c bus has a unique address sometimes leads to address conflicts, in which two or more sensors have the same address.
+Sometimes it is possible to create additional \i2c buses, dividing the duplicated address between them.
+However, this is often not practical, especially when more than two devices share an address or when the number of \texttt{GPOI}s is limited.
+Some \i2c devices have two or more addresses, which can be selected using jumpers between pins on thedevices.
+Altering one sensor's address in this way is often a workable solution to address conflicts.
+However, many i2c sensors have fixed addresses.
+Furthermore, in an instrument designed to operate in the environment, sensors are often ``potted'' in epoxy or a sealant, or otherwise enclosed to protect them from water, salt, dust, \etc
+These sensors typically are difficult or impossible to access to alter pin connections that shift \i2c addresses.
+
+In these cases, an alternative strategy is provided by an \i2c \emph{multiplexer}.
+An \i2c multiplexer is an \i2c device, which creates several (typically 8) \i2c ``sub-buses''.
+The multiplexer allows i2c communications from only one sub-bus at a time -- which one is determined by a software command sent to the multiplexer by the microcontroller.
+This means that two \i2c devices can be on different sub-buses, and because only one is operating at a given time there is no conflict even if they share the same address.
+
+The details are best conveyed by an example:
+
+The effect of light energy on many biological and physical processes is strongly affected by from which part of the spectrum it comes -- that is, it's \texttt{color}, taken to include wavelengths invisible to humans such as \gls{irLabel} and \gls{uvLabel}.
+Under water, in forest canopies, at dawn or dusk or at high latitudes, and in many other situations it is potentially important to characterize light intensity as a function of color.
+A \htmladdnormallink{TCS34725}{https://cdn-shop.adafruit.com/datasheets/TCS34725.pdf} color sensor, such as \htmladdnormallink{this one made by Adafruit}{https://www.adafruit.com/product/1334}, measures the \htmladdnormallink{RGB}{https://en.wikipedia.org/wiki/RGB_color_model} components of incident light.
+However, to accurately characterize these primary colors, its light sensors are equipped with optical filters that exclude \gls{irLabel} wavelengths.
+The \htmladdnormallink{TSL2591}{https://cdn-learn.adafruit.com/assets/assets/000/078/658/original/TSL2591_DS000338_6-00.pdf?1564168468} color sensor, such as \htmladdnormallink{also made by Adafruit}{https://www.adafruit.com/product/1980}, measure both full spectrum light intensity and the \gls{irLabel} component of that intensity.
+So, simultaneous readings from both these sensors would characterize the blue, green, red and \gls{irLabel} component light intensities.
+
+However, these sensors share the same \i2c address, so both cannot function simultaneously on the same \i2c bus.
+
+\subsubsection{\howto Set up a TCA9548A \i2c multiplexer}
+
+\begin{marginfigure}[-14cm]
+	\begin{center}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Images/i2c_multiplexer_circuit.jpg}}{https://github.com/publicsensors/IntroSensors/blob/digital/Images/i2c_multiplexer_circuit.jpg}
+		\caption[TCA9548A \i2c multiplexer circuit]{A TCA9548A \i2c multiplexer is used in this circuit to enable both a TCS34725 color sensor and a TSL2591 full spectrum/\gls{irLabel} sensor to operate on the same \i2c bus, even though they share the same \i2c address. The jumpers at the upper left lead to the microcontroller (red $\leftrightarrow$ \texttt{3V3}, black $\leftrightarrow$ \texttt{GND}, white $\leftrightarrow$ \texttt{SCL} and green $\leftrightarrow$ \texttt{SDA}. The white dot at the center is the built-in LED on the TCS34725, used to provide a standard illumination spectrum in some types of color measurements.}
+		\labfig{i2c_mulitplx}
+	\end{center}
+\end{marginfigure}
+
+A solution using a TCA9548A \i2c multiplexer is shown in \reffig{i2c_mulitplx}.
+To use this circuit, we can use a modification of code posted on the \htmladdnormallink{MicroPython forum}{https://forum.micropython.org/viewtopic.php?t=6284} as a driver for the TCA9548A:
+\lstinputlisting[language=Python,label=TCA9548Adriver,caption={\htmladdnormallink{\texttt{tca9548a.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/tca9548a.py}: A short driver for the TSC9548A \i2c multiplexer.}]{Codes/tca9548a.py}
+% \lstinputlisting[language=Python,label=SetTimeDS3231,caption={\htmladdnormallink{\texttt{SetTimeDS3231.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/SetTimeDS3231.py}: A Micropython utility to set a \DS3231 \rtc to time from a Network Time Protocol (NTP) server.}]{Codes/SetTimeDS3231.py}
+
+The TCS34725 color and TSL2591 full spectrum/\gls{irLabel} sensors as laid out in the circuit in \reffig{i2c_mulitplx} can then be querrrrried with the following code:
+\lstinputlisting[language=Python,label=I2Cmultiplexer,caption={\htmladdnormallink{\texttt{multiplex\textunderscore i2c.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/multiplex_i2c.py}: An example use of  a TCA9548A \i2c multiplexer to communicate with color and full spectrum/\gls{irLabel} sensors that have an \i2c address conflict.}]{Codes/multiplex_i2c.py}
+
+Note that this code imports the drivers for the TSC34725 color sensor, \htmladdnormallink{tsc34725.py}{https://github.com/adafruit/micropython-adafruit-tcs34725}, and for the TSL2591 full spectrum/\gls{irLabel} sensor, \htmladdnormallink{tsl2591.py}{https://github.com/jfischer/micropython-tsl2591}, have been copied onto the microcontroller.
+
+The output of this demonstration code is:
+\begin{lstlisting}[language=Python]
+>>> import multiplex_i2c
+light_sample =  628.646
+color_sample =  (15, 10, 9, 34)
+light_sample =  628.646
+color_sample =  (15, 10, 9, 34)
+light_sample =  628.646
+color_sample =  (15, 10, 9, 34)
+light_sample =  628.646
+color_sample =  (15, 10, 9, 34)
+light_sample =  628.646
+color_sample =  (15, 10, 9, 34)
+light_sample =  628.646
+color_sample =  (15, 10, 9, 34)
+light_sample =  64.464
+color_sample =  (3, 1, 1, 5)
+light_sample =  121.91
+color_sample =  (4, 2, 2, 7)
+light_sample =  121.91
+color_sample =  (4, 2, 2, 7)
+light_sample =  628.646
+color_sample =  (15, 10, 9, 34)
+>>>
+\end{lstlisting}
+
+\loadMilestone{mlst:05b} % load milestone with tags id: mlst:04c
+
 \subsection{\color{gray} Using I2C over long cables with differential extenders \color{black}}
 
 

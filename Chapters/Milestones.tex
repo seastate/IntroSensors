@@ -516,7 +516,7 @@
 	\begin{itemize}
 		\item [$\Box$] This Milestone is to lay out the circuit to connect an \MCP9808 temperature sensor to your microcontroller using the \i2c interface, and to use the linked driver to obtain temperature measurements. \,
 
-		For at least 3 environments with different temperatures (\eg room temperature, temperature outside or in an unheated space, enclosed in your hand, \etc):
+		For at least 3 environments with different temperatures (\eg ice water, boiling water, body temperature, room temperature, temperature outside or in an unheated space, \etc):
 		\begin{itemize}
 			\item[$\circ$] Record into a spreadsheet 10 consecutive temperature measurements at the highest resolution setting.
 			\item[$\circ$] Record into a spreadsheet 10 consecutive temperature measurements at the lowest resolution setting.
@@ -527,3 +527,18 @@
 	\end{itemize}
 \end{kaobox}
 %</mlst:05a>
+
+%<*mlst:05b>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Multiplexing \i2c sensors]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to lay out the circuit to acquire samples from two or more \i2c sensors through a TSC9548A multiplexer. \,
+		\begin{itemize}
+			\item[$\circ$] Design and assemble a circuit similar to \reffig{i2c_mulitplx}, with \i2c sensors on at least two separate channels.
+			\item[$\circ$] Copy drivers for the \i2c sensors and multiplexer onto your microcontroller.
+			\item[$\circ$] Modify the \lstinline{multiplex_i2c} code as appropriate to initialize and sample from your \i2c sensors.
+      \item[$\circ$] Import and record the data from your modified code. \,
+		\end{itemize}
+		Complete the assignment by uploading: ((a) a photo or sketch of your multiplexed \i2c circuit; (b) your modified code; and, (c) the output you obtained from your sensors.)
+	\end{itemize}
+\end{kaobox}
+%</mlst:05b>
