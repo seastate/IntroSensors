@@ -253,7 +253,7 @@ However, many i2c sensors have fixed addresses.
 Furthermore, in an instrument designed to operate in the environment, sensors are often ``potted'' in epoxy or a sealant, or otherwise enclosed to protect them from water, salt, dust, \etc
 These sensors typically are difficult or impossible to access to alter pin connections that shift \i2c addresses.
 
-In these cases, analternative strategy is provided by an \i2c \emph{multiplexer}.
+In these cases, an alternative strategy is provided by an \i2c \emph{multiplexer}.
 An \i2c multiplexer is an \i2c device, which creates several (typically 8) \i2c ``sub-buses''.
 The multiplexer allows i2c communications from only one sub-bus at a time -- which one is determined by a software command sent to the multiplexer by the microcontroller.
 This means that two \i2c devices can be on different sub-buses, and because only one is operating at a given time there is no conflict even if they share the same address.
