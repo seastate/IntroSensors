@@ -260,8 +260,6 @@ This means that two \i2c devices can be on different sub-buses, and because only
 
 The details are best conveyed by an example:
 
-\smallskip
-
 The effect of light energy on many biological and physical processes is strongly affected by from which part of the spectrum it comes -- that is, it's \texttt{color}, taken to include wavelengths invisible to humans such as \gls{irLabel} and \gls{uvLabel}.
 Under water, in forest canopies, at dawn or dusk or at high latitudes, and in many other situations it is potentially important to characterize light intensity as a function of color.
 A \htmladdnormallink{TCS34725}{https://cdn-shop.adafruit.com/datasheets/TCS34725.pdf} color sensor, such as \htmladdnormallink{this one made by Adafruit}{https://www.adafruit.com/product/1334}, measures the \htmladdnormallink{RGB}{https://en.wikipedia.org/wiki/RGB_color_model} components of incident light.
@@ -271,6 +269,8 @@ So, simultaneous readings from both these sensors would characterize the blue, g
 
 However, these sensors share the same \i2c address, so both cannot function simultaneously on the same \i2c bus.
 
+\subsubsection{\howto Set up a TCA9548A \i2c multiplexer}
+
 \begin{marginfigure}[-14cm]
 	\begin{center}
 		\htmladdnormallink{\includegraphics[width=\MFW]{Images/i2c_multiplexer_circuit.jpg}}{https://github.com/publicsensors/IntroSensors/blob/digital/Images/i2c_multiplexer_circuit.jpg}
@@ -279,10 +279,43 @@ However, these sensors share the same \i2c address, so both cannot function simu
 	\end{center}
 \end{marginfigure}
 
-A solution using an \i2c multiplexer is shown in \reffig{i2c_mulitplx}.
-To use this circuit, we can use a modification of code posted on the \htmladdnormallink{MicroPython forum}{https://forum.micropython.org/viewtopic.php?t=6284}:
+A solution using a TCA9548A \i2c multiplexer is shown in \reffig{i2c_mulitplx}.
+To use this circuit, we can use a modification of code posted on the \htmladdnormallink{MicroPython forum}{https://forum.micropython.org/viewtopic.php?t=6284} as a driver for the TCA9548A:
+\lstinputlisting[language=Python,label=TCA9548Adriver,caption={\htmladdnormallink{\texttt{tca9548a.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/tca9548a.py}: A short driver for the TSC9548A \i2c multiplexer.}]{Codes/tca9548a.py}
+% \lstinputlisting[language=Python,label=SetTimeDS3231,caption={\htmladdnormallink{\texttt{SetTimeDS3231.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/SetTimeDS3231.py}: A Micropython utility to set a \DS3231 \rtc to time from a Network Time Protocol (NTP) server.}]{Codes/SetTimeDS3231.py}
+
+The TCS34725 color and TSL2591 full spectrum/\gls{irLabel} sensors as laid out in the circuit in \reffig{i2c_mulitplx} can then be querrrrried with the following code:
 \lstinputlisting[language=Python,label=I2Cmultiplexer,caption={\htmladdnormallink{\texttt{multiplex\textunderscore i2c.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/multiplex_i2c.py}: An example use of  a TCA9548A \i2c multiplexer to communicate with color and full spectrum/\gls{irLabel} sensors that have an \i2c address conflict.}]{Codes/multiplex_i2c.py}
 
+Note that this code imports the drivers for the TSC34725 color sensor, \htmladdnormallink{tsc34725.py}{https://github.com/adafruit/micropython-adafruit-tcs34725}, and for the TSL2591 full spectrum/\gls{irLabel} sensor, \htmladdnormallink{tsl2591.py}{https://github.com/jfischer/micropython-tsl2591}, have been copied onto the microcontroller.
+
+The output of this demonstration code is:
+\begin{lstlisting}[language=Python]
+>>> import multiplex_i2c
+light_sample =  628.646
+color_sample =  (15, 10, 9, 34)
+light_sample =  628.646
+color_sample =  (15, 10, 9, 34)
+light_sample =  628.646
+color_sample =  (15, 10, 9, 34)
+light_sample =  628.646
+color_sample =  (15, 10, 9, 34)
+light_sample =  628.646
+color_sample =  (15, 10, 9, 34)
+light_sample =  628.646
+color_sample =  (15, 10, 9, 34)
+light_sample =  64.464
+color_sample =  (3, 1, 1, 5)
+light_sample =  121.91
+color_sample =  (4, 2, 2, 7)
+light_sample =  121.91
+color_sample =  (4, 2, 2, 7)
+light_sample =  628.646
+color_sample =  (15, 10, 9, 34)
+>>>
+\end{lstlisting}
+
+\loadMilestone{mlst:05b} % load milestone with tags id: mlst:04c
 
 \subsection{\color{gray} Using I2C over long cables with differential extenders \color{black}}
 
