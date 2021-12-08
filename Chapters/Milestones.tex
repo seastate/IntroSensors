@@ -523,7 +523,7 @@
 			\item[$\circ$] Calculate the mean and standard deviation for each set of measurements.
       \item[$\circ$] When you've completed your spreadsheet, summarize in a few sentences the apparent differences, if any, in the accuracy and precision of the high \textit{vs.} low resolution measurements. \,
 		\end{itemize}
-		Complete the assignment by uploading: ((a) a photo or sketch of your \i2c circuit; (b) your spreadsheet; and, (c) your summary interpretation of the effect of the resolution parameter.)
+		Complete the assignment by uploading: (a) a photo or sketch of your \i2c circuit; (b) your spreadsheet; and, (c) your summary interpretation of the effect of the resolution parameter.
 	\end{itemize}
 \end{kaobox}
 %</mlst:05a>
@@ -538,7 +538,34 @@
 			\item[$\circ$] Modify the \lstinline{multiplex_i2c} code as appropriate to initialize and sample from your \i2c sensors.
       \item[$\circ$] Import and record the data from your modified code. \,
 		\end{itemize}
-		Complete the assignment by uploading: ((a) a photo or sketch of your multiplexed \i2c circuit; (b) your modified code; and, (c) the output you obtained from your sensors.)
+		Complete the assignment by uploading: (a) a photo or sketch of your multiplexed \i2c circuit; (b) your modified code; and, (c) the output you obtained from your sensors.
 	\end{itemize}
 \end{kaobox}
 %</mlst:05b>
+
+%<*mlst:05c>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Reading and writing data files from a microSD card]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to read and write data files on a microSD card using your microcontroller. \,
+		\begin{itemize}
+			\item[$\circ$] Assemble a circuit similar to \reffig{microSD} and initialize an \texttt{sdcard} object, following the instructions in \refsec{spi_sensors}.
+			\item[$\circ$] Write a simple data file onto your microSD card: \\
+
+					\lstinline{from machine import unique_id} \\
+					\lstinline{testfile = open('/sd/test_sd.txt','w')} \\
+					\lstinline{testfile.write('This is microcontroller ID #: \n')} \\
+					\lstinline{testfile.write(str(unique_id()))} \\
+					\lstinline{testfile.close()}
+			\item[$\circ$] Now, read and print out the data file you just created: \\
+
+					\lstinline{oldfile = open('/sd/test_sd.txt','r')} \\
+					\lstinline{line1 = oldfile.readline()} \\
+					\lstinline{line2 = oldfile.readline()} \\
+					\lstinline{oldfile.close()} \\
+					\lstinline{print('line1 is: ',line1)} \\
+					\lstinline{print('line2 is: ',line2)}
+		\end{itemize}
+		Complete the assignment by uploading: (a) your data file (remember it is in the ``/sd'' subdirectory on your microcontroller filesystem); and, (b) a transcript of your commands and output from writing and reading the data file.
+	\end{itemize}
+\end{kaobox}
+%</mlst:05c>
