@@ -107,7 +107,8 @@ Most digital sensors used in environmental sensing communicate using one of four
 
 	\item \textbf{Serial Peripheral Interface (\spi)}
 
-	The \htmladdnormallink{\spi}{https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi} protocol is commonly used for some types of sensors, external radio communications, TFT displays, LED banks, \etc \spi interfaces are used on some microcontrollers to read from and write to microSD cards.
+	The \htmladdnormallink{\spi}{https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi} protocol is commonly used for some types of sensors (including cameras), external radio communications, TFT displays, LED banks, \etc
+	Perhaps most usefully in for applications with microcontrollers, \spi interfaces are often used to read from and write to microSD cards.
 \end{itemize}
 
 
@@ -336,6 +337,7 @@ color_sample =  (15, 10, 9, 34)
 \subsubsection{\color{gray} Monitoring temperature changes across time \color{black}}
 
 
+
 \section{\color{gray}\uart sensors \color{black}}
 \labsec{UART_sensors}
 \subsection{\color{gray} Background \color{black}}
@@ -346,13 +348,183 @@ Common applications in environmental sensing include \texttt{GPS} receivers and 
 In some applications (\eg, some \texttt{GPS} configurations) only one of these functions is utilized (\eg, transmit on the \texttt{GPS} and receive on the microcontroller) in which case only one of these wires is necessary.
 \subsection{\color{gray} Measuring position and velocity using the Global Positioning System (GPS) \color{black}}
 
-\section{\color{gray}\spi sensors \color{black}}
+
+\section{\spi sensors}
 \labsec{spi_sensors}
-\subsection{\color{gray} Background \color{black}}
-	Additional details about \spi are provided by \htmladdnormallink{WikiPedia}{https://en.wikipedia.org/wiki/Serial\_Peripheral\_Interface\_Bus} uses four wires (in addition to \texttt{Vin} and \texttt{GND}), three of which can be shared by multiple devices on the same cable but the fourth of which must be unique to each device.
-Maximum data rates are higher than for \i2c devices.
+\subsection{Background}
+\spi is a ``4 wire'' protocol (in addition to \texttt{Vin} and \texttt{GND}).
+However, three of these can be shared by multiple devices on the same \spi bus (the fourth must be unique to each device), so in some applications it is helpfully compact.
+Technical details about \spi are at \htmladdnormallink{WikiPedia}{https://en.wikipedia.org/wiki/Serial\_Peripheral\_Interface\_Bus} and many other sources on the Internet.
+One of the most useful explanations of the \spi protocol, in relation to \i2c and \uart, is provided by \htmladdnormallink{Sparkfun}{https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all}.
+
+A single \spi bus can support multiple devices, each of which can transmit and receive data individually.
+The focal device is specified by a ``chip select'' signal (over that 4th wire which is unique to each device).
+This means there are no addressing conflicts, as can occur with \i2c.
+Maximum data rates are higher for \spi than for \i2c or \uart devices.
 Some digital sensors have both \spi and \i2c interfaces, so they can be used with either protocol.
-\subsection{\color{gray} SPI control of a TFT display panel \color{black}}
+
+As with \i2c, most microcontrollers have a built-in hardware \spi bus.
+However, it is also often possible to ``bit-bang'' a software \spi bus, if the hardware \texttt{GPIO}s are not available.
+
+%\sidenote[][*-12]{
+	\begin{kaobox}[frametitle=Name that pin!]
+		If there is a difficulty about the \spi interface, it is the variability in names for some of the \texttt{GPIO} connections.
+		An \spi bus has one controlling device (almost always the  microcontroller), which sets the clock rate and determines which device is transmitting and receiving data at a given time.
+		Originally, the connectors over which data are transmitted were called \texttt{MOSI} and \texttt{MISO}.
+		That stood for ``Master Out, Slave In'' and ``Master In, Slave Out''.
+		Because many users (the authors among them) \htmladdnormallink{found this nomenclature offensive}{https://www.oshwa.org/a-resolution-to-redefine-spi-signal-names}, a number of other names have come into use.
+
+		In the \htmladdnormallink{Sparkfun}{https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all} tutorial, the pins are labeled \texttt{COPI} and \texttt{CIPO}, for ``Controller Out, Peripheral In'' and ``Controller In, Peripheral Out''.
+		This more benignly preserves a property of the original labeling, that labels on all devices are consistent.
+
+		Because it is rare for any device other than the microcontroller to act as the controller, the names in datasheets and labels on components have in many cases been shortened.
+		For example, on the \esp8266 Feather, the \gpios connected to the hardware \spi bus are labeled \texttt{MO} (``Microcontroller Out'') and \texttt{MI} (``Microcontroller In'') without reference to the device.
+		On many recent \spi devices, the corresponding labels are \texttt{DO} (``Device Out'') and \texttt{DI} (``Device In''), without reference to the controller.
+
+		This can be slightly confusing, because labels are different on the microcontroller and peripheral devices.
+	  However, you can keep it clear by keeping in mind that, like in \uart devices, data that go \underline{out} of one device go \underline{into} another.
+	  As this implies, the \texttt{MO} \gpio is connected to the \texttt{DI} device pin, and the \texttt{MI} \gpio is connected to the \texttt{DO} device pin.
+	\end{kaobox}
+%}
+
+
+\subsection{Connecting a microSD card through an \spi interface}
+The addition of removable storage like a microSD card can hugely increase the capabilities of a microcontroller-based environmental sensor.
+One reason for that is capacity: Onboard storage space on most microcontrollers amounts at most to 10s to 100s of megabytes (the \esp8266 is especially memory-constrained), while modern microSD cards with 10s to 100s of gigabytes are inexpensive and widely available.
+Even voluminous data like very long time series can usually be recorded without much concern about space limitations on media of this size.
+
+Another reason is accessibility: A microSD card can be programmed, inserted into an instrument, and extracted to retrieve data without ever needing to connect a cable to the microcontroller.
+Those data can be read with almost any computer with a card reader or USB port.
+A third reason is redundancy: Keeping duplicate copies of important codes and data on both a microcontroller's flash memory and a microSD card means that, if either fails, the information is not lost.
+
+Microcontrollers that have a built-in microSD card reader, like the \texttt{ESP32CAM}, often have those readers hard-wired through internal connections to an \spi bus.
+For those that don't, like the \esp8266, external microSD card readers utilizing the \spi interface are remarkably compact and inexpensive (we have been using \htmladdnormallink{these}{https://www.pjrc.com/store/sd_adaptor.html}, costing \$2, for many years).
+
+\subsubsection{\howto Set up an external microSD card reader via \spi}
+
+\begin{marginfigure}
+	\begin{center}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Fritzing/feather_sdcard2_bb.png}}{https://github.com/publicsensors/IntroSensors/blob/digital/Fritzing/feather_sdcard2_bb.png}
+		%\includegraphics[height=5cm]{Images/DS3231breadboard.jpg}
+		\caption[microSD card on breadboard]{An example circuit with a microSD card reader connected to a microcontroller via the hardware \spi bus on an \esp8266 Feather.}
+				\labfig{microSD}
+	\end{center}
+\end{marginfigure}
+
+\begin{enumerate}
+	\item \textbf{Connect pins or jumper wires to the GND, VCC, DO, DI, SCK and CS pins on the microSD card reader}.
+
+	Note that there may be some variation in pin labeling.
+
+	\item \textbf{Connect the GND and 3V pins on the ESP8266 to the GND and VCC pins on the microSD card reader}.
+
+	The circuit layout for the \MCP9808 is shown in \reffig{microSD}.
+	In this circuit, \texttt{GND} and \texttt{3V} are connected via the power rails, but any configuration that makes the apppropriate connections is OK.
+
+	\item \textbf{Connect the \texttt{MI} pin on the ESP8266 to the \texttt{DO} pin on the microSD card reader. Similarly, connect \texttt{MO} to \texttt{DI} and \texttt{SCK} to \texttt{SCK}.}
+
+	Note that, even though the \esp8266 Feather has \gpios labeled \texttt{MI}, \texttt{MO} and \texttt{SCK}, these are not actually separate pins.
+	They are internally connected to \gpios on the other side of the microcontroller: the \texttt{MI} pin is really \gpio 12, \texttt{MO} is \gpio 13, and \texttt{SCK} is \gpio 14.
+
+	\smallskip
+	This means you can use \gpios 12, 13 and 14 to conect to the hrdware \spi bus, if they make your circuit layout more convenient.
+
+	\smallskip
+	On the other hand, \gpios 12, 13 and 14 are not available when using the hardware \spi bus, even if there is nothing directly connected to them.
+
+	\item \textbf{Connect \gpio 15 on the ESP8266 to the \texttt{CS} pin on the microSD card reader.}
+
+	This is the ``4th wire'', telling the reader when it is the device being addressed.
+	It is fine to use another available \gpio, but make sure to modify the code below appropriately.
+
+	\item \textbf{Download the driver for the SD card reader, \htmladdnormallink{sdcard.py}{https://raw.githubusercontent.com/publicsensors/IntroSensors/digital/Codes/sdcard.py}.}
+
+	Save it into a \texttt{Codes} directory on your computer.
+
+	\item \textbf{Copy } \lstinline{sdcard.py} \textbf{onto your microcontroller, using \thonny, \texttt{WebREPL} or \mpfshell (see the methods from \refch{connect} if you have questions).}
+
+	This driver for \spi microSD card readers is part of the standard \Micropython library.
+	However, it is omitted from most versions of firmware for the \esp8266, to save space.
+	So usually you need to provide it on \esp8266 and some other smaller microcontrollers.
+
+	\item \textbf{Format a FAT32 microSD card}
+
+	It is possible to format a microSD ard using the reader itself, but we suggest you use your computer.
+	For one thing, this makes it easy to see whether there are files you care about already on the card -- these will be irretrievably erased when the card is reformatted.
+	It is also helpful in debugging, because it separates the formatting step from getting basic file writing and reading to work in a new circuit.
+
+	\item \textbf{Copy a sample code onto the microSD card}
+
+	This simple code will serve as an example and test of reading and executing code off the microSD card, rather than the microcontroller's built-in flash memory:
+	\lstinputlisting[language=Python,label=sd_hello,caption={\htmladdnormallink{\texttt{sd\textunderscore hello.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/sd_hello.py}: An example to test reading and executing code from an SD card.}]{Codes/sd_hello.py}
+
+	\item \textbf{Insert the FAT32 formatted microSD card into the reader}
+
+	\item \textbf{Initialize the microSD card object}
+
+	Type in and execute the following lines, one by one, into your microcontroller's \texttt{REPL}:
+\begin{lstlisting}[language=Python]
+import machine, sdcard, os, sys
+sd = sdcard.SDCard(machine.SPI(1), machine.Pin(15))
+os.mount(sd, '/sd')
+os.listdir('/')
+\end{lstlisting}
+  With these commands, you performed three necessary steps.
+  First, you imported modules that you will need to access the microSD card.
+  Next, you created an sdcard object, named ``\texttt{sd}''.
+  Then, you ``mounted'' the \texttt{sd} object into the filesystem as a subdirectory, under \texttt{/sd}.
+
+  \smallskip
+	The last command simply lists the files in the main directory on the microcontroller.
+  The output should be a list of files, something like
+\begin{lstlisting}[language=Python]
+ ['sd', 'boot.py', 'main.py']
+\end{lstlisting}
+ The list should include whichever Python codes and other files or directories you have on your microcontroller.
+ The main point now, however, is that you should see the \texttt{sd} entry appear.
+ This shows that the microSD card is now visible to the filesystem.
+
+	\item \textbf{Add the SD card to the filesystem path}
+
+	The filesystem on your microcontroller has a list of locations in which it looks for codes to import.
+	To see this list, execute the command
+\begin{lstlisting}[language=Python]
+sys.path
+\end{lstlisting}
+ The output will be something like
+\begin{lstlisting}[language=Python]
+['', '/lib', '/']
+\end{lstlisting}
+ This shows that the current locations in the filesystem in which the microcontroller looks for modules to import are the current working directory (''), the root of the filesystem ('/'), and a library subdirectory ()'/lib').
+ Note that these do not include the microSD card, meaning codes on the card are not visible for import.
+
+ \smallskip
+ Now, execute:
+ \begin{lstlisting}[language=Python]
+sys.path.append("/sd")
+sys.path
+\end{lstlisting}
+ The first of these adds "/sd" to the path list.
+ The second prints out the augmented list, which should now include the microSD card:
+\begin{lstlisting}[language=Python]
+['', '/lib', '/', '/sd']
+\end{lstlisting}
+This shows that the microcontroller will now also look in the "/sd" subdirectory for modules to import.
+
+	\item \textbf{Import the \texttt{sd\textunderscore hello.py} module from the microSD card}:
+\begin{lstlisting}[language=Python]
+import sd_hello
+\end{lstlisting}
+ The module should now load, giving the output:
+\begin{lstlisting}[language=Python]
+hello sdcard!
+\end{lstlisting}
+
+ If you got this output, you have successfully added a microSD card to your microcontoller's filesystem, and run code from it.
+\end{enumerate}
+\loadMilestone{mlst:05c} % load milestone with tags id: mlst:05c
+
+% \subsection{\color{gray} SPI control of a TFT display panel \color{black}}
 
 
 %
