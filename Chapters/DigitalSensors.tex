@@ -122,7 +122,7 @@ Most microcontrollers have built-in hardware  \texttt{GPIO}s preconfigured as \t
 On most microcontrollers, it is also possible to use other \texttt{GPIO} pins for software-driven \i2c communications (``bit-banging''), often with somewhat reduced but perfectly adequate capabilities.
 %This provides helpful flexibility when preconfigured \texttt{SDA} and \texttt{SCL} \texttt{GPIO}s are need for other uses, or when too many \i2c devices are needed .
 
-\i2c is designed to work over relatively short distances ($\le$ a few meters), but \htmladdnormallink{\texttt{differential extenders}}{https://learn.sparkfun.com/tutorials/qwiic-differential-i2c-bus-extender-pca9615-hookup-guide/all} are available that greatly increase the distance over which \i2c devices can communicate.
+\i2c is designed to work over relatively short distances ($\le$ a few meters), but \htmladdnormallink{\texttt{differential extenders}}{https://learn.sparkfun.com/tutorials/qwiic-differential-i2c-bus-extender-pca9615-hookup-guide/all} are available that greatly increase the distance over which \i2c devices can communicate (see \refsec{i2c_extend}).
 
 A useful feature of \i2c is that it supports multiple devices on one cable (here, we're using ``cable'' as shorthand for the \i2c bus on the microcontroller, the wires connecting the microcontroller to the sensors, \etc).
 However, there is a constraint: each device must have an address that is unique on any given cable.
@@ -139,7 +139,7 @@ It's largely a matter of luck whether two sensor types have conflicting addresse
 
 For cases when it doesn't, some \i2c devices have a mechanism, like movable jumpers, to change \i2c addresses so that two or more of these devices can co-exist on the same cable.
 Another alternative, of course, is to have more than one \i2c bus, \eg by having separate hardware and bit-banged \i2c buses.
-Still another workaround is an \i2c \htmladdnormallink{multiplexer}{https://github.com/mcauser/micropython-tca9548a}, which is an \i2c device that can direct communications to any of eight \i2c devices attached to it (whether or  not they have the same addresses).
+Still another workaround is an \i2c \htmladdnormallink{multiplexer}{https://github.com/mcauser/micropython-tca9548a}, which is an \i2c device that can direct communications to any of eight \i2c devices attached to it whether or  not they have the same addresses (see \refsec{i2c_multi}).
 % The reference to the external RTC is \refsec{ext_i2c_time}
 
 \subsection{ Measuring temperature with a high-resolution sensor }
@@ -244,13 +244,14 @@ The second is the remaining fraction of a degrees Celsius, expressed as another 
 
 \subsection{\color{gray} Multiple sensors on a device: Temperature and pressure on an MS5803 \color{black}}
 
-\subsection{\color{gray} Resolving \i2c address conflicts with a multiplexer \color{black}}
+\subsection{Resolving \i2c address conflicts with a multiplexer}
+\labsec{i2c_multi}
 The requirement that each device on an \i2c bus has a unique address sometimes leads to address conflicts, in which two or more sensors have the same address.
 Sometimes it is possible to create additional \i2c buses, dividing the duplicated address between them.
 However, this is often not practical, especially when more than two devices share an address or when the number of \texttt{GPOI}s is limited.
-Some \i2c devices have two or more addresses, which can be selected using jumpers between pins on thedevices.
+Some \i2c devices have two or more addresses, which can be selected using jumpers between pins on the devices.
 Altering one sensor's address in this way is often a workable solution to address conflicts.
-However, many i2c sensors have fixed addresses.
+However, many \i2c sensors have fixed addresses.
 Furthermore, in an instrument designed to operate in the environment, sensors are often ``potted'' in epoxy or a sealant, or otherwise enclosed to protect them from water, salt, dust, \etc
 These sensors typically are difficult or impossible to access to alter pin connections that shift \i2c addresses.
 
@@ -265,7 +266,7 @@ The effect of light energy on many biological and physical processes is strongly
 Under water, in forest canopies, at dawn or dusk or at high latitudes, and in many other situations it is potentially important to characterize light intensity as a function of color.
 A \htmladdnormallink{TCS34725}{https://cdn-shop.adafruit.com/datasheets/TCS34725.pdf} color sensor, such as \htmladdnormallink{this one made by Adafruit}{https://www.adafruit.com/product/1334}, measures the \htmladdnormallink{RGB}{https://en.wikipedia.org/wiki/RGB_color_model} components of incident light.
 However, to accurately characterize these primary colors, its light sensors are equipped with optical filters that exclude \gls{irLabel} wavelengths.
-The \htmladdnormallink{TSL2591}{https://cdn-learn.adafruit.com/assets/assets/000/078/658/original/TSL2591_DS000338_6-00.pdf?1564168468} color sensor, such as \htmladdnormallink{also made by Adafruit}{https://www.adafruit.com/product/1980}, measure both full spectrum light intensity and the \gls{irLabel} component of that intensity.
+The \htmladdnormallink{TSL2591}{https://cdn-learn.adafruit.com/assets/assets/000/078/658/original/TSL2591_DS000338_6-00.pdf?1564168468} color sensor, such as \htmladdnormallink{also made by Adafruit}{https://www.adafruit.com/product/1980}, measures both full spectrum light intensity and the \gls{irLabel} component of that intensity.
 So, simultaneous readings from both these sensors would characterize the blue, green, red and \gls{irLabel} component light intensities.
 
 However, these sensors share the same \i2c address, so both cannot function simultaneously on the same \i2c bus.
@@ -285,10 +286,10 @@ To use this circuit, we can use a modification of code posted on the \htmladdnor
 \lstinputlisting[language=Python,label=TCA9548Adriver,caption={\htmladdnormallink{\texttt{tca9548a.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/tca9548a.py}: A short driver for the TSC9548A \i2c multiplexer.}]{Codes/tca9548a.py}
 % \lstinputlisting[language=Python,label=SetTimeDS3231,caption={\htmladdnormallink{\texttt{SetTimeDS3231.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/SetTimeDS3231.py}: A Micropython utility to set a \DS3231 \rtc to time from a Network Time Protocol (NTP) server.}]{Codes/SetTimeDS3231.py}
 
-The TCS34725 color and TSL2591 full spectrum/\gls{irLabel} sensors as laid out in the circuit in \reffig{i2c_mulitplx} can then be querrrrried with the following code:
+The TCS34725 color and TSL2591 full spectrum/\gls{irLabel} sensors as laid out in the circuit in \reffig{i2c_mulitplx} can then be querried with the following code:
 \lstinputlisting[language=Python,label=I2Cmultiplexer,caption={\htmladdnormallink{\texttt{multiplex\textunderscore i2c.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/multiplex_i2c.py}: An example use of  a TCA9548A \i2c multiplexer to communicate with color and full spectrum/\gls{irLabel} sensors that have an \i2c address conflict.}]{Codes/multiplex_i2c.py}
 
-Note that this code imports the drivers for the TSC34725 color sensor, \htmladdnormallink{tsc34725.py}{https://github.com/adafruit/micropython-adafruit-tcs34725}, and for the TSL2591 full spectrum/\gls{irLabel} sensor, \htmladdnormallink{tsl2591.py}{https://github.com/jfischer/micropython-tsl2591}, have been copied onto the microcontroller.
+Note that this code imports the drivers for the TSC34725 color sensor, \htmladdnormallink{tsc34725.py}{https://github.com/adafruit/micropython-adafruit-tcs34725}, and for the TSL2591 full spectrum/\gls{irLabel} sensor, \htmladdnormallink{tsl2591.py}{https://github.com/jfischer/micropython-tsl2591}, assuming both have been copied onto the microcontroller.
 
 The output of this demonstration code is:
 \begin{lstlisting}[language=Python]
@@ -318,8 +319,29 @@ color_sample =  (15, 10, 9, 34)
 
 \loadMilestone{mlst:05b} % load milestone with tags id: mlst:04c
 
-\subsection{\color{gray} Using I2C over long cables with differential extenders \color{black}}
+\subsection{Using I2C over long cables with differential extenders}
+\labsec{i2c_extend}
 
+\subsection{Using System Management Bus (\smbus) devices}
+\labsec{i2c_smbus}
+The \htmladdnormallink{System Management Bus}{https://en.wikipedia.org/wiki/System_Management_Bus}, or \smbus, is a digital interface protocal derived from \i2c that is used in some devices useful for environmental sensing.
+For most purposes relevant to environmental sensing, \smbus differs from \i2c primarily in the \Micropython library used to communicate with sensors.
+Unlike \i2c, \smbus is not installed by default in \Micropython firmware.
+However, \verb|@gkluoe| has provided code that simulates an \smbus interface at his \htmladdnormallink{github site}{https://github.com/gkluoe/micropython-smbus}.
+
+Because these protocols are similar, it is usually possible to combine \i2c and \smbus devices on the same bus, addressing each sensor using the appropriate library.
+
+An example is provided by a \htmladdnormallink{Hardkernel Weatherboard 0.2}{https://www.hardkernel.com/shop/weather-board-2/}.
+This board combines two sensors: a \texttt{BME280} sensor, using an \i2c interface to measure humidity, temperature and barometric pressure (including altitude); and, a \texttt{Si1132} sensor, using an \smbus interface to measure ambient and ultraviolet (UV) light.
+
+\subsubsection{\howto Combine \i2c and \smbus sensors on a single bus}
+\begin{enumerate}
+	\item \textbf{Connect wires to the GND, Vdd, SCL and SDA pins on the \MCP9808}.
+
+	Like in the thermistor calibration in \refsec{cal_therm}, we will use ``water baths'' made of paper cups to expose the \MCP9808 sensors to known temperatures without getting them wet.
+	This is most easily done if the sensor is connected to the microcontroller by extra long wires.
+
+\end{enumerate}
 
 \section{\color{gray}1-wire sensors \color{black}}
 \labsec{1wire_sensors}
