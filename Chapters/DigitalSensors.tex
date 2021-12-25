@@ -332,14 +332,29 @@ However, \verb|@gkluoe| has provided code that simulates an \smbus interface at 
 Because these protocols are similar, it is usually possible to combine \i2c and \smbus devices on the same bus, addressing each sensor using the appropriate library.
 
 An example is provided by a \htmladdnormallink{Hardkernel Weatherboard 0.2}{https://www.hardkernel.com/shop/weather-board-2/}.
-This board combines two sensors: a \texttt{BME280} sensor, using an \i2c interface to measure humidity, temperature and barometric pressure (including altitude); and, a \texttt{Si1132} sensor, using an \smbus interface to measure ambient and ultraviolet (UV) light.
+This board combines two sensors: a \texttt{BME280} sensor, using an \i2c interface to measure humidity, temperature and barometric pressure (including altitude); and, a \texttt{SI1132} sensor, using an \smbus interface to measure ambient and ultraviolet (UV) light.
 
 \subsubsection{\howto Combine \i2c and \smbus sensors on a single bus}
 \begin{enumerate}
-	\item \textbf{Connect wires to the GND, Vdd, SCL and SDA pins on the \MCP9808}.
+	\item \textbf{Connect wires from the GND, 3.3V, SCL and SDA pins on your microcontroller to the Weatherboard}.
 
-	Like in the thermistor calibration in \refsec{cal_therm}, we will use ``water baths'' made of paper cups to expose the \MCP9808 sensors to known temperatures without getting them wet.
-	This is most easily done if the sensor is connected to the microcontroller by extra long wires.
+	Note that, on the Weatherboard, the 3.3V pin is labelled \texttt{P3V45}.
+
+	\item \textbf{Copy drivers onto your microcontroller}.
+
+	The necessary drivers are:
+	\begin{itemize}
+		\item \htmladdnormallink{bme280\_float.py}{https://raw.githubusercontent.com/publicsensors/IntroSensors/digital/Codes/bme280_float.py}, for the \texttt{BME280} sensor;
+		\item \htmladdnormallink{si1132.py}{https://raw.githubusercontent.com/publicsensors/IntroSensors/digital/Codes/si1132.py}, for the \texttt{SI1132} sensor;
+		\item The \htmladdnormallink{usmbus folder}{https://github.com/publicsensors/IntroSensors/tree/digital/Codes/usmbus}, providing the \smbus library.
+	\end{itemize}
+	Here, we are using a version of the Python driver for the \texttt{SI1132} sensor provided by \htmladdnormallink{ControlEverythingCommunity}{https://github.com/ControlEverythingCommunity/SI1132} that has been modified to use the \texttt{usmbus} \smbus emulator.
+
+	\item \textbf{Import the drivers, initialize the sensor objects and create a loop for sampling}.
+
+	The TCS34725 color and TSL2591 full spectrum/\gls{irLabel} sensors as laid out in the circuit in \reffig{i2c_mulitplx} can then be querried with the following code:
+\lstinputlisting[language=Python,label=test_bme280_si1132,caption={\htmladdnormallink{\texttt{test\textunderscore bme280 \textunderscore si1132.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/test_bme280_si1132.py}: Test code demonstrating simultaneous use of \i2c and \smbus devices: \texttt{BME280} and \texttt{SI1132} sensors on a \htmladdnormallink{Hardkernel Weatherboard 0.2}{https://www.hardkernel.com/shop/weather-board-2/}.}]{Codes/test_bme280_si1132.py}
+
 
 \end{enumerate}
 
