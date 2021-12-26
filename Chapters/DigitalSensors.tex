@@ -322,6 +322,48 @@ color_sample =  (15, 10, 9, 34)
 \subsection{Using I2C over long cables with differential extenders}
 \labsec{i2c_extend}
 
+\begin{marginfigure}
+	\begin{center}
+		\htmladdnormallink{\includegraphics[width=\MFW]{Images/I2C_extender2.jpg}}{https://github.com/publicsensors/IntroSensors/blob/digital/Images/I2C_extender2.jpg.jpg}
+		%\includegraphics[height=5cm]{Images/DS3231breadboard.jpg}
+		\caption[PCA9615-based differential \i2c extender layout]{A PCA9615-based differential \i2c extender using two \htmladdnormallink{QwiicBus Endpoints}{https://www.sparkfun.com/products/16988}, connecting a microcontroller and a \texttt{TSL2591} light sensor via a CAT-5 ethernet cable.}
+		\labfig{i2c_ext}
+	\end{center}
+\end{marginfigure}
+
+
+\i2c was originally designed to operate over short distances, e.g., between a sensor and a microprocessor on the same circuit board.
+However, its use has broadened considerably, and in the context of environmental sensors it can be very useful to place sensors at a distance from the microcontoller that reads them.
+Examples include sensors that are underwater, in soil, or in electrically noisy environments where a microcontroller would either not survive or not be accessible to program or download data.
+
+The effective cable length over which \i2c can reliably operate depends on the details of the devices and conductors used, the type and intensity of electrical noise in the vicinity, and parameter settings such as clock rate.
+In many situations in which noise or cable length makes ordinary \i2c connections unreliable, using \texttt{differential extenders} to span all or most of the relevant distances may be a practical solution.
+Differential extenders use pairs of wires for both \texttt{SDA} and \texttt{SCA}, with the signal encoded as the voltage difference between the two wires in each pair.
+A typical conductor is an ethernet cable, which has four twisted conductor pairs.
+The rationale is that noise which affect one wire in a pair will affect the other almost identically.
+The voltage difference between paired wires is therefore much less sensitive to noise than an isolated wire, as is used in ordinary \i2c layouts.
+
+An example is Sparkfun's \htmladdnormallink{QwiicBus}{https://learn.sparkfun.com/tutorials/sparkfun-qwiicbus-hookup-guide} system, which is based on a \texttt{PCA9615} integrated circuit (see the \htmladdnormallink{datasheet}{https://cdn.sparkfun.com/assets/a/5/1/3/6/PCA9615.pdf}).
+\reffig{i2c_ext} is an example of a circuit layout using two \htmladdnormallink{QwiicBus Endpoints}{https://www.sparkfun.com/products/16988} to connect an \esp8266 microcontoller on one breadboard to an \i2c light sensor on a different breadboard.
+
+In this example the connecting cable is only 3 feet long.
+However, Sparkfun claims these devices can operate across cables over 100 feet long, and (as described later in this textbook) direct burial ethernet cable lends itself well to weather- and water-proofed environmental sensor installations.
+
+\begin{kaobox}[frametitle=Potential for change \dots]
+There is another situation in which using a differential extender: when different parts of an \i2c circuit must operate at different voltages.
+An example is an \texttt{ADS1115} voltage sensor.
+The maximum voltage tolerance of this sensor is determined in part by the voltage at which it is powered.
+An \texttt{ADS1115} operating at 5V has a higher maximum voltage than the same sensor operating at 3.3V.
+However, the \gpios on most modern microcontrollers (including the \esp8266) operate only at 3.3V.
+
+Using a differential extender based on \texttt{PCA9615}'s makes it possible to have the part of the \i2c bus directly connected to the microcontroller operate at 3.3V, while the part indirectly connected through the extender (e.g., the \texttt{ADS1115}) operates at 5V or higher voltage.
+Some other types of extenders may also have similar capabilities.
+This is accomplished by cutting traces on the upstream extender, and adding jumpered connections for ground and input voltage, as described in detail on \htmladdnormallink{Sparkfun's documentation}{https://learn.sparkfun.com/tutorials/sparkfun-qwiicbus-hookup-guide}.
+\end{kaobox}
+
+
+\loadMilestone{mlst:05d} % load milestone with tags id: mlst:04c
+
 \subsection{Using System Management Bus (\smbus) devices}
 \labsec{i2c_smbus}
 The \htmladdnormallink{System Management Bus}{https://en.wikipedia.org/wiki/System_Management_Bus}, or \smbus, is a digital interface protocal derived from \i2c that is used in some devices useful for environmental sensing.
