@@ -394,9 +394,25 @@ This board combines two sensors: a \texttt{BME280} sensor, using an \i2c interfa
 
 	\item \textbf{Import the drivers, initialize the sensor objects and create a loop for sampling}.
 
-	The TCS34725 color and TSL2591 full spectrum/\gls{irLabel} sensors as laid out in the circuit in \reffig{i2c_mulitplx} can then be querried with the following code:
+	The \texttt{BME280} and \texttt{SI1132} can then be querried with the following code:
 \lstinputlisting[language=Python,label=test_bme280_si1132,caption={\htmladdnormallink{\texttt{test\textunderscore bme280 \textunderscore si1132.py}}{https://github.com/publicsensors/IntroSensors/blob/main/Codes/test_bme280_si1132.py}: Test code demonstrating simultaneous use of \i2c and \smbus devices: \texttt{BME280} and \texttt{SI1132} sensors on a \htmladdnormallink{Hardkernel Weatherboard 0.2}{https://www.hardkernel.com/shop/weather-board-2/}.}]{Codes/test_bme280_si1132.py}
 
+The output of this code should be something like:
+\begin{lstlisting}[language=Python]
+>>> import test_bme280_si1132
+
+bme280:  ('19.59C', '990.11hPa', '49.29%')
+si1132 uv, ir, visible = 3, 260, 262 lux
+
+bme280:  ('19.54C', '990.05hPa', '48.58%')
+si1132 uv, ir, visible = 2, 261, 260 lux
+
+bme280:  ('19.54C', '990.09hPa', '48.63%')
+si1132 uv, ir, visible = 2, 259, 261 lux
+
+bme280:  ('19.53C', '990.06hPa', '48.57%')
+si1132 uv, ir, visible = 2, 260, 260 lux
+\end{lstlisting}
 
 \end{enumerate}
 
