@@ -3,7 +3,7 @@
 \setchapterpreamble[u]{\margintoc}
 \chapter{Milestones}
 \labch{milestones}
- 
+
 % Create a counter for Milestones
 % Note this is redefined and reset in the Milestones chapter
 % to give appropriate numbering
@@ -16,7 +16,7 @@
 %<*mlst:ov>
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=Milestones Overview]
 %	\begin{itemize}
-%		\item	
+%		\item
 		Milestones enable you to demonstrate key practical skills, and enable your instructor to give you credit for your hands-on work with microcontrollers, circuits, environmental housings, \etc \,
 		Milestones also indicate \emph{to you} that you have successfully mastered an important step in environmental instrument building. \,
 		Finally, the work you do in Milestones records many useful commands and sensor-building methods, so that they are easy to find when needed later on.\,
@@ -31,8 +31,8 @@
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle= \showmscntr Milestone: Connecting to REPL via USB]
 \begin{itemize}
 	\item [$\Box$] This Milestone is to communicate with your microcontroller via USB. \,
-	The specific goal is to demonstrate to an instructor that you have connected to a REPL session on your microcontroller, and obtained the $~>>>$ Python prompt. \, 
-	When you obtain this prompt, complete the assignment by uploading a screenshot of your \texttt{mpfshell} or BeagleTerm REPL session. 
+	The specific goal is to demonstrate to an instructor that you have connected to a REPL session on your microcontroller, and obtained the $~>>>$ Python prompt. \,
+	When you obtain this prompt, complete the assignment by uploading a screenshot of your \texttt{mpfshell} or BeagleTerm REPL session.
 \end{itemize}
 \end{kaobox}
 %</mlst:01>
@@ -40,7 +40,7 @@
 %<*mlst:01a>
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Activating WiFi on your microcontroller]
 	\begin{itemize}
-		\item [$\Box$] This Milestone is to activate both WiFi modes on your microcontroller.\space 
+		\item [$\Box$] This Milestone is to activate both WiFi modes on your microcontroller.\space
 		The specific goals are to demonstrate: (a) setting up and activating an Access Point (AP), with your own \emph{informative} SSID and \emph{secure} password; and, (b) connecting your microcontroller in Station (STA) mode to a router so that it can communicate via the Internet. \,
 		After you activate both modes, complete the assignment by uploading a screenshot of your \texttt{mpfshell} or BeagleTerm REPL session showing the commands and output.
 	\end{itemize}
@@ -54,7 +54,7 @@
 		The specific goals are to demonstrate to an instructor that you have (a) connected to a REPL session on your microcontroller, and (b) uploaded and downloaded a file over WiFi using either \texttt{WebREPL} or \mpfshell.
 		\begin{itemize}
 			\item[$\Box$] Create a plain text file called ``\lstinline{main.py}'', containing the three lines:  \\
-			
+
 \lstinline{print('Launching main.py...')} \\
 
 \lstinline{import esp}  \\
@@ -65,7 +65,7 @@
 		\item[$\Box$] Enter a \texttt{REPL} session and reboot with \texttt{<ctrl>-d}.
 		\item[$\Box$] Verify that the message ``Launching main.py'' is output, confirming this script was executed.
 		\item[$\Box$] Download \lstinline{main.py} back onto your computer over WiFi, saving it under a different name.
-	\end{itemize} 
+	\end{itemize}
 	In Micropython, a file named \lstinline{main.py} is automatically executed (if it exists) when your microcontroller boots up. \,
 	This example serves a useful purpose, which is to suppress unwanted debugging messages, which can be distracting when working with your microcontroller. \\
 
@@ -79,7 +79,7 @@
 	\begin{itemize}
 		\item [$\Box$] This Milestone is to write a Python function that generates random strings from a set of characters that you supply (defaulting to the set of upper and lower case characters in the English alphabet). \,
 		Compose this function in an editor on your computer, and use \texttt{webREPL} or \texttt{mpfshell} to upload it to your microcontroller. \,
-		The syntax of a Python function is illustrated in the \texttt{randint} example. 
+		The syntax of a Python function is illustrated in the \texttt{randint} example.
 		\begin{itemize}
 			\item[$\Box$] The first line is a \texttt{definition} statement, e.g. \lstinline{def randstr(str_len, char_list=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']):}
 			\item[$\Box$] The body of the function is an adaptation of the commands you used to generate random strings in the REPL session.
@@ -112,7 +112,7 @@
 %\begin{kaobox}[backgroundcolor=BurntOrange,frametitlebackgroundcolor=BurntOrange,frametitle=Using GPIOs as outputs]
 \begin{itemize}
 	\item [$\Box$] %\textbf{Using GPIOs as outputs}
-	
+
 	Demonstrate to an instructor the Python commands to create an informatively named Pin object connected to GPIO 2 in output mode, and use it to turn on and off the blue LED.
 \end{itemize}
 	Then, complete the assignment by uploading a screenshot of your \texttt{mpfshell} or \texttt{WebREPL} session.
@@ -124,7 +124,7 @@
 	%\begin{kaobox}[backgroundcolor=BurntOrange,frametitlebackgroundcolor=BurntOrange,frametitle=Using GPIOs as outputs]
 	\begin{itemize}
 		\item [$\Box$] %\textbf{Using GPIOs as outputs}
-		
+
 		Demonstrate to an instructor a correctly wired breadboard, in which: \,
 		Both negative rails are connected to the microcontroller's \texttt{GND} pin; and, both positive rails are connected to the \texttt{3V} pin. \,
 		Use a multimeter to show that all the rails are properly connected.
@@ -138,7 +138,7 @@
 	%\begin{kaobox}[backgroundcolor=BurntOrange,frametitlebackgroundcolor=BurntOrange,frametitle=Using GPIOs as outputs]
 	\begin{itemize}
 		\item [$\Box$] %\textbf{Using GPIOs as outputs}
-		
+
 		Demonstrate to an instructor a correctly wired circuit, in which a momentary button drives \texttt{GPIO 2}.\,
 		Show that:
 		\begin{itemize}
@@ -156,7 +156,7 @@
 	%\begin{kaobox}[backgroundcolor=BurntOrange,frametitlebackgroundcolor=BurntOrange,frametitle=Using GPIOs as outputs]
 	\begin{itemize}
 		\item [$\Box$] %\textbf{Using GPIOs as outputs}
-		
+
 		Demonstrate to an instructor the interrupt created by the python script \lstinline{button_interrupt.py}. \,
 		Show that button presses trigger the \texttt{GPIO 2} interrupt, and result in toggling the red LED attached to \texttt{GPIO 0}.
 		\, Then, complete the assignment by uploading a screenshot or copy of your \texttt{REPL} session showing the correct output responses to button presses.
@@ -169,7 +169,7 @@
 	%\begin{kaobox}[backgroundcolor=BurntOrange,frametitlebackgroundcolor=BurntOrange,frametitle=Using GPIOs as outputs]
 	\begin{itemize}
 		\item [$\Box$] %\textbf{Using GPIOs as outputs}
-		
+
 		Demonstrate to an instructor a correctly wired circuit to power an external LED.
 		\, Then, complete the assignment by uploading a photograph or sketch of your circuit.
 	\end{itemize}
@@ -181,7 +181,7 @@
 	%\begin{kaobox}[backgroundcolor=BurntOrange,frametitlebackgroundcolor=BurntOrange,frametitle=Using GPIOs as outputs]
 	\begin{itemize}
 		\item [$\Box$] %\textbf{Using GPIOs as outputs}
-		
+
 		Demonstrate to an instructor a correctly wired circuit to switch power on and off to an external LED.
 		\, Then, complete the assignment by uploading a photograph or sketch of your circuit.
 	\end{itemize}
@@ -193,9 +193,9 @@
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Snoozing an LED using PWM]
 \begin{itemize}
 	\item [$\Box$] This Milestone is to complete the circuits described in \refch{first_exercises}. \,
-	
+
 	The specific goal is to demonstrate to an instructor the working circuit, with a ``snoozing'' LED driven by 3.3 \texttt{volt} power from the microcontroller's \texttt{3V} pin and regulated by Pulsed Width Modulation (PWM). \,
-	
+
 	When you demonstrate the circuit, complete the assignment by uploading a photograph or sketch of your breadboard layout.
 \end{itemize}
 \end{kaobox}
@@ -207,8 +207,8 @@
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Setting Real Time Clocks using the Network Time Protocol]
 	\begin{itemize}
 		\item [$\Box$] This Milestone is to demonstrate use of the onboard and external \texttt{RTC}s. \,
-		
-		The specific goal is to use your ESP8266's \texttt{WiFi} connection to your classroom or home router to: (a) obtain the current time from a \texttt{NTP} server, and (b) set both the on-board and \texttt{DS3231} \texttt{RTC}s to correct time.	
+
+		The specific goal is to use your ESP8266's \texttt{WiFi} connection to your classroom or home router to: (a) obtain the current time from a \texttt{NTP} server, and (b) set both the on-board and \texttt{DS3231} \texttt{RTC}s to correct time.
 	\end{itemize}
 	When you have set your \texttt{RTC}s, complete the assignment by uploading a screenshot or transcript of your REPL session.
 \end{kaobox}
@@ -218,7 +218,7 @@
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Generating a dataset of time-keeping errors]
 	\begin{itemize}
 		\item [$\Box$] This Milestone is to generate a dataset using the \lstinline{time_compare} script. \,
-		
+
 		The specific goals are to agree with your peers on time sampling parameters, and to collect a full dataset using your microcontroller/\rtc combination.  \,
 	\end{itemize}
 	When your sampling runs are finished, complete the assignment by uploading your data files so that they may be collected and shared with others in your class for a comparative statistical analysis in the next section.
@@ -229,7 +229,7 @@
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Initial plotting of time-keeping errors]
 	\begin{itemize}
 		\item [$\Box$] This Milestone is to plot the time-keeping error dataset using the \lstinline{lineplot_TC_data} script. \,
-		
+
 		Use this script to visualize the magnitude and direction of errors, represented by differences between elapsed time measured using the onboard \rtc, the xternal \rtc and \ntp.
 		Demonstrate using the interactive navigation widgets to zoom into specific parts of the dataset.  \,
 	\end{itemize}
@@ -249,7 +249,7 @@
 %<*mlst:03c>
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Percentile plots of time-keeping errors]
 	\begin{itemize}
-		\item [$\Box$] This Milestone is to replot the time-keeping error dataset, distinguishing your microcontroller/\rtc combination from the population and adding lines as instructed for the 5th, 25th, 50th, 75th and	95th percentiles at several informative time points.		
+		\item [$\Box$] This Milestone is to replot the time-keeping error dataset, distinguishing your microcontroller/\rtc combination from the population and adding lines as instructed for the 5th, 25th, 50th, 75th and	95th percentiles at several informative time points.
 	\end{itemize}
 	When you have successfully replotted the dataset, complete the assignment by: (a) saving and uploading a \texttt{png} or \texttt{jpg} image of your plots; and (b) uploading a short explanation of how time-keeping errors from your device compare to the focal percentiles of the whole population (e.g., how do magnitude and direction of errors compare between time-keeping methods and microcontroller/\rtc combinations?).
 \end{kaobox}
@@ -267,7 +267,7 @@
 %<*mlst:03e>
 \begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Probability plots of time-keeping errors]
 	\begin{itemize}
-		\item [$\Box$] This Milestone is to generate probability plots of the time-keeping error dataset, to visualize how well observed errors conform to a normal distribution.		
+		\item [$\Box$] This Milestone is to generate probability plots of the time-keeping error dataset, to visualize how well observed errors conform to a normal distribution.
 	\end{itemize}
 	When you have successfully replotted the dataset, complete the assignment by: (a) saving and uploading a \texttt{png} or \texttt{jpg} image of your plots; and (b) summarizing the ways in which the observed errors conform or deviate from a normal distribution.
 \end{kaobox}
@@ -292,7 +292,7 @@
 			\item[$\circ$] Design a sampling protocol so that devices have consistent and appropriate sampling duration, intervals and replicates, and that there are defined ``hot'' and ``cold'' sub-populations.
 			\item[$\circ$] Collect and visualize datasets, to assess the shape of error distributions and consistency with normal distributions.
 			\item[$\circ$] Conduct tests of the null hypothesis, stating and justifying your conclusions about whether variations in temperature need to be considered for time-keeping under field conditions. Be explicit about what you can and cannot say, based on your statistical analysis. What modifications of your study might provide additional insights?
-		\end{itemize}		
+		\end{itemize}
 	\end{itemize}
 	When you have successfully conducted the tests, complete the assignment by: (a) uploading screenshot or copies of output; and (b) summarizing your inferences about temperature effects and the rationale justifying those inferences.
 \end{kaobox}
@@ -306,7 +306,7 @@
 	\begin{itemize}
 		\item [$\Box$] This Milestone is to design the best analog voltage sensor to monitor 18650 battery voltage, given the available assortment of resistors. \,
 		The key design tool is the spreadsheet you created in this section. \,
-		
+
 		For at least 6 combinations of resistors, use the following criteria to select the best combination:
 		\begin{itemize}
 			\item[$\circ$] The voltage tolerance of the \texttt{ESP8266}'s \adc is satisfied (i.e., the 6\textit{th} column entry is \texttt{TRUE}).
@@ -362,7 +362,7 @@
 		We use quotes around ``best possible'' to emphasize that, as an exercise in circuit design, you are trying to optimize tradeoffs among the quantities (resolution, self-heating, \etc) calculated in your spreadsheet. \,
 		Be reassured, however, that many different choices can result in effective temperature sensors, so you have quite a bit of latitude in adapting to the components you have at hand. \,
 		Furthermore, it is easy to make an initial sensor now, and modify it later if you have an idea about how to make it better. \,
-		
+
 		\smallskip
 		In both \texttt{RTH1} and \texttt{RTH2} spreadsheets, try different values for $R_1$ and $R_2$, and select the geometry and resistor that you think best. \,
 		The key criteria are:
@@ -397,27 +397,27 @@
 	\begin{itemize}
 		\item [$\Box$] This Milestone is to write a ``driver'' for your \texttt{TSL237} light sensor. \,
 		A driver is code designed to interface with a piece of hardware.  \,
-		In the case of your light sensor, a driver should be a \Micropython function that runs on your microcontroller, and that provides a clear and intuitive way to measure light. \, 
-		Give the file containing your driver an informative name, like \lstinline{lightTSL237.py}. \, 
-		In this file, code the following steps: 
+		In the case of your light sensor, a driver should be a \Micropython function that runs on your microcontroller, and that provides a clear and intuitive way to measure light. \,
+		Give the file containing your driver an informative name, like \lstinline{lightTSL237.py}. \,
+		In this file, code the following steps:
 		\begin{itemize}
-		\item[$\circ$] At the start of the file, import \lstinline{median_of_n}, so it can be called by your driver. 
+		\item[$\circ$] At the start of the file, import \lstinline{median_of_n}, so it can be called by your driver.
 		\item[$\circ$] The first line of the driver function is a \texttt{definition} statement, e.g. \\
-	
+
 		 \lstinline{def readTSL237(pt,nrep,timeout):} \\
-	 
+
 	 	This line defines a new function called  \lstinline{readTSL237}, specifying it has the required arguments \lstinline{pt,nrep,timeout}. \,
 	 	These are the parameters needed to pass to \lstinline{median_of_n}, to measure the period of the \texttt{TSL237} signal.
-	
+
 		\item[$\circ$] In the body of the function, call \lstinline{median_of_n} with the passed parameters, and assign the values it returns to informatively named variables like \lstinline{period} and  \lstinline{success}. \,
 		\item[$\circ$] Use the measured period to calculate the frequency, in \texttt{Hz}.
 		\item[$\circ$] Calculate the frequency in \texttt{kHz}.
 		\item[$\circ$] Use the frequency (in \texttt{kHz}) with Equation \ref{irrad} to calculate the nominal irradiance, $E_e$. \,
 		Assign it to a Python variable with an informative name like \lstinline{E_e}.
 		\item[$\circ$] The final line is a \texttt{return} statement, e.g. \\
-		
-		\lstinline{return E_e} 
-		
+
+		\lstinline{return E_e}
+
 		\item[$\circ$] Remember to observe the indentation requirements of Python for the statements inside the function.
 		\end{itemize}
 		%\smallskip
@@ -425,23 +425,23 @@
 		You can test it with commands like \\
 
 		\lstinline{from lightTSL237 import readTSL237} \\
-		
+
 		\lstinline{from machine import Pin} \\
-		
+
 		\lstinline{p4 = Pin(4, Pin.IN)} \\
-		
+
 		\lstinline{timeout=300000} \\
 
 		\lstinline{nrep=7} \\
 
 		\lstinline{E_e=readTSL237(p4,nrep,timeout)} \\
-		
+
 		\lstinline{print('Measured nominal irradiance: E_e = ',E_e)}
 	\end{itemize}
 	It's quite common to encounter bugs in testing new Python codes. \,
 	If you do, correct the code, recopy it to your microcontroller and try again. \,
 	Don't forget that, if you imported \lstinline{lightTSL237} already, you will have to reboot your microcontroller with \texttt{ctrl-d} before you can import your corrected version. \\
-	
+
 	When you have a working driver, complete the assignment by uploading: (a) your driver and the commands you used to get measurements using it; and, (b) five to ten measurements of nominal irradiance across a range of light levels, with descriptions of conditions in which you measured them.
 \end{kaobox}
 %</mlst:04f>
@@ -461,7 +461,7 @@
 			\lstinline{def readTSL237(pt,nrep,timeout):} \\
 			to \\
 			\lstinline{def read_divTSL237(pd,nrep,timeout):} \\
-			Notice that, to make it easier to keep track of pins, the \lstinline{Pin} object parameter is named \lstinline{pd}.			
+			Notice that, to make it easier to keep track of pins, the \lstinline{Pin} object parameter is named \lstinline{pd}.
 			\item[$\circ$] In the body of the \lstinline{read_divTSL237} function, replace the references to \lstinline{pt} with references to \lstinline{pd}.
 			\item[$\circ$] Adjust your calculation of the period. \,
 			The interval measured through the frequency divider is $10\times$ the true period. \,
@@ -470,24 +470,24 @@
 		%\smallskip
 		\item [$\Box$] Copy your new driver file onto your microcontroller, and use it to take light readings. \,
 		If you saved your function into a file named \texttt{lightTSL237div.py}, you can test it with commands like \\
-		
+
 		\lstinline{from lightTSL237div import readTSL237, read_divTSL237} \\
-		
+
 		\lstinline{from machine import Pin} \\
-		
+
 		\lstinline{p5 = Pin(5, Pin.IN)} \\
-		
+
 		\lstinline{timeout=300000} \\
-		
+
 		\lstinline{nrep=7} \\
-		
+
 		\lstinline{E_e_div=read_divTSL237(p5,nrep,timeout)} \\
-		
+
 		\lstinline{print('Measured nominal irradiance: E_e_div = ',E_e_div)}
 	\end{itemize}
 	As before, some debugging is often necessary. \,
 	If you find a bug, correct the code, recopy it to your microcontroller, reboot and try again. \,
-	
+
 	When you have a working driver, complete the assignment by uploading: (a) your driver and the commands you used to get measurements using it; and, (b) five to ten measurements of nominal irradiance taken through the frequency divider across a range of light levels, with descriptions of conditions in which you measured them.
 \end{kaobox}
 %</mlst:04g>
@@ -502,11 +502,84 @@
 %		\item [$\Box$] Use your spreadsheet to construct a plot, with the divided periods on the horizontal axis and as the original \texttt{TSL237} periods on the vertical axis. \,
 %		To improve the readability of this plot, double click on both axes and select options to use a log-log scale. \,
 %		Remember to label your axes.
-	\end{itemize}	
+	\end{itemize}
 	When you have a working code, complete the assignment by uploading: (a) the code you used to get measurements; and, (c) your spreadsheet or screenshot of your table and summary, with descriptions of conditions in which you measured them.
 \end{kaobox}
 %</mlst:04h>
 
 
+\section{\refch{digital_interfaces} Milestones}
+\setcounter{mscntr}{0}
 
+%<*mlst:05a>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Measuring temperature over \i2c]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to lay out the circuit to connect an \MCP9808 temperature sensor to your microcontroller using the \i2c interface, and to use the linked driver to obtain temperature measurements. \,
 
+		For at least 3 environments with different temperatures (\eg ice water, boiling water, body temperature, room temperature, temperature outside or in an unheated space, \etc):
+		\begin{itemize}
+			\item[$\circ$] Record into a spreadsheet 10 consecutive temperature measurements at the highest resolution setting.
+			\item[$\circ$] Record into a spreadsheet 10 consecutive temperature measurements at the lowest resolution setting.
+			\item[$\circ$] Calculate the mean and standard deviation for each set of measurements.
+      \item[$\circ$] When you've completed your spreadsheet, summarize in a few sentences the apparent differences, if any, in the accuracy and precision of the high \textit{vs.} low resolution measurements. \,
+		\end{itemize}
+		Complete the assignment by uploading: (a) a photo or sketch of your \i2c circuit; (b) your spreadsheet; and, (c) your summary interpretation of the effect of the resolution parameter.
+	\end{itemize}
+\end{kaobox}
+%</mlst:05a>
+
+%<*mlst:05b>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Multiplexing \i2c sensors]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to lay out the circuit to acquire samples from two or more \i2c sensors through a TSC9548A multiplexer. \,
+		\begin{itemize}
+			\item[$\circ$] Design and assemble a circuit similar to \reffig{i2c_mulitplx}, with \i2c sensors on at least two separate channels.
+			\item[$\circ$] Copy drivers for the \i2c sensors and multiplexer onto your microcontroller.
+			\item[$\circ$] Modify the \lstinline{multiplex_i2c} code as appropriate to initialize and sample from your \i2c sensors.
+      \item[$\circ$] Import and record the data from your modified code. \,
+		\end{itemize}
+		Complete the assignment by uploading: (a) a photo or sketch of your multiplexed \i2c circuit; (b) your modified code; and, (c) the output you obtained from your sensors.
+	\end{itemize}
+\end{kaobox}
+%</mlst:05b>
+
+%<*mlst:05d>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Using an \i2c differential extender]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to lay out the circuit to acquire samples from one or more \i2c sensors through two \htmladdnormallink{QwiicBus Endpoints}{https://www.sparkfun.com/products/16988}. \,
+		\begin{itemize}
+			\item[$\circ$] Design and assemble a circuit similar to \reffig{i2c_ext}, with a microcontoller on one breadboard and an \i2c sensor on a separate breadboard.
+			\item[$\circ$] Copy drivers for the \i2c sensors onto your microcontroller (the extender does not need a driver).
+			\item[$\circ$] Use code as you would for direct \i2c connections to obtain samples from the sensor across tjhe extender interface. \,
+		\end{itemize}
+		Complete the assignment by uploading: (a) a photo or sketch of your extended \i2c circuit; (b) your code; and, (c) the output you obtained from your sensors.
+	\end{itemize}
+\end{kaobox}
+%</mlst:05d>
+
+%<*mlst:05c>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Reading and writing data files from a microSD card]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to read and write data files on a microSD card using your microcontroller. \,
+		\begin{itemize}
+			\item[$\circ$] Assemble a circuit similar to \reffig{microSD} and initialize an \texttt{sdcard} object, following the instructions in \refsec{spi_sensors}.
+			\item[$\circ$] Write a simple data file onto your microSD card: \\
+
+					\lstinline{from machine import unique_id} \\
+					\lstinline{testfile = open('/sd/test_sd.txt','w')} \\
+					\lstinline{testfile.write('This is microcontroller ID #: \n')} \\
+					\lstinline{testfile.write(str(unique_id()))} \\
+					\lstinline{testfile.close()}
+			\item[$\circ$] Now, read and print out the data file you just created: \\
+
+					\lstinline{oldfile = open('/sd/test_sd.txt','r')} \\
+					\lstinline{line1 = oldfile.readline()} \\
+					\lstinline{line2 = oldfile.readline()} \\
+					\lstinline{oldfile.close()} \\
+					\lstinline{print('line1 is: ',line1)} \\
+					\lstinline{print('line2 is: ',line2)}
+		\end{itemize}
+		Complete the assignment by uploading: (a) your data file (remember it is in the ``/sd'' subdirectory on your microcontroller filesystem); and, (b) a transcript of your commands and output from writing and reading the data file.
+	\end{itemize}
+\end{kaobox}
+%</mlst:05c>
