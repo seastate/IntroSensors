@@ -3,175 +3,11 @@
 \chapter{Communicating with your microcontroller}
 \labch{connect}
 
-The purpose of this book is to provide you with the necessary skills and experience to design, build and use instruments to measure environmental conditions.
-The ``brain'' of these instruments is a \emph{microcontroller}.
-A microcontroller is a device with a processing unit that can run codes and other instructions, and external connections (called \emph{pins}) to transmit electrical inputs and outputs.
-The microcontroller is what enables your instrument to receive information from sensors, monitor and regulate its power supply, and communicate for receiving instructions and telemetering data.
-Learning to communicate with and control a microcontroller is the first step in building and using environmental sensing instruments.
-
-\subsubsection{Types of microcontrollers and single board Computers}
-
-Microcontrollers vary by overall size, power requirements, capabilities to input and output different kinds of electrical signals, onboard communication hardware like WiFi or USB, and the types of code or instructions they accept.
-They are distinct from \emph{single board computers} such as Raspberry Pis in that they generally do not incude a robust operating system or the ability to easiy send video directly to a monitor.
-While they are relatively constrained in terms of memory and processor power, microntrollers have the ability to boot and/or wake quickly, reliably perform a pre-defined action such as reading a sensor and/or enabling another device, and then entering a low-power sleep mode until the next action is required.
-
-Microcontroller chips are usually grouped with other components such as power management circuitry, external memory, USB connectors, power and/or reset switches, LEDs, crystal oscillators (used to track time), sensors, and, for those with wireless capabilities, external antennas.
-These are usually arranged on a small circuitboard known as a \emph{breakout board} that provides access to the input/output pins on the chip.
-A given microcontroller chip may be incorporated into hundreds or thousands of different breakout boards, each of which has slighty different capabilities.
-For example a microcontroller board intended to run a small speaker embedded in toy will look very different from one intended to run a robot.
-The speaker-based board may just require breaking out just one or two output pins, while the robot controller would require a large number of input/output pins as well as specialized motor control circuitry.
-
-Systems that use microcontrollers to read a signal from a sensor and then record it to a storage device are referred to as dataloggers.
-Dataloggers have been around for many decades, and commerical models have been optimized for low power use and durability.
-For many environmental sensing projects, particularly those using sensors with analog voltage or current outputs, a commerical datalogger is an excellent option.
-However, commercial dataloggers may not be compatible with digital sensors that require two-way communication to trigger a measurement, and they often cost much more than microcontroller boards.
-Furthermore, many modern microcontrollers can also be programmed to communicate wirelessly, opening many new applications for environmental monitoring.
-This textbook focuses on using low-cost microcontrollers as datalogging systems for use with both digital and analog sensors.
-
-\subsubsection{Choosing a microcontroller language}
-Choosing a microcontroller board that is suitable for a given project can be daunting.
-Even within a given microcontroller family, there are many choices to make with respect to both hardware and software.
-Until the early 2010s, programming microcontrollers required a specialized set of hardware and software tools.
-However, with the release of the Arduino development environment, it became possible to program a variety of microcontrollers using a single framework.
-When developing code for an Arduino, the program must be developed using the C programming language.
-The human-readable code is then compiled and flashed to the chip, where  it automatically runs when the chip is powered up.
-This process results in high performance, low latency programs. Perhaps for this reason, Ardino remains one of the most popular open-source microcontroller development frameworks.
-Hoowever, because there is no easy way to interrupt an Arduino program and check the state of variables, debugging can be challenging.
-
-This textbook focuses on microprocessors that use instructions written in \htmladdnormallink{MicroPython}{https://micropython.org/}, a subset of the \htmladdnormallink{Python}{https://www.python.org} programming language.
-MicroPython is a recent invention, and a great improvement for learning about, building and using environmental sensors.
-Because MicroPython-based microcontrollers are automatically interactive
-\sidenote[][3cm]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=MicroPython is \texttt{REPL}-ent!]Like Python, MicroPython runs in an interactive session.
-	This session goes by the  technical-sounding name \textbf{REPL}, which stands for ``Read-Evaluate-Print-Loop''.
-%	, or \emph{REPL}.
-	Despite this name, REPL is a very intuitive interface.
-	REPL simply means that, in a MicroPython (or Python) session, you type commands, which are then executed, and the results are displayed.
-\end{kaobox}}
-, they are good platforms for learning to develop and debug codes to collect data from environmental sensors. MicroPython comes in two main flavors--the standard, officially supported MicroPython release, and CircuitPython, a project supported primarily by AdaFruit, a supplier of open source electronics.  CircuitPython is based on MicroPython, but many of the libraries use slightly differnt syntax. In this textbook, all programs are based on MicroPthon, but it is relatively straightforward to convert CircuitPython code to MicroPython. For advanced users, this can be helpful becuse it opens the door to using the relatively large number of sensor device drivers that are available in CircuiPython.
-
-Python itself is a powerful and easy to learn language for scientific computing on desktops and laptops.
-If you already know some Python, you can apply that knowledge to working with MicroPython-based microcontrollers.
-If you're new to Python, then by learning MicroPython you will simultaneously learn how to use Python for many other tasks.
-%In fact, m
-Many of the exercises in this book combine acquiring data from sensors using a microcontroller, and analyzing or plotting those data on a computer, using the same Python coding language.
-
-%\marginnote[3cm]{Note that Python is currently undergoing a transition, from an older version (Python 2.7) to newer Python 3 versions.
-%These are mostly similar, but differ in some details such as the syntax of print commands. Because MicroPython is based on Python 3, and because older versions of Python will soon no longer be supported, the codes and instructions in this book will use Python 3.}
-%In most cases, Python 2.7 users will need to make only minor adjustments.
-\begin{kaobox}[frametitle=Once and future Python]
-	Note that Python is currently undergoing a transition, from an older version (Python 2.7) to newer Python 3 versions.
-	These are mostly similar, but differ in some details such as the syntax of print commands. Because MicroPython is based on Python 3, and because older versions of Python will soon no longer be supported, the codes and instructions in this book will use Python 3.
-\end{kaobox}
-
-
-\begin{table}[h]%[2cm]
-	\caption[\refch{connect} materials]{\textbf{Materials you'll need\dots}
-%	\caption[	\textbf{\refch{connect} blah Materials you'll need\dots}
-		See Table \ref{tab:materials} for additional information.}%]
-
-		\labtab{materials_connections}
-\begin{center}
-			\raggedright
-		%\begin{tabular}{ c c c c }
-		\begin{tabular}{ c r c}
-			\hline
-			Sections & item & link \\
-			\hline
-			\multirow{3}{4em}{\refsec{connections}}
-			& breadboard & \ref{mat:bb} \\
-			& ESP8266 ``Feather'' & \ref{mat:mc} \\
-			& micro-USB cable & \ref{mat:usb_cbl} \\
-			\hline
-			\multirow{1}{4em}{\refsec{WiFi_connect}}
-			& WiFi router & \ref{mat:router} \\
-			& WiFi USB dongle & \ref{mat:dongle} \\
-			\hline
-		\end{tabular}
-
-\end{center}
-
-\end{table}
-
-
-
-%\section{Meet your microcontroller}
-%\labsec{microcontrollers}
-
-\subsubsection{Meet your microcontroller}
-%\subsubsection{How to use this book}
-
-
-For examples in this book, we will use microntroller breakout boards that comply with Adafruit's Feather form factor.
-Feather-based boards incorporate a microncontroller on a somewhat standardized breakout board layout, with pins that have unique functions always (or at least usually located on a particular part of the baord.  The standardized layout allows projects built around one microcontroller to be used with another microcontroller later. This provides a modest amount of "future-proofing" for the textbook. For example, in the textbook have been tested with one of the least-expensive of the Feather boards--the Feather HUZZAH ESP8266 microcontroller.
-This is a small, low-cost board with built-in WiFi that uses relatively little power.
-The core ESP8266 microcontroller was originally intended to be placed in ``smart'' lightbulbs.
-\sidenote[][*-7]{\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Lighten up!]See \htmladdnormallink{Tinnkerman's light bulb hacks}{https://tinkerman.cat/post/yet-another-wifi-light-bulb/} for some fun examples in which the ESP8266 microcontroller is reprogrammed in place within a smart light bulb.
-Very large scale production for this purpose has made this microcontroller inexpensive, which also makes it a good choice for putting in sensors in often-harsh environments.\end{kaobox}}
-Many of the characteristics designed for its intended purpose also make it suitable for environmental sensing instruments. However, soon after the release of the ESP8266 microcontroller, the manufacturer, a Chinese company known as Espressif, released a newer, somewhat similar chip known as the ESP32 that has several advantages over the ESP8266. Adafruit and other manufacturers have incorporated various version of the ESP32 into the Feather-compatible breakout boards, so all the activities originally developed for the ESP8266 should work relativelys seamlessly with the ESP32. 
-
-Note that the exercises in this book can be successfully completed using other microcontrollers, including those mounted on boards that do not comply with the Feather form factor.
-We focus here on the Feather ESP8266 because it's one of the microcontrollers officially supported by \htmladdnormallink{MicroPython}{https://http://micropython.org/}, because Adafruit provides good documentation and support for it, and because it's likely to be available for some time into the future.
-The other officially supported microcontroller, Adafruit's HUZZAH ESP8266 Breakout Board, is slightly smaller and cheaper, but requires a special cable for communications rather than a generic microUSB cable.
-Other manufacturers also make microcontroller boards based on the ESP8266.
-Many of these will work in essentially the same way for exercises in this book.
-Boards using other processors also can work.
-These alternative microcontrollers may require modifying details in the MicroPython codes, such which connections are used for electrical inputs and outputs.
-The \htmladdnormallink{MicroPython}{https://http://micropython.org/} website is the best reference if you are considering using alternative microprocessor boards for the activities in this book.
-
-\begin{marginfigure}[2cm]
-	\begin{center}
-		\htmladdnormallink{\includegraphics[width=\MFW]{Images/ESP8266feather_top.png}}{https://publicsensors.org/IntroSensors/Images/ESP8266feather_top.png}
-		\caption[ESP8266 feather microcontroller]{A ESP8266 Feather microcontroller.}
-		\labfig{margin_esp8266}
-	\end{center}
-\end{marginfigure}
-
-A close-up view of the ESP8266 Feather (\reffig{margin_esp8266}) shows the key features we will use to create functional environmental sensors.
-\marginnote[-3.5cm]{
-	The documents \htmladdnormallink{adafruit-feather-huzzah-esp8266.pdf}{https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-huzzah-esp8266.pdf} and \htmladdnormallink{adafruit-huzzah-esp8266-breakout.pdf}{https://cdn-learn.adafruit.com/downloads/pdf/adafruit-huzzah-esp8266-breakout.pdf} are the best overall resources for information about the Adafruit Huzzah Feather and Breakout versions of the ESP8266 microcontroller.
-	Please download the document for your microcontroller for future reference about specifications, pin definitions, voltage tolerances, \etc
-}
-The core microcontroller is the rectangular component near the bottom.
-The zigzag line below it is a built-in WiFi antenna.
-At the top is a connector for a microUSB cable, used to communicate with the Feather.
-Plugging a USB cable into this connector and into your computer automatically supplies power to the microcontroller.
-It also automatically supplies a connection for communicating with the microcontroller.% -- see \refsec{usb_connect} for instructions on how to use USB to communicate with your microcontroller.
-
-Below and to the left of the USB connector is a button, labelled ``\texttt{RST}''.
-This is a reset button, used occasionally to halt a run-away code or reboot a malfunctioning microcontroller (normally we will do this via software, so we rarely need to use the \texttt{RST} button).
-At the four corners are holes for mounting screws.
-Along the right and left edges are soldered ``pins'', %which are spaced to fit into a breadboard, and
-which have different capabilities to transmit electrical signals to and from the microcontroller.
-These pins have labels alongside (sometimes a little above or below) that identify the pin, so it can be referred to in MicroPython codes.
-We will explain how to use these pins in \refch{first_exercises}.
-
-\begin{kaobox}[frametitle=A flash of insight]
-	In these exercises, we assume that your microcontroller already has the basic software needed to run MicroPython. This basic software is called ``firmware'', which must be ``flashed'' onto a microcontroller. The instructions for flashing MicroPython firmware onto your microcontroller are given at the \htmladdnormallink{Getting started with MicroPython}{http://docs.micropython.org/en/latest/esp8266/tutorial/intro.html\#intro} tutorial. If your microcontroller doesn't yet have its firmware, follow the instructions in that tutorial to get ready for the activities in this book.
-\end{kaobox}
-
-
-
-%\begin{marginfigure}[0cm]
-%	\includegraphics{Images/breadboard_ESP8266feather.jpg}
-%	\caption[ESP8266 feather microcontroller on breadboard]{Breadboard with ESP8266 feather.}
-%	\labfig{margin_breadboard_esp8266}
-%\end{marginfigure}
-
-%%
-%%\begin{lstlisting}
-%%	\begin{marginfigure}
-%%		\includegraphics{Images/IMG_20181205_082817686.jpg}
-%%		\caption[ESP8266 feather microcontroller on breadboard, too]{Breadboard with ESP8266 feather, again.}
-%%		\labfig{esp8266brd}
-%%	\end{marginfigure}
-%%\end{lstlisting}
-%
-
 \section{Establishing communications}
 \labsec{connections}
 
 Our starting point for building and using environmental instruments is learning how to communicate with microcontrollers from your desktop or laptop computer.
-The ESP8266 Feather (and many other microcontrollers) have two primary modes of communication: USB and WiFi.
+ESP-based Feathers (and many other microcontrollers) have two primary modes of communication: USB and WiFi.
 Some microcontrollers have additional communication modes, such as BlueTooth, LoRa or other wireless protocols.
 However, USB and WiFi are the most common, standardized and useful communication modes for microcontrollers, so in this book we focus on these two modes.
 
@@ -219,7 +55,7 @@ In addition to the instructions in this chapter, tutorials for setting up and tr
 We will first take you through the steps necessary to connect to your microcontroller using USB. In \refsec{WiFi_connect}, we will use this USB connection to set up your microcontroller for WiFi connections.
 
 \subsection{Installing the driver for USB connections}
-If your laptop runs Windows, OS X (Mac) or Chrome OS, you may need to install a driver to enable your computer to connect with serial USB converter on your ESP8266 Feather microcontroller (this is not needed on linux machines).
+If your laptop runs Windows, OS X (Mac) or Chrome OS and you are using one of the earlier ESP chips, you may need to install a driver to enable your computer to connect with serial USB converter on your microcontroller (this is not needed on linux machines).
 The driver is available at \htmladdnormallink{this link}{https://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx}.
 %\todo{This link is now broken.}
 
@@ -385,7 +221,7 @@ Your first use of the USB REPL connection will be to set up connections by WiFi.
 You will then have both options as you work through other activities in this book.
 
 \subsection{WiFi Access Points and Stations}
-First, a bit of background: Your ESP8266 has two modes for its WiFi connections:
+First, a bit of background: Your ESP has two modes for its WiFi connections:
 \begin{itemize}
 	\item In \emph{Access Point} mode, abbreviated \texttt{AP}, your microcontroller accepts logins directly from other machines such as your laptop or desktop.
 	This mode is useful, among other reasons, because when you set its name and password they do not change until you explicitly change them.
@@ -410,14 +246,14 @@ On most computers, plugging in an inexpensive WiFi USB dongle (\ref{mat:dongle})
 Finally, in some situations, plugging the computer to the Internet through an ethernet cable is possible, freeing up the WiFi transceiver to connect to the microcontroller's \texttt{AP}.
 
 \subsubsection{\howto Configure and connect to your microcontroller as an Access Point}
-Your ESP8266 is by default configured as an \emph{Access Point}.
+Your ESP is by default configured as an \emph{Access Point}.
 That means that it could serve as host for WiFi connections from your laptop or desktop, without making any changes.
 
 However, by default, MicroPython sets your SSID (the name of the \texttt{AP} station, which appears as an entry in your computer's WiFi settings) to be of the format
 \begin{lstlisting}[language=bash]
 MicroPython-xxx
 \end{lstlisting}
-\verb|xxx| is different for every individual ESP8266, but if multiple microcontrollers are present these are still very similar and easily confused SSID's.
+\verb|xxx| is different for every individual ESP, but if multiple microcontrollers are present these are still very similar and easily confused SSID's.
 Furthermore, when they come from the factory, the default \texttt{AP}'s all have the same password (note the capital ``N''):
 \begin{lstlisting}[language=bash]
 micropythoN
@@ -514,12 +350,12 @@ There are two easy ways to stop this unhelpful output:
 
 %\marginnote[0cm]{
 \begin{kaobox}[frametitle=WiFi special powers]
-	One of the best features of the ESP8266 is that it's built-in WiFi can operate in both Access Point and Station mode simultaneously.
+	One of the best features of the ESP-based boards is that the built-in WiFi can operate in both Access Point and Station mode simultaneously.
 	That is, you do not have to stop the connection in AP mode to initiate a connection in station mode, or \textit{vice versa}.
 
 	Having these two types of connections at the same time can be very useful.
 	For example, if you move your microcontroller from school to home, your classroom's Access Point is no longer available.
-	To connect to your home Access Point, you can log directly onto your ESP8266 using its own AP mode SSID.
+	To connect to your home Access Point, you can log directly onto your ESP using its own AP mode SSID.
 	Using that connection, you can repeat the steps above, with the name and password of your home Access Point, to reconnect to the Internet.
 \end{kaobox}
 %}
