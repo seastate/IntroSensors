@@ -111,8 +111,172 @@ Most digital sensors used in environmental sensing communicate using one of four
 	Perhaps most usefully in for applications with microcontrollers, \spi interfaces are often used to read from and write to microSD cards.
 \end{itemize}
 
+\subsection{Data types and serial communication}
+
+To interpret digital data from a sensor, we’ll need to know a little about a few standard formats used to represent data.  
+At the most basic level, all digital data consists simply of bits, that is, individual values of either 1 or 0 (specifically transistors on a microchip that are either on or off).
+This type of data is referred to as binary data.
+
+It is possible to represent any integer value using bits. Take for example the three-bit number, 110 (or, more precisely, on-on-off). There are two possible states for the right-most (or least significant) bit, two possible states for the middle bit, and two possible states for the left-most (or most significant) bit, yielding eight total bit combinations. The standard convention for computing an integer from a sequence of $n$ ordered bits (i.e., bit$_1$, bit$_{2}$, ..., bit$_n$, where $n$ represents the index of the least significant bit) is  
+
+\begin{equation}
+\label{eq:base2}
+\text{\parbox[c]{1.5cm}{\raggedright Integer value}} = 2^{n-1}*\text{bit}_1 +  2^{n-2}*\text{bit}_{2} + ... + 2^0*\text{bit}_{n}
+\end{equation}
+
+For the three-bit number 110, the integer equivalent is thus 2\textsuperscript{2}*1 + 2\textsuperscript{1}*1 + 2\textsuperscript{0}*0 = 6.  
+
+By convention, binary data is organized into packets known as bytes that are eight bits long.  In a single byte, there are a total of 2\textsuperscript{8} (or 256) possible cominations of bits.
+About half of the possible combinations of bits in a byte have been assigned to specific characters or commands on a computer keyboard.
+These commands are usually referred to as \texttt{ASCII} characters, or sometimes just text.
+When you save data as a \texttt{.txt} file, each character you save is really just the byte of information representing the character.
+
+Just like with \texttt{ASCII} text, each possible combination of bits in a byte corresponds to an integer value that ranges from 0 to 255.
+It is possible to combine multiple bytes to represent larger numbers.  Here, for an $n$-digit number in a system of where each digit represents \emph{b} possible states (we refer to \emph{b} as the \emph{base} of the number), the general formula becomes
+
+\begin{equation}
+\label{eq:base}
+\text{\parbox[c]{1.5cm}{\raggedright Integer value}} = b^{n-1}*\text{digit}_1 + b^{n-2}*\text{digit}_{2} + ... + \text{digit}_{n} 
+\end{equation}
+
+In the decimal system, this is easy to understand--we all know that the base-10 decimal number 326 = 3*10\textsuperscript{2} + 2*10\textsuperscript{1} + 6.
+However, it also works if each digit represents a byte (so 256 combinations, or base 256).  
+For example, for two bytes in sequence, the integer equivalent can be found by multiplying the 0-255 value of the first (i.e, most significant) digit by 256 and then adding this to the value of the second (or least significant) digit.
+The general formula for a 2-byte (aka 16 bit) number would thus be
+
+\begin{equation}
+\label{eq:base256}
+\text{\parbox[c]{1.5cm}{\raggedright Value of two byte number}} = 256 *\text{\parbox[c]{1.5cm}{\raggedright integer value of byte 1}} + \text{\parbox[c]{1.5cm}{\raggedright integer value of byte 2}} 
+\end{equation}
+
+For example, if the integer value of the first byte in a two-byte sequence is 95 and the integer value of the second byte in the two-byte sequence is 5, the result would be 256*95 + 5, or 24320.
+
+For low-level computer programmers who want to work with bytes regularly, there is a fourth convention for representing data that is known as the hexadecimal system.
+It is extremely common to see digital numbers sent from sensors represented this way, so it is important to understand how hexadecimal numbers work.
+In this system, data is thought of as being stored in chunks that are half a byte (so four bits) long.
+This chunk of data is sometimes referred to as a nibble.
+There are 16 possible combinations of bits in a nibble, so the integer value of a byte can be found from two nibbles in sequence as follows:
+
+\begin{equation}
+\label{eq:base16}
+\text{\parbox[c]{1.5cm}{\raggedright integer value of byte}} = 16 *\text{\parbox[c]{1.5cm}{\raggedright integer value of nibble 1}} + \text{\parbox[c]{1.5cm}{\raggedright integer value of nibble 2}} 
+\end{equation}
+
+It would be awkward to write out the actual combinations of ones and zeros in each of the 16 possible bit combinations in a nibble.
+Because there are only 16 possible combinations, the convention is to use the numbers 0 to 9 to represent the first 10 combinations, then to use the letters A to F to represent the remaining six combinations.
+Two nibbles in sequence represents a full bit, so in the hexadecimal system, a byte can be written, for example, as 4E, with the 4 representing the bit combination 0100 and E representing the bit combination 1110.
+Together, with the “E” combination written second, this actually represents the byte 01001110, the \texttt{ASCII} character capital “N,” or the decimal number 78.
+Full conversions between each number system are provided in Table \ref{tab:convert}.  
+
+If you look closely at Table \ref{tab:convert}, you’ll see that in the \texttt{ASCII} system, only 128 of the possible 256 bit combinations are actually assigned to characters.
+There is no single standard for representing the other 128 combinations as text.  
+However, any byte can be represented using a sequence of two hexadecimal numbers.
+So, if we want to send numerical data rather than characters over a digital link, the most convenient way to represent it will probably be using the hexadecimal system.
+For better or worse, the documentation for many digital sensors represents sensor data with hexadecimal numbers.
+In addition, you should recognize that the \Micropython \texttt{REPL} will use hexadecimal numbers to display byte values that don’t map to \texttt{ASCII} characters.
+
+Thankfully, you don’t need to memorize the conversions between \texttt{ASCII} characters, decimal values, or hexadecimal numbers because they are already stored in most computer systems.
+However, you do need to appreciate that when data is transmitted across a digital communication link, what is actually passed are individual bits of data. 
+The rate at which the data is sent is known as a bit rate, or baud.  
+Several digital communication protocols require that each system communicate bits at the specified bit rate. 
+Knowing the bit rate thus helps understand the rate at which data can be communicated over the digital line. 
+
+Most serial communication is done so that \texttt{ASCII} characters can be sent from one computer to another over the a serial line in which bits are sent in sequence. 
+This is in contrast to parallel communication protocols, in which as multiple bits can be communicated at the same time, normally over separate wires.
+The drawback to parallel communication is the requirement that there be multiple pathways for communication, leading to greater complexity.
+In simple digital sensing applications, most communication is done in serial, so bit-by-bit.
 
 
+Note that many sensors that communicate over a serial connection don’t make you go to this much trouble.
+Instead, to send a numerical value, they sometimes simply send the \texttt{ASCII} characters representing the numbers 0 to 9, in the appropriate sequence, so that, for instance, the number 1323 would be sent as the characters “1”, “3”, “2”, and then “3”.
+In other words, the bytes \texttt{00110001}, \texttt{00110011}, \texttt{00110010}, and \texttt{00110001} would be sent, and the user would need to know that these represent \texttt{ASCII} characters and that the characters are just being used to represent a decimal number.
+These could also be written using the hex codes “31”, “33”, “32”, “33” since the hex code “3” represents \texttt{0011}, the hex code “1” represents \texttt{0001} and the hex code “2” represents  \texttt{0010}.  
+However, this would be confusing because “31” looks a lot like the number 31.
+How would you know that it’s hex?
+The convention is to preceed a hex number by the symbols 0x or \textbackslash x, so if you see 0x31 or \textbackslash x31, it really means \texttt{00110001}, or the ASCII character “1”, or the decimal number 49.  
+
+\input binhex
+\begin{table*}
+\caption{Numerical Conversions}
+\label{tab:convert}
+\centering
+{\scriptsize
+\begin{tabular}{ |p{0.3cm}|p{.3cm}|p{0.5cm}|p{0.7cm}|| p{0.3cm}|p{.3cm}|p{0.5cm}|p{0.7cm}||p{0.3cm}|p{.3cm}|p{0.5cm}|p{0.8cm}||p{0.3cm}|p{.3cm}|p{0.5cm}|p{0.8cm}| }
+%\hline
+ %\multicolumn{16}{|c|}{Numerical Conversions} \\
+ \hline
+ Dec. & Hex. & \texttt{ASCII} & Binary & Dec. & Hex. & \texttt{ASCII}  & Binary&Dec. & Hex. &\texttt{ASCII} & Binary & Dec. & Hex. &\texttt{ASCII} & Binary\\
+ \hline
+  
+{0}&\hex{0}&{NUL}&\binary{0}&{64}&\hex{64}&\symbol{64}&\binary{64}&{128}&\hex{128}&&\binary{128}&{192}&\hex{192}&&\binary{192}\\
+{1}&\hex{1}&{SOH}&\binary{1}&{65}&\hex{65}&\symbol{65}&\binary{65}&{129}&\hex{129}&&\binary{129}&{193}&\hex{193}&&\binary{193}\\
+{2}&\hex{2}&{STX}&\binary{2}&{66}&\hex{66}&\symbol{66}&\binary{66}&{130}&\hex{130}&&\binary{130}&{194}&\hex{194}&&\binary{194}\\
+{3}&\hex{3}&{ETX}&\binary{3}&{67}&\hex{67}&\symbol{67}&\binary{67}&{131}&\hex{131}&&\binary{131}&{195}&\hex{195}&&\binary{195}\\
+{4}&\hex{4}&{EOT}&\binary{4}&{68}&\hex{68}&\symbol{68}&\binary{68}&{132}&\hex{132}&&\binary{132}&{196}&\hex{196}&&\binary{196}\\
+{5}&\hex{5}&{ENQ}&\binary{5}&{69}&\hex{69}&\symbol{69}&\binary{69}&{133}&\hex{133}&&\binary{133}&{197}&\hex{197}&&\binary{197}\\
+{6}&\hex{6}&{ACK}&\binary{6}&{70}&\hex{70}&\symbol{70}&\binary{70}&{134}&\hex{134}&&\binary{134}&{198}&\hex{198}&&\binary{198}\\
+{7}&\hex{7}&{BEL}&\binary{7}&{71}&\hex{71}&\symbol{71}&\binary{71}&{135}&\hex{135}&&\binary{135}&{199}&\hex{199}&&\binary{199}\\
+{8}&\hex{8}&{BS}&\binary{8}&{72}&\hex{72}&\symbol{72}&\binary{72}&{136}&\hex{136}&&\binary{136}&{200}&\hex{200}&&\binary{200}\\
+{9}&\hex{9}&{HT}&\binary{9}&{73}&\hex{73}&\symbol{73}&\binary{73}&{137}&\hex{137}&&\binary{137}&{201}&\hex{201}&&\binary{201}\\
+{10}&\hex{10}&{LF}&\binary{10}&{74}&\hex{74}&\symbol{74}&\binary{74}&{138}&\hex{138}&&\binary{138}&{202}&\hex{202}&&\binary{202}\\
+{11}&\hex{11}&{VT}&\binary{11}&{75}&\hex{75}&\symbol{75}&\binary{75}&{139}&\hex{139}&&\binary{139}&{203}&\hex{203}&&\binary{203}\\
+{12}&\hex{12}&{FF}&\binary{12}&{76}&\hex{76}&\symbol{76}&\binary{76}&{140}&\hex{140}&&\binary{140}&{204}&\hex{204}&&\binary{204}\\
+{13}&\hex{13}&{CR}&\binary{13}&{77}&\hex{77}&\symbol{77}&\binary{77}&{141}&\hex{141}&&\binary{141}&{205}&\hex{205}&&\binary{205}\\
+{14}&\hex{14}&{SO}&\binary{14}&{78}&\hex{78}&\symbol{78}&\binary{78}&{142}&\hex{142}&&\binary{142}&{206}&\hex{206}&&\binary{206}\\
+{15}&\hex{15}&{SI}&\binary{15}&{79}&\hex{79}&\symbol{79}&\binary{79}&{143}&\hex{143}&&\binary{143}&{207}&\hex{207}&&\binary{207}\\
+{16}&\hex{16}&{DLE}&\binary{16}&{80}&\hex{80}&\symbol{80}&\binary{80}&{144}&\hex{144}&&\binary{144}&{208}&\hex{208}&&\binary{208}\\
+{17}&\hex{17}&{DC1}&\binary{17}&{81}&\hex{81}&\symbol{81}&\binary{81}&{145}&\hex{145}&&\binary{145}&{209}&\hex{209}&&\binary{209}\\
+{18}&\hex{18}&{DC2}&\binary{18}&{82}&\hex{82}&\symbol{82}&\binary{82}&{146}&\hex{146}&&\binary{146}&{210}&\hex{210}&&\binary{210}\\
+{19}&\hex{19}&{DC3}&\binary{19}&{83}&\hex{83}&\symbol{83}&\binary{83}&{147}&\hex{147}&&\binary{147}&{211}&\hex{211}&&\binary{211}\\
+{20}&\hex{20}&{DC4}&\binary{20}&{84}&\hex{84}&\symbol{84}&\binary{84}&{148}&\hex{148}&&\binary{148}&{212}&\hex{212}&&\binary{212}\\
+{21}&\hex{21}&{NAK}&\binary{21}&{85}&\hex{85}&\symbol{85}&\binary{85}&{149}&\hex{149}&&\binary{149}&{213}&\hex{213}&&\binary{213}\\
+{22}&\hex{22}&{SYN}&\binary{22}&{86}&\hex{86}&\symbol{86}&\binary{86}&{150}&\hex{150}&&\binary{150}&{214}&\hex{214}&&\binary{214}\\
+{23}&\hex{23}&{ETB}&\binary{23}&{87}&\hex{87}&\symbol{87}&\binary{87}&{151}&\hex{151}&&\binary{151}&{215}&\hex{215}&&\binary{215}\\
+{24}&\hex{24}&{CAN}&\binary{24}&{88}&\hex{88}&\symbol{88}&\binary{88}&{152}&\hex{152}&&\binary{152}&{216}&\hex{216}&&\binary{216}\\
+{25}&\hex{25}&{EM}&\binary{25}&{89}&\hex{89}&\symbol{89}&\binary{89}&{153}&\hex{153}&&\binary{153}&{217}&\hex{217}&&\binary{217}\\
+{26}&\hex{26}&{SUB}&\binary{26}&{90}&\hex{90}&\symbol{90}&\binary{90}&{154}&\hex{154}&&\binary{154}&{218}&\hex{218}&&\binary{218}\\
+{27}&\hex{27}&{ESC}&\binary{27}&{91}&\hex{91}&\symbol{91}&\binary{91}&{155}&\hex{155}&&\binary{155}&{219}&\hex{219}&&\binary{219}\\
+{28}&\hex{28}&{FS}&\binary{28}&{92}&\hex{92}&\symbol{92}&\binary{92}&{156}&\hex{156}&&\binary{156}&{220}&\hex{220}&&\binary{220}\\
+{29}&\hex{29}&{GS}&\binary{29}&{93}&\hex{93}&\symbol{93}&\binary{93}&{157}&\hex{157}&&\binary{157}&{221}&\hex{221}&&\binary{221}\\
+{30}&\hex{30}&{RS}&\binary{30}&{94}&\hex{94}&\symbol{94}&\binary{94}&{158}&\hex{158}&&\binary{158}&{222}&\hex{222}&&\binary{222}\\
+{31}&\hex{31}&{US}&\binary{31}&{95}&\hex{95}&\symbol{95}&\binary{95}&{159}&\hex{159}&&\binary{159}&{223}&\hex{223}&&\binary{223}\\
+{32}&\hex{32}&{SP}&\binary{32}&{96}&\hex{96}&\symbol{96}&\binary{96}&{160}&\hex{160}&&\binary{160}&{224}&\hex{224}&&\binary{224}\\
+{34}&\hex{34}&\symbol{34}&\binary{34}&{98}&\hex{98}&\symbol{98}&\binary{98}&{162}&\hex{162}&&\binary{162}&{226}&\hex{226}&&\binary{226}\\
+{35}&\hex{35}&\symbol{35}&\binary{35}&{99}&\hex{99}&\symbol{99}&\binary{99}&{163}&\hex{163}&&\binary{163}&{227}&\hex{227}&&\binary{227}\\
+{36}&\hex{36}&\symbol{36}&\binary{36}&{100}&\hex{100}&\symbol{100}&\binary{100}&{164}&\hex{164}&&\binary{164}&{228}&\hex{228}&&\binary{228}\\
+{37}&\hex{37}&\symbol{37}&\binary{37}&{101}&\hex{101}&\symbol{101}&\binary{101}&{165}&\hex{165}&&\binary{165}&{229}&\hex{229}&&\binary{229}\\
+{38}&\hex{38}&\symbol{38}&\binary{38}&{102}&\hex{102}&\symbol{102}&\binary{102}&{166}&\hex{166}&&\binary{166}&{230}&\hex{230}&&\binary{230}\\
+{39}&\hex{39}&\symbol{39}&\binary{39}&{103}&\hex{103}&\symbol{103}&\binary{103}&{167}&\hex{167}&&\binary{167}&{231}&\hex{231}&&\binary{231}\\
+{40}&\hex{40}&\symbol{40}&\binary{40}&{104}&\hex{104}&\symbol{104}&\binary{104}&{168}&\hex{168}&&\binary{168}&{232}&\hex{232}&&\binary{232}\\
+{41}&\hex{41}&\symbol{41}&\binary{41}&{105}&\hex{105}&\symbol{105}&\binary{105}&{169}&\hex{169}&&\binary{169}&{233}&\hex{233}&&\binary{233}\\
+{42}&\hex{42}&\symbol{42}&\binary{42}&{106}&\hex{106}&\symbol{106}&\binary{106}&{170}&\hex{170}&&\binary{170}&{234}&\hex{234}&&\binary{234}\\
+{43}&\hex{43}&\symbol{43}&\binary{43}&{107}&\hex{107}&\symbol{107}&\binary{107}&{171}&\hex{171}&&\binary{171}&{235}&\hex{235}&&\binary{235}\\
+{44}&\hex{44}&\symbol{44}&\binary{44}&{108}&\hex{108}&\symbol{108}&\binary{108}&{172}&\hex{172}&&\binary{172}&{236}&\hex{236}&&\binary{236}\\
+{45}&\hex{45}&\symbol{45}&\binary{45}&{109}&\hex{109}&\symbol{109}&\binary{109}&{173}&\hex{173}&&\binary{173}&{237}&\hex{237}&&\binary{237}\\
+{46}&\hex{46}&\symbol{46}&\binary{46}&{110}&\hex{110}&\symbol{110}&\binary{110}&{174}&\hex{174}&&\binary{174}&{238}&\hex{238}&&\binary{238}\\
+{47}&\hex{47}&\symbol{47}&\binary{47}&{111}&\hex{111}&\symbol{111}&\binary{111}&{175}&\hex{175}&&\binary{175}&{239}&\hex{239}&&\binary{239}\\
+{48}&\hex{48}&\symbol{48}&\binary{48}&{112}&\hex{112}&\symbol{112}&\binary{112}&{176}&\hex{176}&&\binary{176}&{240}&\hex{240}&&\binary{240}\\
+{49}&\hex{49}&\symbol{49}&\binary{49}&{113}&\hex{113}&\symbol{113}&\binary{113}&{177}&\hex{177}&&\binary{177}&{241}&\hex{241}&&\binary{241}\\
+{50}&\hex{50}&\symbol{50}&\binary{50}&{114}&\hex{114}&\symbol{114}&\binary{114}&{178}&\hex{178}&&\binary{178}&{242}&\hex{242}&&\binary{242}\\
+{51}&\hex{51}&\symbol{51}&\binary{51}&{115}&\hex{115}&\symbol{115}&\binary{115}&{179}&\hex{179}&&\binary{179}&{243}&\hex{243}&&\binary{243}\\
+{52}&\hex{52}&\symbol{52}&\binary{52}&{116}&\hex{116}&\symbol{116}&\binary{116}&{180}&\hex{180}&&\binary{180}&{244}&\hex{244}&&\binary{244}\\
+{53}&\hex{53}&\symbol{53}&\binary{53}&{117}&\hex{117}&\symbol{117}&\binary{117}&{181}&\hex{181}&&\binary{181}&{245}&\hex{245}&&\binary{245}\\
+{54}&\hex{54}&\symbol{54}&\binary{54}&{118}&\hex{118}&\symbol{118}&\binary{118}&{182}&\hex{182}&&\binary{182}&{246}&\hex{246}&&\binary{246}\\
+{55}&\hex{55}&\symbol{55}&\binary{55}&{119}&\hex{119}&\symbol{119}&\binary{119}&{183}&\hex{183}&&\binary{183}&{247}&\hex{247}&&\binary{247}\\
+{56}&\hex{56}&\symbol{56}&\binary{56}&{120}&\hex{120}&\symbol{120}&\binary{120}&{184}&\hex{184}&&\binary{184}&{248}&\hex{248}&&\binary{248}\\
+{57}&\hex{57}&\symbol{57}&\binary{57}&{121}&\hex{121}&\symbol{121}&\binary{121}&{185}&\hex{185}&&\binary{185}&{249}&\hex{249}&&\binary{249}\\
+{58}&\hex{58}&\symbol{58}&\binary{58}&{122}&\hex{122}&\symbol{122}&\binary{122}&{186}&\hex{186}&&\binary{186}&{250}&\hex{250}&&\binary{250}\\
+{59}&\hex{59}&\symbol{59}&\binary{59}&{123}&\hex{123}&\symbol{123}&\binary{123}&{187}&\hex{187}&&\binary{187}&{251}&\hex{251}&&\binary{251}\\
+{60}&\hex{60}&\symbol{60}&\binary{60}&{124}&\hex{124}&\symbol{124}&\binary{124}&{188}&\hex{188}&&\binary{188}&{252}&\hex{252}&&\binary{252}\\
+{61}&\hex{61}&\symbol{61}&\binary{61}&{125}&\hex{125}&\symbol{125}&\binary{125}&{189}&\hex{189}&&\binary{189}&{253}&\hex{253}&&\binary{253}\\
+{62}&\hex{62}&\symbol{62}&\binary{62}&{126}&\hex{126}&\symbol{126}&\binary{126}&{190}&\hex{190}&&\binary{190}&{254}&\hex{254}&&\binary{254}\\
+{63}&\hex{63}&\symbol{63}&\binary{63}&{127}&\hex{127}&\symbol{127}&\binary{127}&{191}&\hex{191}&&\binary{191}&{255}&\hex{255}&&\binary{255}\\ 
+\hline
+\end{tabular}
+}
+\end{table*}
+
+%0&\symbol{0}&\hex{0}&\binary{0}&64&\symbol{64}&\hex{64}&\binary{64}&128&\symbol{128}&\hex128}&\binary{128}
 \section{ \i2c sensors }
 \labsec{i2c_sensors}
 \subsection{Background}
@@ -431,17 +595,312 @@ si1132 uv, ir, visible = 2, 260, 260 lux
 \subsubsection{\color{gray} Improve the accuracy and precision of DS18B20 temperature measurements with recalibration \color{black}}
 \subsubsection{\color{gray} Monitoring temperature changes across time \color{black}}
 
+\newpage
 
-
-\section{\color{gray}\uart sensors \color{black}}
+\section{\uart sensors}
 \labsec{UART_sensors}
-\subsection{\color{gray} Background \color{black}}
-	\uart supports communication between only two devices, and these devices must share common settings for a number of parameters. %(bit speed, character length, parity, and stop bits).
-Common applications in environmental sensing include \texttt{GPS} receivers and Air Quality Index sensors.
+\subsection{Background}
+	\uart supports communication between only two devices at a time, and these devices must share common settings for a number of parameters. %(bit speed, character length, parity, and stop bits).
+Common applications in environmental sensing include communication with \texttt{GPS} receivers, air quality sensors, external radios/modems, and many other devices. 
 
 \uart uses two wires (in addition to \texttt{Vin} and \texttt{GND}), one for transmitting and one for receiving.
 In some applications (\eg, some \texttt{GPS} configurations) only one of these functions is utilized (\eg, transmit on the \texttt{GPS} and receive on the microcontroller) in which case only one of these wires is necessary.
-\subsection{\color{gray} Measuring position and velocity using the Global Positioning System (GPS) \color{black}}
+
+\uart is popular for communication between programmable devices because its simplicity and configurability allows for reliable communication over wires that may be 10s or 100s of meters long.
+There are also standards for converting the signal from a microcontroller's \uart device into a signal that can be transmitted over even longer distances.
+For most microcontroller-to-microcontroller communication over \uart, data are sent either as a high voltage level (3.3V on an \texttt{ESP} device or 5V on a \texttt{USB} serial line) or 0V.
+These voltages correspond, respectively, to high- and low- logic levels (i.e., to the 1s and 0s in binary numbers).
+Communication at these relatively low voltage levels is sometimes referred to as transistor-transistor logic (\texttt{TTL}), and devices that use this approach to \uart may also be referred to as \texttt{TTL} devices
+\sidenote[][*]{
+	\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Reading \uart data directly to a computer]
+	There are a number of chips that can convert between 3.3V and 5V signals, allowing the \uart device on either a microcontroller or sensor to communicate directly with a computer over a computers's serial port.
+This is happening behind the scenes whenever you connect your \Micropython-enabled device to your computer using a \texttt{USB} cable.
+Where size is an issue, some microcontroller boards opt to leave the \texttt{USB} connector off the board.
+In these instances, serial communcation with the computer can only be accomplished using a separate \texttt{USB} to \texttt{TTL} converter breakout.
+Such converters also allow the user to directly connect a computer to the\uart pins on a \uart-enabled sensor.
+	\end{kaobox}
+}.
+However, some sensors, particularly those designed to communicate over long wires, may use different standards for defining logic levels in the signal.
+For instance, older PCs often included an \texttt{RS-232} serial port.
+In the \texttt{RS-232} standard, a logical value of 0 corresponds with a positive voltage of up to +25V, and a logical value of 1 corresponds with negative voltage as low as -25V.
+The larger difference between voltages representing the different logical states means that the signal is much less prone to being mistinterpreted by a receiving device, even if electrical interference is extreme.
+Specialized chips such as the \texttt{MAX-232} can convert between the voltage level in the \texttt{RS-232} standard and the voltage levels used by a given microcontroller's \uart hardware, thus making it possible use \uart -based code to communicate between modern \uart -enabled microcontrollers and the large number of commercially-available \texttt{RS-232} devices.
+Similar chips are available for converting between other standards such as \texttt{RS-485}, which can communicate over even longer distances.
+
+For sensors that communicate on serial lines, we need to know whether to interpret what is sent as “bytes” or simply as \texttt{ASCII} characters.
+We can usually find out about the communication protocol as well as many other specifications for sensors using the sensor's datasheet, a short summary of information provided by the manufacturer.
+We illustrate the distinction here by comparing the \texttt{ASCII}-based datastream provided by a typical \texttt{GPS} receiver with the binary data typically communicated by two different types of air quality sensors.  
+
+From a user's perspective, the principle of operation is mostly the same for all \uart -based sensors or devices.
+First, the user sets up the \uart connection by connecting the transmit (or TX) pin on the sensor with the receive (or RX) pin on the microcontroller.
+If two-way communication is desired as in the case with an air quality sensor, the TX pin on the microcontroller is connected to RX pin on the sensor.
+Power must also be provided to the sensor by connecting a common ground between microcontroller and sensor and by providing an appropriate input voltage to the sensor.
+Many sensors have been designed to interface directly with a PC over \texttt{USB}.
+Because a USB port on a PC provides power at 5 volts, such sensors often require 5 volts in order to run.
+Modern microcontrollers run at lower voltage levels, usually 3.3 volts.
+However, microcontroller break-out boards in the Feather-based form factor provide access to the 5 volts provided over \texttt{USB} on the "USB" pin, so as long as a \texttt{USB} connection is available, 5V sensors can be run by providing the 5V output available on the "USB" pin.
+
+\begin{kaobox}[frametitle=The \texttt{ESP8266} \uart Gotcha!]
+Most microcontrollers have at least two sets of \uart pins.
+In most cases, one set is devoted to communicating with the PC when a \texttt{USB} connection is available--you use this whenever you access the \Micropython \texttt{REPL} over a \texttt{USB} connection.
+Most microcontrollers include a second, and sometimes a third, set of \uart pins.
+Unfortunately, the \texttt{ESP8266} does not provide access to more than one \texttt{RX} pin, so using a \uart connection on an \texttt{ESP8266}-based microcontrollerwill normally break connection to the PC.
+However, the \uart connection \emph{can} still be used if WebREPL is used for communication between PC and microcontroller.
+For most other microcontrollers, including the \texttt{ESP32}, it is possible to have separate \uart s enabled at the same time, so \texttt{USB} communication between microcontroller and PC can occur at the same time the microcontroller is communicating with a sensor.
+For this reason, it is highly recommended to either use an \texttt{ESP32}-based device for the following activities or, if an \texttt{ESP8266} is used, to ensure that a stable WebREPL-based connection is available, freeing up the \uart for other purposes.
+\end{kaobox}
+
+\subsection{\color{gray} Reading a text stream of position and velocity from a Global Positioning System (GPS) receiver}
+This section is under development.  Please check the current version of the textbook at \htmladdnormallink{Publicsensors.org}{https://www.publicsensors.org/}
+
+
+\subsection{Transferring byte data to and from an air quality sensor}
+
+\begin{marginfigure}[-7cm]
+	\begin{center}
+		\includegraphics[height=9cm]{Images/HPMA115S0.png}
+		\caption[HPMA115S0]{Pins required for use of the Honeywell \texttt{HPMA115S0} particulate sensor.
+\texttt{TX} on the sensor should be connected wtih \texttt{RX} on the microcontroller and \texttt{RX} on the sensor should be connected with \texttt{TX} on the microcontroller.}
+		\labfig{Honeywell}
+	\end{center}
+\end{marginfigure}
+
+Air quality sensors operate by drawing a sample of air through a sensing device.
+Measurement procedures depend on the physical characteristics of the pollutant of interest, but in general, most air quality sensors operate either by evaluating the light transmission properties of the sample or by measuring the electrochemical properties of an object in contact with the air.
+The air sample must be drawn into the sampling area, usually using a fan or by allowing air to diffuse across a permeable barrier.
+The procedures often involve steps such as enabling a fan or pre-heating the sampling chamber.
+They sometimes require the user to change settings and/or trigger automatic calibration processes, so air quality sensors often include provisions for two-way \uart -based communication.
+
+\begin{marginfigure}
+	\begin{center}
+		\includegraphics[height=10cm]{Images/mh-z14.png}
+		\caption[MHZ14]{Circuit layout for \texttt{MH-Z14} carbon dioxide sensor.}
+		\labfig{mh-z14}
+	\end{center}
+\end{marginfigure}
+
+\begin{marginfigure}
+	\begin{center}
+		\includegraphics[height=10cm]{Images/mh-z19.png}
+		\caption[MHZ19]{Circuit layout for \texttt{MH-Z19} carbon dioxide sensor.}
+		\labfig{mh-z19}
+	\end{center}
+\end{marginfigure}
+
+Operation is demonstrated here using either a Honeywell \texttt{HPMA115S0} particulate sensor or the Winson \texttt{MH-Z14/Z19} line of carbon dioxide sensors.
+Both types of sensor evaluate the transmission of light within the sensor housing--for the particulate sensor, particulate concentration is correlated to scattering of light from a laser, and for the CO\textsubscript{2} sensors, concentration is estimated based on attenuation of a near-infrared light source as it passes through the air in the sensor cavity. Particulate results are reported in terms of the concentration of particles under 10 microns (PM10) or 2.5 microns (PM2.5), and CO\textsubscript{2} concentration is reported in terms of parts per million.
+
+Pin diagrams and codes required to control \uart-based sensors are normally found in the datasheet for the sensor. Example datasheets are available online for both \htmladdnormallink{Honeywell HPMA particulate sensors}{https://sensing.honeywell.com/honeywell-sensing-hpm-series-particle-sensors-datasheet-32322550-e-en.pdf}, and the  \htmladdnormallink{MH-Z CO\textsubscript{2}}{https://sensing.honeywell.com/honeywell-sensing-hpm-series-particle-sensors-datasheet-32322550-e-en.pdf} sensors.
+For the Honeywell sensor, the 5th page of the datasheet gives a specific sequence of bytes that we can send to the sensor to make it respond in a desired way.
+Similar instructions are provided on pages 7 and 8 of the datsheet for the \texttt{MH-Z} sensors.  The datasheets also include sections describing where the necessary output pins (e.g., \texttt{TX}, \texttt{RX}, etc.) are located on sensors.
+The necessary connections are shown in \reffig{Honeywell},  \reffig{mh-z14} and \reffig{mh-z19}. Note that while the \texttt{MH-Z14} and \texttt{MH-Z19} may look rather different, the same code can be used to control either sensor.
+
+For any \uart -based sensor, the basic code initiation steps are the same.
+To communicate over the \texttt{TX} and \texttt{RX} pins we’ve hooked up, we first have to define them.  
+For this, first import the required libraries:
+\begin{lstlisting}[language=Python]
+import machine
+import time
+from machine import Pin
+\end{lstlisting}
+
+Note that while the time library is not strictly necessary for \uart communication, it can be important to provide delays while we wait for a sensor to respond, so it is helpful to import it now.
+Then define a serial object we can manipulate on the desired microcontroller pins. For the \texttt{ESP32-S2}, the pins labeled \texttt{RX} and \texttt{TX} on the board are pins 38 and 39, respectively.
+However, for most \texttt{ESP32} boards, \uart can be defined on any available GPIO pins.
+ 
+\begin{lstlisting}[language=Python]
+ser = machine.UART(1,baudrate=9600, rx=38, tx=39)
+ser.init(9600, bits=8, parity=None, stop=1)
+\end{lstlisting}
+
+In the above, we also had to specify which \uart device from the microcontroller to use (device 1 here), as well as the communication rate (9600 bits per second), the number of bits in a packet (8), whether an error-checking mechanism known as \emph{parity} bits will be used, and how the end or \emph{stop} of a data packet is defined.
+The settings must be consistent with whatever is specified in the sensor's datasheet.
+However, with the possible excpetion of the relatively low baud rate, the settings shown here are quite commonly used in a large number of sensors.
+
+\subsubsection{Communicating with Honeywell \texttt{HPMA115S0} particulate sensor over \uart}
+
+After \uart has been initialized, we are ready to communicate with the device.
+In the case of the Honeywell \texttt{HPMA115S0} sensor, the four bytes “0x68”, “0x01”, “0x04” and “0x93” (these are represented here as hexadecimal numbers—in Python, we have to represent them as “\textbackslash x68”, “\textbackslash x01”, “\textbackslash x04”, and “\textbackslash x93”), represent the command to read a measurement.
+Once this is received by the sensor, it will send several bytes in response.
+According to the datasheet, the first returned byte  is “0x40” (aka the “@” symbol), the second is “0x05”, the third is “0x04”, the next two bytes represent the PM2.5 measurement, and the next two bytes represent the PM10 measurement.
+Then a final byte is sent finishing the transmission.
+There are other commands that turn off the fan on the sensor and that turn off the “auto send” mode, which by default just keeps sending data about once a second even if we don’t request it (making interpreting the bytes in the serial data stream really difficult).
+
+The default state of the sensor is to regularly stream data to the \uart.
+We can read whatever it has sent to the microcontroller using \Micropython's readline() function: 
+
+\begin{lstlisting}[language=Python]
+ser.readline()
+\end{lstlisting}
+
+For the \texttt{HPMA} sensor, if you type this soon after the sensor was powered up, you’ll probably see uninterprable characters on your screen.
+These represent the bytes that have been automatically sent by sensor to the microcontroller since the \uart was initialized.
+The readline function just reads these bytes and prints them to the screen. It also has the effect of clearing the buffer, so if you do it again by typing
+
+\begin{lstlisting}[language=Python]
+ser.readline()
+\end{lstlisting}
+
+you may once again have one or two lines of characters, depending on how much time you waited and on whether the device is in autosend mode.
+
+\paragraph{Turning off auto send}
+The most helpful command at this point would be to tell the sensor to stop sending data to the microcontroller so frequently and filling up the \uart buffer.
+We can do this by looking up this command in the datasheet, storing the code as a variable, then sending the variable to the sensor as follows:
+
+\begin{lstlisting}[language=Python]
+code = b'\x68\x01\x20\x77'
+ser.readline()
+ser.write(code)
+time.sleep(1)
+response = ser.readline()
+print('command sent, acknowledgement is:')
+print(response)
+ser.readline()   #should be blank now that auto response is off
+ser.readline()
+\end{lstlisting}
+
+In the first line of the above snippet, the “b” after the equal sign tells \Micropython we’re sending bytes, not \texttt{ASCII} text.
+We must then enter the bytes using hexadecimal format.  We then do a readline() to clear the buffer so that we’re ready for whatever response the sensor gives.
+The ser.write() function is what actually writes the four byte code to the sensor.
+Next we wait for a second to give the sensor time to respond, then read the response into a variable called “response”.
+We then print the response.  Finally, we test to make sure that we’re no longer getting data from the sensor every few seconds using a few more calls to the readline() function.
+
+\paragraph{Controlling the fan}
+If we were making measurements only every few minutes, we wouldn’t need the fan to be running the entire time, potentially filling our sensor with dust.  We can turn it off as follows:
+
+\begin{lstlisting}[language=Python]
+#turn reading off -- confirm that this stopped fan
+stopcode= b'\x68\x01\x02\x95'
+ser.readline()
+ser.write(stopcode)
+time.sleep(0.5)
+response = ser.readline()
+print('command sent, acknowledgement is:')
+print(response)
+\end{lstlisting}
+
+If this worked, the fan should have stoped, and we should have received and printed the appropriate response from the sensor.
+To turn it back on so that we are ready to make a reading, do the following:
+
+\begin{lstlisting}[language=Python]
+#turn reading on -- confirm that this started fan
+startcode = b'\x68\x01\x01\x96'
+ser.readline()
+ser.write(startcode)
+time.sleep(0.5)
+response = ser.readline()
+print('acknowledgement is:')
+print(response)
+
+\end{lstlisting}
+
+The fan should start after the above snippet is sent.
+
+\paragraph{Taking a sensor reading}
+To actually take a reading, we use yet another code, as illustrated in the following snippet.
+
+\begin{lstlisting}[language=Python]
+#read particle measuring results -- 68 01 04 93
+readcode = b'\x68\x01\x04\x93'
+ser.readline()
+ser.write(readcode)
+time.sleep(1)
+response = ser.readline()
+PM25 = response[3]*256+response[4]
+print('PM2.5 = ');
+print(PM25)
+PM10 = response[5]*256+response[6]
+print('PM10 = ');
+print(PM10)
+\end{lstlisting}
+
+Here, we define the code, clear the \uart buffer, send the code, wait for a response, read the response, and then convert the two appropriate bytes into the correct decimal value for the PM2.5 reading.
+Note that we can refer to the fourth byte in the response by typing response[3] at the \texttt{REPL}.
+The fifth byte is response[4].  When we multiply the bytes by a 256, Python knows that we are talking about multiplying the decimal equivalent by 256.
+Then we simply print the results and do the same thing for the bytes associated with the PM10 reading.
+
+\paragraph{Main loop}
+Once we confirm we can get readings, we are ready to incorporate the code into a loop that takes the readings regularly and prints them to the screen.
+
+\begin{lstlisting}[language=Python]
+while True:
+	readcode = b'\x68\x01\x04\x93'
+	written = ser.write(readcode) 
+	time.sleep(6)  #data sheet says response time is under 6 seconds
+	response = ser.readline()
+	print(response)
+	if response[0] == 64 and len(response)==8:
+		PM25 = response[3]*256+response[4]
+		PM10 = response[5]*256+response[6]
+		print('PM2.5 = \%s; PM10 = \%s' \% (PM25, PM10))
+	else:
+		time.sleep(10)
+		response = ser.readline()
+
+\end{lstlisting}
+
+In the above, the code that tells the sensor to take a reading, wait six seconds (the time the datasheet says is needed for a reading), read the response, then print it (in hexadecimal format).
+There is always a chance that digital communication will not have been complete, so it's worth checking to be sure.
+In this case, we look to see if the first character in the response is what we expect (so character “@” or decimal 64) and if we got the entire 8 bytes of the response (which we check using the “len” function).
+If things look OK, we convert the appropriate bytes in the response to integer numbers and store these in the PM25 and PM10 variables.
+The “print” command then prints these out, using a special way of formatting text that inserts the numerical value stored in the variable whereever Python sees the “\%s” symbol.
+If we did not get a good response from the sensor, we wait 10 seconds before trying again.
+
+\subsubsection{Communicating with Winson MH-Z14/19 carbon dioxide sensor over \uart}
+
+Communication with the \texttt{MH-Z14} or \texttt{MH-Z19} sensors is similar to that with the \texttt{HPMA115S0 sensor}, but the sensor capabilities and the codes used to control it are quite different.
+In the case of this sensor, only two main commands are likely to be needed by most users.
+These are commands for taking a reading and for calibrating the sensor.
+The datasheet suggests calibrating the sensor \emph{only} when it's been sitting in clean outdoor air likely to be at global ambient CO\textsubscript{2} concentration, so the calibration command should not be run unless that can be assured.
+Additional detail regarding calibration is provided in the datasheet.
+
+The following code defines the sequences of binary data that would either calibrate the sensor or perform a reading, respectively.
+\begin{lstlisting}[language=Python]
+#define codes
+code_read = b'\xFF\x01\x86\x00\x00\x00\x00\x00\x79'
+code_calibrate = b'\xFF\x01\x87\x00\x00\x00\x00\x00\x78'
+\end{lstlisting}
+
+If desired, the calibration can be performed simply by writing the calibtration code:
+\begin{lstlisting}[language=Python]
+#if calibration is desired, execute the following after sensor has been sitting in outdoor air for 20 minutes
+ser.write(code_calibrate)
+\end{lstlisting}
+
+A reading can be taken, converted to the appropriate integer, and printed as follows:
+
+\begin{lstlisting}[language=Python]
+#take a reading
+ser.readline()
+#assign result to a variable so it won't print to screen
+written = ser.write(code_read) 
+time.sleep(1)
+response = ser.readline()
+print('acknowledgement is:')
+print(response)
+co2 = 256*response[2]+response[3]
+print('CO2 = %s' % (co2))
+\end{lstlisting}
+
+The readings can also be formatted and printed to the screen at regular intervals using the following code:
+
+\begin{lstlisting}[language=Python]
+#enter read loop
+while True:
+    ser.readline()
+   #assign result to a variable so it won't print to screen
+    written = ser.write(code_read) 
+    time.sleep(5)
+    try:
+        response = ser.readline()
+        co2 = 256*response[2]+response[3]
+        print('CO2 = %s' % (co2))
+    except:
+        pass
+\end{lstlisting}
+
+\newpage
+
 
 
 \section{\spi sensors}
