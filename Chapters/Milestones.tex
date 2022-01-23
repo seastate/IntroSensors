@@ -583,3 +583,29 @@
 	\end{itemize}
 \end{kaobox}
 %</mlst:05c>
+
+%<*mlst:05e>
+\begin{kaobox}[backgroundcolor=\MScolor,frametitlebackgroundcolor=\MScolor,frametitle=\showmscntr Milestone: Collecting data from string of \texttt{DS18B20} sensors]
+	\begin{itemize}
+		\item [$\Box$] This Milestone is to collect and format data from an array of one-wire sensors. \,
+		\begin{itemize}
+			\item[$\circ$] Assemble a circuit similar to \reffig{fiveDS18B20}, following the instructions in \refsec{1wire_sensors}.\\
+			\item[$\circ$] Develop and start a loop that prints a single line of numerical results, one from each sensor, to the REPL at short (i.e., 5-second) intervals. \\
+			\item[$\circ$] Lay the sensors out following the order of each sensor ID.  To accomplish this, touch a sensor and look for a response in the REPL. Then move the sensor so that it's phsical position in the array aligns with the position of its datastream on the REPL.  If you are using Thonny for your serial connection, you may experiment with the plotter, which is available in the view menu. \\
+			\item[$\circ$] Add the following code snippet to your loop to save what had previously been printing to screen to a data file. \\
+				\lstinline[language=Python]!#add carriage return and line feed to line of data! \\
+				\lstinline[language=Python]!text_to_write = text + `\\r\\n'! \\
+				\lstinline[language=Python]!#open as append, write, and close file!\\
+				\lstinline[language=Python]!f=open('datalog.txt','a')! \\
+				\lstinline[language=Python]!f.write(text_to_write) !\\
+				\lstinline[language=Python]!f.close()!
+				
+				%\lstinline[language=Python]{f.write(text_to_write) }\\
+				%\lstinline[language=Python]{f.close()}
+			\item[$\circ$] Change the time interval in your logging loop to 30 seconds, and save an hour's worth of temperature data. If possible, lay the sensor array in a place where you expect there to be horizontal variation in temperature (e.g., where the sun shines on part of the array, or one end is located near a temperature that differs from the temperature on the other end).\\
+		\end{itemize}
+		Complete the assignment by uploading your data file.
+	\end{itemize}
+\end{kaobox}
+%</mlst:05e>
+
