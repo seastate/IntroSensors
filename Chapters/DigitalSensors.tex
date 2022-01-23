@@ -132,7 +132,7 @@ These commands are usually referred to as \texttt{ASCII} characters, or sometime
 When you save data as a \texttt{.txt} file, each character you save is really just the byte of information representing the character.
 
 Just like with \texttt{ASCII} text, each possible combination of bits in a byte corresponds to an integer value that ranges from 0 to 255.
-It is possible to combine multiple bytes to represent larger numbers.  Here, for an $n$-digit number in a system of where each digit represents \emph{b} possible states (we refer to \emph{b} as the \emph{base} of the number), the general formula becomes
+It is possible to combine multiple bytes to represent larger numbers.  Here, for an $n$-digit number in a system where each digit represents \emph{b} possible states (we refer to \emph{b} as the \emph{base} of the number), the general formula becomes
 
 \begin{equation}
 \label{eq:base}
@@ -163,35 +163,34 @@ There are 16 possible combinations of bits in a nibble, so the integer value of 
 \end{equation}
 
 It would be awkward to write out the actual combinations of ones and zeros in each of the 16 possible bit combinations in a nibble.
-Because there are only 16 possible combinations, the convention is to use the numbers 0 to 9 to represent the first 10 combinations, then to use the letters A to F to represent the remaining six combinations.
+Because there are only 16 possible combinations, the convention is to use the numerals 0 to 9 to represent the first 10 combinations, then to use the letters A to F to represent the remaining six combinations.
 Two nibbles in sequence represents a full bit, so in the hexadecimal system, a byte can be written, for example, as 4E, with the 4 representing the bit combination 0100 and E representing the bit combination 1110.
 Together, with the “E” combination written second, this actually represents the byte 01001110, the \texttt{ASCII} character capital “N,” or the decimal number 78.
 Full conversions between each number system are provided in Table \ref{tab:convert}.  
 
-If you look closely at Table \ref{tab:convert}, you’ll see that in the \texttt{ASCII} system, only 128 of the possible 256 bit combinations are actually assigned to characters.
+If you look closely at Table \ref{tab:convert}, you’ll see that in the \texttt{ASCII} system, only 128 of the possible 256 bit combinations are actually assigned to characters or keyboard commands.
 There is no single standard for representing the other 128 combinations as text.  
 However, any byte can be represented using a sequence of two hexadecimal numbers.
 So, if we want to send numerical data rather than characters over a digital link, the most convenient way to represent it will probably be using the hexadecimal system.
-For better or worse, the documentation for many digital sensors represents sensor data with hexadecimal numbers.
+For better or worse, the documentation for many digital sensors represents sensor data using hexadecimal numbers.
 In addition, you should recognize that the \Micropython \texttt{REPL} will use hexadecimal numbers to display byte values that don’t map to \texttt{ASCII} characters.
 
-Thankfully, you don’t need to memorize the conversions between \texttt{ASCII} characters, decimal values, or hexadecimal numbers because they are already stored in most computer systems.
+Thankfully, you don’t need to memorize the conversions between \texttt{ASCII} characters, decimal values, or hexadecimal numbers because they are already included in most programming languages.
 However, you do need to appreciate that when data is transmitted across a digital communication link, what is actually passed are individual bits of data. 
 The rate at which the data is sent is known as a bit rate, or baud.  
 Several digital communication protocols require that each system communicate bits at the specified bit rate. 
 Knowing the bit rate thus helps understand the rate at which data can be communicated over the digital line. 
 
-Most serial communication is done so that \texttt{ASCII} characters can be sent from one computer to another over the a serial line in which bits are sent in sequence. 
-This is in contrast to parallel communication protocols, in which as multiple bits can be communicated at the same time, normally over separate wires.
+Most serial communication is done so that \texttt{ASCII} characters can be sent from one computer to another over a serial line in which bits are sent in sequence. 
+This is in contrast to parallel communication protocols, in which multiple bits can be communicated at the same time, normally over separate wires.
 The drawback to parallel communication is the requirement that there be multiple pathways for communication, leading to greater complexity.
 In simple digital sensing applications, most communication is done in serial, so bit-by-bit.
 
-
 Note that many sensors that communicate over a serial connection don’t make you go to this much trouble.
-Instead, to send a numerical value, they sometimes simply send the \texttt{ASCII} characters representing the numbers 0 to 9, in the appropriate sequence, so that, for instance, the number 1323 would be sent as the characters “1”, “3”, “2”, and then “3”.
+Instead, to send a numerical value, they sometimes simply send the \texttt{ASCII} characters representing the numerals 0 to 9, in the appropriate sequence, so that, for instance, the number one thousand two hundred twentythree would be sent as the characters “1”, “3”, “2”, and then “3”.
 In other words, the bytes \texttt{00110001}, \texttt{00110011}, \texttt{00110010}, and \texttt{00110001} would be sent, and the user would need to know that these represent \texttt{ASCII} characters and that the characters are just being used to represent a decimal number.
 These could also be written using the hex codes “31”, “33”, “32”, “33” since the hex code “3” represents \texttt{0011}, the hex code “1” represents \texttt{0001} and the hex code “2” represents  \texttt{0010}.  
-However, this would be confusing because “31” looks a lot like the number 31.
+However, this would be confusing because “31” looks a lot like the decimal number 31.
 How would you know that it’s hex?
 The convention is to preceed a hex number by the symbols 0x or \textbackslash x, so if you see 0x31 or \textbackslash x31, it really means \texttt{00110001}, or the ASCII character “1”, or the decimal number 49.  
 
@@ -580,17 +579,149 @@ si1132 uv, ir, visible = 2, 260, 260 lux
 
 \end{enumerate}
 
-\section{\color{gray}1-wire sensors \color{black}}
+\newpage
+
+\section{1-wire sensors}
 \labsec{1wire_sensors}
-\subsection{\color{gray} Background \color{black}}
+\subsection{Background}
 1-wire is a proprietary protocol design that, as the name implies, uses only one wire in addition to \texttt{Vin} and \texttt{GND}.
 1-wire is used in relatively few sensor types, but is worth knowing about because one of those is an inexpensive and versatile \htmladdnormallink{temperature sensor}{https://datasheets.maximintegrated.com/en/ds/DS18B20.pdf} that is among the most useful available for environmental monitoring.
 
 \smallskip
-1-wire supports many (up to hundreds) of devices on a single cable, each of which can be independently queried for sensor readings because it has a unique ROM address.
+1-wire supports many (up to hundreds) of devices on a single cable, each of which can be independently queried for sensor readings because it has a unique 64-bit ROM address.
 1-wire supports lower (but still generally sufficient) data rates than \i2c, which (when properly configured) can operate over much longer cables.
 
-\subsection{\color{gray} Temperature measurements with DS18B20 digital sensors \color{black}}
+\subsection{Temperature measurements with \texttt{DS18B20} digital sensors}
+The \texttt{DS18B20} device consists of an internal temperature sensor based on a temperature dependent resistor, a small processor for converting the signal into digital form, some power management circuitry, and memory used to store the device's unique 64-bit ROM identifier.
+After the built-in sensor on makes a temperature measurement, it communicates the result digitally, using the 1-wire protocol.
+The \texttt{DS18B20}'s use of the 1-wire protocol makes it extremely simple to connect one or more of these devices to a microcontroller.
+All that is required is to provide 3.3V power, ground, and the data connection, each of which can be shared by many \texttt{DS18B20} sensors.  
+
+\begin{marginfigure}[0cm]
+	\begin{center}
+		\includegraphics[height=7cm]{Images/waterproofDS18B20.png}
+		\caption[Waterproofed DS18B20]{A waterproof version of the \texttt{DS18B20} temperature sensor.}
+		\labfig{waterproofDS18B20}
+	\end{center}
+\end{marginfigure}
+
+
+The \texttt{DS18B20} sensor has a temperature range of -55\textdegree C and +125\textdegree C, and can be powered at VDD between 3V and 5.5V. Error tends to be between 0.5 \textdegree C and 2 \textdegree C, depending on the temperature, but this can be improved to some extent with calibration.
+The sensor is available at very low cost (often under \$1 U.S.) in a number of form factors, some of which include weatherproofing and a pre-installed cable \reffig{waterproofDS18B20}.
+Most official releases of \Micropython include a build-in library that provides access to the driver for the \texttt{DS18B20} temperature sensor.
+The low cost, reasonably good accuracy, and ease of use make them ideal for environmental temperature characterization.
+
+Detailed commands necessary for communicating with this sensor are described in the \htmladdnormallink{\texttt{DS18B20}}{Onewirehttps://docs.micropython.org/en/latest/esp32/quickref.html?highlight=dht\#onewire-driver} section of the \Micropython docs.  The example provided here follows the tutorial closely.
+
+The onewire and ds18x20 libraries provide access to functions required to use the device.  These must be imported before communicating with the sensor. We'll also need to impore the \texttt{machine} library so that we can access to the microcontroller's pin-related functions and the time libary so that we can insert pauses into the loop we use to interface with the sensor.
+
+\begin{lstlisting}[language=Python]
+import onewire, ds18x20
+import machine
+import time
+\end{lstlisting}
+
+\begin{marginfigure}[-1cm]
+	\begin{center}
+		\includegraphics[height=9cm]{Images/singleDS18B20.png}
+		\caption[Single DS18B20 on breadboard]{Connecting a single \texttt{DS18B20} temperature sensor to a Feather-based microcontroller.
+If the yellow data line is connected to a microcontroller pin that includes a built-in pull-up resistors, the external resistor is not required.}
+		\labfig{singleDS18B20}
+	\end{center}
+\end{marginfigure}
+  
+To try your sensor, hook up the power wire (red on most waterproofed versions of the \texttt{DS18B20} to the 3.3V pin the microcontroller, the ground wire (black on waterproofed versions) to the ground pin, and the signal wire (yellow on waterproofed versions) to any GPIO pin, as illustrated in \reffig{singleDS18B20}. 
+
+
+The MicroPython documentation recommends connecting a 4,700 Ohm resistor between the data and power pins, but anything between 2,000 to about 10,000 ohm will probably work. 
+The purpose of the resisor is to ensure that the default voltage state of the communication line is positive.  
+Pull-up resistors like this are often required on digital communication lines, particularly lines that use the I2C protocol.  
+Because they are so frequently required, many microcontroller breakout boards include pull-up reisistors on certain pins.  
+On the \texttt{Adafruit} Feather ESP32-S2 board, both the SDA and SCL pins (which correspond to \texttt{GPIO} Pins 3 and 4, respectively) include built-in pull-up resistors. 
+Other microcontroller boards may include pull-up resistors on other pins--a quick review of the datasheet board's documentation usually allows such pins to be identified.  
+\sidenote[][2cm]{
+	\begin{kaobox}[backgroundcolor=\SNcolor,frametitlebackgroundcolor=\SNcolor,frametitle=Idenfity pins with built-in pull-up resistors]
+	Many, but not all, microcontroller boards include pull-up resistors on the SCL and SDA pins.  To check if this is the case, either consult the documentation for the board (schematics are particularly helpful) or simply disconnect the microcontroller from all power and external devices and use a multimeter to measure the resistance between a given pin and the 3.3V pin on the board. A resistance measurement in the 1000s of Ohms indicates that the pin likely includes a pull up resistor. In addition,  pins connected to built-in LEDs that are enabled when the pin is set to a low-level logic state normally have pull-up resistors attached.  
+	\end{kaobox}
+}
+ 
+Now , create an object that can be used to access the data line.
+
+\begin{lstlisting}[language=Python]
+dat = machine.Pin(3, machine.Pin.PULL_UP)
+\end{lstlisting}
+
+Here, we are using SCL pin on the \texttt{Adafruit} ESP32 Feather-S2 board. 
+Calling with the Pin.PULL\textunderscore UP argument is not strictly necessary because the pin already includes the pull-up resistor, but using this argument can sometimes allow a high-value resistor internal to the ESP chips to provide sufficent pull that the sensor will work in the absence of a physical pull-up resistor.
+
+Now create an instance of the onewire object on the dat pin and use functions defined in the library for this object to see whether any devices are connected and to return a unique identifier (in "byte-array" format—which will be displayed as hexadecimal numbers, same as last week) for each sensor in the variable roms (a Python list), and then print these identifiers to the screen:  
+
+\begin{lstlisting}[language=Python]
+ds = ds18x20.DS18X20(onewire.OneWire(dat))
+\end{lstlisting}
+
+Now scan for all 1-wire devices that are connected to the data line and record the 64-bit ROM identifier to a list named (obviously enough) roms.
+
+\begin{lstlisting}[language=Python]
+roms = ds.scan()
+print("found devices:", roms)
+\end{lstlisting}
+
+All  \texttt{DS18B20} sensors on the data line listen for the command that tells them to do a temperature reading (the .convert\textunderscore temp() function).
+Once the reading is taken, they are ready to send the reading back to the microcontroller whenever the microcontroller calls the .read\textunderscore temp() function with the appropriate identifier. 
+So, if a single sensor is connected to the line, the following code prints out a temperature reading.
+
+\begin{lstlisting}[language=Python]
+#for single connected probe only
+rom = ds.scan()
+ds.convert_temp()
+time.sleep_ms(750)
+temperature = ds.read_temp(rom[0])
+print("temperature: ", temperature)
+\end{lstlisting}
+
+\begin{marginfigure}[-2cm]
+	\begin{center}
+		\includegraphics[height=9cm]{Images/fiveDS18B20.png}
+		\caption[Five DS18B20 on breadboard]{Connecting five \texttt{DS18B20} temperature sensors in parallel. In this configuration, the data line for all five sensors radiates outward from a single bus.}
+		\labfig{fiveDS18B20}
+	\end{center}
+\end{marginfigure}
+
+\begin{marginfigure}[9 cm]
+	\begin{center}
+		\includegraphics[height=9cm]{Images/fiveDS18B20series.png}
+		\caption[DS18B20 daisy chain]{Connecting five \texttt{DS18B20} temperature sensor in daisy-chain fashion.  Here, the connections between sensors are made external to the breadboard.}
+		\labfig{fiveDS18B20series}
+	\end{center}
+\end{marginfigure}
+
+The beauty of the 1-wire protocol is that multiple sensors can be added to the system without making any significant modifications either to hardware or software.
+Two different approaches for connecting multiple sensors ares illustrated in \reffig{fiveDS18B20} and \reffig{fiveDS18B20series}. 
+In the first, all the sensors are connected directly to a single row of a breadboard.  
+The rest of the circuit is identical to that in \reffig{singleDS18B20}. 
+In the second approach, the sensors are connected externally to the breadboard daisy-chain fashion.  
+The second approach could be used to develop a temperature sensor array that simulaneously collects data from multiple locations.
+While both versions can work, note that the DS18B20 documentation advises against sensor network design in which all sensors are a similar distance from a single common bus, so the daisy-chaining approach may be more reliable in adverse conditions such as when there is a large amount of electromagnetic interferane.
+In any case, the code for accessing all five sensors is nearly identical to the previous code except that we read the data for each sensor in turn. 
+
+\begin{lstlisting}[language=Python]
+#for any number of probes
+roms = ds.scan()
+ds.convert_temp()
+time.sleep_ms(750)
+print("temperatures:")  
+for rom in roms:
+	temperature = ds.read_temp(rom)
+	print(temperature)
+print()
+\end{lstlisting}
+
+Don’t worry too much about the detailed syntax used here—while learning, you’ll usually just cut and paste code to build programs anyway—but do try to get a sense of what each line does.
+Basically, the code figures out how many temperature sensors are connected to the pin, triggers the internal temperature measurement in all the sensors,  waits 0.75 seconds (a requirement for the \texttt{DS18B20}), then sequentially communicates with and prints the result from each sensor.
+
+\loadMilestone{mlst:05e} % load milestone with tags id: mlst:05e 
+
 \subsection{\color{gray} Accuracy and precision of DS18B20 temperature sensors \color{black}}
 \subsubsection{\color{gray} Improve the accuracy and precision of DS18B20 temperature measurements with recalibration \color{black}}
 \subsubsection{\color{gray} Monitoring temperature changes across time \color{black}}
@@ -627,7 +758,7 @@ The larger difference between voltages representing the different logical states
 Specialized chips such as the \texttt{MAX-232} can convert between the voltage level in the \texttt{RS-232} standard and the voltage levels used by a given microcontroller's \uart hardware, thus making it possible use \uart -based code to communicate between modern \uart -enabled microcontrollers and the large number of commercially-available \texttt{RS-232} devices.
 Similar chips are available for converting between other standards such as \texttt{RS-485}, which can communicate over even longer distances.
 
-For sensors that communicate on serial lines, we need to know whether to interpret what is sent as “bytes” or simply as \texttt{ASCII} characters.
+For sensors that communicate on serial lines, we need to know whether to interpret what is sent as "bytes" or simply as \texttt{ASCII} characters.
 We can usually find out about the communication protocol as well as many other specifications for sensors using the sensor's datasheet, a short summary of information provided by the manufacturer.
 We illustrate the distinction here by comparing the \texttt{ASCII}-based datastream provided by a typical \texttt{GPS} receiver with the binary data typically communicated by two different types of air quality sensors.  
 
@@ -674,7 +805,7 @@ They sometimes require the user to change settings and/or trigger automatic cali
 \begin{marginfigure}
 	\begin{center}
 		\includegraphics[height=10cm]{Images/mh-z14.png}
-		\caption[MHZ14]{Circuit layout for \texttt{MH-Z14} carbon dioxide sensor.}
+		\caption[MHZ14]{Circuit layout for \texttt{MH-Z14} carbon dioxide sensor. Note that some versions have slightly different pinout geometries, so if the geometry is not consistent with your sensor, use the following pins for making connections:  \texttt{Pin 19: TX}, \texttt{Pin 18: RX}, \texttt{Pin 17: Vin}, \texttt{Pin 16: GND}}
 		\labfig{mh-z14}
 	\end{center}
 \end{marginfigure}
@@ -748,12 +879,12 @@ The most helpful command at this point would be to tell the sensor to stop sendi
 We can do this by looking up this command in the datasheet, storing the code as a variable, then sending the variable to the sensor as follows:
 
 \begin{lstlisting}[language=Python]
-code = b'\x68\x01\x20\x77'
+code = b"\x68\x01\x20\x77"
 ser.readline()
 ser.write(code)
 time.sleep(1)
 response = ser.readline()
-print('command sent, acknowledgement is:')
+print("command sent, acknowledgement is:")
 print(response)
 ser.readline()   #should be blank now that auto response is off
 ser.readline()
@@ -770,12 +901,12 @@ If we were making measurements only every few minutes, we wouldn’t need the fa
 
 \begin{lstlisting}[language=Python]
 #turn reading off -- confirm that this stopped fan
-stopcode= b'\x68\x01\x02\x95'
+stopcode= b"\x68\x01\x02\x95"
 ser.readline()
 ser.write(stopcode)
 time.sleep(0.5)
 response = ser.readline()
-print('command sent, acknowledgement is:')
+print("command sent, acknowledgement is:")
 print(response)
 \end{lstlisting}
 
@@ -784,12 +915,12 @@ To turn it back on so that we are ready to make a reading, do the following:
 
 \begin{lstlisting}[language=Python]
 #turn reading on -- confirm that this started fan
-startcode = b'\x68\x01\x01\x96'
+startcode = b"\x68\x01\x01\x96"
 ser.readline()
 ser.write(startcode)
 time.sleep(0.5)
 response = ser.readline()
-print('acknowledgement is:')
+print("acknowledgement is:")
 print(response)
 
 \end{lstlisting}
@@ -801,16 +932,16 @@ To actually take a reading, we use yet another code, as illustrated in the follo
 
 \begin{lstlisting}[language=Python]
 #read particle measuring results -- 68 01 04 93
-readcode = b'\x68\x01\x04\x93'
+readcode = b"\x68\x01\x04\x93"
 ser.readline()
 ser.write(readcode)
 time.sleep(1)
 response = ser.readline()
 PM25 = response[3]*256+response[4]
-print('PM2.5 = ');
+print("PM2.5 = ");
 print(PM25)
 PM10 = response[5]*256+response[6]
-print('PM10 = ');
+print("PM10 = ");
 print(PM10)
 \end{lstlisting}
 
@@ -824,7 +955,7 @@ Once we confirm we can get readings, we are ready to incorporate the code into a
 
 \begin{lstlisting}[language=Python]
 while True:
-	readcode = b'\x68\x01\x04\x93'
+	readcode = b"\x68\x01\x04\x93"
 	written = ser.write(readcode) 
 	time.sleep(6)  #data sheet says response time is under 6 seconds
 	response = ser.readline()
@@ -832,7 +963,7 @@ while True:
 	if response[0] == 64 and len(response)==8:
 		PM25 = response[3]*256+response[4]
 		PM10 = response[5]*256+response[6]
-		print('PM2.5 = \%s; PM10 = \%s' \% (PM25, PM10))
+		print(f"PM2.5 = {PM25}; PM10 = {PM10}")
 	else:
 		time.sleep(10)
 		response = ser.readline()
@@ -857,8 +988,8 @@ Additional detail regarding calibration is provided in the datasheet.
 The following code defines the sequences of binary data that would either calibrate the sensor or perform a reading, respectively.
 \begin{lstlisting}[language=Python]
 #define codes
-code_read = b'\xFF\x01\x86\x00\x00\x00\x00\x00\x79'
-code_calibrate = b'\xFF\x01\x87\x00\x00\x00\x00\x00\x78'
+code_read = b"\xFF\x01\x86\x00\x00\x00\x00\x00\x79"
+code_calibrate = b"\xFF\x01\x87\x00\x00\x00\x00\x00\x78"
 \end{lstlisting}
 
 If desired, the calibration can be performed simply by writing the calibtration code:
@@ -876,10 +1007,10 @@ ser.readline()
 written = ser.write(code_read) 
 time.sleep(1)
 response = ser.readline()
-print('acknowledgement is:')
+print("acknowledgement is:")
 print(response)
 co2 = 256*response[2]+response[3]
-print('CO2 = %s' % (co2))
+print(f"CO2 = {co2}")
 \end{lstlisting}
 
 The readings can also be formatted and printed to the screen at regular intervals using the following code:
@@ -894,7 +1025,7 @@ while True:
     try:
         response = ser.readline()
         co2 = 256*response[2]+response[3]
-        print('CO2 = %s' % (co2))
+        print(f"CO2 = {co2}")
     except:
         pass
 \end{lstlisting}
