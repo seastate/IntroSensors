@@ -4,6 +4,7 @@
 \labch{heat_cool}
 
 \section{Background: Conservation and diffusion (conduction) of heat}
+\label{sec:diffusion}
 
 As you probably know from any physics courses you’ve taken, thermal energy can be transferred by radiation, conduction, and, in a liquid or gas, convection (that is, by movement of the fluid). In addition, heat energy is used to change the phase of matter, so the formation/melting of ice and the evaporation/condensation of water vapor are also incredibly important mechanisms for moving heat around. The movement of water vapor from the point where evaporation occurs to the point where precipitation finally releases this energy back to the surrounding atmosphere is a particularly important mechanism for moving heat around the planet. Heat movement through this mechanism is referred to as \emph{latent heat} transfer.
 
@@ -191,8 +192,147 @@ while True:
         time.sleep(0.1)
 \end{lstlisting}
 
+\newpage
 
-\subsection{\color{gray} Placeholder for section describing numerical solution to diffusion equation and comparison with student data \color{black}}
+\subsection{Numerical solution to diffusion equation and comparison with student data}
+
+In section \ref{sec:diffusion}, we presented a derivation of the diffusion equation, the equation that governs the flow of heat through a solid object. The equation is repeated here for clarity.
+
+\begin{equation} \label{eq:diffusion_again} 
+\frac{\partial T}{\partial t}=\kappa \frac{\partial ^{2}T}{\partial x^2} 
+\end{equation}
+
+The details of the various possible numerical solutions to this equation are beyond the scope of this textbook.  However, the essence can be understood by recognizing that any derivative can be written as a slope of dependent variable (e.g., of temperature T) in the direction of the independent variable of interest, t or x.
+
+\begin{equation} \label{eq:dTdt} 
+\frac{\partial T\left ( x,t \right )}{\partial t}\approx  \frac{\Delta T}{\Delta t}\approx \frac{T\left ( x,t+\Delta t \right )-T\left ( x,t \right )}{\Delta t}
+\end{equation}
+
+\begin{equation} \label{eq:dTdx} 
+\frac{\partial T\left ( x,t \right )}{\partial x}\approx  \frac{\Delta T}{\Delta x}\approx \frac{T\left ( x+\Delta x,t \right )-T\left ( x,t \right )}{\Delta x}
+\end{equation}
+
+You might notice that the approximations in \ref{eq:dTdt} and \ref{eq:dTdx} are quite similar to the basic assumptions in \ref{sec:diffusion} that allowed us to derive the differential equation in the first place.
+
+We can also discretize a second-order derivative by considering a point half-way between $x\!-\!\Delta \!x$ and ${x}$ and then another point half-way between $x$ and  $x\!+\!\Delta \!x$. These two points are a distance $\frac{1}{2}\Delta x +\frac{1}{2}\Delta x=\Delta x $ apart. If we approximate the first derivative at each of these points using an equation of the form of \ref{eq:dTdx}, we can then approximate the second-order spatial derivative $d^2T/dx^2$ as follows.
+
+\begin{equation} \label{eq:centered} 
+\begin{split}
+\frac{\partial^2 T}{\partial x^2}&= \frac{\partial }{\partial x}\left ( \frac{\partial T\left ( x,t \right )}{\partial x} \right )\approx \frac {\Delta\left ( \frac{\Delta T}{\Delta x} \right )}{\Delta x}
+\\
+&\approx \frac{\left [ \frac{T\left ( x+\Delta x,t \right )-T\left ( x,t \right )}{\Delta x} \right ]-\left [ \frac{T\left ( x,t \right )-T\left ( x-\Delta x,t \right )}{\Delta x} \right ]}{\Delta x}
+\end{split}
+\end{equation}
+
+With a little algebra, this simplifies to 
+
+\begin{equation} \label{eq:centered} 
+\frac{\partial^2 T}{\partial x^2}\approx \frac{T\left ( x+\Delta x,t \right )-2T\left ( x,t \right )+T\left ( x-\Delta x,t \right )}{\Delta x^{2}}
+\end{equation}
+
+Substituting equations \ref{eq:dTdt} and \ref{eq:centered} into equation \ref{eq:diffusion_again} and doing some more algebra yields
+
+\begin{equation} \label{eq:FTCS} 
+T\!\left ( x,t\!+\!\Delta t \right ) \approx T\!\left ( x,t \right )+\frac{\kappa \Delta t}{\Delta x^{2}}\left ( T\!\left ( x\!+\!\Delta x\!,\!t \right ) -2T\!\left ( x,t \right )+T\!\left ( x\!-\!\Delta x,t \right )\right )
+\end{equation}
+
+Equation \ref{eq:FTCS} what is known as a finite difference solution to the differential equation. This particular form, where we assumed spatial derivatives were centered around the point of interest, is known as the forward in time/centered in space approximation. There are other approximations that allow for longer steps of time $\Delta t$ without leading to numerical instability, but in essentially all cases, these solutions can be used to solve for temperature $T$ at any timestep in the simulation as long as an initial temperature is known everywhere in the system at the beginning of the simulation (the \emph{initial condition}), and as long as temperature is known at the edge of the system during the entire simulation (the \emph{boundary condition}.  For the experiment with the metal rod, the initial condition represents the rod's temperature before the experiment begins, and the boundary conditions are the temperatures in the two water baths on either end of the rod.  
+
+\begin{table}[h]
+\caption[1.1.1. materials]{\textbf{Heat transfer properties for selected materials.}}	
+\label{tab:conductivity_properties}	
+	\renewcommand{\arraystretch}{1.5}
+	\begin{NiceTabular}{@{}m{2.0cm}| m{1.2cm} |m{1cm}| m{.8cm} m{.8cm} m{.75cm} m{.7cm} m{.8cm}@{}}
+		\CodeBefore
+		\Body
+		\hline
+			
+		Variable &\hfil Symbol &\hfil Units& Cop-per&Alu-minum&Wood&Con-crete&Steel \\
+		\hline
+		Thermal conductivity\tabularnote{\footnotesize{\htmladdnormallink{https://www.engineeringtoolbox.com/thermal-conductivity-d\textunderscore429.html}{https://www.engineeringtoolbox.com/thermal-conductivity-d_429.html}}} & \hfil $k$  &\hfil $\frac{J}{msK}$& 401&205&0.12&0.85&43 \\
+		Specific heat\tabularnote{\footnotesize{\htmladdnormallink{https://www.engineeringtoolbox.com/specific-heat-capacity-d\_391.html}{https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html}}} &\hfil $c$ & \hfil $\frac{J}{kg K}$ &385 & 897&1300-2400&880&490 \\
+		Density\tabularnote{\footnotesize{\htmladdnormallink{https://www.engineeringtoolbox.com/density-solids-d\_1265.html}{https://www.engineeringtoolbox.com/density-solids-d_1265.html}}} &\hfil $\rho$ &\hfil $\frac{kg}{m^3}$ &8790 & 2700&530&1500&7890 \\
+		Diffusion coefficient & \hfil $\kappa$&\hfil $\frac{m^2}{s}$&\num{1.18e-4}&\num{8.55E-05}&\num{1.51e-06}&\num{7.56E-07}&\num{1.11E-05}\\
+
+		\hline
+	\end{NiceTabular}
+\end{table}
+
+The solution requires several input parameters associated with material properties. Values for selected materials are presented in Table \ref{tab:conductivity_properties}. In the table, values for the diffusion coefficient have been computed from the material properties according to the definition for $\kappa$ we used in Section \ref{sec:diffusion}.
+
+\begin{equation} \label{eq:diffusion_coef} 
+\kappa=\frac{k}{\rho c}
+\end{equation}
+
+\subsection{Code for implementing numerical solution to diffusion equation}
+
+It is straightforward to define an algorithm to solve Equation \ref{eq:diffusion_again} by stepping forward in time using Equation \ref{eq:FTCS}. To accomplish this in Python, we first import the numpy library, then define all the parameters we want to use for the solution.
+
+\begin{lstlisting}[language=Python]
+import numpy as np
+
+dx = 0.05    #length of spatial step
+L = 1        #length of bar in meters
+dt = 10       #seconds
+tmax = 4000   #seconds
+k = 100        #J/s/m/K
+c = 900      #J/kg/K
+rho = 2700   #density, kg/m3
+kappa = k/(c*rho) #diffusion coef
+\end{lstlisting}
+
+Then define the initial and boundary conditions.
+
+\begin{lstlisting}[language=Python]
+T0 = 50      #initial condition, degrees C
+Tleft = 100    #left boundary, degrees C
+Tright = 0 #right boundary, degrees C
+\end{lstlisting}
+
+Once those are set, we can set up a grid of points (so all x- and t- values) at which we wish to compute temperature $T$.  Here, the values of x at which computations occur are computed using the spatial step $dx$ that we set previously. We also determine the times when we will perform the computation using the $dt$ we set previously.
+
+\begin{lstlisting}[language=Python]
+x = np.arange(0,L+dx,dx)
+t = np.arange(0,tmax+dt,dt)
+\end{lstlisting}
+
+We can think of our solution domain as a table of points, with columns representing x-values and rows representing t-values. In order to apply this, we need to know the number of x-values and t-values we'll need.  These can be found, respectively, by dividing our bar length by the spatial step dx or by dividing the simulated time period we wish to simulate by the time step dt.
+
+\begin{lstlisting}[language=Python]
+columnmax = int(L/dx)
+rowmax = int(tmax/dt)
+\end{lstlisting}
+
+We now create a blank table of points (technically a 2-D numpy array) of blank temperature values. Here, we'll set up the array using a function in numpy that creates an array and assigns the value `one' to each value. We then reset the values of the first row and the first and last columns to the initial and boundary temperatures we defined previously, as appropriate.
+
+\begin{lstlisting}[language=Python]
+T=np.ones((rowmax+1,columnmax+1))
+T[0,...]=T0
+T[...,0] = Tleft
+T[...,columnmax] = Tright
+\end{lstlisting}
+
+All we need to do now is to implement the recursive equation to fill in the temperature values for all the non-boundary cells in the array.  We accomplish this here using a set of nested loops.  The first (outer) loop goes through every row (aka every time for which a solution is desired).  Then for each row, we compute the value in each column by looping through the columns and implementing Equation \ref{eq:FTCS}.
+
+\begin{lstlisting}[language=Python]
+#start at row 0 and go to the last row
+for i in range(0,rowmax):   
+    #start at column 1 and go to the last column
+    for m in range(1,columnmax):  
+        T[i+1,m]=T[i,m]+ kappa * dt/dx**2*(T[i,m+1]-2*T[i,m]+T[i,m-1])
+\end{lstlisting}
+
+That's it--we just computed a temperature for every point in our large array! The basic numerical results can be displayed in the REPL with a simple `print' statment.
+\begin{lstlisting}[language=Python]
+print(T)
+\end{lstlisting}
+
+Note that if the timestep $dt$ is too long or if the spatial step $dx$ is too short, the solution can become unstable. If results appear to oscillate in an unreasonable way, or worse, if the program crashes, try increasing the spatial step and/or decreasing the time step, then re-running.
+
+All that's left is to visualize the results. While we provided a graph illustrating the solution  in \reffig{diffusionplot}, the procedures for creating these graphs are left as an exercise for students. The interactive \htmladdnormallink{Jupyter notebook on the diffusion equation}{https://github.com/jwlauer/EnvironmentalSensing/blob/master/AnalysisCode/DiffusionAnimation/DiffusionAndAnimation.ipynb} provides step-by-step guidance, including detailed instructions for creating an animation that illustrates the evolution of the numerical results over time.
+
+\loadMilestone{mlst:08a} % load milestone with tags id: mlst:05e 
+\newpage
 
 \section{\color{gray} Heating and cooling of lakes and oceans \color{black}}
 \section{\color{gray} Thermoelectric (Peltier) heating and cooling \color{black}}
